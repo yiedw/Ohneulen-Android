@@ -3,13 +3,13 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.goodchoice.android.ohneulen.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchRestaurantItemBinding
 import com.goodchoice.android.ohneulen.model.Restaurant
-import timber.log.Timber
+import com.goodchoice.android.ohneulen.ui.restaurantDetail.RestaurantDetailFragment
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
 class SearchRestaurantAdapter :
     RecyclerView.Adapter<SearchRestaurantAdapter.SearchRestaurantViewHolder>() {
@@ -38,7 +38,7 @@ class SearchRestaurantAdapter :
                 restaurant = item
                 executePendingBindings()
                 root.setOnClickListener {
-
+                    replaceMainFragment(RestaurantDetailFragment.newInstance())
                 }
             }
         }

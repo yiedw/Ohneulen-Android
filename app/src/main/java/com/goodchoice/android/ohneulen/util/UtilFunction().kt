@@ -32,3 +32,28 @@ fun getAppKeyHash(context: Context) {
     }
 }
 
+fun replaceMainFragment(
+    fragment: Fragment,
+    bundle: Bundle? = null,
+    addToBackStackBoolean: Boolean = false
+) {
+    val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
+    fragment.arguments = bundle
+    if (addToBackStackBoolean)
+        fragmentTransaction.addToBackStack(null)
+    fragmentTransaction.replace(R.id.main_frameLayout, fragment).commitNow()
+}
+
+fun replaceAppbarFragment(
+    fragment: Fragment,
+    bundle: Bundle? = null,
+    addToBackStackBoolean: Boolean = false
+) {
+    val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
+    fragment.arguments = bundle
+    if (addToBackStackBoolean)
+        fragmentTransaction.addToBackStack(null)
+    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment).commitNow()
+}
+
+

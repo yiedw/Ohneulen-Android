@@ -4,17 +4,23 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.search.SearchFragment" />
+
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_main_fragment_searchCon"
+            android:id="@+id/search_searchCon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -34,20 +40,20 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_main_fragment_mapView"
+            android:id="@+id/search_mapView"
             android:layout_width="match_parent"
             android:layout_height="210dp"
             android:background="@color/colorPrimaryDark"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_main_fragment_searchCon" />
+            app:layout_constraintTop_toBottomOf="@id/search_searchCon" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_main_fragment_infoCon"
+            android:id="@+id/search_infoCon"
             android:layout_width="0dp"
             android:layout_height="30dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_main_fragment_mapView">
+            app:layout_constraintTop_toBottomOf="@id/search_mapView">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,10 +64,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/search_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:focusable="true"
                 android:gravity="center"
+                android:onClick="@{fragment::switchClick}"
                 android:text="클릭"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -69,15 +77,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_main_fragment_rv"
+            android:id="@+id/search_restaurant_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            bind:restaurant="@{viewModel.restaurantList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_main_fragment_infoCon" />
+            app:layout_constraintTop_toBottomOf="@id/search_infoCon"
+            bind:restaurant="@{viewModel.restaurantList}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

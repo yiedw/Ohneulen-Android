@@ -1,8 +1,10 @@
 package com.goodchoice.android.ohneulen.extension
 
+import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.model.Restaurant
+import com.goodchoice.android.ohneulen.ui.NewScrollView
 import com.goodchoice.android.ohneulen.ui.search.SearchRestaurantAdapter
 
 
@@ -13,3 +15,4 @@ fun setSearchRestaurant(recyclerView: RecyclerView, items: List<Restaurant>?) {
         notifyDataSetChanged()
     }
 }
+
