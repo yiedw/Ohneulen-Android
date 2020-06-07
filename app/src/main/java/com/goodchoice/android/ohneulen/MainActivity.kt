@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         Companion.supportFragmentManager=supportFragmentManager
         appbarFrameLayout=appbar_frameLayout
         mainFrameLayout= main_frameLayout
+        appbarFrameLayout.bringToFront()
 
         if (savedInstanceState == null) {
             replaceAppbarFragment(HomeAppBarFragment.newInstance())

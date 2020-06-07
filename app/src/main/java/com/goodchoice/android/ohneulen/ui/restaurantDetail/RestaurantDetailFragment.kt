@@ -26,10 +26,10 @@ class RestaurantDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
 //        MainActivity.appbarFrameLayout.visibility=View.GONE
-        Timber.e(MainActivity.mainFrameLayout.y.toString())
-        //나중에 되돌리기위한 y
-        val initY = MainActivity.mainFrameLayout.y
+//        //나중에 되돌리기위한 y
+//        val initY = MainActivity.mainFrameLayout.y
         MainActivity.mainFrameLayout.y = 0f
         binding = DataBindingUtil.inflate(
             inflater,
@@ -54,15 +54,15 @@ class RestaurantDetailFragment : Fragment() {
         stickyHeader()
 
 
+
     }
 
     fun stickyHeader(){
         if(state==1){
             binding.restaurantDetailNewScrollView.run {
-                header=binding.restaurantDetailFrameLayout
-                stickListener={ _ ->
-                    Timber.e("asdf")
-                }
+                header=binding.restaurantDetailInfo
+//                stickListener={ _ ->
+//                }
             }
         }
     }

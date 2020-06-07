@@ -1,11 +1,14 @@
 package com.goodchoice.android.ohneulen.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ScrollView
+import androidx.core.content.ContextCompat
 import com.goodchoice.android.ohneulen.MainActivity
+import com.goodchoice.android.ohneulen.R
 import timber.log.Timber
 
 class NewScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
@@ -39,7 +42,7 @@ class NewScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
 
     private var mIsHeaderSticky = false
 
-    private var mHeaderInitPosition = MainActivity.mainFrameLayout.translationY
+    private var mHeaderInitPosition = 0f
 
     override fun onGlobalLayout() {
         mHeaderInitPosition = header?.top?.toFloat() ?: 0f
@@ -49,18 +52,18 @@ class NewScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
         super.onScrollChanged(l, t, oldl, oldt)
 
         val scrolly = t
-        Timber.e(mHeaderInitPosition.toString())
-        Timber.e(t.toString())
-
-        if (scrolly > mHeaderInitPosition) {
-            stickHeader(scrolly - mHeaderInitPosition)
+        if (scrolly > mHeaderInitPosition-MainActivity.appbarFrameLayout.height) {
+            stickHeader()
         } else {
             freeHeader()
         }
     }
 
-    private fun stickHeader(position: Float) {
-        header?.translationY = position
+    private fun stickHeader() {
+        header?.translationY=scrollY.toFloat()+MainActivity.appbarFrameLayout.height-mHeaderInitPosition
+//        Timber.e(scrollY.toString())
+//        Timber.e(header?.y.toString())
+//        Timber.e(MainActivity.appbarFrameLayout.height.toString())
         callStickListener()
     }
 
