@@ -5,12 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
     <FrameLayout
         android:id="@+id/appbar_frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/colorTransparent"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.05"
         app:layout_constraintLeft_toLeftOf="parent"

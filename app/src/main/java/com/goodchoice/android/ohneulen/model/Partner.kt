@@ -1,8 +1,6 @@
 package com.goodchoice.android.ohneulen.model
 
-import androidx.databinding.BindingAdapter
-
-data class Restaurant(
+data class Partner(
     val code: String,
     val name: String,
     val image: String,
@@ -13,15 +11,15 @@ data class Restaurant(
     val new: Boolean
 )
 
-fun getRestaurant(): MutableList<Restaurant> {
-    val sampleRestaurantList = mutableListOf<Restaurant>()
+fun getPartner(): MutableList<Partner> {
+    val samplePartnerList = mutableListOf<Partner>()
     for (i in 0..10) {
-        sampleRestaurantList.add(
-            Restaurant(
+        samplePartnerList.add(
+            Partner(
                 i.toString(), "샘플$i",
                 "image", "4.5", "101", "영업시간", "브레이크타임", true
             )
         )
     }
-    return sampleRestaurantList
+    return samplePartnerList
 }

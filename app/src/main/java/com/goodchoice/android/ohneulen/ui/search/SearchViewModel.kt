@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.goodchoice.android.ohneulen.model.Restaurant
-import com.goodchoice.android.ohneulen.model.getRestaurant
+import com.goodchoice.android.ohneulen.model.Partner
+import com.goodchoice.android.ohneulen.model.getPartner
 import kotlinx.coroutines.Dispatchers
 
 class SearchViewModel :ViewModel(){
 
-    val restaurantList:LiveData<MutableList<Restaurant>> = liveData (Dispatchers.IO){
+    val partnerList:LiveData<MutableList<Partner>> = liveData (Dispatchers.IO){
         loading.postValue(true)
-        emit(getRestaurant())
+        emit(getPartner())
     }
 
     val loading= MutableLiveData<Boolean>()

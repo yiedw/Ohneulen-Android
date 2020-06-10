@@ -1,17 +1,16 @@
-package com.goodchoice.android.ohneulen.ui
+package com.goodchoice.android.ohneulen.ui.partner
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import com.goodchoice.android.ohneulen.MainActivity
 import com.goodchoice.android.ohneulen.R
-import timber.log.Timber
 
-class NewScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
+class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {
 
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attr: AttributeSet?) : this(context, attr, 0)
@@ -52,7 +51,7 @@ class NewScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
         super.onScrollChanged(l, t, oldl, oldt)
 
         val scrolly = t
-        if (scrolly > mHeaderInitPosition-MainActivity.appbarFrameLayout.height) {
+        if (scrolly > mHeaderInitPosition - MainActivity.appbarFrameLayout.height) {
             stickHeader()
         } else {
             freeHeader()
@@ -60,10 +59,16 @@ class NewScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
     }
 
     private fun stickHeader() {
-        header?.translationY=scrollY.toFloat()+MainActivity.appbarFrameLayout.height-mHeaderInitPosition
-//        Timber.e(scrollY.toString())
-//        Timber.e(header?.y.toString())
-//        Timber.e(MainActivity.appbarFrameLayout.height.toString())
+        if (PartnerFragment.state == 1)
+            header?.translationY =
+                scrollY.toFloat() + MainActivity.appbarFrameLayout.height - mHeaderInitPosition
+        else
+            header?.translationY =
+                scrollY.toFloat() - mHeaderInitPosition
+        MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
+            MainActivity.appbarFrameLayout.context,
+            R.color.colorWhite
+        )
         callStickListener()
     }
 
@@ -76,6 +81,11 @@ class NewScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
 
     private fun freeHeader() {
         header?.translationY = 0f
+
+        MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
+            MainActivity.appbarFrameLayout.context,
+            R.color.colorTransparent
+        )
         callFreeListener()
     }
 

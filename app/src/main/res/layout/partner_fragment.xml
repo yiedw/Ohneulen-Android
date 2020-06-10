@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.partner.PartnerFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.goodchoice.android.ohneulen.ui.partner.PartnerViewModel" />
+    </data>
+
+    <com.goodchoice.android.ohneulen.ui.partner.PartnerScrollView
+        android:id="@+id/partner_newScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <!--            사진-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/partner_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/partner_bigImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/food_sample1"
+                    app:layout_constraintHeight_percent="0.6"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/partner_image1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/food_sample3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/partner_image2"
+                    app:layout_constraintTop_toBottomOf="@id/partner_bigImage" />
+
+                <ImageView
+                    android:id="@+id/partner_image2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/food_sample2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/partner_image1"
+                    app:layout_constraintRight_toLeftOf="@id/partner_image3"
+                    app:layout_constraintTop_toBottomOf="@id/partner_bigImage" />
+
+                <ImageView
+                    android:id="@+id/partner_image3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/food_sample4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/partner_image2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/partner_bigImage" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/partner_detail"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="50dp"
+                android:background="@color/colorWhite90"
+                app:layout_constraintBottom_toTopOf="@id/partner_info"
+                app:layout_constraintLeft_toLeftOf="parent">
+                <TextView
+                    android:id="@+id/partner_detail_name"
+                    android:textColor="@android:color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:text="카 페"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/partner_detail_name"
+                    android:text="업 종"
+                    android:textAlignment="center"
+                    android:textSize="12sp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--            info-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/partner_info"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorWhite"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/partner_image">
+
+                <TextView
+                    android:id="@+id/partner_info_home"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:onClick="@{fragment::homeClick}"
+                    android:text="홈"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/partner_info_map"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/partner_info_map"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:onClick="@{fragment::mapClick}"
+                    android:text="지도"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/partner_info_home"
+                    app:layout_constraintRight_toLeftOf="@id/partner_info_menu"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/partner_info_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:onClick="@{fragment::menuClick}"
+                    android:text="메뉴"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/partner_info_map"
+                    app:layout_constraintRight_toLeftOf="@id/partner_info_review"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/partner_info_review"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:onClick="@{fragment::reviewClick}"
+                    android:text="후기"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/partner_info_menu"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/partner_frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/partner_info">
+
+            </FrameLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.goodchoice.android.ohneulen.ui.partner.PartnerScrollView>
+</layout>

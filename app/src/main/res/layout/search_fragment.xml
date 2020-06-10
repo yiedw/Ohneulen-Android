@@ -85,7 +85,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_infoCon"
-            bind:restaurant="@{viewModel.restaurantList}" />
+            bind:partner="@{viewModel.partnerList}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -6,7 +6,9 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
+import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.MainActivity
 import com.goodchoice.android.ohneulen.R
 import timber.log.Timber
@@ -54,6 +56,12 @@ fun replaceAppbarFragment(
     if (addToBackStackBoolean)
         fragmentTransaction.addToBackStack(null)
     fragmentTransaction.replace(R.id.appbar_frameLayout, fragment).commitNow()
+}
+
+fun Int.px(): Int {
+    val metrics=App.resources.displayMetrics
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this.toFloat(),metrics)
+        .toInt()
 }
 
 

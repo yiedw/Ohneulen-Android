@@ -13,12 +13,13 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1300dp" />
+            android:layout_height="1300dp"
+            android:text="시작" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="sadfsdaf" />
+            android:text="끝" />
 
     </LinearLayout>
 </layout>

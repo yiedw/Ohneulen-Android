@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.partner.PartnerReviewFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/partner_review_write"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorBrownishGrey"
+            android:focusable="true"
+            android:gravity="center"
+            android:onClick="@{fragment::reviewWriteClick}"
+            android:text="후기 작성하기"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.mikephil.charting.charts.RadarChart
+            android:id="@+id/partner_review_radarChart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#fafafa"
+            app:layout_constraintLeft_toLeftOf="@id/partner_review_write"
+            app:layout_constraintTop_toBottomOf="@id/partner_review_write" />
+
+        <TextView
+            android:id="@+id/partner_review_this"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/circle_squash60"
+            android:drawablePadding="10dp"
+            android:text="이 업체"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@id/partner_review_average"
+            app:layout_constraintTop_toTopOf="@id/partner_review_radarChart" />
+
+        <TextView
+            android:id="@+id/partner_review_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/circle_grey"
+            android:drawablePadding="10dp"
+            android:text="업체 평균"
+            android:textSize="12sp"
+            app:layout_constraintRight_toRightOf="@id/partner_review_radarChart"
+            app:layout_constraintTop_toTopOf="@id/partner_review_radarChart" />
+
+        <LinearLayout
+            android:id="@+id/partner_review_best"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="@id/partner_review_best"
+            app:layout_constraintTop_toBottomOf="@id/partner_review_radarChart">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="최고에요"
+                android:textAlignment="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:weightSum="10">
+
+                <ImageView
+                    android:id="@+id/partner_review_best_image1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+                <ImageView
+                    android:id="@+id/partner_review_best_image2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+                <ImageView
+                    android:id="@+id/partner_review_best_image3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+                <ImageView
+                    android:id="@+id/partner_review_best_image4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+                <ImageView
+                    android:id="@+id/partner_review_best_image5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="어쩌구 저쩌구" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="좋아함" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/partner_review_worst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partner_review_best">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="별로에요"
+                android:textAlignment="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:weightSum="10">
+
+                <ImageView
+                    android:id="@+id/partner_review_worst_image1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+                <ImageView
+                    android:id="@+id/partner_review_worst_image2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+                <ImageView
+                    android:id="@+id/partner_review_worst_image3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+                <ImageView
+                    android:id="@+id/partner_review_worst_image4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+                <ImageView
+                    android:id="@+id/partner_review_worst_image5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/food_sample4" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="어쩌구 저쩌구" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="좋아함" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/partner_review_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partner_review_worst"></LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/partner_review_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partner_review_toolbar" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
