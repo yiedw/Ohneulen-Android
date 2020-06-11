@@ -72,5 +72,24 @@
             app:layout_constraintTop_toBottomOf="@+id/login_pw"
             app:layout_constraintVertical_bias="0.2" />
 
+        <Button
+            android:id="@+id/login_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() ->  viewModel.test()}"
+            android:text="test"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_submit" />
+
+        <Button
+            android:text="logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.logoutTest()}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_test" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.model.PartnerMenu
 import com.goodchoice.android.ohneulen.ui.partner.PartnerMenuAdapter
+import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchPartnerAdapter
+import timber.log.Timber
 
 
 @BindingAdapter("partner")
@@ -20,6 +22,14 @@ fun setSearchPartner(recyclerView: RecyclerView, items: List<Partner>?) {
 fun setPartnerMenu(recyclerView: RecyclerView,items:List<PartnerMenu>?){
     recyclerView.adapter=PartnerMenuAdapter().apply {
         itemList=items ?: emptyList()
+        notifyDataSetChanged()
+    }
+}
+
+@BindingAdapter("mainCategory")
+fun setMainCategory(recyclerView: RecyclerView,items:List<String>){
+    recyclerView.adapter=SearchFilterAdapter().apply {
+        itemList=items
         notifyDataSetChanged()
     }
 }

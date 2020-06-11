@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.MainViewModel
 import com.goodchoice.android.ohneulen.databinding.HomeFragmentBinding
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
 import com.goodchoice.android.ohneulen.ui.search.SearchFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
 class HomeFragment() : Fragment() {
@@ -41,7 +43,9 @@ class HomeFragment() : Fragment() {
     }
 
     fun searchOnClick(view: View) {
+        replaceAppbarFragment(SearchAppBarFragment.newInstance())
         replaceMainFragment(SearchFragment.newInstance())
     }
+
 
 }

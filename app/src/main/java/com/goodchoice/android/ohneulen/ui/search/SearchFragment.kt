@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import kotlinx.android.synthetic.main.search_fragment.*
 import net.daum.mf.map.api.MapView
 import timber.log.Timber
@@ -73,6 +74,10 @@ class SearchFragment : Fragment() {
             binding.searchMapView.visibility = View.VISIBLE
 
         switchOn = !switchOn
+    }
+
+    fun submitClick(view: View){
+        replaceMainFragment(SearchFilterFragment.newInstance())
     }
 
 }

@@ -3,7 +3,11 @@ package com.goodchoice.android.ohneulen.di
 import android.icu.util.TimeUnit
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
+import com.goodchoice.android.ohneulen.util.AddCookiesInterceptor
+import com.goodchoice.android.ohneulen.util.ReceivedCookiesInterceptor
 import com.google.gson.GsonBuilder
+import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -16,9 +20,9 @@ private const val WRITE_TIMEOUT = 1L
 private const val READ_TIMEOUT = 20L
 
 
-fun networkModule(baseUrl:String)=module{
+fun networkModule(baseUrl: String) = module {
 
-    single{
+    single {
         OkHttpClient.Builder().apply {
             connectTimeout(CONNECT_TIMEOUT, java.util.concurrent.TimeUnit.SECONDS)
             writeTimeout(WRITE_TIMEOUT, java.util.concurrent.TimeUnit.SECONDS)
@@ -27,11 +31,12 @@ fun networkModule(baseUrl:String)=module{
             addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
+            addInterceptor(AddCookiesInterceptor())
+            addInterceptor(ReceivedCookiesInterceptor())
         }.build()
     }
 
-    //GsonBuilder().setLenient().create()
-    single{
+    single {
         Retrofit.Builder()
             .client(get<OkHttpClient>())
             .baseUrl(baseUrl)
@@ -40,5 +45,6 @@ fun networkModule(baseUrl:String)=module{
             .create(NetworkService::class.java)
     }
     viewModel { LoginViewModel(get()) }
+    viewModel { SearchViewModel(get()) }
 
 }

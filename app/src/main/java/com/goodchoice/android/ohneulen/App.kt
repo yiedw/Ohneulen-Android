@@ -13,6 +13,7 @@ class App: Application(){
 
     companion object{
         lateinit var resources:Resources
+        var cookie=HashSet<String>()
     }
 
     override fun onCreate() {

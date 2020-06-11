@@ -1,31 +1,41 @@
 package com.goodchoice.android.ohneulen.ui.login
 
 import androidx.lifecycle.*
+import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.model.LoginData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.core.KoinComponent
 import timber.log.Timber
 
-class LoginViewModel(val networkService: NetworkService) : ViewModel(), KoinComponent {
+class LoginViewModel(private val networkService: NetworkService) : ViewModel(), KoinComponent {
 
-    var memId = ""
-    var memPw = ""
+    var memId = "aaa@aa.com"
+    var memPw = "qwer1234"
     fun a() {
         viewModelScope.launch(Dispatchers.IO) {
-            val body: RequestBody = MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("memId", memId)
-                .addFormDataPart("memPw", memPw)
-                .build()
             val loginResponse = networkService.ohneulenLogin(
-                body
+                memId.toRequestBody(), memPw.toRequestBody()
             )
             Timber.e(loginResponse.toString())
+            Timber.e(App.cookie.toString())
+        }
+    }
+
+    fun test(){
+        viewModelScope.launch (Dispatchers.IO){
+            val response=networkService.mainCategory("category".toRequestBody())
+            Timber.e(response.toString())
+        }
+    }
+
+    fun logoutTest(){
+        viewModelScope.launch (Dispatchers.IO){
+            val response=networkService.logoutTest()
+            Timber.e(response.toString())
+            Timber.e(App.cookie.toString())
+
         }
     }
 }
