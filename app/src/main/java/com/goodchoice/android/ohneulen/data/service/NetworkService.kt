@@ -21,7 +21,7 @@ interface NetworkService {
 
     @POST("api/getcodelist")
     @Multipart
-    suspend fun mainCategory(
+    suspend fun category(
         @Part("majorCode") majorCode:RequestBody
     ):OhneulenResponse
 }

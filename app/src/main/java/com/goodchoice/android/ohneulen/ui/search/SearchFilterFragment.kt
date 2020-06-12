@@ -31,7 +31,9 @@ class SearchFilterFragment : Fragment() {
             container,
             false
         )
+        searchViewModel.getData()
         binding.apply {
+            lifecycleOwner=this@SearchFilterFragment
             fragment = this@SearchFilterFragment
             viewModel = searchViewModel
         }
@@ -41,6 +43,5 @@ class SearchFilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter: ExpandableListAdapter
     }
 }

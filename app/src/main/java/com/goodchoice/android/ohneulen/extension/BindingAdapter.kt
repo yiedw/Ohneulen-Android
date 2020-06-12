@@ -7,7 +7,6 @@ import com.goodchoice.android.ohneulen.model.PartnerMenu
 import com.goodchoice.android.ohneulen.ui.partner.PartnerMenuAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchPartnerAdapter
-import timber.log.Timber
 
 
 @BindingAdapter("partner")
@@ -33,4 +32,13 @@ fun setMainCategory(recyclerView: RecyclerView,items:List<String>){
         notifyDataSetChanged()
     }
 }
+@BindingAdapter("subCategory")
+fun setSubCategory(recyclerView: RecyclerView,items:List<String>){
+    recyclerView.adapter=SearchFilterAdapter().apply {
+        itemList=items
+        notifyDataSetChanged()
+    }
+}
+
+
 

@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.MainActivity
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import timber.log.Timber
 import java.security.MessageDigest
+import java.text.FieldPosition
 
 //카카오 지도 불러오는데 사용
 @SuppressLint("PackageManagerGetSignatures")
@@ -62,6 +64,11 @@ fun Int.px(): Int {
     val metrics=App.resources.displayMetrics
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this.toFloat(),metrics)
         .toInt()
+}
+
+fun subDataRefresh(position: Int){
+    SearchViewModel.subCategory.value=SearchViewModel.subCategoryList[position]
+
 }
 
 

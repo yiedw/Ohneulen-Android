@@ -6,8 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
+import com.goodchoice.android.ohneulen.util.subDataRefresh
+import timber.log.Timber
 
-class SearchFilterAdapter : RecyclerView.Adapter<SearchFilterAdapter.SearchFilterViewHolder>() {
+class SearchFilterAdapter :
+    RecyclerView.Adapter<SearchFilterAdapter.SearchFilterViewHolder>() {
 
     var itemList = listOf<String>()
 
@@ -16,6 +19,10 @@ class SearchFilterAdapter : RecyclerView.Adapter<SearchFilterAdapter.SearchFilte
         fun bind(item: String) {
             binding.apply {
                 binding.category.text = item
+                binding.root.setOnClickListener {
+                    subDataRefresh(adapterPosition)
+                    Timber.e(SearchViewModel.subCategory.toString())
+                }
                 executePendingBindings()
             }
         }

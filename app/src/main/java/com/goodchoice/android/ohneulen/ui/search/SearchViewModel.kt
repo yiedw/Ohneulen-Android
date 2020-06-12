@@ -4,26 +4,28 @@ import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.model.getPartner
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.RequestBody.Companion.toRequestBody
-import timber.log.Timber
 
-class SearchViewModel(val networkService: NetworkService) :ViewModel(){
+class SearchViewModel(private val networkService: NetworkService) : ViewModel() {
+    companion object {
+        var subCategory = MutableLiveData<MutableList<String>>()
+        var mainCategory: List<String> = LoginViewModel.mainCategory
+        var subCategoryList = LoginViewModel.subCategory
+    }
 
-    val partnerList:LiveData<MutableList<Partner>> = liveData (Dispatchers.IO){
+    val partnerList: LiveData<MutableList<Partner>> = liveData(Dispatchers.IO) {
         loading.postValue(true)
         emit(getPartner())
     }
 
-    fun getMainCategory(){
-        viewModelScope.launch (Dispatchers.IO){
-            val response=networkService.mainCategory("category".toRequestBody())
-            Timber.e(response.toString())
-        }
+    fun getData() {
+        mainCategory = LoginViewModel.mainCategory
+        subCategoryList = LoginViewModel.subCategory
+        subCategory.value= subCategoryList[0]
     }
 
 
-    val loading= MutableLiveData<Boolean>()
+    val loading = MutableLiveData<Boolean>()
 
 }

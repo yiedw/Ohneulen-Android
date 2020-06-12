@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import kotlinx.android.synthetic.main.search_fragment.*
 import net.daum.mf.map.api.MapView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class SearchFragment : Fragment() {
@@ -21,8 +23,8 @@ class SearchFragment : Fragment() {
     }
 
     private var switchOn = false
-
     private lateinit var binding: SearchFragmentBinding
+    private val searchViewModel: SearchViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +62,7 @@ class SearchFragment : Fragment() {
         //바인딩
         binding.apply {
             lifecycleOwner = this@SearchFragment
-            viewModel = ViewModelProvider(this@SearchFragment).get(SearchViewModel::class.java)
+            viewModel = searchViewModel
 
         }
 
@@ -76,7 +78,8 @@ class SearchFragment : Fragment() {
         switchOn = !switchOn
     }
 
-    fun submitClick(view: View){
+    fun filterClick(view: View){
+        replaceAppbarFragment(SearchFilterAppbarFragment.newInstance())
         replaceMainFragment(SearchFilterFragment.newInstance())
     }
 
