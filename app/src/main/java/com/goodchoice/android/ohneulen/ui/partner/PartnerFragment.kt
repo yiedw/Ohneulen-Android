@@ -9,17 +9,26 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.PartnerFragmentBinding
+import com.google.android.material.tabs.TabLayoutMediator
+import okhttp3.internal.notify
+import timber.log.Timber
+import java.text.FieldPosition
 
 class PartnerFragment : Fragment() {
 
     companion object {
         fun newInstance() = PartnerFragment()
-        //1 -> 나머지 클릭
-        //2 -> 리뷰클릭
-        var state = 1
+
+        // 각 fragment
+        // 0 -> home
+        // 1 -> map
+        // 2 -> menu
+        // 3 -> review
+        var state = 0
 
     }
 
@@ -28,14 +37,12 @@ class PartnerFragment : Fragment() {
         MainActivity.mainFrameLayout.layoutParams
 
     private lateinit var binding: PartnerFragmentBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        //레이아웃 위치 재조정
-//        elseClickSetting()
 
         binding = DataBindingUtil.inflate(
             inflater,
@@ -54,34 +61,47 @@ class PartnerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeClick(view)
+        basicSetting()
+        viewPagerSetting()
         stickyHeader()
     }
 
     //스크롤되면 헤더 붙이기
     private fun stickyHeader() {
-        binding.partnerInfo.bringToFront()
+        binding.partnerTab.bringToFront()
         binding.partnerNewScrollView.run {
-            header = binding.partnerInfo
+            header = binding.partnerTab
         }
     }
 
-    fun homeClick(view: View) {
-        elseClickSetting()
-        val childFragment = childFragmentManager
-        childFragment.beginTransaction().replace(
-            R.id.partner_frameLayout,
-            PartnerHomeFragment.newInstance()
-        ).commitNow()
-    }
 
-    fun mapClick(view: View) {
-        elseClickSetting()
-        val childFragment = childFragmentManager
-        childFragment.beginTransaction().replace(
-            R.id.partner_frameLayout,
-            PartnerMapFragment.newInstance()
-        ).commitNow()
+    private fun viewPagerSetting() {
+        binding.partnerViewPager2.adapter = PartnerPagerAdapter(
+            getFragmentList(), childFragmentManager,
+            lifecycle
+        )
+        val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
+        TabLayoutMediator(binding.partnerTab, binding.partnerViewPager2) { tab, position ->
+            tab.text = tabLayoutTextList[position]
+        }.attach()
+        binding.partnerViewPager2.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    state = position
+                    if (position == 3) {
+                        reviewSetting()
+                    } else {
+                        basicSetting()
+                    }
+                    val view =
+                        (binding.partnerViewPager2.adapter as PartnerPagerAdapter).getViewAtPosition(
+                            position
+                        )
+                    updatePagerHeightForChild(view!!, binding.partnerViewPager2)
+                }
+            }
+        )
     }
 
     fun menuClick(view: View) {
@@ -89,24 +109,34 @@ class PartnerFragment : Fragment() {
         val childFragment = childFragmentManager
         childFragment.beginTransaction().replace(
             R.id.partner_frameLayout,
-            PartnerMenuFragment.newInstance()
-        ).commitNow()
+    private fun updatePagerHeightForChild(view: View, pager: ViewPager2) {
+        view.post {
+            val wMeasureSpec =
+                View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
+            val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            view.measure(wMeasureSpec, hMeasureSpec)
+
+            if (pager.layoutParams.height != view.measuredHeight) {
+                pager.layoutParams = (pager.layoutParams)
+                    .also { lp ->
+                        lp.height = view.measuredHeight
+                    }
+            }
+        }
     }
 
-    fun reviewClick(view: View) {
-        reviewClickSetting()
-        val childFragment = childFragmentManager
-        childFragment.beginTransaction().replace(
-            R.id.partner_frameLayout,
+    private fun getFragmentList(): ArrayList<Fragment> {
+        return arrayListOf<Fragment>(
+            PartnerHomeFragment.newInstance(),
+            PartnerMapFragment.newInstance(),
+            PartnerMenuFragment.newInstance(),
             PartnerReviewFragment.newInstance()
-        ).commitNow()
-
+        )
     }
 
-    private fun elseClickSetting() {
-        MainActivity.appbarFrameLayout.background=
-            ContextCompat.getDrawable(requireActivity(),R.color.colorTransparent)
-        state=1
+    private fun basicSetting() {
+        MainActivity.appbarFrameLayout.background =
+            ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
         binding.partnerNewScrollView.scrollTo(0, 0)
         binding.partnerImage.visibility = View.VISIBLE
         val layoutParams = ConstraintLayout.LayoutParams(
@@ -119,8 +149,7 @@ class PartnerFragment : Fragment() {
         MainActivity.mainFrameLayout.layoutParams = layoutParams
     }
 
-    private fun reviewClickSetting() {
-        state=2
+    private fun reviewSetting() {
         binding.partnerNewScrollView.scrollTo(0, 0)
         binding.partnerImage.visibility = View.GONE
         MainActivity.mainFrameLayout.layoutParams = initConstraintLayout

@@ -9,12 +9,12 @@
     <LinearLayout
         android:id="@+id/partner_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1300dp"
+            android:layout_height="1200dp"
             android:text="시작" />
 
         <TextView

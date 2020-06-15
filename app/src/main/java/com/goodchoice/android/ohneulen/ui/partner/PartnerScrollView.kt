@@ -59,7 +59,7 @@ class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListe
     }
 
     private fun stickHeader() {
-        if (PartnerFragment.state == 1)
+        if (PartnerFragment.state != 3)
             header?.translationY =
                 scrollY.toFloat() + MainActivity.appbarFrameLayout.height - mHeaderInitPosition
         else
