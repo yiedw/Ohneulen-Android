@@ -40,8 +40,8 @@ class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListe
     var freeListener: (View) -> Unit = {}
 
     private var mIsHeaderSticky = false
-
     private var mHeaderInitPosition = 0f
+
 
     override fun onGlobalLayout() {
         mHeaderInitPosition = header?.top?.toFloat() ?: 0f
@@ -49,7 +49,6 @@ class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListe
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
-
         val scrolly = t
         if (scrolly > mHeaderInitPosition - MainActivity.appbarFrameLayout.height) {
             stickHeader()
@@ -79,7 +78,7 @@ class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListe
         }
     }
 
-    private fun freeHeader() {
+    fun freeHeader() {
         header?.translationY = 0f
 
         MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
@@ -100,5 +99,6 @@ class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListe
         super.onDetachedFromWindow()
         viewTreeObserver.removeOnGlobalLayoutListener(this)
     }
+
 
 }
