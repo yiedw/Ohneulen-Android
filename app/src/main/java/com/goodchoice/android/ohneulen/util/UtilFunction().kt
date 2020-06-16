@@ -65,6 +65,11 @@ fun Int.px(): Int {
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this.toFloat(),metrics)
         .toInt()
 }
+fun Int.dp():Int{
+    val metrics=App.resources.displayMetrics
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),metrics)
+        .toInt()
+}
 
 fun subDataRefresh(position: Int){
     SearchViewModel.subCategory.value=SearchViewModel.subCategoryList[position]

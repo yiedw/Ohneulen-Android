@@ -37,13 +37,22 @@ class PartnerReviewFragment : Fragment() {
             container,
             false
         )
+        binding.fragment=this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val chart = binding.partnerReviewRadarChart
+        sampleChartSetting()
 
+    }
+
+    fun reviewWriteClick(view:View){
+        replaceMainFragment(PartnerReviewWriteFragment.newInstance())
+    }
+
+    private fun sampleChartSetting(){
+        val chart = binding.partnerReviewRadarChart
         val dataValue1 = ArrayList<RadarEntry>().apply {
             this.add(RadarEntry(2f))
             this.add(RadarEntry(2f))
@@ -63,9 +72,9 @@ class PartnerReviewFragment : Fragment() {
         val dataSet2 = RadarDataSet(dataValue2, "이 업체")
         dataSet1.color = Color.GRAY
         dataSet1.setDrawValues(false)
-        dataSet2.color = ContextCompat.getColor(activity!!, R.color.colorSquash60)
+        dataSet2.color = ContextCompat.getColor(requireActivity(), R.color.colorSquash60)
         dataSet2.setDrawFilled(true)
-        dataSet2.fillColor = ContextCompat.getColor(activity!!, R.color.colorSquash60)
+        dataSet2.fillColor = ContextCompat.getColor(requireActivity(), R.color.colorSquash60)
         dataSet2.fillAlpha = 170
         dataSet2.setDrawValues(false)
 
@@ -96,9 +105,5 @@ class PartnerReviewFragment : Fragment() {
         //데이터 세팅
         chart.data = data
         chart.invalidate()
-    }
-    fun reviewWriteClick(view:View){
-        replaceMainFragment(PartnerReviewWriteFragment.newInstance())
-        Timber.e("asdf")
     }
 }

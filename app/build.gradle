@@ -20,7 +20,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -90,10 +89,12 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //권한획득 쉽게하기
+    implementation 'gun0912.ted:tedpermission:2.2.3'
 
-    //kakaoMap
+    //다중이미지 라이브러리리
+    implementation 'gun0912.ted:tedimagepicker:1.1.2'
+
+   //kakaoMap
     implementation files('libs/libDaumMapAndroid.jar')
 }
