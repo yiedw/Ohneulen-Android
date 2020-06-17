@@ -71,7 +71,7 @@ class SearchFragment : Fragment() {
         binding.apply {
             lifecycleOwner = this@SearchFragment
             viewModel = searchViewModel
-            maiViewModel=mainViewModel
+            mainViewModel=mainViewModel
 
         }
 
@@ -117,5 +117,6 @@ class SearchFragment : Fragment() {
         replaceAppbarFragment(SearchFilterAppbarFragment.newInstance())
         replaceMainFragment(SearchFilterFragment.newInstance())
     }
+
 
 }

@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity() {
         lateinit var appbarFrameLayout: FrameLayout
         lateinit var mainFrameLayout: FrameLayout
     }
-
     private val viewModel by lazy {
         ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
         ).get(MainViewModel::class.java)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.MainViewModel
@@ -32,7 +33,7 @@ class HomeFragment() : Fragment() {
         var currentLocation=false
     }
 
-    private lateinit var mainViewModel:MainViewModel
+//    private lateinit var mainViewModel:MainViewModel
     private lateinit var binding: HomeFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +47,8 @@ class HomeFragment() : Fragment() {
         )
         binding.fragment = this
 
-        mainViewModel=ViewModelProvider(requireActivity())
-            .get(MainViewModel::class.java)
+//        mainViewModel=ViewModelProvider(requireActivity())
+//            .get(MainViewModel::class.java)
 
         return binding.root
     }
@@ -57,14 +58,14 @@ class HomeFragment() : Fragment() {
 
     fun searchOnClick(view: View) {
         currentLocation=false
-        mainViewModel.setSearchResult(binding.homeEditText.text.toString())
+        MainViewModel.liveSearchResult= MutableLiveData(binding.homeEditText.text.toString())
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
         replaceMainFragment(SearchFragment.newInstance())
     }
 
     fun currentLocationClick(view: View) {
         currentLocation=true
-        mainViewModel.setSearchResult("")
+        MainViewModel.liveSearchResult= MutableLiveData("")
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
         replaceMainFragment(SearchFragment.newInstance())
     }

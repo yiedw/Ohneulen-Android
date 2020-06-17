@@ -6,6 +6,7 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.util.AddCookiesInterceptor
+import com.goodchoice.android.ohneulen.util.ChangeableBaseUrlInterceptor
 import com.goodchoice.android.ohneulen.util.ReceivedCookiesInterceptor
 import com.google.gson.GsonBuilder
 import okhttp3.CookieJar
@@ -34,6 +35,7 @@ fun networkModule(baseUrl: String) = module {
             })
             addInterceptor(AddCookiesInterceptor())
             addInterceptor(ReceivedCookiesInterceptor())
+//            addInterceptor(ChangeableBaseUrlInterceptor())
         }.build()
     }
 

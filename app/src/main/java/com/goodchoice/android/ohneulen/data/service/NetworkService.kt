@@ -1,10 +1,12 @@
 package com.goodchoice.android.ohneulen.data.service
 
+import androidx.lifecycle.MutableLiveData
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.remote.KakaoAddressResponse
 import com.goodchoice.android.ohneulen.data.remote.KakaoKeywordResponse
 import com.goodchoice.android.ohneulen.data.remote.OhneulenResponse
+import com.goodchoice.android.ohneulen.util.KakaoMapBaseUrl
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -32,15 +34,17 @@ interface NetworkService {
     ): OhneulenResponse
 
     //카카오 위치 검색
-    @GET("v2/local/search/address.json?")
-    fun requestKakaoAddress(
+    @GET
+    suspend fun requestKakaoAddress(
+        @Url url:String= KakaoMapBaseUrl+"v2/local/search/address.json?",
         @Query("query") address: String,
         @Header("Authorization") authorizationKey: String = App.resources.getString(R.string.kakao_rest_key)
     ): KakaoAddressResponse
 
-    @GET("v2/local/search/keyword.json?")
-    fun requestKakaoKeyword(
-        @Query("query") keyword: String,
+    @GET
+    suspend fun requestKakaoKeyword(
+        @Url url:String= KakaoMapBaseUrl+"v2/local/search/keyword.json?",
+        @Query("query") keyword: MutableLiveData<String>,
         @Header("Authorization") authorizationKey: String = App.resources.getString(R.string.kakao_rest_key)
     ): KakaoKeywordResponse
 

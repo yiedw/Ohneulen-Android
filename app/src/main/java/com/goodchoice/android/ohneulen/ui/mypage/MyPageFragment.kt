@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageFragmentBinding
+import com.goodchoice.android.ohneulen.ui.login.LoginFragment
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
@@ -59,6 +61,9 @@ class MyPageFragment :Fragment(){
             .setDeniedMessage("권한이 필요")
             .setPermissions(Manifest.permission.READ_CONTACTS)
             .check()
+    }
+    fun nameClick(view: View){
+        replaceMainFragment(LoginFragment.newInstance())
     }
     fun questionsClick(view: View){
 

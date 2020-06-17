@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.model.PartnerMenu
@@ -58,7 +59,7 @@ fun setKakaoMap(constraintLayout: ConstraintLayout,mapView: MapView){
 }
 
 @BindingAdapter("searchResult")
-fun setSearchResult(editText: EditText, result: String) {
-    editText.setText(result)
+fun setSearchResult(editText: EditText, result: MutableLiveData<String>) {
+    editText.setText(result.toString())
 }
 

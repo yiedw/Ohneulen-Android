@@ -1,12 +1,14 @@
 package com.goodchoice.android.ohneulen.ui.search
 
 import androidx.lifecycle.*
+import com.goodchoice.android.ohneulen.MainViewModel
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.model.getPartner
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SearchViewModel(private val networkService: NetworkService) : ViewModel() {
     companion object {
@@ -24,6 +26,15 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
         mainCategory = LoginViewModel.mainCategory
         subCategoryList = LoginViewModel.subCategory
         subCategory.value= subCategoryList[0]
+    }
+
+    val searhEditText=MainViewModel.liveSearchResult
+
+    fun getMapData(){
+        viewModelScope.launch (Dispatchers.IO){
+            val response=networkService.requestKakaoKeyword(keyword = MainViewModel.liveSearchResult)
+            Timber.e(response.toString())
+        }
     }
 
 
