@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchPartnerItemBinding
 import com.goodchoice.android.ohneulen.model.Partner
+import com.goodchoice.android.ohneulen.ui.partner.PartnerAppBarFragment
 import com.goodchoice.android.ohneulen.ui.partner.PartnerFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import timber.log.Timber
 
@@ -22,6 +24,7 @@ class SearchPartnerAdapter :
                 partner = item
                 executePendingBindings()
                 root.setOnClickListener {
+                    replaceAppbarFragment(PartnerAppBarFragment.newInstance())
                     replaceMainFragment(PartnerFragment.newInstance())
                 }
             }

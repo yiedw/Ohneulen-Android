@@ -67,6 +67,7 @@
             android:focusable="true"
             android:gravity="center"
             android:text="현재 위치로 검색"
+            android:onClick="@{fragment::currentLocationClick}"
             android:textAlignment="center"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent="0.05"

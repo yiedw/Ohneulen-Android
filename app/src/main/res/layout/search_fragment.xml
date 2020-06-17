@@ -12,6 +12,10 @@
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.search.SearchViewModel" />
+
+        <variable
+            name="maiViewModel"
+            type="com.goodchoice.android.ohneulen.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +39,9 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.8" />
+                app:layout_constraintWidth_percent="0.8"
+                bind:searchResult="@{String.valueOf(maiViewModel.searchResult)}"
+                />
 
             <ImageView
                 android:id="@+id/search_submit"

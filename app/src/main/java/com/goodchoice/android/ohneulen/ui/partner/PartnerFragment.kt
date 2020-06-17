@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TableLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -16,9 +15,6 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.PartnerFragmentBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import okhttp3.internal.notify
-import timber.log.Timber
-import java.text.FieldPosition
 
 class PartnerFragment : Fragment() {
 
@@ -35,7 +31,7 @@ class PartnerFragment : Fragment() {
     }
 
     //나중에 되돌리기
-    private val initConstraintLayout: ViewGroup.LayoutParams =
+    private val initMainFragment: ViewGroup.LayoutParams =
         MainActivity.mainFrameLayout.layoutParams
 
     private lateinit var binding: PartnerFragmentBinding
@@ -158,6 +154,7 @@ class PartnerFragment : Fragment() {
     }
 
     //기본세팅
+    //mainFragment -> Appbar 와 겹치게
     private fun basicSetting() {
         MainActivity.appbarFrameLayout.background =
             ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
@@ -175,7 +172,7 @@ class PartnerFragment : Fragment() {
     //리뷰 페이지 세팅
     private fun reviewSetting() {
         binding.partnerImage.visibility = View.GONE
-        MainActivity.mainFrameLayout.layoutParams = initConstraintLayout
+        MainActivity.mainFrameLayout.layoutParams = initMainFragment
 
     }
 

@@ -6,6 +6,7 @@ import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.model.getPartner
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SearchViewModel(private val networkService: NetworkService) : ViewModel() {
     companion object {
@@ -24,6 +25,7 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
         subCategoryList = LoginViewModel.subCategory
         subCategory.value= subCategoryList[0]
     }
+
 
 
     val loading = MutableLiveData<Boolean>()

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="good">좋아요</string>
+    <string name="recent_list">최근 본 목록</string>
+    <string name="my_review">나의 후기</string>
+    <string name="inquiry_details">문의 내역</string>
+    <string name="back">뒤로</string>
+</resources>

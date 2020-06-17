@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.di
 
 import android.icu.util.TimeUnit
+import com.goodchoice.android.ohneulen.MainViewModel
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
@@ -46,5 +47,6 @@ fun networkModule(baseUrl: String) = module {
     }
     viewModel { LoginViewModel(get()) }
     viewModel { SearchViewModel(get()) }
+    viewModel { MainViewModel() }
 
 }

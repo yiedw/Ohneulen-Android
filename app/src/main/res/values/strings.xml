@@ -9,4 +9,11 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="good">좋아요</string>
+    <string name="recent_list">최근 본 목록</string>
+    <string name="my_review">나의 후기</string>
+    <string name="inquiry_details">문의 내역</string>
+    <string name="frequently_asked_questions">자주 찾는 질문</string>
+    <string name="back">뒤로</string>
+    <string name="kakao_rest_key">KakaoAK 6dab3d81953b7e9d367bcb471caac283</string>
 </resources>
