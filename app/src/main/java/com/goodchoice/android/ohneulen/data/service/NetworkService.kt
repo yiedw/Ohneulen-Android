@@ -44,7 +44,7 @@ interface NetworkService {
     @GET
     suspend fun requestKakaoKeyword(
         @Url url:String= KakaoMapBaseUrl+"v2/local/search/keyword.json?",
-        @Query("query") keyword: MutableLiveData<String>,
+        @Query("query") keyword: String,
         @Header("Authorization") authorizationKey: String = App.resources.getString(R.string.kakao_rest_key)
     ): KakaoKeywordResponse
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 class MainViewModel : ViewModel() {
 
     companion object {
-        var liveSearchResult: MutableLiveData<String> = MutableLiveData()
+        var liveSearchResult:String =""
     }
 
 }

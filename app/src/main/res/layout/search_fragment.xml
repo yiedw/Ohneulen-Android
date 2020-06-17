@@ -12,6 +12,9 @@
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.search.SearchViewModel" />
+        <variable
+            name="mainViewModel"
+            type="com.goodchoice.android.ohneulen.MainViewModel" />
 
     </data>
 
@@ -37,7 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.8"
-                bind:searchResult="@{viewModel.searhEditText" />
+                bind:searchResult="@{mainViewModel.Companion.liveSearchResult}" />
 
             <ImageView
                 android:id="@+id/search_submit"

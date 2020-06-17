@@ -59,7 +59,7 @@ fun setKakaoMap(constraintLayout: ConstraintLayout,mapView: MapView){
 }
 
 @BindingAdapter("searchResult")
-fun setSearchResult(editText: EditText, result: MutableLiveData<String>) {
-    editText.setText(result.toString())
+fun setSearchResult(editText: EditText, result: String) {
+    editText.setText(result)
 }
 

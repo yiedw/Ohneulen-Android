@@ -34,6 +34,7 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
         viewModelScope.launch (Dispatchers.IO){
             val response=networkService.requestKakaoKeyword(keyword = MainViewModel.liveSearchResult)
             Timber.e(response.toString())
+            Timber.e(MainViewModel.liveSearchResult.toString())
         }
     }
 

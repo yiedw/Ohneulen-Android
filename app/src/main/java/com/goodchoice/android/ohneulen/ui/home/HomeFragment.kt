@@ -58,14 +58,14 @@ class HomeFragment() : Fragment() {
 
     fun searchOnClick(view: View) {
         currentLocation=false
-        MainViewModel.liveSearchResult= MutableLiveData(binding.homeEditText.text.toString())
+        MainViewModel.liveSearchResult= binding.homeEditText.text.toString()
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
         replaceMainFragment(SearchFragment.newInstance())
     }
 
     fun currentLocationClick(view: View) {
         currentLocation=true
-        MainViewModel.liveSearchResult= MutableLiveData("")
+        MainViewModel.liveSearchResult= ""
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
         replaceMainFragment(SearchFragment.newInstance())
     }
