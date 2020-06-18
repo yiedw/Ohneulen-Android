@@ -1,18 +1,10 @@
 package com.goodchoice.android.ohneulen.di
 
-import android.icu.util.TimeUnit
-import com.goodchoice.android.ohneulen.MainViewModel
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.util.AddCookiesInterceptor
-import com.goodchoice.android.ohneulen.util.ChangeableBaseUrlInterceptor
 import com.goodchoice.android.ohneulen.util.ReceivedCookiesInterceptor
-import com.google.gson.GsonBuilder
-import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -47,8 +39,6 @@ fun networkModule(baseUrl: String) = module {
             .build()
             .create(NetworkService::class.java)
     }
-    viewModel { LoginViewModel(get()) }
-    viewModel { SearchViewModel(get()) }
-    viewModel { MainViewModel() }
+
 
 }

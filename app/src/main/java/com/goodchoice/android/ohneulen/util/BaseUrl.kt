@@ -1,4 +1,6 @@
 package com.goodchoice.android.ohneulen.util
 
-const val KakaoMapBaseUrl="https://dapi.kakao.com/"
-const val OhneulenBaseUrl="http://develop.ohneulen.com/"
+object BaseUrl{
+    const val KakaoMap = "https://dapi.kakao.com/"
+    const val Ohneulen = "http://develop.ohneulen.com/"
+}

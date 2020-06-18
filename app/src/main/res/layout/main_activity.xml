@@ -29,6 +29,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar_frameLayout"
-        tools:context=".MainActivity" />
+        tools:context=".ui.MainActivity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

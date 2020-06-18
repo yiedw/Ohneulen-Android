@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.goodchoice.android.ohneulen.MainActivity
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.PartnerAppbarFragmentBinding
-import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
-import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
 import com.goodchoice.android.ohneulen.ui.search.SearchFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment

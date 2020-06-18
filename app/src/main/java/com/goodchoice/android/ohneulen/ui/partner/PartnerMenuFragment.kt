@@ -9,20 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.PartnerMenuFragmentBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PartnerMenuFragment:Fragment() {
-    companion object{
-        fun newInstance()=PartnerMenuFragment()
+class PartnerMenuFragment : Fragment() {
+    companion object {
+        fun newInstance() = PartnerMenuFragment()
     }
 
-    private lateinit var binding:PartnerMenuFragmentBinding
+    private lateinit var binding: PartnerMenuFragmentBinding
+    private val partnerViewModel: PartnerViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.partner_menu_fragment,
             container,
@@ -34,8 +36,8 @@ class PartnerMenuFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            lifecycleOwner=this@PartnerMenuFragment
-            viewModel=ViewModelProvider(this@PartnerMenuFragment).get(PartnerViewModel::class.java)
+            lifecycleOwner = this@PartnerMenuFragment
+            viewModel = partnerViewModel
         }
     }
 }

@@ -1,13 +1,17 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.location.Location
+import android.location.LocationListener
+import android.os.Bundle
 import androidx.lifecycle.*
-import com.goodchoice.android.ohneulen.MainViewModel
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.model.getPartner
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.daum.mf.map.api.MapPoint
+import net.daum.mf.map.api.MapView
 import timber.log.Timber
 
 class SearchViewModel(private val networkService: NetworkService) : ViewModel() {
@@ -17,6 +21,9 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
         var subCategoryList = LoginViewModel.subCategory
     }
 
+    var searchEditText = ""
+    var kakaoMapPoint = MutableLiveData<MapPoint>()
+
     val partnerList: LiveData<MutableList<Partner>> = liveData(Dispatchers.IO) {
         loading.postValue(true)
         emit(getPartner())
@@ -25,19 +32,29 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
     fun getData() {
         mainCategory = LoginViewModel.mainCategory
         subCategoryList = LoginViewModel.subCategory
-        subCategory.value= subCategoryList[0]
+        subCategory.value = subCategoryList[0]
     }
 
-    val searhEditText=MainViewModel.liveSearchResult
+    fun searchMapData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val y :Double
+            val x :Double
 
-    fun getMapData(){
-        viewModelScope.launch (Dispatchers.IO){
-            val response=networkService.requestKakaoKeyword(keyword = MainViewModel.liveSearchResult)
-            Timber.e(response.toString())
-            Timber.e(MainViewModel.liveSearchResult.toString())
+            val addressResponse = networkService.requestKakaoAddress(address = searchEditText)
+            if (addressResponse.documents.isEmpty()) {
+                val keywordResponse = networkService.requestKakaoKeyword(keyword = searchEditText)
+                if (keywordResponse.documents.isNotEmpty()) {
+                    y = keywordResponse.documents[0].y.toDouble()
+                    x = keywordResponse.documents[0].x.toDouble()
+                } else
+                    return@launch
+            } else {
+                y = addressResponse.documents[0].y.toDouble()
+                x = addressResponse.documents[0].x.toDouble()
+            }
+            kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(y, x))
         }
     }
-
 
 
     val loading = MutableLiveData<Boolean>()

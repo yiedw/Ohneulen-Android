@@ -4,10 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
-import com.goodchoice.android.ohneulen.MainActivity
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 
 class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {

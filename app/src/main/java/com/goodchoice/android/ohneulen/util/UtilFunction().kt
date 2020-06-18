@@ -9,12 +9,11 @@ import android.util.Base64
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
-import com.goodchoice.android.ohneulen.MainActivity
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import timber.log.Timber
 import java.security.MessageDigest
-import java.text.FieldPosition
 
 //카카오 지도 불러오는데 사용
 @SuppressLint("PackageManagerGetSignatures")
@@ -45,7 +44,8 @@ fun replaceMainFragment(
     fragment.arguments = bundle
     if (addToBackStackBoolean)
         fragmentTransaction.addToBackStack(null)
-    fragmentTransaction.replace(R.id.main_frameLayout, fragment).commitNow()
+//    fragmentTransaction.addToBackStack(null)
+    fragmentTransaction.replace(R.id.main_frameLayout, fragment).commit()
 }
 
 fun replaceAppbarFragment(
@@ -57,7 +57,9 @@ fun replaceAppbarFragment(
     fragment.arguments = bundle
     if (addToBackStackBoolean)
         fragmentTransaction.addToBackStack(null)
-    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment).commitNow()
+//    fragmentTransaction.addToBackStack(null)
+    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment).commit()
+
 }
 
 fun Int.px(): Int {

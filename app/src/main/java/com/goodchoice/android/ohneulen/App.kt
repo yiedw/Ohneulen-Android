@@ -3,7 +3,8 @@ package com.goodchoice.android.ohneulen
 import android.app.Application
 import android.content.res.Resources
 import com.goodchoice.android.ohneulen.di.networkModule
-import com.goodchoice.android.ohneulen.util.OhneulenBaseUrl
+import com.goodchoice.android.ohneulen.di.viewModelModule
+import com.goodchoice.android.ohneulen.util.BaseUrl
 import com.goodchoice.android.ohneulen.util.getAppKeyHash
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -30,7 +31,8 @@ class App: Application(){
         //koin start
         startKoin {
             androidContext(this@App)
-            modules(networkModule(OhneulenBaseUrl))
+            modules(networkModule(BaseUrl.Ohneulen))
+            modules(viewModelModule)
         }
     }
 }

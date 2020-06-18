@@ -12,9 +12,6 @@
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.search.SearchViewModel" />
-        <variable
-            name="mainViewModel"
-            type="com.goodchoice.android.ohneulen.MainViewModel" />
 
     </data>
 
@@ -40,14 +37,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.8"
-                bind:searchResult="@{mainViewModel.Companion.liveSearchResult}" />
+                />
 
             <ImageView
                 android:id="@+id/search_submit"
-                android:layout_width="40dp"
-                android:layout_height="0dp"
+                android:layout_width="23dp"
+                android:layout_height="25dp"
                 android:focusable="true"
-                android:onClick="@{() -> viewModel.getMapData()}"
+                android:onClick="@{fragment::searchCLick}"
                 android:src="@drawable/picture_sample1"
                 app:layout_constraintBottom_toBottomOf="@id/search_editText"
                 app:layout_constraintRight_toRightOf="@id/search_editText"
