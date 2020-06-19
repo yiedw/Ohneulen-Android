@@ -67,9 +67,5 @@ fun Int.dp(): Int {
         .toInt()
 }
 
-fun subDataRefresh(position: Int) {
-    SearchViewModel.subCategory.value = SearchViewModel.subCategoryList[position]
-
-}
 
 

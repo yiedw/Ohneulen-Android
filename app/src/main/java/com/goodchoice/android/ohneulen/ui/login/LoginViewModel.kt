@@ -3,6 +3,7 @@ package com.goodchoice.android.ohneulen.ui.login
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.data.service.NetworkService
+import com.goodchoice.android.ohneulen.ui.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -13,13 +14,13 @@ import timber.log.Timber
 class LoginViewModel(private val networkService: NetworkService) : ViewModel(), KoinComponent {
 
     //temp
-    companion object {
-        val mainCategory= mutableListOf<String>()
-        val subCategory= mutableListOf<MutableList<String>>()
-    }
+//    companion object {
+//    }
 
     var memId = "aaa@aa.com"
     var memPw = "qwer1234"
+    val mainCategory = MutableLiveData<MutableList<String>>()
+    val subCategory = MutableLiveData<MutableList<MutableList<String>>>()
     fun a() {
         viewModelScope.launch(Dispatchers.IO) {
             val loginResponse = networkService.requestLogin(
@@ -34,6 +35,8 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
     fun test() {
         viewModelScope.launch(Dispatchers.IO) {
             val response = networkService.requestCategory("category".toRequestBody())
+            val mainCategoryList= mutableListOf<String>()
+            val subCategoryList= mutableListOf<MutableList<String>>()
             for (i in response.resultData.indices) {
                 val subList = mutableListOf<String>()
                 viewModelScope.async(Dispatchers.IO) {
@@ -43,14 +46,17 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
                         subList.add(subResponse.resultData[j].minorName)
                     }
                 }.await()
-                mainCategory.add(response.resultData[i].minorName)
-                subCategory.add(subList)
+                mainCategoryList.add(response.resultData[i].minorName)
+                subCategoryList.add(subList)
             }
-            Timber.e(mainCategory.toString())
-            Timber.e(subCategory.toString())
+            mainCategory.postValue(mainCategoryList)
+            subCategory.postValue(subCategoryList)
+            Timber.e(mainCategory.value.toString())
+            Timber.e(subCategory.value.toString())
 
         }
     }
+
 
     fun logoutTest() {
         viewModelScope.launch(Dispatchers.IO) {

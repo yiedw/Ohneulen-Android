@@ -31,7 +31,6 @@ class SearchFilterFragment : Fragment() {
             container,
             false
         )
-        searchViewModel.getData()
         binding.apply {
             lifecycleOwner=this@SearchFilterFragment
             fragment = this@SearchFilterFragment

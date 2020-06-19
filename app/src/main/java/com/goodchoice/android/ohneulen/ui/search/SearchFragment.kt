@@ -16,7 +16,6 @@ import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
 import com.goodchoice.android.ohneulen.util.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.search_fragment.*
 import net.daum.mf.map.api.MapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -28,7 +28,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/search_filter_subRv"
             app:layout_constraintTop_toTopOf="parent"
-            bind:mainCategory="@{viewModel.Companion.mainCategory}" />
+            bind:mainCategory="@{viewModel.}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_filter_subRv"
@@ -39,7 +39,7 @@
             app:layout_constraintLeft_toRightOf="@id/search_filter_mainRv"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:subCategory="@{viewModel.Companion.subCategory}"
+            bind:subCategory="@{viewModel.}"
             />
 
 

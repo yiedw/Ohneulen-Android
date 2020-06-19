@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
@@ -40,10 +41,13 @@ class MainActivity : AppCompatActivity() {
 
         }
         //테스트
-        val loginViewModel :LoginViewModel by viewModel()
+        val loginViewModel: LoginViewModel by viewModel()
         loginViewModel.a().let {
-            Thread.sleep(1000)
-            loginViewModel.test()
+            loginViewModel.mainCategory.observe(this@MainActivity, Observer {
+                loginViewModel.test()
+                mainViewModel.mainCategory=loginViewModel.mainCategory
+                mainViewModel.subCategory=loginViewModel.subCategory
+            })
         }
     }
 }

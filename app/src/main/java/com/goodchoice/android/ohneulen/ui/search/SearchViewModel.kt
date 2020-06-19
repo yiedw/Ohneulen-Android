@@ -15,11 +15,6 @@ import net.daum.mf.map.api.MapView
 import timber.log.Timber
 
 class SearchViewModel(private val networkService: NetworkService) : ViewModel() {
-    companion object {
-        var subCategory = MutableLiveData<MutableList<String>>()
-        var mainCategory: List<String> = LoginViewModel.mainCategory
-        var subCategoryList = LoginViewModel.subCategory
-    }
 
     var searchEditText = ""
     var kakaoMapPoint = MutableLiveData<MapPoint>()
@@ -30,11 +25,6 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
         emit(getPartner())
     }
 
-    fun getData() {
-        mainCategory = LoginViewModel.mainCategory
-        subCategoryList = LoginViewModel.subCategory
-        subCategory.value = subCategoryList[0]
-    }
 
     fun searchMapData() {
 

@@ -8,17 +8,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.model.PartnerMenu
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.partner.PartnerMenuAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
+import com.goodchoice.android.ohneulen.ui.search.SearchFilterFragment
 import com.goodchoice.android.ohneulen.ui.search.SearchPartnerAdapter
 import com.goodchoice.android.ohneulen.util.ConstList
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import net.daum.mf.map.api.MapView
+import timber.log.Timber
 
 
 @BindingAdapter("partner")
@@ -51,6 +54,11 @@ fun setSubCategory(recyclerView: RecyclerView, items: List<String>) {
         itemList = items
         notifyDataSetChanged()
     }
+    (recyclerView.adapter as SearchFilterAdapter).subCategory.observe(
+        SearchFilterFragment(),
+        Observer {
+            Timber.e((recyclerView.adapter as SearchFilterAdapter).subCategory.value)
+        })
 }
 
 
