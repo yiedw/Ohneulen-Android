@@ -31,17 +31,19 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/colorLightGrey"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent="0.05"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/home_subtitle">
 
             <EditText
-                android:text="강남"
                 android:id="@+id/home_editText"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:background="@color/colorTransparent"
+                android:text="강남"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,8 +69,8 @@
             android:background="@color/colorLightGrey"
             android:focusable="true"
             android:gravity="center"
-            android:text="현재 위치로 검색"
             android:onClick="@{fragment::currentLocationClick}"
+            android:text="현재 위치로 검색"
             android:textAlignment="center"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent="0.05"

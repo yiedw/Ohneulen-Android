@@ -24,6 +24,8 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
     var searchEditText = ""
     var kakaoMapPoint = MutableLiveData<MapPoint>()
 
+    var toastMessage=MutableLiveData<Boolean>(false)
+
     val partnerList: LiveData<MutableList<Partner>> = liveData(Dispatchers.IO) {
         loading.postValue(true)
         emit(getPartner())
@@ -36,22 +38,26 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
     }
 
     fun searchMapData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val y :Double
-            val x :Double
 
+        viewModelScope.launch(Dispatchers.IO) {
+            val y: Double
+            val x: Double
             val addressResponse = networkService.requestKakaoAddress(address = searchEditText)
             if (addressResponse.documents.isEmpty()) {
-                val keywordResponse = networkService.requestKakaoKeyword(keyword = searchEditText)
+                val keywordResponse =
+                    networkService.requestKakaoKeyword(keyword = searchEditText)
                 if (keywordResponse.documents.isNotEmpty()) {
                     y = keywordResponse.documents[0].y.toDouble()
                     x = keywordResponse.documents[0].x.toDouble()
-                } else
+                } else {
+                    toastMessage.postValue(true)
                     return@launch
+                }
             } else {
                 y = addressResponse.documents[0].y.toDouble()
                 x = addressResponse.documents[0].x.toDouble()
             }
+
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(y, x))
         }
     }
