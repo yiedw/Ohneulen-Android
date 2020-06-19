@@ -8,17 +8,13 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.github.mikephil.charting.charts.RadarChart
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.RadarData
 import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.PartnerReviewFragmentBinding
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import timber.log.Timber
 
 class PartnerReviewFragment : Fragment() {
     companion object {

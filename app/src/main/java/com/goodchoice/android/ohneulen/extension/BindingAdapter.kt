@@ -15,6 +15,7 @@ import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.partner.PartnerMenuAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchPartnerAdapter
+import com.goodchoice.android.ohneulen.util.ConstList
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import net.daum.mf.map.api.MapView
@@ -38,7 +39,7 @@ fun setPartnerMenu(recyclerView: RecyclerView, items: List<PartnerMenu>?) {
 
 @BindingAdapter("mainCategory")
 fun setMainCategory(recyclerView: RecyclerView, items: List<String>) {
-    recyclerView.adapter = SearchFilterAdapter().apply {
+    recyclerView.adapter = SearchFilterAdapter(ConstList.MAIN_CATEGORY).apply {
         itemList = items
         notifyDataSetChanged()
     }
@@ -46,20 +47,11 @@ fun setMainCategory(recyclerView: RecyclerView, items: List<String>) {
 
 @BindingAdapter("subCategory")
 fun setSubCategory(recyclerView: RecyclerView, items: List<String>) {
-    recyclerView.adapter = SearchFilterAdapter().apply {
+    recyclerView.adapter = SearchFilterAdapter(ConstList.SUB_CATEGORY).apply {
         itemList = items
         notifyDataSetChanged()
     }
 }
 
-@BindingAdapter("kakaoMap")
-fun setKakaoMap(constraintLayout: ConstraintLayout,mapView: MapView){
-    val mapViewContainer=constraintLayout as ViewGroup
-    mapViewContainer.addView(mapView)
-}
 
-@BindingAdapter("searchResult")
-fun setSearchResult(editText: EditText, result: String) {
-    editText.setText(result)
-}
 

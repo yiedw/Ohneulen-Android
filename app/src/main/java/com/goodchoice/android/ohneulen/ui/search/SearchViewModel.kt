@@ -23,7 +23,6 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
 
     var searchEditText = ""
     var kakaoMapPoint = MutableLiveData<MapPoint>()
-
     var toastMessage=MutableLiveData<Boolean>(false)
 
     val partnerList: LiveData<MutableList<Partner>> = liveData(Dispatchers.IO) {

@@ -8,13 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.HomeAppbarFragmentBinding
-import com.goodchoice.android.ohneulen.ui.login.LoginFragment
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
 import com.goodchoice.android.ohneulen.ui.noti.NotiAppBarFragment
 import com.goodchoice.android.ohneulen.ui.noti.NotiFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import timber.log.Timber
 
 class HomeAppBarFragment :Fragment(){
 

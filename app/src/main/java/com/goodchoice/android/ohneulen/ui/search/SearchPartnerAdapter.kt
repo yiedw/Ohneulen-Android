@@ -11,7 +11,6 @@ import com.goodchoice.android.ohneulen.ui.partner.PartnerAppBarFragment
 import com.goodchoice.android.ohneulen.ui.partner.PartnerFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import timber.log.Timber
 
 class SearchPartnerAdapter :
     RecyclerView.Adapter<SearchPartnerAdapter.SearchPartnerViewHolder>() {

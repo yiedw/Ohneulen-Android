@@ -11,12 +11,10 @@ import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.databinding.HomeFragmentBinding
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
 import com.goodchoice.android.ohneulen.ui.search.SearchFragment
-import com.goodchoice.android.ohneulen.util.BaseUrl
 import com.goodchoice.android.ohneulen.util.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class HomeFragment() : Fragment() {
 

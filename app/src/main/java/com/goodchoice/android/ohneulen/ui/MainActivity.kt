@@ -7,11 +7,12 @@ import androidx.fragment.app.FragmentManager
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +38,12 @@ class MainActivity : AppCompatActivity() {
             replaceAppbarFragment(HomeAppBarFragment.newInstance())
             replaceMainFragment(HomeFragment.newInstance())
 
+        }
+        //테스트
+        val loginViewModel :LoginViewModel by viewModel()
+        loginViewModel.a().let {
+            Thread.sleep(1000)
+            loginViewModel.test()
         }
     }
 }

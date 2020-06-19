@@ -10,20 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
-import com.goodchoice.android.ohneulen.ui.home.HomeFragment
-import com.goodchoice.android.ohneulen.util.ConstList
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import com.goodchoice.android.ohneulen.util.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.search_fragment.*
 import net.daum.mf.map.api.MapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class SearchFragment : Fragment() {
 
@@ -37,7 +32,6 @@ class SearchFragment : Fragment() {
     private val mainViewModel: MainViewModel by viewModel()
     private val mapView by lazy {
         MapView(requireContext())
-
     }
 
 
@@ -73,6 +67,10 @@ class SearchFragment : Fragment() {
                 Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
             }
         }
+        //다음지도 불러오기
+        mapView.setZoomLevel(2, false)
+        val mapViewContainer: ViewGroup = binding.searchMapView
+        mapViewContainer.addView(mapView)
         return binding.root
     }
 
@@ -80,10 +78,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        //다음지도 불러오기
-        mapView.setZoomLevel(2, false)
-        val mapViewContainer: ViewGroup = search_mapView as ViewGroup
-        mapViewContainer.addView(mapView)
         //맵 포인트가 바뀌면 바로 반영
         searchViewModel.kakaoMapPoint.observe(
             viewLifecycleOwner, Observer { t ->
@@ -136,6 +130,7 @@ class SearchFragment : Fragment() {
             mapView.currentLocationTrackingMode =
                 MapView.CurrentLocationTrackingMode.TrackingModeOff
             searchViewModel.searchEditText = binding.searchEditText.text.toString()
+            mainViewModel.searchEditText=binding.searchEditText.text.toString()
             searchViewModel.searchMapData()
         } else {
             Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG).show()

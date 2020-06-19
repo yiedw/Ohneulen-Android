@@ -24,6 +24,7 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
         viewModelScope.launch(Dispatchers.IO) {
             val loginResponse = networkService.requestLogin(
                 memId.toRequestBody(), memPw.toRequestBody()
+
             )
             Timber.e(loginResponse.toString())
             Timber.e(App.cookie.toString())

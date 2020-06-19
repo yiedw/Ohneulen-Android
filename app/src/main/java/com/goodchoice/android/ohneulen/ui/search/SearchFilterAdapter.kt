@@ -6,10 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
+import com.goodchoice.android.ohneulen.util.ConstList
 import com.goodchoice.android.ohneulen.util.subDataRefresh
 import timber.log.Timber
 
-class SearchFilterAdapter :
+class SearchFilterAdapter(private val categoryKind: Int) :
     RecyclerView.Adapter<SearchFilterAdapter.SearchFilterViewHolder>() {
 
     var itemList = listOf<String>()
@@ -20,8 +21,13 @@ class SearchFilterAdapter :
             binding.apply {
                 binding.category.text = item
                 binding.root.setOnClickListener {
-                    subDataRefresh(adapterPosition)
-                    Timber.e(SearchViewModel.subCategory.toString())
+                    if (categoryKind==ConstList.MAIN_CATEGORY) {
+                        subDataRefresh(adapterPosition)
+                        Timber.e(SearchViewModel.subCategory.value.toString())
+                    }
+                    else{
+                        Timber.e(item)
+                    }
                 }
                 executePendingBindings()
             }
@@ -41,6 +47,7 @@ class SearchFilterAdapter :
     override fun getItemCount() = itemList.size
 
     override fun onBindViewHolder(holder: SearchFilterViewHolder, position: Int) {
+
         holder.bind(itemList[position])
     }
 }

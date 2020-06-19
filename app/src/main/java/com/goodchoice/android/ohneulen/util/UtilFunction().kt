@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.os.Bundle
 import android.util.Base64
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
@@ -37,44 +36,39 @@ fun getAppKeyHash(context: Context) {
 
 fun replaceMainFragment(
     fragment: Fragment,
-    bundle: Bundle? = null,
-    addToBackStackBoolean: Boolean = false
+    addToBackStack: Boolean = false
 ) {
     val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
-    fragment.arguments = bundle
-    if (addToBackStackBoolean)
-        fragmentTransaction.addToBackStack(null)
-//    fragmentTransaction.addToBackStack(null)
+    if (addToBackStack)
+        fragmentTransaction.addToBackStack("")
     fragmentTransaction.replace(R.id.main_frameLayout, fragment).commit()
 }
 
 fun replaceAppbarFragment(
     fragment: Fragment,
-    bundle: Bundle? = null,
-    addToBackStackBoolean: Boolean = false
+    addToBackStack: Boolean = false
 ) {
     val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
-    fragment.arguments = bundle
-    if (addToBackStackBoolean)
-        fragmentTransaction.addToBackStack(null)
-//    fragmentTransaction.addToBackStack(null)
+    if (addToBackStack)
+        fragmentTransaction.addToBackStack("")
     fragmentTransaction.replace(R.id.appbar_frameLayout, fragment).commit()
-
 }
+
 
 fun Int.px(): Int {
-    val metrics=App.resources.displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this.toFloat(),metrics)
-        .toInt()
-}
-fun Int.dp():Int{
-    val metrics=App.resources.displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),metrics)
+    val metrics = App.resources.displayMetrics
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this.toFloat(), metrics)
         .toInt()
 }
 
-fun subDataRefresh(position: Int){
-    SearchViewModel.subCategory.value=SearchViewModel.subCategoryList[position]
+fun Int.dp(): Int {
+    val metrics = App.resources.displayMetrics
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), metrics)
+        .toInt()
+}
+
+fun subDataRefresh(position: Int) {
+    SearchViewModel.subCategory.value = SearchViewModel.subCategoryList[position]
 
 }
 
