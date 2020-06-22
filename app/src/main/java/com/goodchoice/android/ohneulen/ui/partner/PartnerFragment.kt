@@ -83,8 +83,11 @@ class PartnerFragment : Fragment() {
         binding.partnerViewPager2.offscreenPageLimit = 4
 
         //애니메이션 삭제
-        binding.partnerTab.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+        binding.partnerTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
+                tab?.position?.let {
+                    binding.partnerViewPager2.setCurrentItem(it, true)
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -92,7 +95,7 @@ class PartnerFragment : Fragment() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let {
-                    binding.partnerViewPager2.setCurrentItem(it,false)
+                    binding.partnerViewPager2.setCurrentItem(it, true)
                 }
             }
 
@@ -111,6 +114,9 @@ class PartnerFragment : Fragment() {
                     state = position
                     if (position == 3) {
                         reviewSetting()
+                    } else if (position == 1) {
+                        basicSetting()
+                        scrollBlock()
                     } else {
                         basicSetting()
                     }
@@ -167,6 +173,13 @@ class PartnerFragment : Fragment() {
         layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
         MainActivity.mainFrameLayout.layoutParams = layoutParams
+        binding.partnerNewScrollView.setOnTouchListener { v, event -> false }
+    }
+
+    private fun scrollBlock() {
+        binding.partnerNewScrollView.setOnTouchListener { v, event ->
+            true
+        }
     }
 
     //리뷰 페이지 세팅

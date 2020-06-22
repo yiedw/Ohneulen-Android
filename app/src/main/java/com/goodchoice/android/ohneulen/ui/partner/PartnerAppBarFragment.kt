@@ -44,9 +44,9 @@ class PartnerAppBarFragment : Fragment() {
 
 
     fun backClick(view: View) {
-        MainActivity.mainFrameLayout.layoutParams=initMainFragment
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
         replaceMainFragment(SearchFragment.newInstance())
+        MainActivity.mainFrameLayout.layoutParams=initMainFragment
     }
 
     fun shareClick(view: View) {

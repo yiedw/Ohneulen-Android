@@ -53,6 +53,25 @@ fun replaceAppbarFragment(
         fragmentTransaction.addToBackStack("")
     fragmentTransaction.replace(R.id.appbar_frameLayout, fragment).commit()
 }
+fun addMainFragment(
+    fragment: Fragment,
+    addToBackStack: Boolean = false
+) {
+    val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
+    if (addToBackStack)
+        fragmentTransaction.addToBackStack("")
+    fragmentTransaction.add(R.id.main_frameLayout, fragment).commit()
+}
+
+fun addAppbarFragment(
+    fragment: Fragment,
+    addToBackStack: Boolean = false
+) {
+    val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
+    if (addToBackStack)
+        fragmentTransaction.addToBackStack("")
+    fragmentTransaction.add(R.id.appbar_frameLayout, fragment).commit()
+}
 
 
 fun Int.px(): Int {

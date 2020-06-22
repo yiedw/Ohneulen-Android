@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.model.PartnerMenu
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
@@ -45,6 +46,7 @@ fun setMainCategory(recyclerView: RecyclerView, items: List<String>) {
     recyclerView.adapter = SearchFilterAdapter(ConstList.MAIN_CATEGORY).apply {
         itemList = items
         notifyDataSetChanged()
+
     }
 }
 
@@ -54,11 +56,6 @@ fun setSubCategory(recyclerView: RecyclerView, items: List<String>) {
         itemList = items
         notifyDataSetChanged()
     }
-    (recyclerView.adapter as SearchFilterAdapter).subCategory.observe(
-        SearchFilterFragment(),
-        Observer {
-            Timber.e((recyclerView.adapter as SearchFilterAdapter).subCategory.value)
-        })
 }
 
 

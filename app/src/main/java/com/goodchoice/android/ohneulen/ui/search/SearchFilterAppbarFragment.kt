@@ -35,9 +35,8 @@ class SearchFilterAppbarFragment :Fragment(){
     }
 
     fun closeOnClick(view:View){
-//        Timber.e(MainActivity.supportFragmentManager.beginTransaction().isAddToBackStackAllowed.toString())
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
-        replaceMainFragment(SearchFragment.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
 }

@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen
 
 import android.app.Application
 import android.content.res.Resources
+import androidx.lifecycle.MutableLiveData
 import com.goodchoice.android.ohneulen.di.networkModule
 import com.goodchoice.android.ohneulen.di.viewModelModule
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -16,6 +17,7 @@ class App: Application(){
 
     companion object{
         lateinit var resources:Resources
+        var categorySwitch=MutableLiveData<Int>(0)
         var cookie=HashSet<String>()
     }
 

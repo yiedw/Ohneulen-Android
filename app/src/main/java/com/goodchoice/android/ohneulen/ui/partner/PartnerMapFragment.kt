@@ -12,18 +12,20 @@ import kotlinx.android.synthetic.main.partner_map_fragment.*
 import net.daum.mf.map.api.MapView
 import timber.log.Timber
 
-class PartnerMapFragment :Fragment(){
+class PartnerMapFragment : Fragment() {
 
-    private lateinit var binding:PartnerMapFragmentBinding
-    companion object{
-        fun newInstance()=PartnerMapFragment()
+    private lateinit var binding: PartnerMapFragmentBinding
+
+    companion object {
+        fun newInstance() = PartnerMapFragment()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.partner_map_fragment,
             container,
@@ -34,15 +36,9 @@ class PartnerMapFragment :Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        try {
-            val mapView = MapView(context)
-            mapView.setZoomLevel(2, false)
-            val mapViewContainer: ViewGroup = partner_mapView as ViewGroup
-            mapViewContainer.addView(mapView)
-        } catch (e: UnsatisfiedLinkError) {
-            Timber.e(e)
-        } catch (e: NoClassDefFoundError) {
-            Timber.e(e)
-        }
+        val mapView = MapView(context)
+        mapView.setZoomLevel(2, false)
+        val mapViewContainer: ViewGroup = binding.partnerMapView
+        mapViewContainer.addView(mapView)
     }
 }

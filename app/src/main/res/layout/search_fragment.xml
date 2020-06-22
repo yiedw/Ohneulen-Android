@@ -85,7 +85,8 @@
             android:layout_height="210dp"
             android:background="@color/colorPrimaryDark"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_searchCon" />
+            app:layout_constraintTop_toBottomOf="@id/search_searchCon"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/search_infoCon"
@@ -117,7 +118,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_restaurant_rv"
+            android:id="@+id/search_partner_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -125,7 +126,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_infoCon"
-            bind:partner="@{viewModel.partnerList}" />
+            bind:partner="@{viewModel.partnerList}"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

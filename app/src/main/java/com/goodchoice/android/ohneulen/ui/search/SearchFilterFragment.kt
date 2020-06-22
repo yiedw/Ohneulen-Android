@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFilterFragmentBinding
+import com.goodchoice.android.ohneulen.ui.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class SearchFilterFragment : Fragment() {
@@ -18,6 +22,7 @@ class SearchFilterFragment : Fragment() {
     }
 
     private val searchViewModel: SearchViewModel by viewModel()
+    private val mainViewModel:MainViewModel by viewModel()
     private lateinit var binding: SearchFilterFragmentBinding
 
     override fun onCreateView(
@@ -35,6 +40,7 @@ class SearchFilterFragment : Fragment() {
             lifecycleOwner=this@SearchFilterFragment
             fragment = this@SearchFilterFragment
             viewModel = searchViewModel
+            mainVM=mainViewModel
         }
 
         return binding.root
@@ -42,5 +48,10 @@ class SearchFilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        App.categorySwitch.observe(
+            viewLifecycleOwner, Observer {
+                mainViewModel.subCategoryDetail.postValue(mainViewModel.subCategory[it])
+            }
+        )
     }
 }

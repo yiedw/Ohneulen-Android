@@ -1,10 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.search
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
@@ -15,19 +17,18 @@ class SearchFilterAdapter(private val categoryKind: Int) :
     RecyclerView.Adapter<SearchFilterAdapter.SearchFilterViewHolder>() {
 
     var itemList = listOf<String>()
-    var subCategory=MutableLiveData<String>()
 
     inner class SearchFilterViewHolder(private val binding: SearchFilterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: String) {
             binding.apply {
-                binding.category.text = item
+                binding.filterCategory.text = item
                 binding.root.setOnClickListener {
                     if (categoryKind==ConstList.MAIN_CATEGORY) {
-                        
+                        App.categorySwitch.postValue(adapterPosition)
                     }
                     else{
-                        subCategory.postValue(item)
+                        binding.filterCheck.visibility=View.VISIBLE
                         Timber.e(item)
                     }
                 }

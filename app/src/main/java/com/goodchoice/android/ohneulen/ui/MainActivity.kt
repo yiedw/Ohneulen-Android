@@ -40,14 +40,7 @@ class MainActivity : AppCompatActivity() {
             replaceMainFragment(HomeFragment.newInstance())
 
         }
-        //테스트
-        val loginViewModel: LoginViewModel by viewModel()
-        loginViewModel.a().let {
-            loginViewModel.mainCategory.observe(this@MainActivity, Observer {
-                loginViewModel.test()
-                mainViewModel.mainCategory=loginViewModel.mainCategory
-                mainViewModel.subCategory=loginViewModel.subCategory
-            })
-        }
+        mainViewModel.a()
+
     }
 }

@@ -9,6 +9,8 @@ import com.goodchoice.android.ohneulen.databinding.SearchPartnerItemBinding
 import com.goodchoice.android.ohneulen.model.Partner
 import com.goodchoice.android.ohneulen.ui.partner.PartnerAppBarFragment
 import com.goodchoice.android.ohneulen.ui.partner.PartnerFragment
+import com.goodchoice.android.ohneulen.util.addAppbarFragment
+import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
@@ -23,8 +25,9 @@ class SearchPartnerAdapter :
                 partner = item
                 executePendingBindings()
                 root.setOnClickListener {
-                    replaceAppbarFragment(PartnerAppBarFragment.newInstance())
-                    replaceMainFragment(PartnerFragment.newInstance())
+
+                    addAppbarFragment(PartnerAppBarFragment.newInstance(),true)
+                    addMainFragment(PartnerFragment.newInstance(),true)
                 }
             }
         }

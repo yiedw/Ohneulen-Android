@@ -12,6 +12,10 @@
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.search.SearchViewModel" />
+
+        <variable
+            name="mainVM"
+            type="com.goodchoice.android.ohneulen.ui.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,52 +28,51 @@
             android:layout_height="0dp"
             android:background="#dedede"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/search_filter_bottom"
+            app:layout_constraintBottom_toTopOf="@id/search_filter_reset"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/search_filter_subRv"
             app:layout_constraintTop_toTopOf="parent"
-            bind:mainCategory="@{viewModel.}" />
+            bind:mainCategory="@{mainVM.mainCategory}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_filter_subRv"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@android:color/white"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/search_filter_bottom"
+            app:layout_constraintBottom_toTopOf="@+id/search_filter_reset"
             app:layout_constraintLeft_toRightOf="@id/search_filter_mainRv"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:subCategory="@{viewModel.}"
-            />
+            bind:subCategory="@{mainVM.subCategoryDetail}" />
 
 
-        <LinearLayout
-            android:id="@+id/search_filter_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+        <TextView
+            android:id="@+id/search_filter_reset"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:background="#666666"
-            android:orientation="horizontal"
-            android:weightSum="2"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="초기화"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/search_filter_complete" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="초기화"
-                android:textAlignment="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="선택완료"
-                android:textAlignment="center" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/search_filter_complete"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#666666"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="선택완료"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/search_filter_reset"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_filter_reset" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

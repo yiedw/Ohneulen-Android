@@ -7,7 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class PartnerPagerAdapter(
-    private val arrayList:ArrayList<Fragment>,
+    private val arrayList: ArrayList<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
 ) :
@@ -18,7 +18,7 @@ class PartnerPagerAdapter(
         return arrayList[position]
     }
 
-    fun getViewAtPosition(position:Int): View? {
+    fun getViewAtPosition(position: Int): View? {
         return arrayList[position].view
     }
 

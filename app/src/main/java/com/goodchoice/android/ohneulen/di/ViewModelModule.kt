@@ -14,6 +14,6 @@ val viewModelModule = module {
     viewModel { SearchViewModel(get()) }
     viewModel { PartnerViewModel() }
     single {
-        MainViewModel()
+        MainViewModel(get())
     }
 }

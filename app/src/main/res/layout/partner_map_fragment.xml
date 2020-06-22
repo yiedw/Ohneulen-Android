@@ -8,8 +8,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/partner_mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/black">
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        >
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
