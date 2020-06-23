@@ -10,12 +10,17 @@ import com.goodchoice.android.ohneulen.ui.search.SearchPartnerAdapter
 import com.goodchoice.android.ohneulen.util.ConstList
 
 
-@BindingAdapter("partner")
-fun setSearchPartner(recyclerView: RecyclerView, items: List<Store>?) {
-    recyclerView.adapter = SearchPartnerAdapter().apply {
+@BindingAdapter("store")
+fun setSearchStore(recyclerView: RecyclerView, items: List<Store>?) {
+    recyclerView.adapter = (recyclerView.adapter as SearchPartnerAdapter).apply {
         itemList = items ?: emptyList()
         notifyDataSetChanged()
     }
+}
+
+@BindingAdapter("storeAdapter")
+fun setStoreAdapter(recyclerView: RecyclerView, adapter: SearchPartnerAdapter?) {
+    recyclerView.adapter = adapter
 }
 
 @BindingAdapter("partnerMenu")

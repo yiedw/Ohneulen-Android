@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var supportFragmentManager: FragmentManager
         lateinit var appbarFrameLayout: FrameLayout
         lateinit var mainFrameLayout: FrameLayout
+        var searchMapView=MutableLiveData<Boolean>(true)
     }
 
     private val mainViewModel: MainViewModel by viewModel()

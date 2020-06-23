@@ -126,7 +126,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_infoCon"
-            bind:partner="@{viewModel.storeList}"
+            bind:storeAdapter="@{viewModel.searchAdapter}"
+            bind:store="@{viewModel.storeList}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

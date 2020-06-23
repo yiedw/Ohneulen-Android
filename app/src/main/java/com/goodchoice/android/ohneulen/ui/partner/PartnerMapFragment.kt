@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.PartnerMapFragmentBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.search.SearchFragment
 import kotlinx.android.synthetic.main.partner_map_fragment.*
 import net.daum.mf.map.api.MapView
 import timber.log.Timber

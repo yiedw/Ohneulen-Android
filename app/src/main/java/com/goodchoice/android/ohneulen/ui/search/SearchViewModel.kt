@@ -19,6 +19,7 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
         emit(getStore())
     }
 
+    val searchAdapter=SearchPartnerAdapter()
 
     fun searchMapData() {
 

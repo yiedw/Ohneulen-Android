@@ -45,7 +45,7 @@ class HomeFragment() : Fragment() {
         currentLocation=false
         mainViewModel.searchEditText=binding.homeEditText.text.toString()
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
-        replaceMainFragment(SearchFragment.newInstance())
+        replaceMainFragment(SearchFragment.newInstance(),name = "search")
     }
 
     fun currentLocationClick(view: View) {

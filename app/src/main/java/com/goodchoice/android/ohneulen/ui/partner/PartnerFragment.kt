@@ -64,6 +64,12 @@ class PartnerFragment : Fragment() {
         stickyHeader()
     }
 
+    override fun onStop() {
+        super.onStop()
+        MainActivity.searchMapView.postValue(true)
+
+    }
+
     //스크롤되면 헤더 붙이기
     private fun stickyHeader() {
         binding.partnerTab.bringToFront()

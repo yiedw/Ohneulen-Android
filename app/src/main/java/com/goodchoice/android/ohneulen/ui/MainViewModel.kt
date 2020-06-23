@@ -69,4 +69,6 @@ class MainViewModel(private val networkService: NetworkService) : ViewModel() {
     var filterDataList = mutableListOf<String>()
 
 
+
+
 }

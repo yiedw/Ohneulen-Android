@@ -44,8 +44,9 @@ class PartnerAppBarFragment : Fragment() {
 
 
     fun backClick(view: View) {
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
-        replaceMainFragment(SearchFragment.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
+        MainActivity.supportFragmentManager.popBackStack()
+//        MainActivity.searchMapView.postValue(true)
         MainActivity.mainFrameLayout.layoutParams=initMainFragment
     }
 

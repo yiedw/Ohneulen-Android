@@ -14,10 +14,14 @@ import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.partner.PartnerMenuAdapter
 import com.goodchoice.android.ohneulen.util.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -36,8 +40,6 @@ class SearchFragment : Fragment() {
         MapView(requireContext())
     }
 
-
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,11 +53,6 @@ class SearchFragment : Fragment() {
                 false
             )
 
-        binding.apply {
-            lifecycleOwner = this@SearchFragment
-            binding.fragment = this@SearchFragment
-            viewModel = searchViewModel
-        }
         //mvm 을 이용해서 데이터 받아오기
         searchViewModel.searchEditText = mainViewModel.searchEditText
 
@@ -70,24 +67,41 @@ class SearchFragment : Fragment() {
                 Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+        //바인딩
+        binding.apply {
+            lifecycleOwner = this@SearchFragment
+            binding.fragment = this@SearchFragment
+            viewModel = searchViewModel
+        }
+        return binding.root
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
         //다음지도 불러오기
         mapView.setZoomLevel(2, false)
         val mapViewContainer: ViewGroup = binding.searchMapView
         //맵 이동 막기
-        mapView.setOnTouchListener { v, event ->  true}
-        mapViewContainer.addView(mapView)
+        mapView.setOnTouchListener { v, event -> true }
         mapViewContainer.clearDisappearingChildren()
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        //recyclerView adapter
-//        binding.searchPartnerRv.adapter = PartnerMenuAdapter().apply {
-//            itemList = searchViewModel.partnerList. ?: emptyList()
-//            notifyDataSetChanged()
-//        }
+        //맵 삭제 추가
+        MainActivity.searchMapView.observe(viewLifecycleOwner,
+            Observer {
+                if (it) {
+                    val mapView2=MapView(requireContext())
+                    mapViewContainer.addView(mapView2)
+                } else {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        mapViewContainer.removeView(mapView)
+                    }
+                }
+            })
 
 
         //맵 포인트가 바뀌면 바로 반영
@@ -134,7 +148,9 @@ class SearchFragment : Fragment() {
             }
         )
 
+
     }
+
 
     fun searchCLick(view: View) {
         if (!binding.searchEditText.text.toString().isBlank()) {
@@ -160,8 +176,8 @@ class SearchFragment : Fragment() {
     }
 
     fun filterClick(view: View) {
-        addAppbarFragment(SearchFilterAppbarFragment.newInstance(),true)
-        addMainFragment(SearchFilterFragment.newInstance(),true)
+        addAppbarFragment(SearchFilterAppbarFragment.newInstance(), true)
+        addMainFragment(SearchFilterFragment.newInstance(), true)
     }
 
 

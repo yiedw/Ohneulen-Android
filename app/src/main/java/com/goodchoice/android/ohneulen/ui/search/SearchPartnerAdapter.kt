@@ -3,18 +3,23 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchPartnerItemBinding
 import com.goodchoice.android.ohneulen.model.Store
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.partner.PartnerAppBarFragment
 import com.goodchoice.android.ohneulen.ui.partner.PartnerFragment
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class SearchPartnerAdapter :
     RecyclerView.Adapter<SearchPartnerAdapter.SearchPartnerViewHolder>() {
     var itemList = listOf<Store>()
+
 
     inner class SearchPartnerViewHolder(private val binding: SearchPartnerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -23,16 +28,16 @@ class SearchPartnerAdapter :
                 store = item
                 executePendingBindings()
                 root.setOnClickListener {
-
-                    addAppbarFragment(PartnerAppBarFragment.newInstance(),true)
-                    addMainFragment(PartnerFragment.newInstance(),true)
+                    MainActivity.searchMapView.postValue(false)
+                    addAppbarFragment(PartnerAppBarFragment.newInstance(), true)
+                    addMainFragment(PartnerFragment.newInstance(), true)
                 }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        DataBindingUtil.inflate<SearchPartnerItemBinding>(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchPartnerViewHolder {
+        return DataBindingUtil.inflate<SearchPartnerItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.search_partner_item,
             parent,
@@ -40,6 +45,7 @@ class SearchPartnerAdapter :
         ).let {
             SearchPartnerViewHolder(it)
         }
+    }
 
     override fun getItemCount() = itemList.size
 
