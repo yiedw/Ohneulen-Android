@@ -38,7 +38,7 @@ class SearchAppBarFragment : Fragment() {
     }
 
     fun backClick(view: View) {
-        MainActivity.supportFragmentManager.popBackStack()
-        MainActivity.supportFragmentManager.popBackStack()
+        replaceAppbarFragment(HomeAppBarFragment.newInstance())
+        replaceMainFragment(HomeFragment.newInstance())
     }
 }

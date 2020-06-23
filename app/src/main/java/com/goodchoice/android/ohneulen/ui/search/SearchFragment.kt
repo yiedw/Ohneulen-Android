@@ -22,6 +22,7 @@ import com.gun0912.tedpermission.TedPermission
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -36,15 +37,14 @@ class SearchFragment : Fragment() {
     private lateinit var binding: SearchFragmentBinding
     private val searchViewModel: SearchViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
-    private val mapView by lazy {
-        MapView(requireContext())
-    }
+    private lateinit var mapView: MapView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mapView = MapView(requireContext())
         binding =
             DataBindingUtil.inflate(
                 inflater,
@@ -52,7 +52,6 @@ class SearchFragment : Fragment() {
                 container,
                 false
             )
-
         //mvm 을 이용해서 데이터 받아오기
         searchViewModel.searchEditText = mainViewModel.searchEditText
 
@@ -88,17 +87,18 @@ class SearchFragment : Fragment() {
         val mapViewContainer: ViewGroup = binding.searchMapView
         //맵 이동 막기
         mapView.setOnTouchListener { v, event -> true }
-        mapViewContainer.clearDisappearingChildren()
 
-        //맵 삭제 추가
+        //맵 (삭제, 추가)
         MainActivity.searchMapView.observe(viewLifecycleOwner,
             Observer {
                 if (it) {
-                    val mapView2=MapView(requireContext())
-                    mapViewContainer.addView(mapView2)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        mapViewContainer.addView(mapView)
+                    }
                 } else {
                     CoroutineScope(Dispatchers.Main).launch {
                         mapViewContainer.removeView(mapView)
+                        mapView= MapView(requireContext())
                     }
                 }
             })
