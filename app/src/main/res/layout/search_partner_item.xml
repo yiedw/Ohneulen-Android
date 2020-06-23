@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="partner"
-            type="com.goodchoice.android.ohneulen.model.Partner" />
+            name="store"
+            type="com.goodchoice.android.ohneulen.model.Store" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +27,7 @@
             android:id="@+id/search_partner_item_name"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{partner.name}"
+            android:text="@{store.storeName}"
             app:layout_constraintBottom_toTopOf="@id/search_partner_item_rating"
             app:layout_constraintLeft_toRightOf="@id/search_partner_item_image"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
             android:id="@+id/search_partner_item_rating"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{partner.rating}"
+            android:text="@{store.pointTotal}"
             app:layout_constraintBottom_toTopOf="@id/search_partner_item_businessTime"
             app:layout_constraintLeft_toRightOf="@id/search_partner_item_image"
             app:layout_constraintTop_toBottomOf="@id/search_partner_item_name" />
@@ -54,7 +54,7 @@
             android:id="@+id/search_partner_item_businessTime"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{partner.businessTime}"
+            android:text="12-23"
             app:layout_constraintBottom_toTopOf="@id/search_partner_item_breakTime"
             app:layout_constraintLeft_toRightOf="@id/search_partner_item_image"
             app:layout_constraintTop_toBottomOf="@id/search_partner_item_rating" />
@@ -63,7 +63,7 @@
             android:id="@+id/search_partner_item_breakTime"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{partner.breakTime}"
+            android:text="15-17"
             app:layout_constraintBottom_toBottomOf="@id/search_partner_item_image"
             app:layout_constraintLeft_toRightOf="@id/search_partner_item_image"
             app:layout_constraintTop_toBottomOf="@id/search_partner_item_businessTime" />

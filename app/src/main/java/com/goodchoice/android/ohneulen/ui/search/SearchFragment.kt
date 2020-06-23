@@ -134,10 +134,6 @@ class SearchFragment : Fragment() {
             }
         )
 
-
-
-
-
     }
 
     fun searchCLick(view: View) {

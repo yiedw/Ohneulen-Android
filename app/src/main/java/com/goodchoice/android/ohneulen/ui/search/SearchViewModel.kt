@@ -1,18 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.search
 
-import android.location.Location
-import android.location.LocationListener
-import android.os.Bundle
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.model.Partner
-import com.goodchoice.android.ohneulen.model.getPartner
-import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.model.Store
+import com.goodchoice.android.ohneulen.model.getStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
-import net.daum.mf.map.api.MapView
-import timber.log.Timber
 
 class SearchViewModel(private val networkService: NetworkService) : ViewModel() {
 
@@ -20,9 +14,9 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
     var kakaoMapPoint = MutableLiveData<MapPoint>()
     var toastMessage=MutableLiveData<Boolean>(false)
 
-    val partnerList: LiveData<MutableList<Partner>> = liveData(Dispatchers.IO) {
+    val storeList: LiveData<MutableList<Store>> = liveData(Dispatchers.IO) {
         loading.postValue(true)
-        emit(getPartner())
+        emit(getStore())
     }
 
 

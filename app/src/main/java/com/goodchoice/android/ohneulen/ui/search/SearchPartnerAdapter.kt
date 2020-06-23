@@ -6,23 +6,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchPartnerItemBinding
-import com.goodchoice.android.ohneulen.model.Partner
+import com.goodchoice.android.ohneulen.model.Store
 import com.goodchoice.android.ohneulen.ui.partner.PartnerAppBarFragment
 import com.goodchoice.android.ohneulen.ui.partner.PartnerFragment
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
 class SearchPartnerAdapter :
     RecyclerView.Adapter<SearchPartnerAdapter.SearchPartnerViewHolder>() {
-    var itemList = listOf<Partner>()
+    var itemList = listOf<Store>()
 
     inner class SearchPartnerViewHolder(private val binding: SearchPartnerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Partner) {
+        fun bind(item: Store) {
             binding.apply {
-                partner = item
+                store = item
                 executePendingBindings()
                 root.setOnClickListener {
 
