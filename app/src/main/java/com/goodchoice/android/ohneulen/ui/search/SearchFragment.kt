@@ -56,6 +56,7 @@ class SearchFragment : Fragment() {
 
         //검색어기반
         if (searchViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
+            Timber.e("search")
             binding.searchEditText.setText(mainViewModel.searchEditText)
             if (!binding.searchEditText.text.toString().isBlank()) {
                 //검색어를 이용해서 지도정보 불러오기

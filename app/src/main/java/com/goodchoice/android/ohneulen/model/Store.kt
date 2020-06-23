@@ -17,11 +17,7 @@ data class Store(
     val point_4: String = "0",
     val point_5: String = "0",
     val point_6: String = "0",
-    val point_7: String = "0",
-    val insertDate: String,
-    val insertID: String,
-    val modifyDate: String? = null,
-    val modifyID: String? = null
+    val point_7: String = "0"
 )
 
 fun getStore(): MutableList<Store> {
@@ -33,8 +29,7 @@ fun getStore(): MutableList<Store> {
                 "백반",
                 "한식$i",
                 "백반집$i",
-                "주소", "도로명", "3,4", "open",
-                insertDate = "2020.06.23", insertID = "me"
+                "주소", "도로명", "3,4", "open"
             )
         )
     }

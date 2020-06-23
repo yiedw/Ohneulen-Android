@@ -23,11 +23,11 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
     val searchAdapter=SearchPartnerAdapter()
 
     fun searchMapData() {
-
         viewModelScope.launch(Dispatchers.IO) {
             val y: Double
             val x: Double
             val addressResponse = networkService.requestKakaoAddress(address = searchEditText)
+            Timber.e(addressResponse.toString())
             if (addressResponse.documents.isEmpty()) {
                 val keywordResponse =
                     networkService.requestKakaoKeyword(keyword = searchEditText)
@@ -42,7 +42,6 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
                 y = addressResponse.documents[0].y.toDouble()
                 x = addressResponse.documents[0].x.toDouble()
             }
-            Timber.e(y.toString()+","+x.toString())
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(y, x))
         }
     }
