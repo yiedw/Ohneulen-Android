@@ -46,7 +46,7 @@
                 android:layout_width="23dp"
                 android:layout_height="25dp"
                 android:focusable="true"
-                android:onClick="@{fragment::searchCLick}"
+                android:onClick="@{fragment::searchClick}"
                 android:src="@drawable/picture_sample1"
                 app:layout_constraintBottom_toBottomOf="@id/search_editText"
                 app:layout_constraintRight_toRightOf="@id/search_editText"
@@ -79,8 +79,8 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_mapView"
+        <FrameLayout
+            android:id="@+id/search_map"
             android:layout_width="match_parent"
             android:layout_height="210dp"
             android:background="@color/colorPrimaryDark"
@@ -94,7 +94,7 @@
             android:layout_height="30dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_mapView">
+            app:layout_constraintTop_toBottomOf="@id/search_map">
 
             <TextView
                 android:layout_width="wrap_content"

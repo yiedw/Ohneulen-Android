@@ -32,7 +32,7 @@ fun getStore(): MutableList<Store> {
                 i.toString(), "한식",
                 "백반",
                 "한식$i",
-                "백반집",
+                "백반집$i",
                 "주소", "도로명", "3,4", "open",
                 insertDate = "2020.06.23", insertID = "me"
             )

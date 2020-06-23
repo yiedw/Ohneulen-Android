@@ -37,14 +37,12 @@ class SearchFragment : Fragment() {
     private lateinit var binding: SearchFragmentBinding
     private val searchViewModel: SearchViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
-    private lateinit var mapView: MapView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mapView = MapView(requireContext())
         binding =
             DataBindingUtil.inflate(
                 inflater,
@@ -81,62 +79,22 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        //다음지도 불러오기
-        mapView.setZoomLevel(2, false)
-        val mapViewContainer: ViewGroup = binding.searchMapView
-        //맵 이동 막기
-        mapView.setOnTouchListener { v, event -> true }
-
         //맵 (삭제, 추가)
+        var searchMapFragment = SearchMapFragment()
         MainActivity.searchMapView.observe(viewLifecycleOwner,
             Observer {
                 if (it) {
                     CoroutineScope(Dispatchers.Main).launch {
-                        mapViewContainer.addView(mapView)
+                        searchMapFragment=SearchMapFragment()
+                        childFragmentManager.beginTransaction()
+                            .replace(R.id.search_map, searchMapFragment).commit()
                     }
                 } else {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        mapViewContainer.removeView(mapView)
-                        mapView= MapView(requireContext())
-                    }
+                    childFragmentManager.beginTransaction()
+                        .remove(searchMapFragment).commit()
                 }
             })
 
-
-        //맵 포인트가 바뀌면 바로 반영
-        searchViewModel.kakaoMapPoint.observe(
-            viewLifecycleOwner, Observer { t ->
-                mapView.setMapCenterPoint(t, false)
-            }
-        )
-        //현재위치기반
-        if (mainViewModel.searchEditText == ConstList.CURRENT_LOCATION) {
-            //퍼미션 리스너 생성
-            val permissionListener = object : PermissionListener {
-                override fun onPermissionGranted() {
-                    mapView.currentLocationTrackingMode =
-                        MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
-                    //승인
-                }
-
-                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    //거절
-                    Toast.makeText(requireContext(), "위치 정보를 확인할수 없습니다", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-            //권한확인
-            TedPermission.with(requireContext())
-                .setPermissionListener(permissionListener)
-                .setRationaleMessage("위치정보를 확인하기 위해서는 권한이 필요합니다")
-                .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
-                .check()
-        } else {
-            //트래킹모드 종료
-            mapView.currentLocationTrackingMode =
-                MapView.CurrentLocationTrackingMode.TrackingModeOff
-        }
 
         //검색어 없을시 토스트 띄우기
         searchViewModel.toastMessage.observe(
@@ -152,10 +110,8 @@ class SearchFragment : Fragment() {
     }
 
 
-    fun searchCLick(view: View) {
+    fun searchClick(view: View) {
         if (!binding.searchEditText.text.toString().isBlank()) {
-            mapView.currentLocationTrackingMode =
-                MapView.CurrentLocationTrackingMode.TrackingModeOff
             searchViewModel.searchEditText = binding.searchEditText.text.toString()
             mainViewModel.searchEditText = binding.searchEditText.text.toString()
             searchViewModel.searchMapData()
@@ -168,9 +124,9 @@ class SearchFragment : Fragment() {
 
     fun switchClick(view: View) {
         if (!switchOn)
-            binding.searchMapView.visibility = View.GONE
+            binding.searchMap.visibility = View.GONE
         else
-            binding.searchMapView.visibility = View.VISIBLE
+            binding.searchMap.visibility = View.VISIBLE
 
         switchOn = !switchOn
     }

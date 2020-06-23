@@ -7,6 +7,7 @@ import com.goodchoice.android.ohneulen.model.getStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
+import timber.log.Timber
 
 class SearchViewModel(private val networkService: NetworkService) : ViewModel() {
 
@@ -41,7 +42,7 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
                 y = addressResponse.documents[0].y.toDouble()
                 x = addressResponse.documents[0].x.toDouble()
             }
-
+            Timber.e(y.toString()+","+x.toString())
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(y, x))
         }
     }
