@@ -18,11 +18,12 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchMapFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.util.ConstList
-import com.google.android.gms.location.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -36,7 +37,7 @@ class SearchMapFragment : Fragment() {
         MapView(requireContext())
     }
     private lateinit var mapViewContainer: ViewGroup
-    private val searchViewModel: SearchViewModel by viewModel()
+    private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
 
     private lateinit var binding: SearchMapFragmentBinding

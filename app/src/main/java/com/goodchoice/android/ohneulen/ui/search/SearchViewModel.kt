@@ -5,6 +5,7 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.model.Store
 import com.goodchoice.android.ohneulen.model.getStore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
 import timber.log.Timber
@@ -23,15 +24,13 @@ class SearchViewModel(private val networkService: NetworkService) : ViewModel() 
     val searchAdapter = SearchPartnerAdapter()
 
     fun searchMapData() {
-        viewModelScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.IO) {
             val y: Double
             val x: Double
             val addressResponse = networkService.requestKakaoAddress(address = searchEditText)
-            Timber.e(addressResponse.toString())
             if (addressResponse.documents.isEmpty()) {
                 val keywordResponse =
                     networkService.requestKakaoKeyword(keyword = searchEditText)
-                Timber.e(keywordResponse.toString())
                 if (keywordResponse.documents.isNotEmpty()) {
                     y = keywordResponse.documents[0].y.toDouble()
                     x = keywordResponse.documents[0].x.toDouble()

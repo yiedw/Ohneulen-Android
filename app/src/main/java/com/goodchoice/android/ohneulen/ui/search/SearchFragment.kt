@@ -46,7 +46,7 @@ class SearchFragment : Fragment() {
             )
         //mvm 을 이용해서 데이터 받아오기
         searchViewModel.searchEditText = mainViewModel.searchEditText
-
+        Timber.e(searchViewModel.toString())
 
         //검색어기반
         if (searchViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
