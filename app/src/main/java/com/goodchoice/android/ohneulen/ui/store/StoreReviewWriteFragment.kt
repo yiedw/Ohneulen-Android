@@ -1,8 +1,7 @@
-package com.goodchoice.android.ohneulen.ui.partner
+package com.goodchoice.android.ohneulen.ui.store
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,21 +11,21 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.PartnerReviewWriteFragmentBinding
-import com.goodchoice.android.ohneulen.databinding.PartnerReviewWriteImageItemBinding
+import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteImageItemBinding
 import com.goodchoice.android.ohneulen.util.dp
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import timber.log.Timber
 
-class PartnerReviewWriteFragment : Fragment() {
+class StoreReviewWriteFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PartnerReviewWriteFragment()
+        fun newInstance() = StoreReviewWriteFragment()
     }
 
-    private lateinit var binding: PartnerReviewWriteFragmentBinding
+    private lateinit var binding: StoreReviewWriteFragmentBinding
     private var  selectedUriList:List<Uri>?=null
 
     override fun onCreateView(
@@ -36,7 +35,7 @@ class PartnerReviewWriteFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.partner_review_write_fragment,
+            R.layout.store_review_write_fragment,
             container,
             false
         )
@@ -77,15 +76,15 @@ class PartnerReviewWriteFragment : Fragment() {
         selectedUriList=uriList
         val viewSize=50.dp()
         uriList.forEach {
-            val itemBinding=PartnerReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
+            val itemBinding= StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
             Glide.with(requireContext())
                 .load(it)
                 .apply(RequestOptions().centerCrop())
-                .into(itemBinding.partnerReviewWriteImage)
+                .into(itemBinding.storeReviewWriteImage)
             val layoutParams=FrameLayout.LayoutParams(viewSize,viewSize)
             layoutParams.setMargins(5.dp(),5.dp(),5.dp(),5.dp())
             itemBinding.root.layoutParams=layoutParams
-            binding.partnerReviewWriteImage.addView(itemBinding.root)
+            binding.storeReviewWriteImage.addView(itemBinding.root)
         }
     }
 }

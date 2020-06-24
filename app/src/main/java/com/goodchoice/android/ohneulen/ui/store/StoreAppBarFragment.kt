@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.partner
+package com.goodchoice.android.ohneulen.ui.store
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,19 +9,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.PartnerAppbarFragmentBinding
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
-import com.goodchoice.android.ohneulen.ui.search.SearchFragment
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
 
-class PartnerAppBarFragment : Fragment() {
+class StoreAppBarFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PartnerAppBarFragment()
+        fun newInstance() = StoreAppBarFragment()
     }
 
-    private lateinit var binding: PartnerAppbarFragmentBinding
+    private lateinit var binding: StoreAppbarFragmentBinding
 
     //나중에 되돌리기
     private val initMainFragment: ViewGroup.LayoutParams =
@@ -34,7 +30,7 @@ class PartnerAppBarFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.partner_appbar_fragment,
+            R.layout.store_appbar_fragment,
             container,
             false
         )

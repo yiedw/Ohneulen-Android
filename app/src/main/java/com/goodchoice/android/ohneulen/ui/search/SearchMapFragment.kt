@@ -2,11 +2,15 @@ package com.goodchoice.android.ohneulen.ui.search
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,8 +18,10 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchMapFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.util.ConstList
+import com.google.android.gms.location.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -62,8 +68,20 @@ class SearchMapFragment : Fragment() {
         //맵 포인트가 바뀌면 바로 반영
         searchViewModel.kakaoMapPoint.observe(
             viewLifecycleOwner, Observer { t ->
-                mapView.currentLocationTrackingMode =
-                    MapView.CurrentLocationTrackingMode.TrackingModeOff
+                Timber.e(
+                    TedPermission.isGranted(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ).toString()
+                )
+                if (TedPermission.isGranted(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
+                ) {
+                    mapView.currentLocationTrackingMode =
+                        MapView.CurrentLocationTrackingMode.TrackingModeOff
+                }
                 mapView.setMapCenterPoint(t, false)
             }
         )
@@ -72,10 +90,10 @@ class SearchMapFragment : Fragment() {
         if (mainViewModel.searchEditText == ConstList.CURRENT_LOCATION) {
             //퍼미션 리스너 생성
             val permissionListener = object : PermissionListener {
+                //승인
                 override fun onPermissionGranted() {
                     mapView.currentLocationTrackingMode =
                         MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
-                    //승인
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
@@ -92,8 +110,14 @@ class SearchMapFragment : Fragment() {
                 .check()
         } else {
             //트래킹모드 종료
-            mapView.currentLocationTrackingMode =
-                MapView.CurrentLocationTrackingMode.TrackingModeOff
+            if (TedPermission.isGranted(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            ) {
+                mapView.currentLocationTrackingMode =
+                    MapView.CurrentLocationTrackingMode.TrackingModeOff
+            }
         }
     }
 }

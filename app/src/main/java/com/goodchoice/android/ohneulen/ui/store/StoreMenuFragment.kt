@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.partner
+package com.goodchoice.android.ohneulen.ui.store
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.PartnerMenuFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreMenuFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PartnerMenuFragment : Fragment() {
+class StoreMenuFragment : Fragment() {
     companion object {
-        fun newInstance() = PartnerMenuFragment()
+        fun newInstance() = StoreMenuFragment()
     }
 
-    private lateinit var binding: PartnerMenuFragmentBinding
-    private val partnerViewModel: PartnerViewModel by viewModel()
+    private lateinit var binding: StoreMenuFragmentBinding
+    private val storeViewModel: StoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +25,7 @@ class PartnerMenuFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.partner_menu_fragment,
+            R.layout.store_menu_fragment,
             container,
             false
         )
@@ -36,8 +35,8 @@ class PartnerMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            lifecycleOwner = this@PartnerMenuFragment
-            viewModel = partnerViewModel
+            lifecycleOwner = this@StoreMenuFragment
+            viewModel = storeViewModel
         }
     }
 }

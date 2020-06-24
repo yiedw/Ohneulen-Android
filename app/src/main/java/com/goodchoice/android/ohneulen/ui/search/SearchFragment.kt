@@ -1,6 +1,5 @@
 package com.goodchoice.android.ohneulen.ui.search
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,15 +14,10 @@ import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.partner.PartnerMenuAdapter
 import com.goodchoice.android.ohneulen.util.*
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.daum.mf.map.api.MapPoint
-import net.daum.mf.map.api.MapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -56,7 +50,6 @@ class SearchFragment : Fragment() {
 
         //검색어기반
         if (searchViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
-            Timber.e("search")
             binding.searchEditText.setText(mainViewModel.searchEditText)
             if (!binding.searchEditText.text.toString().isBlank()) {
                 //검색어를 이용해서 지도정보 불러오기
@@ -86,7 +79,7 @@ class SearchFragment : Fragment() {
             Observer {
                 if (it) {
                     CoroutineScope(Dispatchers.Main).launch {
-                        searchMapFragment=SearchMapFragment()
+                        searchMapFragment = SearchMapFragment()
                         childFragmentManager.beginTransaction()
                             .replace(R.id.search_map, searchMapFragment).commit()
                     }

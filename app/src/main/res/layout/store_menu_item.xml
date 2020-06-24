@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="storeMenu"
+            type="com.goodchoice.android.ohneulen.model.StoreMenu" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/store_menu_item_image"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/cafe_sample1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/store_menu_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@{storeMenu.title}"
+            app:layout_constraintBottom_toTopOf="@id/store_menu_item_price"
+            app:layout_constraintLeft_toRightOf="@id/store_menu_item_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/store_menu_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@{storeMenu.price}"
+            app:layout_constraintBottom_toTopOf="@id/store_menu_item_status"
+            app:layout_constraintLeft_toRightOf="@id/store_menu_item_image"
+            app:layout_constraintTop_toBottomOf="@id/store_menu_item_title" />
+
+        <TextView
+            android:id="@+id/store_menu_item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:text="@{storeMenu.status}"
+            android:textColor="#979797"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/store_menu_item_image"
+            app:layout_constraintLeft_toRightOf="@id/store_menu_item_image"
+            app:layout_constraintTop_toBottomOf="@id/store_menu_item_price" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

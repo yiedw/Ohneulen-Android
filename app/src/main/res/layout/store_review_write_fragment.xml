@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.partner.PartnerReviewWriteFragment" />
+            type="com.goodchoice.android.ohneulen.ui.store.StoreReviewWriteFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/partner_review_write_name"
+            android:id="@+id/store_review_write_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="카 페"
@@ -23,22 +23,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
-            android:id="@+id/partner_review_write_rating"
+            android:id="@+id/store_review_write_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/partner_review_write_name" />
+            app:layout_constraintTop_toBottomOf="@id/store_review_write_name" />
 
         <LinearLayout
-            android:id="@+id/partner_review_write_image"
+            android:id="@+id/store_review_write_image"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/partner_review_write_rating">
+            app:layout_constraintTop_toBottomOf="@id/store_review_write_rating">
 
             <TextView
-                android:id="@+id/partner_review_write_image_p"
+                android:id="@+id/store_review_write_image_p"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="5dp"
@@ -57,7 +57,7 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/partner_review_write_image">
+            app:layout_constraintTop_toBottomOf="@id/store_review_write_image">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

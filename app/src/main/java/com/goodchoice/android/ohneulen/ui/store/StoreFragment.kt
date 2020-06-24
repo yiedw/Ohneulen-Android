@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.partner
+package com.goodchoice.android.ohneulen.ui.store
 
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -12,14 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.PartnerFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class PartnerFragment : Fragment() {
+class StoreFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PartnerFragment()
+        fun newInstance() = StoreFragment()
 
         // 각 fragment
         // 0 -> home
@@ -34,7 +34,7 @@ class PartnerFragment : Fragment() {
     private val initMainFragment: ViewGroup.LayoutParams =
         MainActivity.mainFrameLayout.layoutParams
 
-    private lateinit var binding: PartnerFragmentBinding
+    private lateinit var binding: StoreFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,13 +44,13 @@ class PartnerFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.partner_fragment,
+            R.layout.store_fragment,
             container,
             false
         )
         binding.fragment = this
         //어둡게 만들기
-        binding.partnerBigImage.setColorFilter(
+        binding.storeBigImage.setColorFilter(
             ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),
             PorterDuff.Mode.SRC_OVER
         )
@@ -72,9 +72,9 @@ class PartnerFragment : Fragment() {
 
     //스크롤되면 헤더 붙이기
     private fun stickyHeader() {
-        binding.partnerTab.bringToFront()
+        binding.storeTab.bringToFront()
         binding.partnerNewScrollView.run {
-            header = binding.partnerTab
+            header = binding.storeTab
             freeHeader()
         }
     }
@@ -82,17 +82,17 @@ class PartnerFragment : Fragment() {
 
     //viewPager setting
     private fun viewPagerSetting() {
-        binding.partnerViewPager2.adapter = PartnerPagerAdapter(
+        binding.storeViewPager2.adapter = StorePagerAdapter(
             getFragmentList(), childFragmentManager,
             lifecycle
         )
-        binding.partnerViewPager2.offscreenPageLimit = 4
+        binding.storeViewPager2.offscreenPageLimit = 4
 
         //애니메이션 삭제
-        binding.partnerTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 tab?.position?.let {
-                    binding.partnerViewPager2.setCurrentItem(it, true)
+                    binding.storeViewPager2.setCurrentItem(it, true)
                 }
             }
 
@@ -101,7 +101,7 @@ class PartnerFragment : Fragment() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let {
-                    binding.partnerViewPager2.setCurrentItem(it, true)
+                    binding.storeViewPager2.setCurrentItem(it, true)
                 }
             }
 
@@ -110,10 +110,10 @@ class PartnerFragment : Fragment() {
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
-        TabLayoutMediator(binding.partnerTab, binding.partnerViewPager2) { tab, position ->
+        TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
         }.attach()
-        binding.partnerViewPager2.registerOnPageChangeCallback(
+        binding.storeViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -127,10 +127,10 @@ class PartnerFragment : Fragment() {
                         basicSetting()
                     }
                     val view =
-                        (binding.partnerViewPager2.adapter as PartnerPagerAdapter).getViewAtPosition(
+                        (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
                         )
-                    updatePagerHeightForChild(view!!, binding.partnerViewPager2)
+                    updatePagerHeightForChild(view!!, binding.storeViewPager2)
                     binding.partnerNewScrollView.scrollTo(0, 0)
                     stickyHeader()
                 }
@@ -158,10 +158,10 @@ class PartnerFragment : Fragment() {
     //viewPager에 들어갈 fragmentList
     private fun getFragmentList(): ArrayList<Fragment> {
         return arrayListOf(
-            PartnerHomeFragment.newInstance(),
-            PartnerMapFragment.newInstance(),
-            PartnerMenuFragment.newInstance(),
-            PartnerReviewFragment.newInstance()
+            StoreHomeFragment.newInstance(),
+            StoreMapFragment.newInstance(),
+            StoreMenuFragment.newInstance(),
+            StoreReviewFragment.newInstance()
         )
     }
 
@@ -170,7 +170,7 @@ class PartnerFragment : Fragment() {
     private fun basicSetting() {
         MainActivity.appbarFrameLayout.background =
             ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
-        binding.partnerImage.visibility = View.VISIBLE
+        binding.storeImage.visibility = View.VISIBLE
         val layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             0
@@ -190,7 +190,7 @@ class PartnerFragment : Fragment() {
 
     //리뷰 페이지 세팅
     private fun reviewSetting() {
-        binding.partnerImage.visibility = View.GONE
+        binding.storeImage.visibility = View.GONE
         MainActivity.mainFrameLayout.layoutParams = initMainFragment
 
     }

@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.partner
+package com.goodchoice.android.ohneulen.ui.store
 
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class PartnerPagerAdapter(
+class StorePagerAdapter(
     private val arrayList: ArrayList<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle

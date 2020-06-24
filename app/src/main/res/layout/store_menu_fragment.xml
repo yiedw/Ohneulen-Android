@@ -6,15 +6,15 @@
 
         <variable
             name="viewModel"
-            type="com.goodchoice.android.ohneulen.ui.partner.PartnerViewModel" />
+            type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/partner_menu_rv"
+        android:id="@+id/store_menu_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         bind:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        bind:partnerMenu="@{viewModel.partnerMenuList}">
+        bind:storeMenu="@{viewModel.storeMenuList}">
 
     </androidx.recyclerview.widget.RecyclerView>
 </layout>

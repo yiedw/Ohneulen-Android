@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.partner
+package com.goodchoice.android.ohneulen.ui.store
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,15 +13,15 @@ import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.PartnerReviewFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreReviewFragmentBinding
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class PartnerReviewFragment : Fragment() {
+class StoreReviewFragment : Fragment() {
     companion object {
-        fun newInstance() = PartnerReviewFragment()
+        fun newInstance() = StoreReviewFragment()
     }
 
-    private lateinit var binding: PartnerReviewFragmentBinding
+    private lateinit var binding: StoreReviewFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,7 +29,7 @@ class PartnerReviewFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.partner_review_fragment,
+            R.layout.store_review_fragment,
             container,
             false
         )
@@ -44,11 +44,11 @@ class PartnerReviewFragment : Fragment() {
     }
 
     fun reviewWriteClick(view:View){
-        replaceMainFragment(PartnerReviewWriteFragment.newInstance())
+        replaceMainFragment(StoreReviewWriteFragment.newInstance())
     }
 
     private fun sampleChartSetting(){
-        val chart = binding.partnerReviewRadarChart
+        val chart = binding.storeReviewRadarChart
         val dataValue1 = ArrayList<RadarEntry>().apply {
             this.add(RadarEntry(2f))
             this.add(RadarEntry(2f))

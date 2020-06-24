@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.partner
+package com.goodchoice.android.ohneulen.ui.store
 
 import android.content.Context
 import android.util.AttributeSet
@@ -9,7 +9,7 @@ import androidx.core.widget.NestedScrollView
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 
-class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {
+class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {
 
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attr: AttributeSet?) : this(context, attr, 0)
@@ -57,7 +57,7 @@ class PartnerScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListe
     }
 
     private fun stickHeader() {
-        if (PartnerFragment.state != 3)
+        if (StoreFragment.state != 3)
             header?.translationY =
                 scrollY.toFloat() + MainActivity.appbarFrameLayout.height - mHeaderInitPosition
         else

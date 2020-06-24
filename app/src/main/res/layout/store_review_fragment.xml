@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.partner.PartnerReviewFragment" />
+            type="com.goodchoice.android.ohneulen.ui.store.StoreReviewFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/partner_review_write"
+            android:id="@+id/store_review_write"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/colorBrownishGrey"
@@ -28,15 +28,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.github.mikephil.charting.charts.RadarChart
-            android:id="@+id/partner_review_radarChart"
+            android:id="@+id/store_review_radarChart"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:background="#fafafa"
-            app:layout_constraintLeft_toLeftOf="@id/partner_review_write"
-            app:layout_constraintTop_toBottomOf="@id/partner_review_write" />
+            app:layout_constraintLeft_toLeftOf="@id/store_review_write"
+            app:layout_constraintTop_toBottomOf="@id/store_review_write" />
 
         <TextView
-            android:id="@+id/partner_review_this"
+            android:id="@+id/store_review_this"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -44,11 +44,11 @@
             android:drawablePadding="10dp"
             android:text="이 업체"
             android:textSize="12sp"
-            app:layout_constraintRight_toLeftOf="@id/partner_review_average"
-            app:layout_constraintTop_toTopOf="@id/partner_review_radarChart" />
+            app:layout_constraintRight_toLeftOf="@id/store_review_average"
+            app:layout_constraintTop_toTopOf="@id/store_review_radarChart" />
 
         <TextView
-            android:id="@+id/partner_review_average"
+            android:id="@+id/store_review_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -56,16 +56,16 @@
             android:drawablePadding="10dp"
             android:text="업체 평균"
             android:textSize="12sp"
-            app:layout_constraintRight_toRightOf="@id/partner_review_radarChart"
-            app:layout_constraintTop_toTopOf="@id/partner_review_radarChart" />
+            app:layout_constraintRight_toRightOf="@id/store_review_radarChart"
+            app:layout_constraintTop_toTopOf="@id/store_review_radarChart" />
 
         <LinearLayout
-            android:id="@+id/partner_review_best"
+            android:id="@+id/store_review_best"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="@id/partner_review_best"
-            app:layout_constraintTop_toBottomOf="@id/partner_review_radarChart">
+            app:layout_constraintLeft_toLeftOf="@id/store_review_best"
+            app:layout_constraintTop_toBottomOf="@id/store_review_radarChart">
 
             <TextView
                 android:layout_width="match_parent"
@@ -79,35 +79,35 @@
                 android:weightSum="10">
 
                 <ImageView
-                    android:id="@+id/partner_review_best_image1"
+                    android:id="@+id/store_review_best_image1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/food_sample4" />
 
                 <ImageView
-                    android:id="@+id/partner_review_best_image2"
+                    android:id="@+id/store_review_best_image2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/food_sample4" />
 
                 <ImageView
-                    android:id="@+id/partner_review_best_image3"
+                    android:id="@+id/store_review_best_image3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/food_sample4" />
 
                 <ImageView
-                    android:id="@+id/partner_review_best_image4"
+                    android:id="@+id/store_review_best_image4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/food_sample4" />
 
                 <ImageView
-                    android:id="@+id/partner_review_best_image5"
+                    android:id="@+id/store_review_best_image5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -127,12 +127,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/partner_review_worst"
+            android:id="@+id/store_review_worst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/partner_review_best">
+            app:layout_constraintTop_toBottomOf="@id/store_review_best">
 
             <TextView
                 android:layout_width="match_parent"
@@ -146,35 +146,35 @@
                 android:weightSum="10">
 
                 <ImageView
-                    android:id="@+id/partner_review_worst_image1"
+                    android:id="@+id/store_review_worst_image1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/food_sample4" />
 
                 <ImageView
-                    android:id="@+id/partner_review_worst_image2"
+                    android:id="@+id/store_review_worst_image2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/food_sample4" />
 
                 <ImageView
-                    android:id="@+id/partner_review_worst_image3"
+                    android:id="@+id/store_review_worst_image3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/food_sample4" />
 
                 <ImageView
-                    android:id="@+id/partner_review_worst_image4"
+                    android:id="@+id/store_review_worst_image4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/food_sample4" />
 
                 <ImageView
-                    android:id="@+id/partner_review_worst_image5"
+                    android:id="@+id/store_review_worst_image5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -194,19 +194,19 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/partner_review_toolbar"
+            android:id="@+id/store_review_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/partner_review_worst"></LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/store_review_worst"></LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/partner_review_rv"
+            android:id="@+id/store_review_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/partner_review_toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/store_review_toolbar" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

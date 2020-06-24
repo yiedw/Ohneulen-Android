@@ -7,11 +7,11 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/partner_home"
+        android:id="@+id/store_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,9 +24,9 @@
             android:text="끝" />
 
         <Button
-            android:text="매장정보신고"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="매장정보신고" />
 
 
     </LinearLayout>

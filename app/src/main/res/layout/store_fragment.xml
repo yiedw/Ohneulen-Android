@@ -7,14 +7,14 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.partner.PartnerFragment" />
+            type="com.goodchoice.android.ohneulen.ui.store.StoreFragment" />
 
         <variable
             name="viewModel"
-            type="com.goodchoice.android.ohneulen.ui.partner.PartnerViewModel" />
+            type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
     </data>
 
-    <com.goodchoice.android.ohneulen.ui.partner.PartnerScrollView
+    <com.goodchoice.android.ohneulen.ui.store.StoreScrollView
         android:id="@+id/partner_newScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,14 +29,14 @@
 
             <!--            사진-->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/partner_image"
+                android:id="@+id/store_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/partner_bigImage"
+                    android:id="@+id/store_bigImage"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:scaleType="fitXY"
@@ -46,51 +46,51 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/partner_image1"
+                    android:id="@+id/store_image1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/food_sample3"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/partner_image2"
-                    app:layout_constraintTop_toBottomOf="@id/partner_bigImage" />
+                    app:layout_constraintRight_toLeftOf="@id/store_image2"
+                    app:layout_constraintTop_toBottomOf="@id/store_bigImage" />
 
                 <ImageView
-                    android:id="@+id/partner_image2"
+                    android:id="@+id/store_image2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/food_sample2"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/partner_image1"
-                    app:layout_constraintRight_toLeftOf="@id/partner_image3"
-                    app:layout_constraintTop_toBottomOf="@id/partner_bigImage" />
+                    app:layout_constraintLeft_toRightOf="@id/store_image1"
+                    app:layout_constraintRight_toLeftOf="@id/store_image3"
+                    app:layout_constraintTop_toBottomOf="@id/store_bigImage" />
 
                 <ImageView
-                    android:id="@+id/partner_image3"
+                    android:id="@+id/store_image3"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/food_sample4"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/partner_image2"
+                    app:layout_constraintLeft_toRightOf="@id/store_image2"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/partner_bigImage" />
+                    app:layout_constraintTop_toBottomOf="@id/store_bigImage" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/partner_detail"
+                android:id="@+id/store_detail"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginHorizontal="50dp"
                 android:background="@color/colorWhite90"
-                app:layout_constraintBottom_toTopOf="@id/partner_tab"
+                app:layout_constraintBottom_toTopOf="@id/store_tab"
                 app:layout_constraintLeft_toLeftOf="parent">
 
                 <TextView
-                    android:id="@+id/partner_detail_name"
+                    android:id="@+id/store_detail_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="카 페"
@@ -106,30 +106,30 @@
                     android:textAlignment="center"
                     android:textSize="12sp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/partner_detail_name" />
+                    app:layout_constraintTop_toBottomOf="@id/store_detail_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/partner_tab"
+                android:id="@+id/store_tab"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/colorWhite"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/partner_image"
+                app:layout_constraintTop_toBottomOf="@id/store_image"
                 app:tabGravity="fill">
 
             </com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/partner_viewPager2"
+                android:id="@+id/store_viewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/partner_tab" />
+                app:layout_constraintTop_toBottomOf="@id/store_tab" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.goodchoice.android.ohneulen.ui.partner.PartnerScrollView>
+    </com.goodchoice.android.ohneulen.ui.store.StoreScrollView>
 </layout>

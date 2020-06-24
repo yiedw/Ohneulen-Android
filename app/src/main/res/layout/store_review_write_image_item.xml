@@ -5,7 +5,7 @@
 
     </data>
     <ImageView
-        android:id="@+id/partner_review_write_image"
+        android:id="@+id/store_review_write_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -3,8 +3,8 @@ package com.goodchoice.android.ohneulen.extension
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.model.Store
-import com.goodchoice.android.ohneulen.model.PartnerMenu
-import com.goodchoice.android.ohneulen.ui.partner.PartnerMenuAdapter
+import com.goodchoice.android.ohneulen.model.StoreMenu
+import com.goodchoice.android.ohneulen.ui.store.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchPartnerAdapter
 import com.goodchoice.android.ohneulen.util.ConstList
@@ -23,9 +23,9 @@ fun setStoreAdapter(recyclerView: RecyclerView, adapter: SearchPartnerAdapter?) 
     recyclerView.adapter = adapter
 }
 
-@BindingAdapter("partnerMenu")
-fun setPartnerMenu(recyclerView: RecyclerView, items: List<PartnerMenu>?) {
-    recyclerView.adapter = PartnerMenuAdapter().apply {
+@BindingAdapter("storeMenu")
+fun setPartnerMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
+    recyclerView.adapter = StoreMenuAdapter().apply {
         itemList = items ?: emptyList()
         notifyDataSetChanged()
     }
