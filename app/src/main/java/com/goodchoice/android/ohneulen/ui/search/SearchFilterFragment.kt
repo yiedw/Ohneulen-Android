@@ -63,15 +63,32 @@ class SearchFilterFragment : Fragment() {
 
         //서브카테고리 클릭시 데이터 쌓기+ View 생성
         var observerCheck = false
+        val filterViewHashMap=HashMap<String,View>()
         searchViewModel.subCategoryPosition.observe(viewLifecycleOwner,
             Observer {
                 if (observerCheck) {
                     val filterName = searchViewModel.subCategory.value!![it].minorName
-                    Timber.e(filterName)
-                    val layoutInflater = this.layoutInflater
-                    val view = layoutInflater.inflate(R.layout.filter_selecter, null)
-                    view.findViewById<TextView>(R.id.filter_select_title).text = filterName
-                    binding.searchFilterSelect.addView(view)
+                    val filterCode = searchViewModel.subCategory.value!![it].minorCode
+
+                    if(filterViewHashMap[filterCode]==null) {
+                        Timber.e(filterViewHashMap[filterCode].toString())
+                        val layoutInflater = this.layoutInflater
+                        val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
+                        selectView.findViewById<TextView>(R.id.filter_select_title).text =
+                            filterName
+
+                        //뷰 클릭시 삭제
+                        selectView.setOnClickListener {
+                            filterViewHashMap.remove(filterCode)
+                            binding.searchFilterSelect.removeView(selectView)
+                        }
+                        binding.searchFilterSelect.addView(selectView)
+                        filterViewHashMap[filterCode]=selectView
+                    }
+                    else{
+                        Timber.e(filterViewHashMap[filterCode].toString())
+                        binding.searchFilterSelect.removeView(filterViewHashMap[filterCode])
+                    }
                 }
                 observerCheck = true
             })
