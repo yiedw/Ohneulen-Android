@@ -3,7 +3,6 @@ package com.goodchoice.android.ohneulen.ui.login
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.ui.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch

@@ -12,7 +12,7 @@
         android:id="@+id/appbar_frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorTransparent"
+        android:background="@color/colorWhite"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.05"
         app:layout_constraintLeft_toLeftOf="parent"

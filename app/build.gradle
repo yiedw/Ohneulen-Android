@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'koin'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -100,5 +101,6 @@ dependencies {
 
     //firebase
     implementation 'com.google.firebase:firebase-analytics:17.4.3'
+    implementation "com.google.firebase:firebase-messaging:20.2.1"
 
 }

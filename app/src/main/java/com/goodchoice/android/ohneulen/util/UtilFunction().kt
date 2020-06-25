@@ -11,6 +11,11 @@ import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import timber.log.Timber
 import java.security.MessageDigest
 
@@ -27,7 +32,7 @@ fun getAppKeyHash(context: Context) {
             val md: MessageDigest = MessageDigest.getInstance("SHA")
             md.update(signature.toByteArray())
             val something = String(Base64.encode(md.digest(), 0))
-            Timber.e(something)
+            Timber.e("kakao : " + something)
         }
     } catch (e: Exception) {
         Timber.e(e.toString())
@@ -96,6 +101,25 @@ fun Int.dp(): Int {
     val metrics = App.resources.displayMetrics
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), metrics)
         .toInt()
+}
+
+fun fcmToken(context: Context) {
+//    FirebaseApp.initializeApp(context)
+    FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { task ->
+        Timber.e("fcmToken : "+task.token)
+    }
+
+    //푸시알람 받기
+    FirebaseInstanceId.getInstance().instanceId
+        .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult> {
+            override fun onComplete(task: Task<InstanceIdResult>) {
+                if (!task.isSuccessful) {
+                    Timber.e("getInstanceId failed : ${task.exception}")
+                    return
+                }
+            }
+
+        })
 }
 
 

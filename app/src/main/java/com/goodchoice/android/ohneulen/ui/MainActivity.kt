@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -14,7 +15,9 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.coroutines.delay
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         var searchMapView=MutableLiveData<Boolean>(true)
     }
 
-    private val mainViewModel: MainViewModel by viewModel()
+    private val initData:InitData by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +45,8 @@ class MainActivity : AppCompatActivity() {
             replaceMainFragment(HomeFragment.newInstance())
 
         }
-        mainViewModel.a()
 
+        //데이터 받아오기
+        initData
     }
 }

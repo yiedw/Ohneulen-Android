@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.goodchoice.android.ohneulen.model.StoreMenu
-import com.goodchoice.android.ohneulen.model.getStoreMenu
+import com.goodchoice.android.ohneulen.data.model.StoreMenu
+import com.goodchoice.android.ohneulen.data.model.getStoreMenu
 import kotlinx.coroutines.Dispatchers
 
 class StoreViewModel : ViewModel() {

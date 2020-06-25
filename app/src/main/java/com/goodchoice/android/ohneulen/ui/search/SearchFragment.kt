@@ -12,12 +12,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -31,6 +33,7 @@ class SearchFragment : Fragment() {
     private lateinit var binding: SearchFragmentBinding
     private val searchViewModel: SearchViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
+    private val initData:InitData by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +49,6 @@ class SearchFragment : Fragment() {
             )
         //mvm 을 이용해서 데이터 받아오기
         searchViewModel.searchEditText = mainViewModel.searchEditText
-        Timber.e(searchViewModel.toString())
 
         //검색어기반
         if (searchViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
@@ -73,7 +75,9 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         //맵 (삭제, 추가)
+
         var searchMapFragment = SearchMapFragment()
         MainActivity.searchMapView.observe(viewLifecycleOwner,
             Observer {
@@ -126,7 +130,7 @@ class SearchFragment : Fragment() {
     }
 
     fun filterClick(view: View) {
-        addAppbarFragment(SearchFilterAppbarFragment.newInstance(), true)
+        replaceAppbarFragment(SearchFilterAppbarFragment.newInstance())
         addMainFragment(SearchFilterFragment.newInstance(), true)
     }
 

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="store"
-            type="com.goodchoice.android.ohneulen.model.Store" />
+            type="com.goodchoice.android.ohneulen.data.model.Store" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

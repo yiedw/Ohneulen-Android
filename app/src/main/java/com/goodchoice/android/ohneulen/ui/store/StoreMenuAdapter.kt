@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMenuItemBinding
-import com.goodchoice.android.ohneulen.model.StoreMenu
+import com.goodchoice.android.ohneulen.data.model.StoreMenu
 
 class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHolder>() {
     var itemList = listOf<StoreMenu>()
@@ -17,7 +17,6 @@ class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHold
         RecyclerView.ViewHolder(binding.root){
         fun bind(item: StoreMenu){
             binding.apply {
-               storeMenu=item
                 executePendingBindings()
             }
         }

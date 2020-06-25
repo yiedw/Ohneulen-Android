@@ -12,8 +12,8 @@ val viewModelModule = module {
     viewModel { HomeViewModel() }
     viewModel { LoginViewModel(get()) }
     viewModel { StoreViewModel() }
-    single { SearchViewModel(get()) }
+    single { SearchViewModel(get(),get()) }
     single {
-        MainViewModel(get())
+        MainViewModel()
     }
 }

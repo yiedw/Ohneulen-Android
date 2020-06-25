@@ -35,7 +35,8 @@ class SearchFilterAppbarFragment :Fragment(){
     }
 
     fun closeOnClick(view:View){
-        MainActivity.supportFragmentManager.popBackStack()
+//        MainActivity.supportFragmentManager.popBackStack()
+        replaceAppbarFragment(SearchAppBarFragment.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
     }
 

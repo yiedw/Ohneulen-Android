@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.model
+package com.goodchoice.android.ohneulen.data.model
 
 data class StoreMenu(
     val seq:String,

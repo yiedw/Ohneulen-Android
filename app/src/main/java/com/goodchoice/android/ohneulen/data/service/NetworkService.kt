@@ -1,6 +1,5 @@
 package com.goodchoice.android.ohneulen.data.service
 
-import androidx.lifecycle.MutableLiveData
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.remote.KakaoAddressResponse

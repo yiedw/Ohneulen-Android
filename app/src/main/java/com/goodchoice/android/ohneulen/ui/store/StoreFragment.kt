@@ -179,7 +179,7 @@ class StoreFragment : Fragment() {
         layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
         MainActivity.mainFrameLayout.layoutParams = layoutParams
-        binding.partnerNewScrollView.setOnTouchListener { v, event -> false }
+//        binding.partnerNewScrollView.setOnTouchListener { v, event -> false }
     }
 
     private fun scrollBlock() {

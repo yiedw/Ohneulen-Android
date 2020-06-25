@@ -6,7 +6,7 @@
 
         <variable
             name="storeMenu"
-            type="com.goodchoice.android.ohneulen.model.StoreMenu" />
+            type="com.goodchoice.android.ohneulen.data.model.StoreMenu" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
