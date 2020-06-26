@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.extension
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
@@ -29,7 +30,7 @@ fun setFilterAdapter(recyclerView: RecyclerView,adapter:SearchFilterAdapter){
 }
 
 @BindingAdapter("categoryList")
-fun setMainCategory(recyclerView: RecyclerView, items: MutableList<OhneulenData>) {
+fun setCategory(recyclerView: RecyclerView, items: MutableList<Category>) {
     recyclerView.adapter = (recyclerView.adapter as SearchFilterAdapter).apply {
         itemList = items
         notifyDataSetChanged()

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
 import com.goodchoice.android.ohneulen.util.ConstList
@@ -14,27 +15,35 @@ class SearchFilterAdapter(private val categoryKind: Int) :
     RecyclerView.Adapter<SearchFilterAdapter.SearchFilterViewHolder>() {
 
     lateinit var searchViewModel: SearchViewModel
-    var itemList = mutableListOf<OhneulenData>()
+    var itemList = mutableListOf<Category>()
 
     inner class SearchFilterViewHolder(private val binding: SearchFilterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) {
+        fun mainFilterBind(item: String) {
             binding.apply {
                 binding.filterCategory.text = item
                 binding.root.setOnClickListener {
-                    if (categoryKind == ConstList.MAIN_CATEGORY) {
-//                        App.categorySwitch.postValue(adapterPosition)
-                        searchViewModel.mainCategoryPosition.postValue(adapterPosition)
-                    } else {
-                        if (binding.filterCheck.visibility == View.VISIBLE) {
-                            binding.filterCheck.visibility = View.GONE
-                        } else {
-                            binding.filterCheck.visibility = View.VISIBLE
-                        }
-                        searchViewModel.subCategoryPosition.postValue(adapterPosition)
-                    }
+                    searchViewModel.mainCategoryPosition.postValue(adapterPosition)
+                    searchViewModel.subCategoryPosition = 0
                 }
                 executePendingBindings()
+            }
+        }
+
+        fun subFilterBind(item: String, check: Boolean) {
+            binding.apply {
+                binding.filterCategory.text = item
+                if (check)
+                    binding.filterCheck.visibility = View.VISIBLE
+                else
+                    binding.filterCheck.visibility = View.GONE
+                binding.root.setOnClickListener {
+                    searchViewModel.subCategoryPosition = adapterPosition
+                    val tempCategoryList = searchViewModel.categoryList.value
+                    tempCategoryList!![searchViewModel.mainCategoryPosition.value!!].subCategoryList[searchViewModel.subCategoryPosition].check =
+                        !check
+                    searchViewModel.categoryList.postValue(tempCategoryList)
+                }
             }
         }
     }
@@ -54,6 +63,9 @@ class SearchFilterAdapter(private val categoryKind: Int) :
 
 
     override fun onBindViewHolder(holder: SearchFilterViewHolder, position: Int) {
-        holder.bind(itemList[position].minorName)
+        if (categoryKind == ConstList.MAIN_CATEGORY)
+            holder.mainFilterBind(itemList[position].minorName)
+        else
+            holder.subFilterBind(itemList[position].minorName, itemList[position].check)
     }
 }

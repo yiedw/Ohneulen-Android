@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.search
 
 import androidx.lifecycle.*
+import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.data.model.Store
@@ -28,27 +29,45 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     val mainCategoryAdapter = SearchFilterAdapter(ConstList.MAIN_CATEGORY)
     val subCategoryAdapter = SearchFilterAdapter(ConstList.SUB_CATEGORY)
     var mainCategoryPosition = MutableLiveData<Int>(0)
-    var subCategoryPosition=MutableLiveData<Int>(0)
-    val categoryList = initData.categoryList
+    var subCategoryPosition = 0
+    val categoryList = MutableLiveData(initData.categoryList)
 
 
     val mainCategory = mainCategoryInit()
-    var subCategory = MutableLiveData(categoryList[0].subCategoryList)
 
-    private fun mainCategoryInit(): MutableList<OhneulenData> {
+        var subCategory = MutableLiveData(categoryList.value!![0].subCategoryList)
+//    var subCategory = MutableLiveData(subCategoryInit())
 
-        val temp = mutableListOf<OhneulenData>()
-        for (i in categoryList.indices) {
+    private fun mainCategoryInit(): MutableList<Category> {
+        val temp = mutableListOf<Category>()
+        for (i in categoryList.value!!.indices) {
             temp.add(
-                OhneulenData(
-                    categoryList[i].majorCode,
-                    categoryList[i].minorCode,
-                    categoryList[i].minorName
+                Category(
+                    categoryList.value!![i].majorCode,
+                    categoryList.value!![i].minorCode,
+                    categoryList.value!![i].minorName,
+                    false
                 )
             )
         }
         return temp
     }
+
+//    private fun subCategoryInit(): MutableList<Category> {
+//        val temp = mutableListOf<Category>()
+//        for (i in categoryList[0].subCategoryList.indices) {
+//            temp.add(
+//                Category(
+//                    categoryList[0].subCategoryList[i].majorCode,
+//                    categoryList[0].subCategoryList[i].minorCode,
+//                    categoryList[0].subCategoryList[i].minorName,
+//                    false
+//                )
+//            )
+//        }
+//        return temp
+//    }
+
 
     fun searchMapData() {
         GlobalScope.launch(Dispatchers.IO) {
