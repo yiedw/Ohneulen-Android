@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.view.View
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
@@ -32,10 +33,14 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var subCategoryPosition = 0
     val categoryList = MutableLiveData(initData.categoryList)
 
+    var filterViewHashMap = HashMap<String, View>()
+    var filterMainPositionHashMap = HashMap<String, Int>()
+    var filterSubPositionHashMap = HashMap<String, Int>()
+
 
     val mainCategory = mainCategoryInit()
 
-        var subCategory = MutableLiveData(categoryList.value!![0].subCategoryList)
+    var subCategory = MutableLiveData(categoryList.value!![0].subCategoryList)
 //    var subCategory = MutableLiveData(subCategoryInit())
 
     private fun mainCategoryInit(): MutableList<Category> {

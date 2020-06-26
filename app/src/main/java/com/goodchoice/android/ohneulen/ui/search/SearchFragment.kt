@@ -33,7 +33,6 @@ class SearchFragment : Fragment() {
     private lateinit var binding: SearchFragmentBinding
     private val searchViewModel: SearchViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
-    private val initData:InitData by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
