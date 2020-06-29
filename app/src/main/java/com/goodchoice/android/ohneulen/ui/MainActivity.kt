@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        //데이터 받아오기
+        //초기 데이터 받아오기
         initData
     }
 }

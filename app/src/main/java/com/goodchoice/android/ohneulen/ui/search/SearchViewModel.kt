@@ -38,6 +38,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var filterSubPositionHashMap = HashMap<String, Int>()
 
 
+
     val mainCategory = mainCategoryInit()
 
     var subCategory = MutableLiveData(categoryList.value!![0].subCategoryList)

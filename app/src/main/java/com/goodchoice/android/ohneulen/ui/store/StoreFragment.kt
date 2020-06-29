@@ -92,7 +92,7 @@ class StoreFragment : Fragment() {
         binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 tab?.position?.let {
-                    binding.storeViewPager2.setCurrentItem(it, true)
+                    binding.storeViewPager2.setCurrentItem(it, false)
                 }
             }
 
@@ -101,7 +101,7 @@ class StoreFragment : Fragment() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let {
-                    binding.storeViewPager2.setCurrentItem(it, true)
+                    binding.storeViewPager2.setCurrentItem(it, false)
                 }
             }
 

@@ -1,7 +1,10 @@
 package com.goodchoice.android.ohneulen.extension
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.model.Store
@@ -51,6 +54,16 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
         itemList = items ?: emptyList()
         notifyDataSetChanged()
     }
+}
+
+@BindingAdapter("imageView")
+fun setImageView(imageView:ImageView,imageUrl:String){
+    Glide.with(imageView.context)
+        .load(imageUrl)
+        .override(imageView.width,imageView.height)
+        .centerCrop()
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .into(imageView)
 }
 
 

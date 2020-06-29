@@ -10,6 +10,7 @@ data class Store(
     val addressRoad: String,
     val addressXY: String,
     val status: String,
+    val imageUrl:String,
     val pointTotal: String = "0",
     val point_1: String = "0",
     val point_2: String = "0",
@@ -29,7 +30,8 @@ fun getStore(): MutableList<Store> {
                 "백반",
                 "한식$i",
                 "백반집$i",
-                "주소", "도로명", "3,4", "open"
+                "주소", "도로명", "3,4", "open",
+                "https://upload.wikimedia.org/wikipedia/commons/d/da/00_210_Bw_Angerbr%C3%BCcke%2C_ET_5084.jpg"
             )
         )
     }
