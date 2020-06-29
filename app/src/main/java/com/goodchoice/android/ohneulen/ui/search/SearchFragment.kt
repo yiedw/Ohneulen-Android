@@ -76,6 +76,7 @@ class SearchFragment : Fragment() {
 
 
         //맵 (삭제, 추가)
+
         var searchMapFragment = SearchMapFragment()
         MainActivity.searchMapView.observe(viewLifecycleOwner,
             Observer {

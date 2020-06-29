@@ -16,8 +16,5 @@ class MainViewModel() : ViewModel() {
     // home -> search 로 data 이동
     var searchEditText = ""
 
-    //search -> store 넘어갈때 맵뷰 잠시 없애기
-    var searchMapView=MutableLiveData(true)
-
 
 }

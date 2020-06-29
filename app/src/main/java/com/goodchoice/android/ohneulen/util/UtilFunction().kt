@@ -91,15 +91,13 @@ fun addAppbarFragment(
 }
 
 
-//px to dp
-fun Int.dp(): Int {
+fun Int.px(): Int {
     val metrics = App.resources.displayMetrics
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this.toFloat(), metrics)
         .toInt()
 }
 
-//dp to px
-fun Int.px(): Int {
+fun Int.dp(): Int {
     val metrics = App.resources.displayMetrics
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), metrics)
         .toInt()
