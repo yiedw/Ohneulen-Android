@@ -5,7 +5,7 @@ data class StoreMenu(
     val shopSeq:String,
     val title:String,
     val price:String,
-    val description:String,
+    val contents:String,
     val status:String
 )
 
@@ -13,7 +13,7 @@ fun getStoreMenu():MutableList<StoreMenu>{
     val sampleStoreMenuList= mutableListOf<StoreMenu>()
     for(i in 0..10){
         sampleStoreMenuList.add(
-            StoreMenu("i","shop$i","아메리카노","3000원","어쩌구저쩌구","판매중")
+            StoreMenu("i","shop$i", "아메리카노$i","3000원","어쩌구저쩌구","판매중")
         )
     }
     return sampleStoreMenuList

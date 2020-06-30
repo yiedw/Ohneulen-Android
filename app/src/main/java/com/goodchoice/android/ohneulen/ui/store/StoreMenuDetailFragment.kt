@@ -15,10 +15,10 @@ import com.goodchoice.android.ohneulen.databinding.StoreMenuDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class StoreMenuDetailFragment : Fragment() {
+class StoreMenuDetailFragment(var index:Int) : Fragment() {
 
     companion object {
-        fun newInstance() = StoreMenuDetailFragment()
+        fun newInstance(index:Int) = StoreMenuDetailFragment(index)
     }
 
     private lateinit var binding: StoreMenuDetailBinding
@@ -29,6 +29,7 @@ class StoreMenuDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        storeViewModel.index=index
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.store_menu_detail,

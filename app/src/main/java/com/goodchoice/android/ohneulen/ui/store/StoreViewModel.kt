@@ -25,5 +25,8 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
         emit(getPhoto())
     }
 
+    //menuDetail 클릭했을때 클릭한 곳으로 이동
+    var index:Int=0
+
 
 }

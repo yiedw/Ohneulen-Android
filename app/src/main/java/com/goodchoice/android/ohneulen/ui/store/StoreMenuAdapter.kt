@@ -24,7 +24,7 @@ class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHold
                 storeMenu=item
                 storeMenuItem.setOnClickListener {
                     MainActivity.appbarFrameLayout.visibility= View.INVISIBLE
-                    addMainFragment(StoreMenuDetailFragment.newInstance(),true)
+                    addMainFragment(StoreMenuDetailFragment.newInstance(adapterPosition),true)
                 }
                 executePendingBindings()
             }

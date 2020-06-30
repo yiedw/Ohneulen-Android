@@ -58,11 +58,12 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
     }
 }
 
-@BindingAdapter("storeMenuDetailAdapter")
-fun setStoreMenuDetailAdapter(recyclerView: RecyclerView, adapter: StoreMenuDetailAdapter) {
+@BindingAdapter("storeMenuDetailAdapter","storeMenuDetailIndex")
+fun setStoreMenuDetailAdapter(recyclerView: RecyclerView, adapter: StoreMenuDetailAdapter,index:Int) {
     recyclerView.adapter = adapter
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
+    linearLayoutManager.scrollToPosition(index)
     recyclerView.layoutManager = linearLayoutManager
     //viewpager 처럼 딱딱 끊어지게
     val snapHelper=PagerSnapHelper()
