@@ -122,7 +122,7 @@ class StoreFragment : Fragment() {
                         reviewSetting()
                     } else if (position == 1) {
                         basicSetting()
-                        scrollBlock()
+//                        scrollBlock()
                     } else {
                         basicSetting()
                     }
@@ -171,6 +171,7 @@ class StoreFragment : Fragment() {
         MainActivity.appbarFrameLayout.background =
             ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
         binding.storeImage.visibility = View.VISIBLE
+        //mainfragment 를 화면 맨위에 딱 붙이게 하기위한 작업
         val layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             0
@@ -179,14 +180,21 @@ class StoreFragment : Fragment() {
         layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
         MainActivity.mainFrameLayout.layoutParams = layoutParams
-//        binding.partnerNewScrollView.setOnTouchListener { v, event -> false }
     }
 
-    private fun scrollBlock() {
-        binding.partnerNewScrollView.setOnTouchListener { v, event ->
-            true
-        }
-    }
+//    private fun mapSetting(){
+//        MainActivity.appbarFrameLayout.background =
+//            ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
+//        binding.storeImage.visibility = View.VISIBLE
+//        val layoutParams = ConstraintLayout.LayoutParams(
+//            ConstraintLayout.LayoutParams.MATCH_PARENT,
+//            0
+//        )
+//        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+//        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+//        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+//        MainActivity.mainFrameLayout.layoutParams = layoutParams
+//    }
 
     //리뷰 페이지 세팅
     private fun reviewSetting() {
