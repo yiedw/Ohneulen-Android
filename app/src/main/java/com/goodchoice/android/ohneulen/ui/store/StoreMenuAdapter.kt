@@ -1,12 +1,16 @@
 package com.goodchoice.android.ohneulen.ui.store
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMenuItemBinding
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
 class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHolder>() {
     var itemList = listOf<StoreMenu>()
@@ -17,6 +21,11 @@ class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHold
         RecyclerView.ViewHolder(binding.root){
         fun bind(item: StoreMenu){
             binding.apply {
+                storeMenu=item
+                storeMenuItem.setOnClickListener {
+                    MainActivity.appbarFrameLayout.visibility= View.INVISIBLE
+                    addMainFragment(StoreMenuDetailFragment.newInstance(),true)
+                }
                 executePendingBindings()
             }
         }
@@ -28,7 +37,6 @@ class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHold
             R.layout.store_menu_item,
             parent,
             false
-
         ).let {
             StoreMenuViewHolder(it)
         }

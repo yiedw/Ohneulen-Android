@@ -15,7 +15,7 @@ class InitData(private val networkService: NetworkService) {
 
     private val memId = "aaa@aa.com"
     private val memPw = "qwer1234"
-    var categoryList= mutableListOf<MainCategory>()
+    var categoryList = mutableListOf<MainCategory>()
 
     init {
         loginTest()
@@ -23,7 +23,7 @@ class InitData(private val networkService: NetworkService) {
 
     private fun loginTest() {
         CoroutineScope(Dispatchers.IO).launch {
-            val loginResponse = networkService.requestLogin(
+            networkService.requestLogin(
                 memId.toRequestBody(), memPw.toRequestBody()
             )
             getCategory()
