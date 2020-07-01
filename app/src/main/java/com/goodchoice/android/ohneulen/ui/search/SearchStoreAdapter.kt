@@ -13,6 +13,7 @@ import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import kotlinx.coroutines.CoroutineScope
 import timber.log.Timber
 
 
@@ -28,7 +29,6 @@ class SearchStoreAdapter :
                 store = item
                 executePendingBindings()
                 root.setOnClickListener {
-                    Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
                     addMainFragment(StoreFragment.newInstance(), true)
                     addAppbarFragment(StoreAppBarFragment.newInstance(), true)
                 }

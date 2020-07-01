@@ -44,13 +44,16 @@ class StoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.store_fragment,
             container,
             false
         )
+        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
         binding.fragment = this
+        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
         //어둡게 만들기
         binding.storeBigImage.setColorFilter(
             ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),
@@ -64,6 +67,7 @@ class StoreFragment : Fragment() {
         basicSetting()
         viewPagerSetting()
         stickyHeader()
+        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
     }
 
     override fun onResume() {

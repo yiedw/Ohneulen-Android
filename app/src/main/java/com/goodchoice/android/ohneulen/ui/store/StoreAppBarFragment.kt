@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.store
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
+import timber.log.Timber
 
 class StoreAppBarFragment : Fragment() {
 
@@ -35,6 +37,7 @@ class StoreAppBarFragment : Fragment() {
             false
         )
         binding.fragment = this
+
         return binding.root
     }
 

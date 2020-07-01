@@ -15,6 +15,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -76,21 +77,9 @@ class SearchFragment : Fragment() {
 
 
         //맵 (삭제, 추가)
-
-        var searchMapFragment = SearchMapFragment.newInstance()
+        val searchMapFragment = SearchMapFragment.newInstance()
         childFragmentManager.beginTransaction()
             .replace(R.id.search_map, searchMapFragment).commit()
-//        MainActivity.searchMapView.observe(viewLifecycleOwner,
-//            Observer {
-//                if (it) {
-//                    CoroutineScope(Dispatchers.Main).launch {
-//                        searchMapFragment = SearchMapFragment.newInstance()
-//                    }
-//                } else {
-//                    childFragmentManager.beginTransaction()
-//                        .remove(searchMapFragment).commit()
-//                }
-//            })
 
 
         //검색어 없을시 토스트 띄우기
