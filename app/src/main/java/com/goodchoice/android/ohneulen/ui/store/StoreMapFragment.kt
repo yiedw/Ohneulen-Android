@@ -14,11 +14,15 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMapFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.OnMapReadyCallback
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class StoreMapFragment : Fragment() {
+class StoreMapFragment : Fragment() ,OnMapReadyCallback{
 
     private lateinit var binding: StoreMapFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
@@ -40,11 +44,9 @@ class StoreMapFragment : Fragment() {
             container,
             false
         )
-        val x = storeViewModel.storeInfo[0].addressX
-        val y = storeViewModel.storeInfo[0].addressY
         mapView = binding.storeMapView
+        mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
-
         return binding.root
     }
 
@@ -86,6 +88,14 @@ class StoreMapFragment : Fragment() {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+    }
+
+    override fun onMapReady(naverMap: NaverMap) {
+        val x = storeViewModel.storeInfo[0].addressX
+        val y = storeViewModel.storeInfo[0].addressY
+        val cameraUpdate=CameraUpdate.scrollTo(LatLng(x,y))
+        Timber.e(x.toString()+","+y)
+        naverMap.moveCamera(cameraUpdate)
     }
 
 }
