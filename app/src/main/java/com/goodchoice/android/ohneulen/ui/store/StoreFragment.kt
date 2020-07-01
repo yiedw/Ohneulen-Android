@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class StoreFragment : Fragment() {
@@ -37,23 +38,22 @@ class StoreFragment : Fragment() {
         MainActivity.mainFrameLayout.layoutParams
 
     private lateinit var binding: StoreFragmentBinding
+    private val storeViewModel:StoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.store_fragment,
             container,
             false
         )
-        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
         binding.fragment = this
-        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
+        binding.viewModel=storeViewModel
+        binding
         //어둡게 만들기
         binding.storeBigImage.setColorFilter(
             ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),
@@ -67,12 +67,12 @@ class StoreFragment : Fragment() {
         basicSetting()
         viewPagerSetting()
         stickyHeader()
-        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
+        Timber.e(SystemClock.currentThreadTimeMillis().toString())
+
     }
 
     override fun onResume() {
         super.onResume()
-        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
     }
 
 

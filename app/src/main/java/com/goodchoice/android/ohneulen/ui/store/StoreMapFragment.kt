@@ -10,6 +10,7 @@ import androidx.core.view.children
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMapFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
