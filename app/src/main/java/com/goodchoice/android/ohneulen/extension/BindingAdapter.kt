@@ -52,7 +52,6 @@ fun setSearchViewModel(recyclerView: RecyclerView, viewModel: SearchViewModel) {
 @BindingAdapter("storeMenu")
 fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
     recyclerView.adapter = StoreMenuAdapter().apply {
-        Timber.e("asdfsdaf" + items.toString())
         itemList = items ?: emptyList()
         notifyDataSetChanged()
     }

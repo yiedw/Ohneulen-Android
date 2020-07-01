@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -12,6 +13,7 @@ import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import timber.log.Timber
 
 
 class SearchStoreAdapter :
@@ -26,6 +28,7 @@ class SearchStoreAdapter :
                 store = item
                 executePendingBindings()
                 root.setOnClickListener {
+                    Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
                     MainActivity.searchMapView.postValue(false)
                     addAppbarFragment(StoreAppBarFragment.newInstance(), true)
                     addMainFragment(StoreFragment.newInstance(), true)

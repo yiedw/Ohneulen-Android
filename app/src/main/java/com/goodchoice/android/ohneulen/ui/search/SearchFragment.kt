@@ -77,12 +77,12 @@ class SearchFragment : Fragment() {
 
         //맵 (삭제, 추가)
 
-        var searchMapFragment = SearchMapFragment()
+        var searchMapFragment = SearchMapFragment.newInstance()
         MainActivity.searchMapView.observe(viewLifecycleOwner,
             Observer {
                 if (it) {
                     CoroutineScope(Dispatchers.Main).launch {
-                        searchMapFragment = SearchMapFragment()
+                        searchMapFragment = SearchMapFragment.newInstance()
                         childFragmentManager.beginTransaction()
                             .replace(R.id.search_map, searchMapFragment).commit()
                     }

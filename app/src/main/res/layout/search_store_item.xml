@@ -45,7 +45,7 @@
             android:id="@+id/search_partner_item_rating"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{store.pointTotal}"
+            android:text="3"
             app:layout_constraintBottom_toTopOf="@id/search_partner_item_businessTime"
             app:layout_constraintLeft_toRightOf="@id/search_partner_item_image"
             app:layout_constraintTop_toBottomOf="@id/search_partner_item_name" />

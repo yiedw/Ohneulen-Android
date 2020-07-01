@@ -42,7 +42,6 @@ class StoreAppBarFragment : Fragment() {
     fun backClick(view: View) {
         MainActivity.supportFragmentManager.popBackStack()
         MainActivity.supportFragmentManager.popBackStack()
-//        MainActivity.searchMapView.postValue(true)
         MainActivity.mainFrameLayout.layoutParams=initMainFragment
     }
 

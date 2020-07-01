@@ -8,16 +8,10 @@ data class Store(
     val storeName: String,
     val addressOld: String,
     val addressRoad: String,
-    val addressXY: String,
-    val status: String,
-    val pointTotal: String = "0",
-    val point_1: String = "0",
-    val point_2: String = "0",
-    val point_3: String = "0",
-    val point_4: String = "0",
-    val point_5: String = "0",
-    val point_6: String = "0",
-    val point_7: String = "0"
+    val addressX: Double,
+    val addressY: Double,
+    val status: String
+
 )
 
 fun getStore(): MutableList<Store> {
@@ -29,7 +23,7 @@ fun getStore(): MutableList<Store> {
                 "백반",
                 "한식$i",
                 "백반집$i",
-                "주소", "도로명", "3,4", "open"
+                "주소", "도로명", 37.499417, 127.0250764,"open"
             )
         )
     }

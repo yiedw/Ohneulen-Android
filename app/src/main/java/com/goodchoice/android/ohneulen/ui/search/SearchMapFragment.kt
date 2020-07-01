@@ -55,7 +55,8 @@ class SearchMapFragment : Fragment() {
         )
         mapView.setZoomLevel(2, false)
         mapViewContainer = binding.searchMapMapView
-        mapViewContainer.addView(mapView)
+        addMapView()
+//        mapViewContainer.addView(mapView)
         return binding.root
 
     }
@@ -69,12 +70,6 @@ class SearchMapFragment : Fragment() {
         //맵 포인트가 바뀌면 바로 반영
         searchViewModel.kakaoMapPoint.observe(
             viewLifecycleOwner, Observer { t ->
-                Timber.e(
-                    TedPermission.isGranted(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ).toString()
-                )
                 if (TedPermission.isGranted(
                         requireContext(),
                         Manifest.permission.ACCESS_FINE_LOCATION
@@ -120,5 +115,26 @@ class SearchMapFragment : Fragment() {
                     MapView.CurrentLocationTrackingMode.TrackingModeOff
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        Timber.e("onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+//        Timber.e("onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+//        Timber.e("onStop")
+    }
+    fun deleteMapView(){
+        binding.searchMapMapView.removeView(mapView)
+    }
+    fun addMapView(){
+        binding.searchMapMapView.addView(mapView)
     }
 }

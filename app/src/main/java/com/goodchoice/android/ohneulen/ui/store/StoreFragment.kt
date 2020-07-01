@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.store
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -64,10 +66,14 @@ class StoreFragment : Fragment() {
         stickyHeader()
     }
 
-    override fun onStop() {
-        super.onStop()
-        MainActivity.searchMapView.postValue(true)
+    override fun onResume() {
+        super.onResume()
+        Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivity.searchMapView.postValue(true)
     }
 
     //스크롤되면 헤더 붙이기
