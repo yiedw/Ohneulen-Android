@@ -78,19 +78,19 @@ class SearchFragment : Fragment() {
         //맵 (삭제, 추가)
 
         var searchMapFragment = SearchMapFragment.newInstance()
-        MainActivity.searchMapView.observe(viewLifecycleOwner,
-            Observer {
-                if (it) {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        searchMapFragment = SearchMapFragment.newInstance()
-                        childFragmentManager.beginTransaction()
-                            .replace(R.id.search_map, searchMapFragment).commit()
-                    }
-                } else {
-                    childFragmentManager.beginTransaction()
-                        .remove(searchMapFragment).commit()
-                }
-            })
+        childFragmentManager.beginTransaction()
+            .replace(R.id.search_map, searchMapFragment).commit()
+//        MainActivity.searchMapView.observe(viewLifecycleOwner,
+//            Observer {
+//                if (it) {
+//                    CoroutineScope(Dispatchers.Main).launch {
+//                        searchMapFragment = SearchMapFragment.newInstance()
+//                    }
+//                } else {
+//                    childFragmentManager.beginTransaction()
+//                        .remove(searchMapFragment).commit()
+//                }
+//            })
 
 
         //검색어 없을시 토스트 띄우기

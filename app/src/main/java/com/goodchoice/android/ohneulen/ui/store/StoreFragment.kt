@@ -71,10 +71,6 @@ class StoreFragment : Fragment() {
         Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MainActivity.searchMapView.postValue(true)
-    }
 
     //스크롤되면 헤더 붙이기
     private fun stickyHeader() {

@@ -99,6 +99,9 @@ dependencies {
    //kakaoMap
     implementation files('libs/libDaumMapAndroid.jar')
 
+    //NaverMap
+    implementation("com.naver.maps:map-sdk:3.8.0")
+
     //firebase
     implementation 'com.google.firebase:firebase-analytics:17.4.3'
     implementation "com.google.firebase:firebase-messaging:20.2.1"

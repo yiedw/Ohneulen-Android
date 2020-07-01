@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         lateinit var supportFragmentManager: FragmentManager
         lateinit var appbarFrameLayout: FrameLayout
         lateinit var mainFrameLayout: FrameLayout
-        var searchMapView=MutableLiveData<Boolean>(true)
     }
 
     private val initData:InitData by inject()

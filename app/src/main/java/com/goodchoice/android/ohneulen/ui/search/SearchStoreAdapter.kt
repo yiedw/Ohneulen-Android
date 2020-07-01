@@ -29,9 +29,8 @@ class SearchStoreAdapter :
                 executePendingBindings()
                 root.setOnClickListener {
                     Timber.e(SystemClock.currentThreadTimeMillis().toString()+"ms")
-                    MainActivity.searchMapView.postValue(false)
-                    addAppbarFragment(StoreAppBarFragment.newInstance(), true)
                     addMainFragment(StoreFragment.newInstance(), true)
+                    addAppbarFragment(StoreAppBarFragment.newInstance(), true)
                 }
             }
         }
