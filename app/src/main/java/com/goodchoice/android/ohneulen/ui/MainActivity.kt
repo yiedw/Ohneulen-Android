@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
@@ -11,6 +12,12 @@ import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
+import com.goodchoice.android.ohneulen.ui.search.SearchFragment
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
+import com.goodchoice.android.ohneulen.util.addAppbarFragment
+import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import kotlinx.android.synthetic.main.main_activity.*
@@ -28,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val initData:InitData by inject()
+    private val mainViewModel:MainViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,13 +47,30 @@ class MainActivity : AppCompatActivity() {
         appbarFrameLayout = appbar_frameLayout
         mainFrameLayout = main_frameLayout
         appbarFrameLayout.bringToFront()
-        if (savedInstanceState == null) {
-            replaceAppbarFragment(HomeAppBarFragment.newInstance())
-            replaceMainFragment(HomeFragment.newInstance())
-
-        }
+//        if (savedInstanceState == null) {
+//            replaceAppbarFragment(HomeAppBarFragment.newInstance())
+//            replaceMainFragment(HomeFragment.newInstance())
+//
+//        }
 
         //데이터 받아오기
         initData
+
+        //deepLink
+        val intent=intent
+        val data: Uri? =intent.data
+        if(data!=null){
+            if(data.host==getString(R.string.kakaolink_host)){
+                mainViewModel.searchEditText = "강남역"
+                replaceAppbarFragment(SearchAppBarFragment.newInstance())
+                replaceMainFragment(SearchFragment.newInstance(), name = "search")
+                addMainFragment(StoreFragment.newInstance(), true)
+                addAppbarFragment(StoreAppBarFragment.newInstance(), true)
+            }
+        }
+        else{
+            replaceAppbarFragment(HomeAppBarFragment.newInstance())
+            replaceMainFragment(HomeFragment.newInstance())
+        }
     }
 }

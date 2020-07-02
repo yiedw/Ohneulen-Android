@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.store_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -67,7 +68,6 @@ class StoreFragment : Fragment() {
         basicSetting()
         viewPagerSetting()
         stickyHeader()
-        Timber.e(SystemClock.currentThreadTimeMillis().toString())
 
     }
 
@@ -79,7 +79,7 @@ class StoreFragment : Fragment() {
     //스크롤되면 헤더 붙이기
     private fun stickyHeader() {
         binding.storeTab.bringToFront()
-        binding.partnerNewScrollView.run {
+        binding.storeNewScrollView.run {
             header = binding.storeTab
             freeHeader()
         }
@@ -137,8 +137,9 @@ class StoreFragment : Fragment() {
                             position
                         )
                     updatePagerHeightForChild(view!!, binding.storeViewPager2)
-                    binding.partnerNewScrollView.scrollTo(0, 0)
+                    binding.storeNewScrollView.scrollTo(0, 0)
                     stickyHeader()
+                    binding.storeNewScrollView.invalidate()
                 }
             }
         )

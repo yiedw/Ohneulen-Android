@@ -7,9 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Category
-import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
-import com.goodchoice.android.ohneulen.util.ConstList
+import com.goodchoice.android.ohneulen.util.constant.ConstList
 
 class SearchFilterAdapter(private val categoryKind: Int) :
     RecyclerView.Adapter<SearchFilterAdapter.SearchFilterViewHolder>() {

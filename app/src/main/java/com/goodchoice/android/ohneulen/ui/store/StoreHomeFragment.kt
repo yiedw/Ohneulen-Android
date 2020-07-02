@@ -28,6 +28,7 @@ class StoreHomeFragment : Fragment() {
             container,
             false
         )
+        binding.storeHome.scrollTo(0,0)
         return binding.root
     }
 

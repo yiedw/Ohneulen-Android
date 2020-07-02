@@ -5,7 +5,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.remote.KakaoAddressResponse
 import com.goodchoice.android.ohneulen.data.remote.KakaoKeywordResponse
 import com.goodchoice.android.ohneulen.data.remote.OhneulenResponse
-import com.goodchoice.android.ohneulen.util.BaseUrl
+import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -35,7 +35,7 @@ interface NetworkService {
     //카카오 위치 검색
     @GET
     suspend fun requestKakaoAddress(
-        @Url url:String=BaseUrl.KakaoMap+"v2/local/search/address.json?",
+        @Url url:String= BaseUrl.KakaoMap+"v2/local/search/address.json?",
         @Query("query") address: String,
         @Header("Authorization") authorizationKey: String = App.resources.getString(R.string.kakao_rest_key)
     ): KakaoAddressResponse

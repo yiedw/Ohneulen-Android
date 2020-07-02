@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.util
+package com.goodchoice.android.ohneulen.util.constant
 
 object ConstList {
     const val CURRENT_LOCATION="-1"

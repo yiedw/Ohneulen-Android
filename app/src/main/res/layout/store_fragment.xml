@@ -15,7 +15,7 @@
     </data>
 
     <com.goodchoice.android.ohneulen.ui.store.StoreScrollView
-        android:id="@+id/partner_newScrollView"
+        android:id="@+id/store_newScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">

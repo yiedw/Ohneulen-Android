@@ -16,4 +16,10 @@
     <string name="frequently_asked_questions">자주 찾는 질문</string>
     <string name="back">뒤로</string>
     <string name="kakao_rest_key">KakaoAK 6dab3d81953b7e9d367bcb471caac283</string>
+    <string name="kakao_app_key">221d060d466e70f549f05dd352b81cb5</string>
+    <string name="kakao_scheme">kakao221d060d466e70f549f05dd352b81cb5</string>
+    <string name="kakaolink_host">kakaolink</string>
+
+    <string name="scheme_main">main</string>
+    <string name="scheme_detail">detail</string>
 </resources>

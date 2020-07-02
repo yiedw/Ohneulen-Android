@@ -94,7 +94,6 @@ class StoreMapFragment : Fragment() ,OnMapReadyCallback{
         val x = storeViewModel.storeInfo[0].addressX
         val y = storeViewModel.storeInfo[0].addressY
         val cameraUpdate=CameraUpdate.scrollTo(LatLng(x,y))
-        Timber.e(x.toString()+","+y)
         naverMap.moveCamera(cameraUpdate)
     }
 

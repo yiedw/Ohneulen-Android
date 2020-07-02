@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.goodchoice.android.ohneulen.di.networkModule
 import com.goodchoice.android.ohneulen.di.initModule
 import com.goodchoice.android.ohneulen.di.viewModelModule
-import com.goodchoice.android.ohneulen.util.BaseUrl
+import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.fcmToken
 import com.goodchoice.android.ohneulen.util.getAppKeyHash
 import org.koin.android.ext.koin.androidContext

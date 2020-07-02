@@ -3,12 +3,11 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.view.View
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.model.Category
-import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.data.model.getStore
 import com.goodchoice.android.ohneulen.data.repository.InitData
-import com.goodchoice.android.ohneulen.util.ConstList
+import com.goodchoice.android.ohneulen.util.constant.ConstList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
