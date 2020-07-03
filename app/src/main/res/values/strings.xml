@@ -9,7 +9,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="good">좋아요</string>
+    <string name="good">찜 목록</string>
     <string name="recent_list">최근 본 목록</string>
     <string name="my_review">나의 후기</string>
     <string name="inquiry_details">문의 내역</string>

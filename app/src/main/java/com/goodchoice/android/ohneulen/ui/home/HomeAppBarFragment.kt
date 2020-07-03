@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.HomeAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
 import com.goodchoice.android.ohneulen.ui.noti.NotiAppBarFragment
 import com.goodchoice.android.ohneulen.ui.noti.NotiFragment
@@ -41,6 +42,7 @@ class HomeAppBarFragment :Fragment(){
     }
 
     fun myClick(view: View){
+        replaceAppbarFragment(MyPageAppBarFragment.newInstance())
         replaceMainFragment(MyPageFragment.newInstance())
     }
 
