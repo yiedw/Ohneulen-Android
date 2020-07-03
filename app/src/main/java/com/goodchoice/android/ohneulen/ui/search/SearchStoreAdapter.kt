@@ -31,6 +31,8 @@ class SearchStoreAdapter :
                 root.setOnClickListener {
 //                    Timber.e(SystemClock.currentThreadTimeMillis().toString())
                     addMainFragment(StoreFragment.newInstance(), true)
+
+
                     addAppbarFragment(StoreAppBarFragment.newInstance(), true)
                 }
             }

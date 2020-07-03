@@ -5,6 +5,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.remote.KakaoAddressResponse
 import com.goodchoice.android.ohneulen.data.remote.KakaoKeywordResponse
 import com.goodchoice.android.ohneulen.data.remote.OhneulenResponse
+import com.goodchoice.android.ohneulen.data.remote.TestResponse
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -46,5 +47,12 @@ interface NetworkService {
         @Query("query") keyword: String,
         @Header("Authorization") authorizationKey: String = App.resources.getString(R.string.kakao_rest_key)
     ): KakaoKeywordResponse
+
+    @GET
+    suspend fun requestTestData(
+        @Url url:String="https://newsapi.org/v2/everything?q=sports&apiKey=aa67d8d98c8e4ad1b4f16dbd5f3be348",
+        @Query("page") page:Int,
+        @Query("pageSize") pageSize:Int
+    ): TestResponse
 
 }
