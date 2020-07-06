@@ -128,6 +128,7 @@ class StoreFragment : Fragment() {
                         reviewSetting()
                     } else if (position == 1) {
                         basicSetting()
+                        mapSetting()
 //                        scrollBlock()
                     } else {
                         basicSetting()
@@ -189,24 +190,29 @@ class StoreFragment : Fragment() {
         MainActivity.mainFrameLayout.layoutParams = layoutParams
     }
 
-//    private fun mapSetting(){
-//        MainActivity.appbarFrameLayout.background =
-//            ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
-//        binding.storeImage.visibility = View.VISIBLE
-//        val layoutParams = ConstraintLayout.LayoutParams(
-//            ConstraintLayout.LayoutParams.MATCH_PARENT,
-//            0
-//        )
-//        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-//        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-//        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-//        MainActivity.mainFrameLayout.layoutParams = layoutParams
-//    }
+    private fun mapSetting(){
+        val layoutParams=ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            0
+        )
+        layoutParams.leftToLeft=ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.topToBottom=R.id.store_tab
+        layoutParams.bottomToBottom=ConstraintLayout.LayoutParams.PARENT_ID
+        binding.storeViewPager2.layoutParams=layoutParams
+    }
 
     //리뷰 페이지 세팅
     private fun reviewSetting() {
         binding.storeImage.visibility = View.GONE
         MainActivity.mainFrameLayout.layoutParams = initMainFragment
+
+        val layoutParams=ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.leftToLeft=ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.topToBottom=R.id.store_tab
+        binding.storeViewPager2.layoutParams=layoutParams
 
     }
 
