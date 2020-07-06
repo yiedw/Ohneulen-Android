@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageWithdrawalAppBarFragment" />
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAppBarFragment" />
 
     </data>
 
@@ -14,26 +14,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
-            android:id="@+id/mypage_withdrawal_appbar_center"
+            android:id="@+id/mypage_good_appbar_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회원 탈퇴"
+            android:focusable="true"
+            android:gravity="center"
+            android:onClick="@{fragment::backClick}"
+            android:text="뒤로"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/mypage_good_appbar_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:text="찜"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/mypage_withdrawal_appbar_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="@{fragment::backClick}"
-            android:text="닫기"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

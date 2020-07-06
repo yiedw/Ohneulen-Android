@@ -13,29 +13,31 @@ import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageFragmentBinding
 import com.goodchoice.android.ohneulen.ui.login.LoginFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 
-class MyPageFragment :Fragment(){
+class MyPageFragment : Fragment() {
 
-    companion object{
-        fun newInstance()=MyPageFragment()
+    companion object {
+        fun newInstance() = MyPageFragment()
     }
-    private lateinit var binding:MypageFragmentBinding
+
+    private lateinit var binding: MypageFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.mypage_fragment,
             container,
             false
         )
-        binding.fragment=this
+        binding.fragment = this
         return binding.root
     }
 
@@ -44,39 +46,27 @@ class MyPageFragment :Fragment(){
 
     }
 
-    fun imageClick(view:View){
-        val permissionListener=object :PermissionListener{
-            override fun onPermissionGranted() {
-                TedImagePicker.with(requireContext())
-                    .start {uri -> showImage(uri)}
-            }
-
-            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-            }
-
-
-        }
-        TedPermission.with(requireContext())
-            .setPermissionListener(permissionListener)
-            .setDeniedMessage("권한이 필요")
-            .setPermissions(Manifest.permission.READ_CONTACTS)
-            .check()
-    }
-    fun nameClick(view: View){
-        replaceMainFragment(LoginFragment.newInstance())
-    }
-    fun questionsClick(view: View){
-
-    }
-    fun frequentlyQClick(view: View){
+    fun infoClick(view: View) {
+        replaceAppbarFragment(MyPageInfoAppBarFragment.newInstance())
+        replaceMainFragment(MyPageInfoFragment.newInstance())
 
     }
 
-    private fun showImage(uri: Uri){
-        binding.mypageImage.clipToOutline=true
-        Glide.with(requireContext())
-            .load(uri)
-            .apply(RequestOptions().centerCrop())
-            .into(binding.mypageImage)
+    fun nameClick(view: View) {
+//        replaceMainFragment(LoginFragment.newInstance())
     }
+
+    fun goodClick(view: View) {
+        replaceAppbarFragment(MyPageGoodAppBarFragment.newInstance())
+        replaceMainFragment(MyPageGoodFragment.newInstance())
+    }
+
+    fun questionsClick(view: View) {
+
+    }
+
+    fun frequentlyQClick(view: View) {
+    }
+
+
 }

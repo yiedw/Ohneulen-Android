@@ -29,7 +29,7 @@ class StoreMenuDetailAdapter() :
             binding.apply {
                 storeMenuDetailBack.setOnClickListener {
                     MainActivity.supportFragmentManager.popBackStack()
-                    MainActivity.appbarFrameLayout.visibility=View.VISIBLE
+                    MainActivity.appbarFrameLayout.visibility = View.VISIBLE
                 }
 //                photo = photoItem
                 menu = menuItem

@@ -14,14 +14,14 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/mypage_image"
+            android:id="@+id/mypage_info"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/circle_transparent"
             android:focusable="true"
-            android:onClick="@{fragment::imageClick}"
+            android:onClick="@{fragment::infoClick}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="닉네임"
-            app:layout_constraintBottom_toBottomOf="@id/mypage_image"
-            app:layout_constraintLeft_toRightOf="@id/mypage_image"
-            app:layout_constraintTop_toTopOf="@id/mypage_image" />
+            app:layout_constraintBottom_toBottomOf="@id/mypage_info"
+            app:layout_constraintLeft_toRightOf="@id/mypage_info"
+            app:layout_constraintTop_toTopOf="@id/mypage_info" />
 
         <TextView
             android:id="@+id/mypage_email"
@@ -40,8 +40,8 @@
             android:layout_height="wrap_content"
             android:onClick="@{fragment::nameClick}"
             android:text="이메일"
-            app:layout_constraintLeft_toLeftOf="@id/mypage_image"
-            app:layout_constraintTop_toBottomOf="@id/mypage_image" />
+            app:layout_constraintLeft_toLeftOf="@id/mypage_info"
+            app:layout_constraintTop_toBottomOf="@id/mypage_info" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,7 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:focusable="true"
-                android:text="@string/good" />
+                android:text="@string/good"
+                android:onClick="@{fragment::goodClick}"/>
 
             <TextView
                 android:id="@+id/mypage_recentList"

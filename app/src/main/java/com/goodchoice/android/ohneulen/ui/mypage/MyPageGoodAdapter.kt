@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.search
+package com.goodchoice.android.ohneulen.ui.mypage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,43 +12,38 @@ import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
 
-
-class SearchStoreAdapter :
-    RecyclerView.Adapter<SearchStoreAdapter.SearchPartnerViewHolder>() {
+class MyPageGoodAdapter :
+    RecyclerView.Adapter<MyPageGoodAdapter.MyPageGoodViewHolder>() {
     var itemList = listOf<Store>()
 
-
-    inner class SearchPartnerViewHolder(private val binding: StoreItemBinding) :
+    inner class MyPageGoodViewHolder(private val binding: StoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Store) {
             binding.apply {
                 store = item
                 executePendingBindings()
                 root.setOnClickListener {
-//                    Timber.e(SystemClock.currentThreadTimeMillis().toString())
-                    addMainFragment(StoreFragment.newInstance(), true)
                     addAppbarFragment(StoreAppBarFragment.newInstance(), true)
+                    addMainFragment(StoreFragment.newInstance(), true)
                 }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchPartnerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageGoodViewHolder {
         return DataBindingUtil.inflate<StoreItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.store_item,
             parent,
             false
         ).let {
-            SearchPartnerViewHolder(it)
+            MyPageGoodViewHolder(it)
         }
     }
 
     override fun getItemCount() = itemList.size
 
-    override fun onBindViewHolder(holder: SearchPartnerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyPageGoodViewHolder, position: Int) {
         holder.bind(itemList[position])
     }
-
-
 }

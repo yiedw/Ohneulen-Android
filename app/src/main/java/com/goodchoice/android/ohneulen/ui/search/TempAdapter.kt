@@ -20,7 +20,7 @@
 //
 //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TempViewHolder {
 //        val view =
-//            LayoutInflater.from(parent.context).inflate(R.layout.search_store_item, parent, false)
+//            LayoutInflater.from(parent.context).inflate(R.layout.store_item, parent, false)
 //        return TempViewHolder(view)
 //    }
 //

@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="photo"
             type="com.goodchoice.android.ohneulen.data.model.Photo" />
+
         <variable
             name="menu"
             type="com.goodchoice.android.ohneulen.data.model.StoreMenu" />
@@ -29,6 +31,7 @@
             android:id="@+id/store_menu_detail_image"
             android:layout_width="match_parent"
             android:layout_height="400dp"
+            android:src="@drawable/cafe_sample1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

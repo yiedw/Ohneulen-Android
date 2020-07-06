@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mypage_good_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/mypage_good_zero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="더 많은 맛집이 있어요 \n 지금 찾으로 가보실래요?"
+                android:textAlignment="center" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                android:src="@drawable/heart_icon" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

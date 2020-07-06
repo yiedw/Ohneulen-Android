@@ -10,6 +10,7 @@ import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
@@ -22,8 +23,8 @@ fun setSearchStoreAdapter(recyclerView: RecyclerView, adapter: SearchStoreAdapte
     recyclerView.adapter = adapter
 }
 
-@BindingAdapter("searchStore")
-fun setSearchStore(recyclerView: RecyclerView, items: List<Store>?) {
+@BindingAdapter("store")
+fun setStore(recyclerView: RecyclerView, items: List<Store>?) {
     recyclerView.adapter = (recyclerView.adapter as SearchStoreAdapter).apply {
         itemList = items ?: emptyList()
         notifyDataSetChanged()
@@ -59,15 +60,19 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
     }
 }
 
-@BindingAdapter("storeMenuDetailAdapter","storeMenuDetailIndex")
-fun setStoreMenuDetailAdapter(recyclerView: RecyclerView, adapter: StoreMenuDetailAdapter,index:Int) {
+@BindingAdapter("storeMenuDetailAdapter", "storeMenuDetailIndex")
+fun setStoreMenuDetailAdapter(
+    recyclerView: RecyclerView,
+    adapter: StoreMenuDetailAdapter,
+    index: Int
+) {
     recyclerView.adapter = adapter
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
     recyclerView.layoutManager = linearLayoutManager
     //viewpager 처럼 딱딱 끊어지게
-    val snapHelper=PagerSnapHelper()
+    val snapHelper = PagerSnapHelper()
     snapHelper.attachToRecyclerView(recyclerView)
 }
 
@@ -81,15 +86,21 @@ fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?) {
 }
 
 @BindingAdapter("imageResURL")
-fun setImageViewURL(imageView: ImageView,resURL:String){
+fun setImageViewURL(imageView: ImageView, resURL: String) {
 
 }
+
 @BindingAdapter("imageResID")
-fun setImageViewResID(imageView: ImageView,resID:Int){
+fun setImageViewResID(imageView: ImageView, resID: Int) {
     Glide.with(imageView.context)
         .load(resID)
         .centerCrop()
         .into(imageView)
+}
+
+@BindingAdapter("mypageGoodAdapter")
+fun setMyPageGoodAdapter(recyclerView: RecyclerView,adapter:MyPageGoodAdapter){
+    recyclerView.adapter=adapter
 }
 
 
