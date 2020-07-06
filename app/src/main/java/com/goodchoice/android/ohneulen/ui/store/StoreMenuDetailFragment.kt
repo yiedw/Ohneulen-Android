@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TimePicker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMenuDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
-class StoreMenuDetailFragment(var index:Int) : Fragment() {
+class StoreMenuDetailFragment(var inputIndex:Int) : Fragment() {
 
     companion object {
         fun newInstance(index:Int) = StoreMenuDetailFragment(index)
@@ -29,7 +24,7 @@ class StoreMenuDetailFragment(var index:Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        storeViewModel.index=index
+        storeViewModel.index=this.inputIndex
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.store_menu_detail,

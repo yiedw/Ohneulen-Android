@@ -60,29 +60,20 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
     }
 }
 
-@BindingAdapter("storeMenuDetailAdapter", "storeMenuDetailIndex")
-fun setStoreMenuDetailAdapter(
-    recyclerView: RecyclerView,
-    adapter: StoreMenuDetailAdapter,
-    index: Int
-) {
-    recyclerView.adapter = adapter
-    val linearLayoutManager = LinearLayoutManager(recyclerView.context)
-    linearLayoutManager.orientation = RecyclerView.HORIZONTAL
-    linearLayoutManager.scrollToPosition(index)
-    recyclerView.layoutManager = linearLayoutManager
-    //viewpager 처럼 딱딱 끊어지게
-    val snapHelper = PagerSnapHelper()
-    snapHelper.attachToRecyclerView(recyclerView)
-}
-
-@BindingAdapter("storeMenuDetail")
-fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?) {
-    Timber.e(items.toString())
+@BindingAdapter("storeMenuDetail", "storeMenuDetailIndex")
+fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, index: Int) {
     recyclerView.adapter = StoreMenuDetailAdapter().apply {
         menuList = items ?: emptyList()
         notifyDataSetChanged()
     }
+    val linearLayoutManager = LinearLayoutManager(recyclerView.context)
+    linearLayoutManager.orientation = RecyclerView.HORIZONTAL
+    linearLayoutManager.scrollToPosition(index)
+    recyclerView.layoutManager = linearLayoutManager
+    recyclerView.onFlingListener = null;
+    //viewpager 처럼 딱딱 끊어지게
+    val snapHelper = PagerSnapHelper()
+    snapHelper.attachToRecyclerView(recyclerView)
 }
 
 @BindingAdapter("imageResURL")
@@ -99,8 +90,8 @@ fun setImageViewResID(imageView: ImageView, resID: Int) {
 }
 
 @BindingAdapter("mypageGoodAdapter")
-fun setMyPageGoodAdapter(recyclerView: RecyclerView,adapter:MyPageGoodAdapter){
-    recyclerView.adapter=adapter
+fun setMyPageGoodAdapter(recyclerView: RecyclerView, adapter: MyPageGoodAdapter) {
+    recyclerView.adapter = adapter
 }
 
 

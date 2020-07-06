@@ -191,6 +191,7 @@ class StoreFragment : Fragment() {
     }
 
     private fun mapSetting(){
+        //지도를 화면에 딱맞게(스크롤뷰 안먹게)
         val layoutParams=ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             0
@@ -206,6 +207,7 @@ class StoreFragment : Fragment() {
         binding.storeImage.visibility = View.GONE
         MainActivity.mainFrameLayout.layoutParams = initMainFragment
 
+        //리뷰가 없을때 후기가 위로 딱 붙게하기
         val layoutParams=ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             ConstraintLayout.LayoutParams.WRAP_CONTENT

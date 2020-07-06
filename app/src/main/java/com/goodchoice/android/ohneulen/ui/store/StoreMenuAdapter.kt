@@ -11,6 +11,7 @@ import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import timber.log.Timber
 
 class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHolder>() {
     var itemList = listOf<StoreMenu>()
@@ -18,13 +19,13 @@ class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHold
     override fun getItemCount() = itemList.size
 
     inner class StoreMenuViewHolder(private val binding: StoreMenuItemBinding) :
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(item: StoreMenu){
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: StoreMenu) {
             binding.apply {
-                storeMenu=item
+                storeMenu = item
                 storeMenuItem.setOnClickListener {
-                    MainActivity.appbarFrameLayout.visibility= View.INVISIBLE
-                    addMainFragment(StoreMenuDetailFragment.newInstance(adapterPosition),true)
+                    MainActivity.appbarFrameLayout.visibility = View.INVISIBLE
+                    addMainFragment(StoreMenuDetailFragment.newInstance(adapterPosition), true)
                 }
                 executePendingBindings()
             }
