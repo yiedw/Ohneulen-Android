@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.store.menu
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +9,8 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMenuItemBinding
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.store.StoreMenuDetailFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import timber.log.Timber
 
 class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHolder>() {
     var itemList = listOf<StoreMenu>()
@@ -25,7 +24,10 @@ class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHold
                 storeMenu = item
                 storeMenuItem.setOnClickListener {
                     MainActivity.appbarFrameLayout.visibility = View.INVISIBLE
-                    addMainFragment(StoreMenuDetailFragment.newInstance(adapterPosition), true)
+                    addMainFragment(
+                        StoreMenuDetailFragment.newInstance(
+                            adapterPosition
+                        ), true)
                 }
                 executePendingBindings()
             }

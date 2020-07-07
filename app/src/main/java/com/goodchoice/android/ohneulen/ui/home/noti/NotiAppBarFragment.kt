@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.noti
+package com.goodchoice.android.ohneulen.ui.home.noti
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,5 +37,10 @@ class NotiAppBarFragment :Fragment(){
     fun backClick(view:View){
         replaceAppbarFragment(HomeAppBarFragment.newInstance())
         replaceMainFragment(HomeFragment.newInstance())
+    }
+
+    fun setClick(view:View){
+        replaceAppbarFragment(NotiSetAppbarFragment.newInstance())
+        replaceMainFragment(NotiSetFragment.newInstance())
     }
 }

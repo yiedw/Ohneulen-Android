@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.store.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

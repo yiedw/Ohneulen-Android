@@ -87,4 +87,7 @@ class StoreReviewWriteFragment : Fragment() {
             binding.storeReviewWriteImage.addView(itemBinding.root)
         }
     }
+    fun onClick(view:View){
+
+    }
 }

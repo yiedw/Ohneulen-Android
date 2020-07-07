@@ -10,8 +10,8 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.HomeAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
-import com.goodchoice.android.ohneulen.ui.noti.NotiAppBarFragment
-import com.goodchoice.android.ohneulen.ui.noti.NotiFragment
+import com.goodchoice.android.ohneulen.ui.home.noti.NotiAppBarFragment
+import com.goodchoice.android.ohneulen.ui.home.noti.NotiFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 

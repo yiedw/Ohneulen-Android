@@ -18,8 +18,7 @@
         android:id="@+id/store_newScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,37 +41,37 @@
                     android:layout_height="100dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    bind:imageResID="@{viewModel.image1}"/>
+                    bind:imageResID="@{viewModel.image1}" />
 
                 <ImageView
                     android:id="@+id/store_image1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    bind:imageResID="@{viewModel.image2}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/store_image2"
-                    app:layout_constraintTop_toBottomOf="@id/store_bigImage" />
+                    app:layout_constraintTop_toBottomOf="@id/store_bigImage"
+                    bind:imageResID="@{viewModel.image2}" />
 
                 <ImageView
                     android:id="@+id/store_image2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    bind:imageResID="@{viewModel.image3}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/store_image1"
                     app:layout_constraintRight_toLeftOf="@id/store_image3"
-                    app:layout_constraintTop_toBottomOf="@id/store_bigImage" />
+                    app:layout_constraintTop_toBottomOf="@id/store_bigImage"
+                    bind:imageResID="@{viewModel.image3}" />
 
                 <ImageView
                     android:id="@+id/store_image3"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    bind:imageResID="@{viewModel.image4}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/store_image2"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/store_bigImage" />
+                    app:layout_constraintTop_toBottomOf="@id/store_bigImage"
+                    bind:imageResID="@{viewModel.image4}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -96,6 +95,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/store_detail_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="업 종"
@@ -103,6 +103,37 @@
                     android:textSize="12sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/store_detail_name" />
+
+                <TextView
+                    android:id="@+id/store_detail_point"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="평점"
+                    android:textAlignment="center"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/store_detail_good"
+                    app:layout_constraintTop_toBottomOf="@id/store_detail_category" />
+
+                <TextView
+                    android:id="@+id/store_detail_good"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="찜"
+                    android:textAlignment="center"
+                    app:layout_constraintLeft_toRightOf="@id/store_detail_point"
+                    app:layout_constraintRight_toLeftOf="@id/store_detail_review"
+                    app:layout_constraintTop_toBottomOf="@id/store_detail_category" />
+
+                <TextView
+                    android:id="@+id/store_detail_review"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="후기"
+                    android:textAlignment="center"
+                    app:layout_constraintLeft_toRightOf="@id/store_detail_good"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/store_detail_category" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -123,8 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/store_tab"
-                />
+                app:layout_constraintTop_toBottomOf="@id/store_tab" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

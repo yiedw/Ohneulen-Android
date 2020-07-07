@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.kakao.kakaolink.v2.KakaoLinkResponse
 import com.kakao.kakaolink.v2.KakaoLinkService
 import com.kakao.message.template.*
@@ -46,7 +48,7 @@ class StoreAppBarFragment : Fragment() {
 
 
     fun backClick(view: View) {
-        MainActivity.supportFragmentManager.popBackStack()
+        replaceAppbarFragment(SearchAppBarFragment.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
         MainActivity.mainFrameLayout.layoutParams = initMainFragment
     }

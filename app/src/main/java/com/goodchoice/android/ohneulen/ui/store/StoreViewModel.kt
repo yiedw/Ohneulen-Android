@@ -10,9 +10,9 @@ import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import kotlinx.coroutines.Dispatchers
 import org.koin.java.KoinJavaComponent
+import timber.log.Timber
 
 class StoreViewModel(networkService: NetworkService) : ViewModel() {
-    val storeMenuDetailViewAdapter = StoreMenuDetailAdapter()
     val storeMenuList: LiveData<MutableList<StoreMenu>> = liveData(Dispatchers.IO) {
         loading.postValue(true)
         emit(getStoreMenu())
@@ -22,8 +22,12 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     var storeMenuPhotoList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
         emit(getPhoto())
     }
-    val profileImage= getProfileImage()
-    val member= getMember()
+
+    var storeReviewList:LiveData<List<Review>> = liveData(Dispatchers.IO){
+        emit(getReview())
+    }
+    var storeReviewAdapter=StoreReviewAdapter()
+
     val storeInfo = getStore()
 
     //menuDetail 클릭했을때 클릭한 곳으로 이동

@@ -14,7 +14,11 @@ import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreReviewFragmentBinding
+import com.goodchoice.android.ohneulen.util.addAppbarFragment
+import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StoreReviewFragment : Fragment() {
     companion object {
@@ -22,6 +26,7 @@ class StoreReviewFragment : Fragment() {
     }
 
     private lateinit var binding: StoreReviewFragmentBinding
+    private val storeViewModel :StoreViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,18 +38,21 @@ class StoreReviewFragment : Fragment() {
             container,
             false
         )
-        binding.fragment=this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sampleChartSetting()
+        binding.fragment=this
+        binding.lifecycleOwner=this
+        binding.viewModel = storeViewModel
 
     }
 
     fun reviewWriteClick(view:View){
-        replaceMainFragment(StoreReviewWriteFragment.newInstance())
+        addAppbarFragment(StoreReviewWriteAppbarFragment.newInstance(),true)
+        addMainFragment(StoreReviewWriteFragment.newInstance(),true)
     }
 
     private fun sampleChartSetting(){

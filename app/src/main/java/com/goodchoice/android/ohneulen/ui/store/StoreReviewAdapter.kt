@@ -10,14 +10,17 @@ import com.goodchoice.android.ohneulen.data.model.Photo
 import com.goodchoice.android.ohneulen.data.model.Review
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.ReviewItemBinding
+import timber.log.Timber
 
 class StoreReviewAdapter : RecyclerView.Adapter<StoreReviewAdapter.StoreReviewViewHolder>() {
     var reviewList= listOf<Review>()
     inner class StoreReviewViewHolder(private val binding: ReviewItemBinding)
         :RecyclerView.ViewHolder(binding.root){
         fun bind(reviewItem: Review){
+            Timber.e(reviewList.toString())
             binding.apply {
                 review=reviewItem
+                executePendingBindings()
             }
         }
     }

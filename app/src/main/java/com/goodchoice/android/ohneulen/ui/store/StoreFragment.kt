@@ -2,7 +2,6 @@ package com.goodchoice.android.ohneulen.ui.store
 
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +13,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
+import com.goodchoice.android.ohneulen.ui.store.home.StoreHomeFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.store_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -54,7 +52,6 @@ class StoreFragment : Fragment() {
         )
         binding.fragment = this
         binding.viewModel=storeViewModel
-        binding
         //어둡게 만들기
         binding.storeBigImage.setColorFilter(
             ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),

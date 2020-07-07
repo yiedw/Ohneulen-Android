@@ -2,15 +2,19 @@ package com.goodchoice.android.ohneulen.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import timber.log.Timber
 
 
 class SearchStoreAdapter :
@@ -24,10 +28,13 @@ class SearchStoreAdapter :
             binding.apply {
                 store = item
                 executePendingBindings()
+                storeItemGood.setOnClickListener{
+                    Toast.makeText(binding.root.context,item.storeName+"이 찜목록에 저장됨",Toast.LENGTH_LONG).show()
+                }
                 root.setOnClickListener {
 //                    Timber.e(SystemClock.currentThreadTimeMillis().toString())
+                    replaceAppbarFragment(StoreAppBarFragment.newInstance(), true)
                     addMainFragment(StoreFragment.newInstance(), true)
-                    addAppbarFragment(StoreAppBarFragment.newInstance(), true)
                 }
             }
         }

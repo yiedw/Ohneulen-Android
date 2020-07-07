@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.store.StoreReviewFragment" />
+        <variable
+            name="viewModel"
+            type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,10 +67,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/store_review_rv"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/store_review_radarChart"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            bind:storeReviewAdapter="@{viewModel.storeReviewAdapter}"
+            bind:storeReview="@{viewModel.storeReviewList}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

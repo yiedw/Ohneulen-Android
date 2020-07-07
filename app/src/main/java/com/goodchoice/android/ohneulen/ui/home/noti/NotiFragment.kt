@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.noti
+package com.goodchoice.android.ohneulen.ui.home.noti
 
 import android.os.Bundle
 import android.view.LayoutInflater
