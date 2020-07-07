@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.goodchoice.android.ohneulen.data.model.Category
-import com.goodchoice.android.ohneulen.data.model.OhneulenData
-import com.goodchoice.android.ohneulen.data.model.Store
-import com.goodchoice.android.ohneulen.data.model.StoreMenu
+import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
@@ -18,17 +15,13 @@ import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreMenuDetailAdapter
 import timber.log.Timber
 
-@BindingAdapter("searchStoreAdapter")
-fun setSearchStoreAdapter(recyclerView: RecyclerView, adapter: SearchStoreAdapter?) {
-    recyclerView.adapter = adapter
-}
-
-@BindingAdapter("store")
-fun setStore(recyclerView: RecyclerView, items: List<Store>?) {
-    recyclerView.adapter = (recyclerView.adapter as SearchStoreAdapter).apply {
+@BindingAdapter("searchStoreAdapter","searchStore")
+fun setSearchStoreAdapter(recyclerView: RecyclerView, adapter: SearchStoreAdapter?,items:List<Store>?) {
+    recyclerView.adapter = adapter?.apply {
         itemList = items ?: emptyList()
         notifyDataSetChanged()
     }
+
 }
 
 @BindingAdapter("filterAdapter")
@@ -93,5 +86,10 @@ fun setImageViewResID(imageView: ImageView, resID: Int) {
 fun setMyPageGoodAdapter(recyclerView: RecyclerView, adapter: MyPageGoodAdapter) {
     recyclerView.adapter = adapter
 }
+
+//@BindingAdapter("storeReview")
+//fun setReview(recyclerView: RecyclerView,item:List<Review>){
+//    recyclerView.adapter=Store
+//}
 
 

@@ -22,16 +22,18 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     var storeMenuPhotoList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
         emit(getPhoto())
     }
-    val storeInfo= getStore()
+    val profileImage= getProfileImage()
+    val member= getMember()
+    val storeInfo = getStore()
 
     //menuDetail 클릭했을때 클릭한 곳으로 이동
-    var index:Int=0
+    var index: Int = 0
 
     //이미지 삽입
-    val image1= R.drawable.food_sample1
-    val image2= R.drawable.food_sample2
-    val image3= R.drawable.food_sample3
-    val image4= R.drawable.food_sample4
+    val image1 = R.drawable.food_sample1
+    val image2 = R.drawable.food_sample2
+    val image3 = R.drawable.food_sample3
+    val image4 = R.drawable.food_sample4
 
 
 }
