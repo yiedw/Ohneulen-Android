@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageInquireAppBar
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageInquireFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
 import timber.log.Timber

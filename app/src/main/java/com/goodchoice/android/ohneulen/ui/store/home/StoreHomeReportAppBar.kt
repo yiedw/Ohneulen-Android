@@ -36,7 +36,7 @@ class StoreHomeReportAppBar :Fragment(){
     }
 
     fun onCloseClick(view:View){
-        replaceAppbarFragment(StoreAppBarFragment.newInstance(),tag = "storeAppBar")
+        replaceAppbarFragment(StoreAppBarFragment.newInstance(), tag = "storeAppBar")
         MainActivity.supportFragmentManager.popBackStack()
         (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
     }

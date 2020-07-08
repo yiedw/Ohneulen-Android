@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store.review
+package com.goodchoice.android.ohneulen.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Review
 import com.goodchoice.android.ohneulen.databinding.ReviewItemBinding
-import timber.log.Timber
 
-class StoreReviewAdapter : RecyclerView.Adapter<StoreReviewAdapter.StoreReviewViewHolder>() {
+class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
     var reviewList= listOf<Review>()
-    inner class StoreReviewViewHolder(private val binding: ReviewItemBinding)
+    inner class ReviewViewHolder(private val binding: ReviewItemBinding)
         :RecyclerView.ViewHolder(binding.root){
         fun bind(reviewItem: Review){
             binding.apply {
@@ -27,12 +26,12 @@ class StoreReviewAdapter : RecyclerView.Adapter<StoreReviewAdapter.StoreReviewVi
             parent,
             false
         ).let {
-            StoreReviewViewHolder(it)
+            ReviewViewHolder(it)
         }
 
     override fun getItemCount()=reviewList.size
 
-    override fun onBindViewHolder(holder: StoreReviewViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         holder.bind(reviewList[position])
     }
 }

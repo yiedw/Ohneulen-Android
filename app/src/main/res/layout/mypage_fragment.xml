@@ -71,7 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:focusable="true"
-                android:text="@string/my_review" />
+                android:text="@string/my_review"
+                android:onClick="@{fragment::reviewClick}"/>
 
             <TextView
                 android:id="@+id/mypage_questions"

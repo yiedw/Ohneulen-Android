@@ -71,8 +71,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/store_review_radarChart"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            bind:storeReviewAdapter="@{viewModel.storeReviewAdapter}"
-            bind:storeReview="@{viewModel.storeReviewList}"/>
+            bind:reviewAdapter="@{viewModel.storeReviewAdapter}"
+            bind:review="@{viewModel.storeReviewList}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

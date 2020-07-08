@@ -8,6 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageGoodFragmentBinding
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
+import com.goodchoice.android.ohneulen.ui.search.SearchFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
 class MyPageGoodFragment :Fragment(){
     companion object{
@@ -26,7 +30,11 @@ class MyPageGoodFragment :Fragment(){
             container,
             false
         )
-
+        binding.fragment=this
         return binding.root
+    }
+    fun moveSearch(view:View){
+        replaceMainFragment(SearchFragment.newInstance())
+        replaceAppbarFragment(SearchAppBarFragment.newInstance())
     }
 }

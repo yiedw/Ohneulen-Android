@@ -4,12 +4,14 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageInquireFragment" />
+
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel" />
-        <variable
-            name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageReviewFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,14 +19,14 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mypage_review_rv"
+            android:id="@+id/mypage_inquire_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            bind:reviewAdapter="@{viewModel.mypageReviewAdapter}"
-            bind:review="@{viewModel.mypageReviewList}"/>
+            bind:inquire="@{viewModel.mypageInquireList}"
+            bind:inquireAdapter="@{viewModel.mypageInquireAdapter}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

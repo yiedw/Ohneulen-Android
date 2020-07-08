@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="inquire"
+            type="com.goodchoice.android.ohneulen.data.model.Inquire" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inquire_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/inquire_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{inquire.title}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/inquire_item_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{inquire.nickName}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
+
+        <TextView
+            android:id="@+id/inquire_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{inquire.date}"
+            app:layout_constraintLeft_toRightOf="@id/inquire_item_nickName"
+            app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
+
+        <TextView
+            android:id="@+id/inquire_item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{inquire.status}"
+            app:layout_constraintBottom_toBottomOf="@id/inquire_item_date"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/inquire_item_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inquire_item_date">
+
+            <TextView
+                android:id="@+id/inquire_item_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{inquire.content}" />
+
+            <TextView
+                android:id="@+id/inquire_item_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGrey"
+                android:text="@{inquire.answer}" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

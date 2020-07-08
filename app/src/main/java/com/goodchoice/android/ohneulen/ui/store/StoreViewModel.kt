@@ -7,7 +7,7 @@ import androidx.lifecycle.liveData
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewAdapter
+import com.goodchoice.android.ohneulen.adapter.ReviewAdapter
 import kotlinx.coroutines.Dispatchers
 
 class StoreViewModel(networkService: NetworkService) : ViewModel() {
@@ -25,7 +25,7 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
         emit(getReview())
     }
     var storeReviewAdapter=
-        StoreReviewAdapter()
+        ReviewAdapter()
 
     val storeInfo = getStore()
 

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.goodchoice.android.ohneulen.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
@@ -13,7 +14,8 @@ import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
-import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewAdapter
+import com.goodchoice.android.ohneulen.adapter.ReviewAdapter
+import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")
@@ -90,15 +92,23 @@ fun setMyPageGoodAdapter(recyclerView: RecyclerView, adapter: MyPageGoodAdapter)
     recyclerView.adapter = adapter
 }
 
-@BindingAdapter("storeReviewAdapter", "storeReview")
-fun setReview(recyclerView: RecyclerView, adapter: StoreReviewAdapter, item: List<Review>?) {
+@BindingAdapter("reviewAdapter", "review")
+fun setReview(recyclerView: RecyclerView, adapter: ReviewAdapter, items: List<Review>?) {
     recyclerView.adapter=adapter.apply {
-        if (item != null) {
-            reviewList=item
+        if (items != null) {
+            reviewList=items
 //            notifyDataSetChanged()
         }
     }
 
 }
 
+@BindingAdapter("inquireAdapter","inquire")
+fun setInquire(recyclerView: RecyclerView,adapter:InquireAdapter,items: List<Inquire>?){
+    recyclerView.adapter=adapter.apply {
+        if(items!=null){
+            inquireList=items
+        }
+    }
+}
 

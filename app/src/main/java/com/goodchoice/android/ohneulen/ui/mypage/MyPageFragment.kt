@@ -1,23 +1,15 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
-import android.Manifest
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageFragmentBinding
-import com.goodchoice.android.ohneulen.ui.login.LoginFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
-import gun0912.tedimagepicker.builder.TedImagePicker
 
 class MyPageFragment : Fragment() {
 
@@ -60,9 +52,14 @@ class MyPageFragment : Fragment() {
         replaceAppbarFragment(MyPageGoodAppBarFragment.newInstance())
         replaceMainFragment(MyPageGoodFragment.newInstance())
     }
+    fun reviewClick(view:View){
+        replaceAppbarFragment(MyPageReviewAppBarFragment.newInstance())
+        replaceMainFragment(MyPageReviewFragment.newInstance())
+    }
 
     fun questionsClick(view: View) {
-
+        replaceAppbarFragment(MyPageInquireAppBar.newInstance())
+        replaceMainFragment(MyPageInquireFragment.newInstance())
     }
 
     fun frequentlyQClick(view: View) {

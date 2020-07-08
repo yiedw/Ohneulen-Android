@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMapFragmentBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
+import com.goodchoice.android.ohneulen.util.dp
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.NaverMap
@@ -41,15 +43,24 @@ class StoreMapFragment : Fragment() ,OnMapReadyCallback{
             container,
             false
         )
+        val layoutParams = ConstraintLayout.LayoutParams(
+            0,
+            328.dp()
+        )
+        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.rightToRight=ConstraintLayout.LayoutParams.PARENT_ID
+
         mapView = binding.storeMapView
+        mapView.layoutParams=layoutParams
         mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
-        Timber.e(binding.storeMapView.height.toString())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.e(binding.storeMapView.bottom.toString())
 
     }
 

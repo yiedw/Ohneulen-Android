@@ -17,7 +17,6 @@ import com.kakao.kakaolink.v2.KakaoLinkService
 import com.kakao.message.template.*
 import com.kakao.network.ErrorResult
 import com.kakao.network.callback.ResponseCallback
-import timber.log.Timber
 
 
 class StoreAppBarFragment : Fragment() {
