@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/store_home_report_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="~에서 \n정정해야 할 내용이 있나요?"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/store_home_report_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="정정해야할 내용을 알려주세요"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/store_home_report_title" />
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.store.home.StoreHomeReportFragment" />
 
-    <RadioGroup
-        android:id="@+id/store_home_report_radio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/store_home_report_tv">
+    </data>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="매장 정보 오기입" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="폐업" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="업종 변경" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="기타" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/store_home_report_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/store_home_report"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="내용"
-        app:layout_constraintBottom_toTopOf="@id/store_home_report_submit"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/store_home_report_radio" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:onClick="@{fragment::onClick}">
 
-    <Button
-        android:id="@+id/store_home_report_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="작성완료"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        <TextView
+            android:id="@+id/store_home_report_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="~에서 \n정정해야 할 내용이 있나요?"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/store_home_report_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="정정해야할 내용을 알려주세요"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_home_report_title" />
+
+        <RadioGroup
+            android:id="@+id/store_home_report_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_home_report_tv">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="매장 정보 오기입" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="폐업" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="업종 변경" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기타" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/store_home_report_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="내용"
+            app:layout_constraintBottom_toTopOf="@id/store_home_report_submit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_home_report_radio" />
+
+        <Button
+            android:id="@+id/store_home_report_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="작성완료"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_home_report_content" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

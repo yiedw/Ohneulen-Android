@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +9,11 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.util.addAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
 class StoreReviewWriteAppbarFragment:Fragment() {
     companion object{
-        fun newInstance()=StoreReviewWriteAppbarFragment()
+        fun newInstance()=
+            StoreReviewWriteAppbarFragment()
     }
     private lateinit var binding:StoreReviewWriteAppbarFragmentBinding
 

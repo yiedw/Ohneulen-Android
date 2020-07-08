@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.kakao.kakaolink.v2.KakaoLinkService
 import com.kakao.message.template.*
 import com.kakao.network.ErrorResult
 import com.kakao.network.callback.ResponseCallback
+import timber.log.Timber
 
 
 class StoreAppBarFragment : Fragment() {
@@ -27,8 +29,8 @@ class StoreAppBarFragment : Fragment() {
     private lateinit var binding: StoreAppbarFragmentBinding
 
     //나중에 되돌리기
-    private val initMainFragment: ViewGroup.LayoutParams =
-        MainActivity.mainFrameLayout.layoutParams
+//    private val initMainFragment: ViewGroup.LayoutParams =
+//        MainActivity.mainFrameLayout.layoutParams
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,16 +43,24 @@ class StoreAppBarFragment : Fragment() {
             container,
             false
         )
+        changeBlack()
         binding.fragment = this
 
         return binding.root
     }
-
+    fun changeBlack(){
+        binding.storeAppbarBack.setTextColor(Color.BLACK)
+        binding.storeAppbarShare.setTextColor(Color.BLACK)
+    }
+    fun changeWhite(){
+        binding.storeAppbarBack.setTextColor(Color.WHITE)
+        binding.storeAppbarShare.setTextColor(Color.WHITE)
+    }
 
     fun backClick(view: View) {
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
+        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         MainActivity.supportFragmentManager.popBackStack()
-        MainActivity.mainFrameLayout.layoutParams = initMainFragment
     }
 
     fun shareClick(view: View) {

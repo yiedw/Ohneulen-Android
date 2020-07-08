@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.store.home.StoreHomeFragment"/>
 
     </data>
 
@@ -110,7 +112,8 @@
             android:layout_height="wrap_content"
             android:text="매장정보신고"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/store_home_content"/>
+            app:layout_constraintTop_toBottomOf="@id/store_home_content"
+            android:onClick="@{fragment::submitClick}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,12 +55,14 @@ fun replaceMainFragment(
 
 fun replaceAppbarFragment(
     fragment: Fragment,
-    addToBackStack: Boolean = false
+    addToBackStack: Boolean = false,
+    tag: String? = null
+
 ) {
     val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
     if (addToBackStack)
         fragmentTransaction.addToBackStack("")
-    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment).commit()
+    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment,tag).commit()
 }
 
 fun addMainFragment(

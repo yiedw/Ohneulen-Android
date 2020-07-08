@@ -12,8 +12,8 @@ import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
-import com.goodchoice.android.ohneulen.ui.store.StoreMenuDetailAdapter
-import com.goodchoice.android.ohneulen.ui.store.StoreReviewAdapter
+import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
+import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewAdapter
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")
@@ -57,7 +57,8 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
 
 @BindingAdapter("storeMenuDetail", "storeMenuDetailIndex")
 fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, index: Int) {
-    recyclerView.adapter = StoreMenuDetailAdapter().apply {
+    recyclerView.adapter = StoreMenuDetailAdapter()
+        .apply {
         menuList = items ?: emptyList()
         notifyDataSetChanged()
     }

@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.net.Uri
 import android.os.Bundle
@@ -22,7 +22,8 @@ import timber.log.Timber
 class StoreReviewWriteFragment : Fragment() {
 
     companion object {
-        fun newInstance() = StoreReviewWriteFragment()
+        fun newInstance() =
+            StoreReviewWriteFragment()
     }
 
     private lateinit var binding: StoreReviewWriteFragmentBinding

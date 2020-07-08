@@ -4,12 +4,16 @@
 
     <data>
 
-
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.store.home.StoreHomeReportAppBar" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/store_home_report_appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
+            android:onClick="@{fragment::onCloseClick}"
             android:text="닫기"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"

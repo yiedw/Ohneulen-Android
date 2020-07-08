@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.store.StoreReviewFragment" />
+            type="com.goodchoice.android.ohneulen.ui.store.review.StoreReviewFragment" />
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />

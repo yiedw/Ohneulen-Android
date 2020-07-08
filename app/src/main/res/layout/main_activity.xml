@@ -12,10 +12,8 @@
     <FrameLayout
         android:id="@+id/appbar_frameLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:background="@color/colorWhite"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.05"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">

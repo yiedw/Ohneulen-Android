@@ -1,14 +1,11 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.model.Member
-import com.goodchoice.android.ohneulen.data.model.Photo
 import com.goodchoice.android.ohneulen.data.model.Review
-import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.ReviewItemBinding
 import timber.log.Timber
 
@@ -17,7 +14,6 @@ class StoreReviewAdapter : RecyclerView.Adapter<StoreReviewAdapter.StoreReviewVi
     inner class StoreReviewViewHolder(private val binding: ReviewItemBinding)
         :RecyclerView.ViewHolder(binding.root){
         fun bind(reviewItem: Review){
-            Timber.e(reviewList.toString())
             binding.apply {
                 review=reviewItem
                 executePendingBindings()

@@ -1,13 +1,11 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.store.menu
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Photo
 import com.goodchoice.android.ohneulen.data.model.StoreMenu

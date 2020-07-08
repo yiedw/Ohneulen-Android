@@ -14,9 +14,13 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHomeFragment
+import com.goodchoice.android.ohneulen.ui.store.map.StoreMapFragment
+import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuFragment
+import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -194,6 +198,7 @@ class StoreFragment : Fragment() {
             0
         )
         layoutParams.leftToLeft=ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.rightToRight=ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.topToBottom=R.id.store_tab
         layoutParams.bottomToBottom=ConstraintLayout.LayoutParams.PARENT_ID
         binding.storeViewPager2.layoutParams=layoutParams

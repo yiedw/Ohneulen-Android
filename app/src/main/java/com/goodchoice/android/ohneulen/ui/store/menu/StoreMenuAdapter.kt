@@ -9,7 +9,6 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMenuItemBinding
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.store.StoreMenuDetailFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
 
 class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHolder>() {

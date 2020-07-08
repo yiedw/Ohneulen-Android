@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.*
-import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
+import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewAdapter
 import kotlinx.coroutines.Dispatchers
-import org.koin.java.KoinJavaComponent
-import timber.log.Timber
 
 class StoreViewModel(networkService: NetworkService) : ViewModel() {
     val storeMenuList: LiveData<MutableList<StoreMenu>> = liveData(Dispatchers.IO) {
@@ -26,7 +24,8 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     var storeReviewList:LiveData<List<Review>> = liveData(Dispatchers.IO){
         emit(getReview())
     }
-    var storeReviewAdapter=StoreReviewAdapter()
+    var storeReviewAdapter=
+        StoreReviewAdapter()
 
     val storeInfo = getStore()
 

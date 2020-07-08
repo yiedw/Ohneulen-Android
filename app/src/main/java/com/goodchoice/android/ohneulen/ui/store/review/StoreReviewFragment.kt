@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.graphics.Color
 import android.os.Bundle
@@ -14,19 +14,19 @@ import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreReviewFragmentBinding
+import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StoreReviewFragment : Fragment() {
     companion object {
-        fun newInstance() = StoreReviewFragment()
+        fun newInstance() =
+            StoreReviewFragment()
     }
 
     private lateinit var binding: StoreReviewFragmentBinding
-    private val storeViewModel :StoreViewModel by viewModel()
+    private val storeViewModel : StoreViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -127,7 +127,7 @@ class SearchMapFragment : Fragment() {
     fun deleteMapView(){
         binding.searchMapMapView.removeView(mapView)
     }
-    fun addMapView(){
+    private fun addMapView(){
         binding.searchMapMapView.addView(mapView)
     }
 }

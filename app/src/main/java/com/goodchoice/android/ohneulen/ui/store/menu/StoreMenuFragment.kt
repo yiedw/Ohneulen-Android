@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.store.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreMenuDetailBinding
+import com.goodchoice.android.ohneulen.databinding.StoreMenuFragmentBinding
+import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StoreMenuDetailFragment(var inputIndex:Int) : Fragment() {
-
+class StoreMenuFragment : Fragment() {
     companion object {
-        fun newInstance(index:Int) = StoreMenuDetailFragment(index)
+        fun newInstance() =
+            StoreMenuFragment()
     }
 
-    private lateinit var binding: StoreMenuDetailBinding
+    private lateinit var binding: StoreMenuFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
 
     override fun onCreateView(
@@ -24,25 +25,20 @@ class StoreMenuDetailFragment(var inputIndex:Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        storeViewModel.index=this.inputIndex
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.store_menu_detail,
+            R.layout.store_menu_fragment,
             container,
             false
         )
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
-            lifecycleOwner = this@StoreMenuDetailFragment
-            viewModel=storeViewModel
+            lifecycleOwner = this@StoreMenuFragment
+            viewModel = storeViewModel
         }
     }
-
-
 }

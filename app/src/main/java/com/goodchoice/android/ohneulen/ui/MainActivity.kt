@@ -3,6 +3,7 @@ package com.goodchoice.android.ohneulen.ui
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var supportFragmentManager: FragmentManager
         lateinit var appbarFrameLayout: FrameLayout
         lateinit var mainFrameLayout: FrameLayout
+        lateinit var initMainFrameLayout:ViewGroup.LayoutParams
     }
 
     private val initData:InitData by inject()
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         appbarFrameLayout = appbar_frameLayout
         mainFrameLayout = main_frameLayout
         appbarFrameLayout.bringToFront()
+        initMainFrameLayout=mainFrameLayout.layoutParams
 //        if (savedInstanceState == null) {
 //            replaceAppbarFragment(HomeAppBarFragment.newInstance())
 //            replaceMainFragment(HomeFragment.newInstance())

@@ -5,9 +5,12 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.core.widget.NestedScrollView
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
+import timber.log.Timber
 
 class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {
 
@@ -67,6 +70,7 @@ class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListene
             MainActivity.appbarFrameLayout.context,
             R.color.colorWhite
         )
+        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
         callStickListener()
     }
 
@@ -79,11 +83,11 @@ class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListene
 
     fun freeHeader() {
         header?.translationY = 0f
-
         MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
             MainActivity.appbarFrameLayout.context,
             R.color.colorTransparent
         )
+        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeWhite()
         callFreeListener()
     }
 
