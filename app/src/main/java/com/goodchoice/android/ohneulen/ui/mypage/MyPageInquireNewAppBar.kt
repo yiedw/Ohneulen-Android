@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageInquireAppbarBinding
+import com.goodchoice.android.ohneulen.databinding.MypageInquireNewAppbarBinding
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class MyPageInquireAppBar :Fragment() {
-
+class MyPageInquireNewAppBar :Fragment(){
     companion object{
-        fun newInstance()=MyPageInquireAppBar()
+        fun newInstance()=MyPageInquireNewAppBar()
     }
 
-    private lateinit var binding:MypageInquireAppbarBinding
+    private lateinit var binding:MypageInquireNewAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,20 +25,17 @@ class MyPageInquireAppBar :Fragment() {
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_inquire_appbar,
+            R.layout.mypage_inquire_new_appbar,
             container,
             false
         )
         binding.fragment=this
         return binding.root
     }
-    fun backClick(view:View){
-        replaceAppbarFragment(MyPageAppBarFragment.newInstance())
-        replaceMainFragment(MyPageFragment.newInstance())
-    }
 
-    fun newClick(view:View){
-        replaceAppbarFragment(MyPageInquireNewAppBar.newInstance())
-        replaceMainFragment(MyPageInquireNew.newInstance())
+    fun onCloseClick(view:View){
+        replaceAppbarFragment(MyPageInquireAppBar.newInstance())
+        replaceMainFragment(MyPageInquireFragment.newInstance())
+
     }
 }

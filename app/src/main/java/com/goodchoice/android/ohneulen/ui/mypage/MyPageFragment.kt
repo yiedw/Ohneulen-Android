@@ -57,12 +57,14 @@ class MyPageFragment : Fragment() {
         replaceMainFragment(MyPageReviewFragment.newInstance())
     }
 
-    fun questionsClick(view: View) {
+    fun inquireClick(view: View) {
         replaceAppbarFragment(MyPageInquireAppBar.newInstance())
         replaceMainFragment(MyPageInquireFragment.newInstance())
     }
 
-    fun frequentlyQClick(view: View) {
+    fun FAQClick(view: View) {
+        replaceAppbarFragment(MyPageFAQAppBar.newInstance())
+        replaceMainFragment(MyPageFAQ.newInstance())
     }
 
 

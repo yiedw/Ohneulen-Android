@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.goodchoice.android.ohneulen.adapter.FAQAdapter
 import com.goodchoice.android.ohneulen.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
@@ -108,6 +109,16 @@ fun setInquire(recyclerView: RecyclerView,adapter:InquireAdapter,items: List<Inq
     recyclerView.adapter=adapter.apply {
         if(items!=null){
             inquireList=items
+        }
+    }
+}
+
+@BindingAdapter("FAQAdapter","FAQ")
+fun setFAQ(recyclerView: RecyclerView,adapter:FAQAdapter,items:List<FAQ>?){
+    recyclerView.adapter=adapter.apply {
+        Timber.e(items.toString())
+        if(items!=null){
+            FAQList=items
         }
     }
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/mypage_inquire_new_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="분류"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/mypage_inquire_new_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_tv1" />
+
+        <TextView
+            android:id="@+id/mypage_inquire_new_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="제목"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_spinner" />
+
+        <EditText
+            android:id="@+id/mypage_inquire_new_et1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_title" />
+
+        <TextView
+            android:id="@+id/mypage_inquire_new_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내용"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_et1" />
+
+        <EditText
+            android:id="@+id/mypage_inquire_new_et2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="내용을쓰시오"
+            app:layout_constraintBottom_toTopOf="@id/mypage_inquire_new_submit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_content" />
+
+        <Button
+            android:id="@+id/mypage_inquire_new_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="작성완료"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

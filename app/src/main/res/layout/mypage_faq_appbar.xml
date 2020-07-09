@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageInquireAppBar" />
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageFAQAppBar" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,8 +19,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:gravity="center"
-            android:text="뒤로"
             android:onClick="@{fragment::backClick}"
+            android:text="뒤로"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,21 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:text="문의 내역"
+            android:text="자주 찾는 질문"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:text="문의하기"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{fragment::newClick}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

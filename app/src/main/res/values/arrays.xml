@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="inquire_spinner_item">
+        <item>분류1</item>
+        <item>분류2</item>
+        <item>분류3</item>
+        <item>분류4</item>
+    </string-array>
+    </resources>
