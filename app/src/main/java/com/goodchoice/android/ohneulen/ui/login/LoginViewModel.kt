@@ -26,17 +26,20 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
 
     //    private val mainCategory = MutableLiveData<MutableList<String>>()
 //    private val subCategory = MutableLiveData<MutableList<MutableList<String>>>()
-    fun login() {
+    fun login(check:Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
             val loginResponse = networkService.requestLogin(
                 memId.toRequestBody(), memPw.toRequestBody()
 
             )
-            if (loginResponse.resultCode == "000" || loginResponse.resultCode=="021") {
+            if (loginResponse.resultCode == "000" || loginResponse.resultCode == "021") {
                 isLogin.postValue(true)
+                replaceMainFragment(MyPageFragment.newInstance())
+                replaceAppbarFragment(MyPageAppBarFragment.newInstance())
+                if(check){
+                    //토큰 저장
+                }
             }
-            replaceMainFragment(MyPageFragment.newInstance())
-            replaceAppbarFragment(MyPageAppBarFragment.newInstance())
         }
     }
 
@@ -45,10 +48,8 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
             val response = networkService.requestLoginTest()
             if (response.resultCode == "100") {
                 isLogin.postValue(true)
-                Timber.e("로그인 되있음")
             } else {
                 isLogin.postValue(false)
-                Timber.e("로그인 안되있음")
             }
         }
     }
@@ -81,10 +82,8 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
 
     fun logoutTest() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = networkService.requestLogoutTest()
+            networkService.requestLogoutTest()
             isLogin.postValue(false)
-            Timber.e(isLogin.value.toString())
-            Timber.e(response.toString())
         }
     }
 }

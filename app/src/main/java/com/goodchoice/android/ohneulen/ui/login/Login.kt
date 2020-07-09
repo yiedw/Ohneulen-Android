@@ -14,9 +14,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Login : Fragment() {
 
-    companion object{
-        fun newInstance()=Login()
+    companion object {
+        fun newInstance() = Login()
     }
+
     private lateinit var binding: LoginBinding
     private val loginViewModel: LoginViewModel by viewModel()
     override fun onCreateView(
@@ -31,19 +32,36 @@ class Login : Fragment() {
             false
         )
         binding.apply {
-            fragment=this@Login
-            viewModel=loginViewModel
+            fragment = this@Login
+            viewModel = loginViewModel
         }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    fun emailClear(view:View){
+        binding.loginEmail.text.clear()
+    }
+    fun pwClear(view:View){
+        binding.loginPw.text.clear()
+    }
+
+    fun submitClick(view: View) {
+        loginViewModel.login(binding.loginAuto.isChecked)
+    }
+
+    fun findEmailClick(view: View) {
 
     }
 
-    fun submitClick(view:View){
-        loginViewModel.login()
+    fun findPwClick(view: View) {
+
+    }
+
+    fun signUpClick(view: View) {
 
     }
 

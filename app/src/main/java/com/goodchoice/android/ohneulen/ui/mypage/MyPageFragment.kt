@@ -48,11 +48,9 @@ class MyPageFragment : Fragment() {
         loginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             //로그인 상태일때
             if (it) {
-                Timber.e("로그인중")
                 binding.mypageNickName.visibility = View.VISIBLE
                 binding.mypageEmail.text = "AAA@AAA.com"
             } else {
-                Timber.e("로그인중 아님")
                 binding.mypageNickName.visibility = View.GONE
                 binding.mypageEmail.text = "로그인"
             }
