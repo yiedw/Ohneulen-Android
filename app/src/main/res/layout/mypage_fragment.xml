@@ -7,6 +7,10 @@
         <variable
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +33,9 @@
             android:id="@+id/mypage_nickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{fragment::infoClick}"
             android:text="닉네임"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/mypage_info"
             app:layout_constraintLeft_toRightOf="@id/mypage_info"
             app:layout_constraintTop_toTopOf="@id/mypage_info" />
@@ -38,9 +44,10 @@
             android:id="@+id/mypage_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{fragment::nameClick}"
-            android:text="이메일"
+            android:onClick="@{fragment::infoClick}"
+            android:text="로그인"
             app:layout_constraintLeft_toLeftOf="@id/mypage_info"
+            app:layout_constraintRight_toRightOf="@id/mypage_info"
             app:layout_constraintTop_toBottomOf="@id/mypage_info" />
 
         <LinearLayout
@@ -56,8 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:focusable="true"
-                android:text="@string/good"
-                android:onClick="@{fragment::goodClick}"/>
+                android:onClick="@{fragment::goodClick}"
+                android:text="@string/good" />
 
             <TextView
                 android:id="@+id/mypage_recentList"
@@ -71,8 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:focusable="true"
-                android:text="@string/my_review"
-                android:onClick="@{fragment::reviewClick}"/>
+                android:onClick="@{fragment::reviewClick}"
+                android:text="@string/my_review" />
 
             <TextView
                 android:id="@+id/mypage_questions"

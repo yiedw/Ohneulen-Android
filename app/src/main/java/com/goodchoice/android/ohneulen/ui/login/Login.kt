@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.LoginFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.LoginBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class LoginFragment : Fragment() {
+class Login : Fragment() {
 
     companion object{
-        fun newInstance()=LoginFragment()
+        fun newInstance()=Login()
     }
-    private lateinit var binding: LoginFragmentBinding
+    private lateinit var binding: LoginBinding
     private val loginViewModel: LoginViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,15 +25,26 @@ class LoginFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.login_fragment,
+            R.layout.login,
             container,
             false
         )
         binding.apply {
-            fragment=this@LoginFragment
+            fragment=this@Login
             viewModel=loginViewModel
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Timber.e(loginViewModel.toString())
+
+    }
+
+    fun submitClick(view:View){
+        loginViewModel.a()
+        loginViewModel.loginTest()
     }
 
 }

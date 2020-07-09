@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.goodchoice.android.ohneulen.adapter.FAQAdapter
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 class MyPageViewModel : ViewModel() {
 
     val goodAdapter = MyPageGoodAdapter()
+
 
     //후기
     var mypageReviewAdapter = ReviewAdapter()
@@ -30,4 +32,5 @@ class MyPageViewModel : ViewModel() {
     var mypageFAQList:LiveData<List<FAQ>> = liveData(Dispatchers.IO){
         emit(getFAQ())
     }
+
 }

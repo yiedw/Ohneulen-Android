@@ -116,7 +116,6 @@ fun setInquire(recyclerView: RecyclerView,adapter:InquireAdapter,items: List<Inq
 @BindingAdapter("FAQAdapter","FAQ")
 fun setFAQ(recyclerView: RecyclerView,adapter:FAQAdapter,items:List<FAQ>?){
     recyclerView.adapter=adapter.apply {
-        Timber.e(items.toString())
         if(items!=null){
             FAQList=items
         }

@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment" />
+            type="com.goodchoice.android.ohneulen.ui.login.LoginAppBar" />
 
     </data>
 
@@ -15,37 +14,23 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/mypage_appbar_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
             android:gravity="center"
-            android:onClick="@{fragment::backClick}"
             android:text="뒤로"
+            android:onClick="@{fragment::backClick}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/mypage_appbar_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:text="마이페이지"
+            android:text="로그인"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/mypage_appbar_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:onClick="@{fragment::logoutClick}"
-            android:text="로그아웃"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

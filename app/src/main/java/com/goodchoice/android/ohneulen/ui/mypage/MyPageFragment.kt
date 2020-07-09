@@ -6,10 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageFragmentBinding
+import com.goodchoice.android.ohneulen.ui.login.Login
+import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MyPageFragment : Fragment() {
 
@@ -18,6 +24,7 @@ class MyPageFragment : Fragment() {
     }
 
     private lateinit var binding: MypageFragmentBinding
+    private val loginViewModel: LoginViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,24 +42,40 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        loginViewModel.test()
+        loginViewModel.loginTest()
 
+        loginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+            //로그인 상태일때
+            if (it) {
+                Timber.e("로그인중")
+                binding.mypageNickName.visibility = View.VISIBLE
+                binding.mypageEmail.text = "AAA@AAA.com"
+            } else {
+                Timber.e("로그인중 아님")
+                binding.mypageNickName.visibility = View.GONE
+                binding.mypageEmail.text = "로그인"
+            }
+        })
     }
 
     fun infoClick(view: View) {
-        replaceAppbarFragment(MyPageInfoAppBarFragment.newInstance())
-        replaceMainFragment(MyPageInfoFragment.newInstance())
+        if (loginViewModel.isLogin.value!!) {
+            replaceAppbarFragment(MyPageInfoAppBarFragment.newInstance())
+            replaceMainFragment(MyPageInfoFragment.newInstance())
+        } else {
+            replaceAppbarFragment(LoginAppBar.newInstance())
+            replaceMainFragment(Login.newInstance())
+        }
 
-    }
-
-    fun nameClick(view: View) {
-//        replaceMainFragment(LoginFragment.newInstance())
     }
 
     fun goodClick(view: View) {
         replaceAppbarFragment(MyPageGoodAppBarFragment.newInstance())
         replaceMainFragment(MyPageGoodFragment.newInstance())
     }
-    fun reviewClick(view:View){
+
+    fun reviewClick(view: View) {
         replaceAppbarFragment(MyPageReviewAppBarFragment.newInstance())
         replaceMainFragment(MyPageReviewFragment.newInstance())
     }

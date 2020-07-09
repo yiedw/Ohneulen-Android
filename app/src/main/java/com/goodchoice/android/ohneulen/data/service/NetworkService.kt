@@ -21,10 +21,10 @@ interface NetworkService {
     ): OhneulenResponse
 
     @POST("api/test")
-    suspend fun loginTest(): OhneulenResponse
+    suspend fun requestLoginTest(): OhneulenResponse
 
     @POST("api/logout")
-    suspend fun logoutTest(): OhneulenResponse
+    suspend fun requestLogoutTest(): OhneulenResponse
 
     //필터 항목받아오기
     @POST("api/getcodelist")

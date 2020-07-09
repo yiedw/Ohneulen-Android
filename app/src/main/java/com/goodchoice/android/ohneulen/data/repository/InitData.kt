@@ -2,7 +2,6 @@ package com.goodchoice.android.ohneulen.data.repository
 
 import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.model.MainCategory
-import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +17,10 @@ class InitData(private val networkService: NetworkService) {
     var categoryList = mutableListOf<MainCategory>()
 
     init {
-        loginTest()
+        tempLogin()
     }
 
-    private fun loginTest() {
+    private fun tempLogin() {
         CoroutineScope(Dispatchers.IO).launch {
             networkService.requestLogin(
                 memId.toRequestBody(), memPw.toRequestBody()
