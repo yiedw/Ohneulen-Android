@@ -43,12 +43,11 @@ class MyPageAppBarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e(loginViewModel.toString())
         loginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if(it)
                 binding.mypageAppbarLogout.visibility=View.VISIBLE
             else
-                binding.mypageAppbarLogout.visibility=View.VISIBLE
+                binding.mypageAppbarLogout.visibility=View.GONE
         })
 
     }

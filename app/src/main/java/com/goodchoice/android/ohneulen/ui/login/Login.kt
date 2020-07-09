@@ -8,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginBinding
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class Login : Fragment() {
 
@@ -38,13 +39,12 @@ class Login : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e(loginViewModel.toString())
 
     }
 
     fun submitClick(view:View){
-        loginViewModel.a()
-        loginViewModel.loginTest()
+        loginViewModel.login()
+
     }
 
 }

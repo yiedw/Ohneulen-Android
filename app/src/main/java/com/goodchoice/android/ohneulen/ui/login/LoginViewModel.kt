@@ -1,9 +1,15 @@
 package com.goodchoice.android.ohneulen.ui.login
 
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.data.service.NetworkService
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -20,24 +26,23 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
 
     //    private val mainCategory = MutableLiveData<MutableList<String>>()
 //    private val subCategory = MutableLiveData<MutableList<MutableList<String>>>()
-    fun a() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun login() {
+        CoroutineScope(Dispatchers.IO).launch {
             val loginResponse = networkService.requestLogin(
                 memId.toRequestBody(), memPw.toRequestBody()
 
             )
             if (loginResponse.resultCode == "000" || loginResponse.resultCode=="021") {
-                Timber.e("로그인 성공")
                 isLogin.postValue(true)
             }
-            Timber.e(loginResponse.toString())
+            replaceMainFragment(MyPageFragment.newInstance())
+            replaceAppbarFragment(MyPageAppBarFragment.newInstance())
         }
     }
 
     fun loginTest() {
-        viewModelScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             val response = networkService.requestLoginTest()
-            Timber.e(response.toString())
             if (response.resultCode == "100") {
                 isLogin.postValue(true)
                 Timber.e("로그인 되있음")
@@ -75,7 +80,7 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
 
 
     fun logoutTest() {
-        viewModelScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             val response = networkService.requestLogoutTest()
             isLogin.postValue(false)
             Timber.e(isLogin.value.toString())
