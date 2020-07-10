@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginBinding
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -84,7 +85,8 @@ class Login : Fragment() {
     }
 
     fun findEmailClick(view: View) {
-
+        replaceAppbarFragment(LoginFindAppBar.newInstance())
+        replaceMainFragment(LoginFind.newInstance())
     }
 
     fun findPwClick(view: View) {

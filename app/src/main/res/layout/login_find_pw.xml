@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.login.LoginFindPw" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RadioGroup
+            android:id="@+id/login_find_pw_rg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/login_find_pw_rb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="휴대폰 번호로 찾기" />
+
+            <LinearLayout
+                android:id="@+id/login_find_pw_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <EditText
+                    android:id="@+id/login_find_pw_et1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="휴대폰번호입력" />
+
+                <Button
+                    android:id="@+id/login_find_pw_bt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="인증번호 받기"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+            </LinearLayout>
+
+            <RadioButton
+                android:id="@+id/login_find_pw_rb2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이메일로 찾기" />
+
+            <LinearLayout
+                android:id="@+id/login_find_pw_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_find_pw_phone">
+
+
+                <EditText
+                    android:id="@+id/login_find_pw_et2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="이메일을 입력하세요"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/login_find_pw_bt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="비밀번호 재설정"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </RadioGroup>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
