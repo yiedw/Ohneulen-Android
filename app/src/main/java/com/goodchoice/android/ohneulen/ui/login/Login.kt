@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.login
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +47,14 @@ class Login : Fragment() {
 
         loginViewModel.loginErrorToast.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
-                Toast.makeText(requireContext(), "아이디 혹은 비밀번호가 틀립니다", Toast.LENGTH_SHORT).show()
+                val toast =
+                    Toast.makeText(requireContext(), "아이디 혹은 비밀번호가 틀립니다", Toast.LENGTH_SHORT)
+                toast.setGravity(
+                    Gravity.CENTER_HORIZONTAL or Gravity.TOP,
+                    0,
+                    binding.loginEmail.y.toInt() - 30
+                )
+                toast.show()
             }
         })
     }
@@ -64,9 +72,14 @@ class Login : Fragment() {
             Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
         if (binding.loginEmail.text.matches(emailRegex)) {
             loginViewModel.login(binding.loginAuto.isChecked)
-        }
-        else{
-            Toast.makeText(requireContext(),"이메일 형식이 잘못됨",Toast.LENGTH_SHORT).show()
+        } else {
+            val toast = Toast.makeText(requireContext(), "이메일 형식이 잘못됨", Toast.LENGTH_SHORT)
+            toast.setGravity(
+                Gravity.CENTER_HORIZONTAL or Gravity.TOP,
+                0,
+                binding.loginEmail.y.toInt() - 30
+            )
+            toast.show()
         }
     }
 
