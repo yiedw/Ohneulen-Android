@@ -1,12 +1,13 @@
 package com.goodchoice.android.ohneulen.ui.login
 
-import android.widget.Button
+import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.*
-import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.data.service.NetworkService
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
+import com.goodchoice.android.ohneulen.util.Event
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import kotlinx.coroutines.CoroutineScope
@@ -17,19 +18,21 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.core.KoinComponent
 import timber.log.Timber
 
-class LoginViewModel(private val networkService: NetworkService) : ViewModel(), KoinComponent {
+class LoginViewModel(private val networkService: NetworkService,application: Application) :
+    AndroidViewModel(application){
 
     var isLogin = MutableLiveData(false)
 
-    var memId = "aaa@aa.com"
+    var memEmail = "aaa@aa.com"
     var memPw = "qwer1234"
 
-    //    private val mainCategory = MutableLiveData<MutableList<String>>()
-//    private val subCategory = MutableLiveData<MutableList<MutableList<String>>>()
+    val loginErrorToast=MutableLiveData<Event<Boolean>>()
+
+
     fun login(check:Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
             val loginResponse = networkService.requestLogin(
-                memId.toRequestBody(), memPw.toRequestBody()
+                memEmail.toRequestBody(), memPw.toRequestBody()
 
             )
             if (loginResponse.resultCode == "000" || loginResponse.resultCode == "021") {
@@ -39,6 +42,10 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
                 if(check){
                     //토큰 저장
                 }
+            }
+            //로그인 실패
+            else{
+                loginErrorToast.postValue(Event(true))
             }
         }
     }
@@ -54,37 +61,12 @@ class LoginViewModel(private val networkService: NetworkService) : ViewModel(), 
         }
     }
 
-//    fun test() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val response = networkService.requestCategory("category".toRequestBody())
-//            val mainCategoryList= mutableListOf<String>()
-//            val subCategoryList= mutableListOf<MutableList<String>>()
-//            for (i in response.resultData.indices) {
-//                val subList = mutableListOf<String>()
-//                viewModelScope.async(Dispatchers.IO) {
-//                    val subResponse =
-//                        networkService.requestCategory(response.resultData[i].minorCode.toRequestBody())
-//                    for (j in subResponse.resultData.indices) {
-//                        subList.add(subResponse.resultData[j].minorName)
-//                    }
-//                }.await()
-//                mainCategoryList.add(response.resultData[i].minorName)
-//                subCategoryList.add(subList)
-//            }
-//            mainCategory.postValue(mainCategoryList)
-//            subCategory.postValue(subCategoryList)
-//            Timber.e(mainCategory.value.toString())
-//            Timber.e(subCategory.value.toString())
-//
-//        }
-//    }
-
-
     fun logoutTest() {
         CoroutineScope(Dispatchers.IO).launch {
             networkService.requestLogoutTest()
             isLogin.postValue(false)
         }
     }
+
 }
 
