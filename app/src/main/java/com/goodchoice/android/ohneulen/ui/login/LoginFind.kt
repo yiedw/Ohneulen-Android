@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginFindBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class LoginFind : Fragment() {
@@ -17,6 +18,7 @@ class LoginFind : Fragment() {
     }
 
     private lateinit var binding: LoginFindBinding
+    private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,19 +38,20 @@ class LoginFind : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fm = childFragmentManager.beginTransaction()
-        fm.replace(R.id.login_find_frameLayout, LoginFindEmail.newInstance()).commit()
+        if (loginViewModel.emailClick)
+            fm.replace(R.id.login_find_frameLayout, LoginFindEmail.newInstance()).commit()
+        else
+            fm.replace(R.id.login_find_frameLayout,LoginFindPw.newInstance()).commit()
     }
 
     fun findEmailClick(view: View) {
         val fm = childFragmentManager.beginTransaction()
         fm.replace(R.id.login_find_frameLayout, LoginFindEmail.newInstance()).commit()
-
     }
 
     fun findPwClick(view: View) {
         val fm = childFragmentManager.beginTransaction()
         fm.replace(R.id.login_find_frameLayout, LoginFindPw.newInstance()).commit()
-
     }
 
 }

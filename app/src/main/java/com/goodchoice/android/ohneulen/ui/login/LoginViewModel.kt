@@ -21,6 +21,8 @@ import timber.log.Timber
 class LoginViewModel(private val networkService: NetworkService,application: Application) :
     AndroidViewModel(application){
 
+    var emailClick=true
+
     var isLogin = MutableLiveData(false)
 
     var memEmail = "aaa@aa.com"

@@ -1,9 +1,13 @@
 package com.goodchoice.android.ohneulen.ui
 
+import android.content.Context
+import android.graphics.Rect
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.fragment.app.FragmentManager
 import com.goodchoice.android.ohneulen.R
@@ -70,5 +74,26 @@ class MainActivity : AppCompatActivity() {
             replaceAppbarFragment(HomeAppBarFragment.newInstance())
             replaceMainFragment(HomeFragment.newInstance())
         }
+
     }
+
+    //다른곳 터치시 키보드 내리기
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val focusView=currentFocus
+        if(focusView!=null){
+            val rect=Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x=ev!!.x.toInt()
+            val y=ev.y.toInt()
+            if(!rect.contains(x,y)){
+                val imm:InputMethodManager=getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                if(imm!=null)
+                    imm.hideSoftInputFromWindow(focusView.windowToken,0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+
 }

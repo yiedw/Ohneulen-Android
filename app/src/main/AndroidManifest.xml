@@ -26,7 +26,9 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="gi96gyy9pa" />
 
-        <activity android:name=".ui.MainActivity">
+        <!--            android:windowSoftInputMode="adjustResize"-->
+        <activity android:name=".ui.MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

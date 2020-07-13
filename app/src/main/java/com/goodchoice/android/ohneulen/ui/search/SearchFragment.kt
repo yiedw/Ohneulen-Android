@@ -1,11 +1,17 @@
 package com.goodchoice.android.ohneulen.ui.search
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -85,6 +91,23 @@ class SearchFragment : Fragment() {
             }
         )
 
+        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
+            if (v!!.id == R.id.search_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (!binding.searchEditText.text.toString().isBlank()) {
+                    val imm: InputMethodManager =
+                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+                    searchViewModel.searchEditText = binding.searchEditText.text.toString()
+                    mainViewModel.searchEditText = binding.searchEditText.text.toString()
+                    searchViewModel.searchMapData()
+                } else {
+                    Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+            return@setOnEditorActionListener false
+        }
+
 
     }
 
@@ -114,6 +137,21 @@ class SearchFragment : Fragment() {
         replaceAppbarFragment(SearchFilterAppbarFragment.newInstance())
         addMainFragment(SearchFilterFragment.newInstance(), true)
     }
+
+//    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+//        if (v!!.id == R.id.search_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
+//            if (!binding.searchEditText.text.toString().isBlank()) {
+//                val imm:InputMethodManager=requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                imm.hideSoftInputFromWindow(et)
+//                searchViewModel.searchEditText = binding.searchEditText.text.toString()
+//                mainViewModel.searchEditText = binding.searchEditText.text.toString()
+//                searchViewModel.searchMapData()
+//            } else {
+//                Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG).show()
+//            }
+//        }
+//        return false
+//    }
 
 
 }
