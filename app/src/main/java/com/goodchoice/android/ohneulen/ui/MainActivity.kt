@@ -15,25 +15,18 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
-import com.goodchoice.android.ohneulen.ui.search.SearchFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
-import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
-import com.google.firebase.dynamiclinks.PendingDynamicLinkData
-import com.google.firebase.dynamiclinks.ShortDynamicLink
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.net.URI
 
 class MainActivity : AppCompatActivity() {
 
@@ -64,50 +57,32 @@ class MainActivity : AppCompatActivity() {
 //
 //        }
 
-        //데이터 받아오기
+        //초기 데이터 받아오기
         initData
 
-        //deepLink
-//        val intent = intent
-//        val data: Uri? = intent.data
-//        if (data != null) {
-//            if (data.host == getString(R.string.kakaolink_host)) {
-//                mainViewModel.searchEditText = "강남역"
-//                replaceAppbarFragment(SearchAppBarFragment.newInstance())
-//                replaceMainFragment(SearchFragment.newInstance(), name = "search")
-//                addMainFragment(StoreFragment.newInstance(), true)
-//                addAppbarFragment(StoreAppBarFragment.newInstance(), true)
-//            }
-//        } else {
-//            replaceAppbarFragment(HomeAppBarFragment.newInstance())
-//            replaceMainFragment(HomeFragment.newInstance())
-//        }
-
-
-        val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
-            link = Uri.parse("https://www.ohneulen.com")
-            domainUriPrefix = "https://ohneulen.page.link"
-            androidParameters { "com.ohneulen.android" }
-            iosParameters("com.ohneulen.ios") {}
-//            buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)
-        }
-
-
-        dynamicLink.addOnSuccessListener {
-            Timber.e(dynamicLink.result!!.shortLink.toString())
-
-        }
-
+        //다이나믹 링크
         Firebase.dynamicLinks
             .getDynamicLink(Intent())
             .addOnSuccessListener(this) {
                 var deepLink: Uri? = null
                 if (it != null) {
+                    //딥링크로 받아서 들어올때
                     deepLink = it.link
-                    replaceAppbarFragment(StoreAppBarFragment.newInstance(), name = "storeAppBar")
-                    addMainFragment(StoreFragment.newInstance())
-                }
-                else{
+                    val segment = deepLink!!.lastPathSegment
+                    when (segment) {
+                        ConstList.SEGMENT_STORE -> {
+                            val code = deepLink.getQueryParameter(ConstList.CODE)
+                            Timber.e(code)
+                            replaceAppbarFragment(
+                                StoreAppBarFragment.newInstance(),
+                                name = "storeAppBar"
+                            )
+                            addMainFragment(StoreFragment.newInstance())
+
+                        }
+                    }
+                } else {
+                    //일반적으로 앱을 실행 했을때
                     replaceAppbarFragment(HomeAppBarFragment.newInstance())
                     replaceMainFragment(HomeFragment.newInstance())
                 }

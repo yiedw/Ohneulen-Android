@@ -5,4 +5,7 @@ object ConstList {
 
     const val MAIN_CATEGORY=-1
     const val SUB_CATEGORY=1
+
+    const val SEGMENT_STORE ="store"
+    const val CODE="code"
 }
