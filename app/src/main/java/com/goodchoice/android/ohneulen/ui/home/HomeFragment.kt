@@ -45,7 +45,7 @@ class HomeFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.homeEditText.setOnEditorActionListener { v, actionId, event ->
+        binding.homeEditText.setOnEditorActionListener { v, actionId, _ ->
             if (v!!.id == R.id.home_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
                 mainViewModel.searchEditText = binding.homeEditText.text.toString()
                 replaceAppbarFragment(SearchAppBarFragment.newInstance())

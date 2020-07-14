@@ -59,7 +59,7 @@ class Login : Fragment() {
                 toast.show()
             }
         })
-        binding.loginPw.setOnEditorActionListener { v, actionId, event ->
+        binding.loginPw.setOnEditorActionListener { v, actionId, _->
             if (v!!.id == R.id.login_pw && actionId == EditorInfo.IME_ACTION_DONE) {
                 val emailRegex =
                     Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")

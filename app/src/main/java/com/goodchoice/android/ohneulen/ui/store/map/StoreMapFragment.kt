@@ -60,7 +60,6 @@ class StoreMapFragment : Fragment() ,OnMapReadyCallback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e(binding.storeMapView.bottom.toString())
 
     }
 

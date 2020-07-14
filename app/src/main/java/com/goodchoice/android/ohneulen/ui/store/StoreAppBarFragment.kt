@@ -11,12 +11,15 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
+import com.goodchoice.android.ohneulen.ui.search.SearchFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.kakao.kakaolink.v2.KakaoLinkResponse
 import com.kakao.kakaolink.v2.KakaoLinkService
 import com.kakao.message.template.*
 import com.kakao.network.ErrorResult
 import com.kakao.network.callback.ResponseCallback
+import timber.log.Timber
 
 
 class StoreAppBarFragment : Fragment() {
@@ -47,11 +50,13 @@ class StoreAppBarFragment : Fragment() {
 
         return binding.root
     }
-    fun changeBlack(){
+
+    fun changeBlack() {
         binding.storeAppbarBack.setTextColor(Color.BLACK)
         binding.storeAppbarShare.setTextColor(Color.BLACK)
     }
-    fun changeWhite(){
+
+    fun changeWhite() {
         binding.storeAppbarBack.setTextColor(Color.WHITE)
         binding.storeAppbarShare.setTextColor(Color.WHITE)
     }
@@ -59,7 +64,12 @@ class StoreAppBarFragment : Fragment() {
     fun backClick(view: View) {
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
         MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
-        MainActivity.supportFragmentManager.popBackStack()
+        if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
+            replaceMainFragment(SearchFragment.newInstance())
+        } else {
+            MainActivity.supportFragmentManager.popBackStack()
+        }
+        Timber.e(MainActivity.supportFragmentManager.backStackEntryCount.toString())
     }
 
     fun shareClick(view: View) {
@@ -110,14 +120,14 @@ class StoreAppBarFragment : Fragment() {
             )
             .build()
         val serverCallbackArgs: MutableMap<String, String> = HashMap()
-        serverCallbackArgs["user_id"]="\${current_user_id}"
-        serverCallbackArgs["product_id"]="\${current_product_id}"
+        serverCallbackArgs["user_id"] = "\${current_user_id}"
+        serverCallbackArgs["product_id"] = "\${current_product_id}"
 
         KakaoLinkService.getInstance().sendDefault(
             requireContext(),
             params,
             serverCallbackArgs,
-            object :ResponseCallback<KakaoLinkResponse>(){
+            object : ResponseCallback<KakaoLinkResponse>() {
                 override fun onSuccess(result: KakaoLinkResponse?) {
 //                    Timber.e("성공")
                 }

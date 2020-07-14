@@ -70,7 +70,9 @@ class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListene
             MainActivity.appbarFrameLayout.context,
             R.color.colorWhite
         )
-        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
+        if (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") != null) {
+            (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
+        }
         callStickListener()
     }
 
@@ -87,7 +89,9 @@ class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListene
             MainActivity.appbarFrameLayout.context,
             R.color.colorTransparent
         )
-        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeWhite()
+        if (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") != null) {
+            (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeWhite()
+        }
         callFreeListener()
     }
 

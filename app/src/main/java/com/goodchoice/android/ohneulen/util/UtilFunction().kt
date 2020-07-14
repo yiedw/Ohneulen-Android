@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageInquireAppBar
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageInquireFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.iid.FirebaseInstanceId
@@ -56,13 +54,13 @@ fun replaceMainFragment(
 fun replaceAppbarFragment(
     fragment: Fragment,
     addToBackStack: Boolean = false,
-    tag: String? = null
+    name: String? = null
 
 ) {
     val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
     if (addToBackStack)
         fragmentTransaction.addToBackStack("")
-    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment,tag).commit()
+    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment,name).commit()
 }
 
 fun addMainFragment(

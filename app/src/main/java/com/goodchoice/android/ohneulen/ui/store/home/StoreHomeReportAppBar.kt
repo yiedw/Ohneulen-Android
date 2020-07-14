@@ -11,7 +11,6 @@ import com.goodchoice.android.ohneulen.databinding.StoreHomeReportAppbarFragment
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import timber.log.Timber
 
 class StoreHomeReportAppBar :Fragment(){
     companion object{
@@ -36,7 +35,7 @@ class StoreHomeReportAppBar :Fragment(){
     }
 
     fun onCloseClick(view:View){
-        replaceAppbarFragment(StoreAppBarFragment.newInstance(), tag = "storeAppBar")
+        replaceAppbarFragment(StoreAppBarFragment.newInstance(), name = "storeAppBar")
         MainActivity.supportFragmentManager.popBackStack()
         (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
     }
