@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                             Timber.e(code)
                             replaceAppbarFragment(
                                 StoreAppBarFragment.newInstance(),
-                                name = "storeAppBar"
+                                tag = "storeAppBar"
                             )
                             addMainFragment(StoreFragment.newInstance())
 

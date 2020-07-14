@@ -40,13 +40,13 @@ fun getAppKeyHash(context: Context) {
 fun replaceMainFragment(
     fragment: Fragment,
     addToBackStack: Boolean = false,
-    name: String? = null
+    tag: String? = null
 ) {
     val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
     if (addToBackStack)
         fragmentTransaction.addToBackStack("")
-    if (name != null) {
-        fragmentTransaction.replace(R.id.main_frameLayout, fragment, name).commit()
+    if (tag != null) {
+        fragmentTransaction.replace(R.id.main_frameLayout, fragment, tag).commit()
     } else
         fragmentTransaction.replace(R.id.main_frameLayout, fragment).commit()
 }
@@ -54,13 +54,13 @@ fun replaceMainFragment(
 fun replaceAppbarFragment(
     fragment: Fragment,
     addToBackStack: Boolean = false,
-    name: String? = null
+    tag: String? = null
 
 ) {
     val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
     if (addToBackStack)
         fragmentTransaction.addToBackStack("")
-    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment,name).commit()
+    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment, tag).commit()
 }
 
 fun addMainFragment(

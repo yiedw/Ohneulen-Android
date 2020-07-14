@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.adapter
+package com.goodchoice.android.ohneulen.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View

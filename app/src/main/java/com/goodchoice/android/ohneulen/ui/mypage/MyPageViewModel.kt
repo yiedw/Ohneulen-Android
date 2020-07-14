@@ -1,13 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.goodchoice.android.ohneulen.adapter.FAQAdapter
-import com.goodchoice.android.ohneulen.adapter.InquireAdapter
-import com.goodchoice.android.ohneulen.adapter.ReviewAdapter
+import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
+import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
+import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import kotlinx.coroutines.Dispatchers
 
 class MyPageViewModel : ViewModel() {
@@ -16,7 +15,7 @@ class MyPageViewModel : ViewModel() {
 
 
     //후기
-    var mypageReviewAdapter = ReviewAdapter()
+    var mypageReviewAdapter = ReviewAdapter(false)
     var mypageReviewList: LiveData<List<Review>> = liveData(Dispatchers.IO) {
         emit(getReview())
     }
@@ -28,7 +27,7 @@ class MyPageViewModel : ViewModel() {
     }
 
     //자주 찾는 질문
-    var mypageFAQAdapter=FAQAdapter()
+    var mypageFAQAdapter= FAQAdapter()
     var mypageFAQList:LiveData<List<FAQ>> = liveData(Dispatchers.IO){
         emit(getFAQ())
     }

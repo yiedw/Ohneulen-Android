@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store.home
+package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,18 +7,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreHomeReportAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.ReviewReportAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import timber.log.Timber
 
-class StoreHomeReportAppBar :Fragment(){
+class StoreReviewReportAppBar :Fragment() {
     companion object{
-        fun newInstance()=StoreHomeReportAppBar()
+        fun newInstance()=StoreReviewReportAppBar()
     }
 
-    private lateinit var binding:StoreHomeReportAppbarFragmentBinding
+    private lateinit var binding:ReviewReportAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +26,7 @@ class StoreHomeReportAppBar :Fragment(){
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.store_home_report_appbar_fragment,
+            R.layout.review_report_appbar,
             container,
             false
         )
@@ -38,7 +37,6 @@ class StoreHomeReportAppBar :Fragment(){
     fun onCloseClick(view:View){
         replaceAppbarFragment(StoreAppBarFragment.newInstance(), tag = "storeAppBar")
         MainActivity.supportFragmentManager.popBackStack()
-//        Timber.e(MainActivity.supportFragmentManager.fragments.toString())
-//        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
     }
+
 }

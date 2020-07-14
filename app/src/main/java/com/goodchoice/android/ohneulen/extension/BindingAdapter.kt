@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.goodchoice.android.ohneulen.adapter.FAQAdapter
-import com.goodchoice.android.ohneulen.adapter.InquireAdapter
+import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
+import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
@@ -15,8 +15,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
-import com.goodchoice.android.ohneulen.adapter.ReviewAdapter
-import timber.log.Timber
+import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")

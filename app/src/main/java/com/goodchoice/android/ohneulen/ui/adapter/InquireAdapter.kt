@@ -1,6 +1,5 @@
-package com.goodchoice.android.ohneulen.adapter
+package com.goodchoice.android.ohneulen.ui.adapter
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Inquire
 import com.goodchoice.android.ohneulen.databinding.InquireItemBinding
-import timber.log.Timber
 
 class InquireAdapter : RecyclerView.Adapter<InquireAdapter.InquireViewHolder>() {
     var inquireList = listOf<Inquire>()

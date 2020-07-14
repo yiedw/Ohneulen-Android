@@ -30,7 +30,7 @@ class SearchStoreAdapter :
                 }
                 root.setOnClickListener {
 //                    Timber.e(SystemClock.currentThreadTimeMillis().toString())
-                    replaceAppbarFragment(StoreAppBarFragment.newInstance(), name = "storeAppBar")
+                    replaceAppbarFragment(StoreAppBarFragment.newInstance(), tag = "storeAppBar")
                     addMainFragment(StoreFragment.newInstance(), true)
                 }
             }

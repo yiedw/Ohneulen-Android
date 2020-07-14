@@ -1,13 +1,11 @@
 package com.goodchoice.android.ohneulen.ui.home
 
 import android.os.Bundle
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.MainViewModel
@@ -18,7 +16,6 @@ import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class HomeFragment() : Fragment() {
 
@@ -49,7 +46,7 @@ class HomeFragment() : Fragment() {
             if (v!!.id == R.id.home_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
                 mainViewModel.searchEditText = binding.homeEditText.text.toString()
                 replaceAppbarFragment(SearchAppBarFragment.newInstance())
-                replaceMainFragment(SearchFragment.newInstance(), name = "search")
+                replaceMainFragment(SearchFragment.newInstance(), tag = "search")
             }
 
             return@setOnEditorActionListener false
@@ -59,7 +56,7 @@ class HomeFragment() : Fragment() {
     fun searchOnClick(view: View) {
         mainViewModel.searchEditText = binding.homeEditText.text.toString()
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
-        replaceMainFragment(SearchFragment.newInstance(), name = "search")
+        replaceMainFragment(SearchFragment.newInstance(), tag = "search")
     }
 
     fun currentLocationClick(view: View) {

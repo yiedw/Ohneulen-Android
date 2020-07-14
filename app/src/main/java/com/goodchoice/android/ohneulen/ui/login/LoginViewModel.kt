@@ -1,10 +1,8 @@
 package com.goodchoice.android.ohneulen.ui.login
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
 import com.goodchoice.android.ohneulen.util.Event
@@ -12,11 +10,8 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.koin.core.KoinComponent
-import timber.log.Timber
 
 class LoginViewModel(private val networkService: NetworkService,application: Application) :
     AndroidViewModel(application){

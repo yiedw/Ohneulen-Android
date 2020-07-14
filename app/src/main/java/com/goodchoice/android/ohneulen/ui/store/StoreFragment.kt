@@ -41,7 +41,7 @@ class StoreFragment : Fragment() {
         MainActivity.mainFrameLayout.layoutParams
 
     private lateinit var binding: StoreFragmentBinding
-    private val storeViewModel:StoreViewModel by viewModel()
+    private val storeViewModel: StoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +55,7 @@ class StoreFragment : Fragment() {
             false
         )
         binding.fragment = this
-        binding.viewModel=storeViewModel
+        binding.viewModel = storeViewModel
         //어둡게 만들기
         binding.storeBigImage.setColorFilter(
             ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),
@@ -141,6 +141,10 @@ class StoreFragment : Fragment() {
                     updatePagerHeightForChild(view!!, binding.storeViewPager2)
                     binding.storeNewScrollView.scrollTo(0, 0)
                     stickyHeader()
+                    if (position == 3) {
+                        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
+
+                    }
                     binding.storeNewScrollView.invalidate()
                 }
             }
@@ -191,17 +195,17 @@ class StoreFragment : Fragment() {
         MainActivity.mainFrameLayout.layoutParams = layoutParams
     }
 
-    private fun mapSetting(){
+    private fun mapSetting() {
         //지도를 화면에 딱맞게(스크롤뷰 안먹게)
-        val layoutParams=ConstraintLayout.LayoutParams(
+        val layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             0
         )
-        layoutParams.leftToLeft=ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.rightToRight=ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.topToBottom=R.id.store_tab
-        layoutParams.bottomToBottom=ConstraintLayout.LayoutParams.PARENT_ID
-        binding.storeViewPager2.layoutParams=layoutParams
+        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.topToBottom = R.id.store_tab
+        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+        binding.storeViewPager2.layoutParams = layoutParams
     }
 
     //리뷰 페이지 세팅
@@ -210,13 +214,13 @@ class StoreFragment : Fragment() {
         MainActivity.mainFrameLayout.layoutParams = initMainFragment
 
         //리뷰가 없을때 후기가 위로 딱 붙게하기
-        val layoutParams=ConstraintLayout.LayoutParams(
+        val layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             ConstraintLayout.LayoutParams.WRAP_CONTENT
         )
-        layoutParams.leftToLeft=ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.topToBottom=R.id.store_tab
-        binding.storeViewPager2.layoutParams=layoutParams
+        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.topToBottom = R.id.store_tab
+        binding.storeViewPager2.layoutParams = layoutParams
 
     }
 
