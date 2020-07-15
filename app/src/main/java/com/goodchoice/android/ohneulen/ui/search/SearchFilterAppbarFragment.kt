@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFilterAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
-class SearchFilterAppbarFragment :Fragment(){
+class SearchFilterAppbarFragment :Fragment(),OnBackPressedListener{
 
     companion object{
         fun newInstance()=SearchFilterAppbarFragment()
@@ -35,6 +36,11 @@ class SearchFilterAppbarFragment :Fragment(){
 
     fun closeOnClick(view:View){
 //        MainActivity.supportFragmentManager.popBackStack()
+        replaceAppbarFragment(SearchAppBarFragment.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    override fun onBackPressed() {
         replaceAppbarFragment(SearchAppBarFragment.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
     }

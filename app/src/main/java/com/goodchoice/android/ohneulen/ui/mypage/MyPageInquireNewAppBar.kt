@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInquireNewAppbarBinding
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class MyPageInquireNewAppBar :Fragment(){
+class MyPageInquireNewAppBar :Fragment(),OnBackPressedListener{
     companion object{
         fun newInstance()=MyPageInquireNewAppBar()
     }
@@ -37,5 +38,10 @@ class MyPageInquireNewAppBar :Fragment(){
         replaceAppbarFragment(MyPageInquireAppBar.newInstance())
         replaceMainFragment(MyPageInquireFragment.newInstance())
 
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(MyPageInquireAppBar.newInstance())
+        replaceMainFragment(MyPageInquireFragment.newInstance())
     }
 }

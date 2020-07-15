@@ -14,6 +14,7 @@ import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
 import com.goodchoice.android.ohneulen.ui.search.SearchFragment
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
@@ -25,7 +26,7 @@ import com.google.firebase.ktx.Firebase
 import timber.log.Timber
 
 
-class StoreAppBarFragment : Fragment() {
+class StoreAppBarFragment : Fragment() ,OnBackPressedListener{
 
     companion object {
         fun newInstance() = StoreAppBarFragment()
@@ -98,6 +99,16 @@ class StoreAppBarFragment : Fragment() {
         val sharing = Intent.createChooser(intent, "share")
         intent.putExtra(Intent.EXTRA_TEXT, shareLink)
         startActivity(sharing)
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(SearchAppBarFragment.newInstance())
+        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
+        if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
+            replaceMainFragment(SearchFragment.newInstance())
+        } else {
+            MainActivity.supportFragmentManager.popBackStack()
+        }
     }
 
 

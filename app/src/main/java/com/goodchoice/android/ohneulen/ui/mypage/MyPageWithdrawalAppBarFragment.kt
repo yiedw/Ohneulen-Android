@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageWithdrawalAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class MyPageWithdrawalAppBarFragment :Fragment(){
+class MyPageWithdrawalAppBarFragment :Fragment(),OnBackPressedListener{
     companion object{
         fun newInstance()=MyPageWithdrawalAppBarFragment()
     }
@@ -33,6 +34,11 @@ class MyPageWithdrawalAppBarFragment :Fragment(){
     }
 
     fun backClick(view: View){
+        replaceAppbarFragment(MyPageInfoAppBarFragment.newInstance())
+        replaceMainFragment(MyPageInfoFragment.newInstance())
+    }
+
+    override fun onBackPressed() {
         replaceAppbarFragment(MyPageInfoAppBarFragment.newInstance())
         replaceMainFragment(MyPageInfoFragment.newInstance())
     }

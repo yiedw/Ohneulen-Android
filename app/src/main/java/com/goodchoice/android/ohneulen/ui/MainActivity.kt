@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
@@ -17,6 +18,7 @@ import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -109,14 +111,18 @@ class MainActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    private fun storeDetailDeepLink() {
-        Firebase.dynamicLinks.dynamicLink {
-            link = Uri.parse("https://www.ohneulen.com")
-            domainUriPrefix = "https://ohneulen.page.link"
-            androidParameters { }
-            iosParameters("com.ohneulen.ios") {}
+    //각 fragment에서 뒤로가기 버튼 제어
+    //뒤로가기 버튼 제어
+    override fun onBackPressed() {
+        val fragmentList: List<Fragment> =
+            supportFragmentManager.fragments
+        for (fragment in fragmentList) {
+            if (fragment is OnBackPressedListener) {
+                (fragment as OnBackPressedListener).onBackPressed()
+            }
         }
     }
+
 
 
 }

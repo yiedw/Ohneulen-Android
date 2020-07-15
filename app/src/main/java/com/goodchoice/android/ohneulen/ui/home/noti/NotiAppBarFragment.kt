@@ -10,10 +10,11 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.NotiAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class NotiAppBarFragment :Fragment(){
+class NotiAppBarFragment :Fragment(),OnBackPressedListener{
     companion object{
         fun newInstance()=NotiAppBarFragment()
     }
@@ -42,5 +43,10 @@ class NotiAppBarFragment :Fragment(){
     fun setClick(view:View){
         replaceAppbarFragment(NotiSetAppbarFragment.newInstance())
         replaceMainFragment(NotiSetFragment.newInstance())
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(HomeAppBarFragment.newInstance())
+        replaceMainFragment(HomeFragment.newInstance())
     }
 }

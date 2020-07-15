@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 
-class StoreReviewWriteAppbarFragment:Fragment() {
+class StoreReviewWriteAppbarFragment:Fragment(),OnBackPressedListener {
     companion object{
         fun newInstance()=
             StoreReviewWriteAppbarFragment()
@@ -33,6 +34,11 @@ class StoreReviewWriteAppbarFragment:Fragment() {
     }
 
     fun closeOnClick(view:View){
+        MainActivity.supportFragmentManager.popBackStack()
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    override fun onBackPressed() {
         MainActivity.supportFragmentManager.popBackStack()
         MainActivity.supportFragmentManager.popBackStack()
     }

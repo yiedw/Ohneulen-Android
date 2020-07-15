@@ -10,10 +10,11 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class SearchAppBarFragment : Fragment() {
+class SearchAppBarFragment : Fragment() ,OnBackPressedListener{
 
     companion object {
         fun newInstance() = SearchAppBarFragment()
@@ -37,6 +38,11 @@ class SearchAppBarFragment : Fragment() {
     }
 
     fun backClick(view: View) {
+        replaceAppbarFragment(HomeAppBarFragment.newInstance())
+        replaceMainFragment(HomeFragment.newInstance())
+    }
+
+    override fun onBackPressed() {
         replaceAppbarFragment(HomeAppBarFragment.newInstance())
         replaceMainFragment(HomeFragment.newInstance())
     }

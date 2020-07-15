@@ -10,10 +10,11 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreHomeReportAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import timber.log.Timber
 
-class StoreHomeReportAppBar :Fragment(){
+class StoreHomeReportAppBar :Fragment(),OnBackPressedListener{
     companion object{
         fun newInstance()=StoreHomeReportAppBar()
     }
@@ -40,5 +41,10 @@ class StoreHomeReportAppBar :Fragment(){
         MainActivity.supportFragmentManager.popBackStack()
 //        Timber.e(MainActivity.supportFragmentManager.fragments.toString())
 //        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(StoreAppBarFragment.newInstance(), tag = "storeAppBar")
+        MainActivity.supportFragmentManager.popBackStack()
     }
 }

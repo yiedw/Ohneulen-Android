@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.NotiSetAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class NotiSetAppbarFragment :Fragment(){
+class NotiSetAppbarFragment :Fragment(),OnBackPressedListener{
 
     companion object{
         fun newInstance()=NotiSetAppbarFragment()
@@ -36,6 +37,11 @@ class NotiSetAppbarFragment :Fragment(){
     }
 
     fun backClick(view:View){
+        replaceAppbarFragment(NotiAppBarFragment.newInstance())
+        replaceMainFragment(NotiFragment.newInstance())
+    }
+
+    override fun onBackPressed() {
         replaceAppbarFragment(NotiAppBarFragment.newInstance())
         replaceMainFragment(NotiFragment.newInstance())
     }

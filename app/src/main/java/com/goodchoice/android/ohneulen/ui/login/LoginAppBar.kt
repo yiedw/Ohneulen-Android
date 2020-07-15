@@ -10,10 +10,11 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginAppbarBinding
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class LoginAppBar: Fragment() {
+class LoginAppBar: Fragment() ,OnBackPressedListener{
     companion object{
         fun newInstance()=LoginAppBar()
     }
@@ -35,6 +36,11 @@ class LoginAppBar: Fragment() {
         return binding.root
     }
     fun backClick(view:View){
+        replaceAppbarFragment(MyPageAppBarFragment.newInstance())
+        replaceMainFragment(MyPageFragment.newInstance())
+    }
+
+    override fun onBackPressed() {
         replaceAppbarFragment(MyPageAppBarFragment.newInstance())
         replaceMainFragment(MyPageFragment.newInstance())
     }

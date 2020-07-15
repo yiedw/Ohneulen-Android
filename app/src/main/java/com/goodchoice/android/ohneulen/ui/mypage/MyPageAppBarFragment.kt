@@ -12,11 +12,12 @@ import com.goodchoice.android.ohneulen.databinding.MypageAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
 import com.goodchoice.android.ohneulen.ui.home.HomeFragment
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MyPageAppBarFragment : Fragment() {
+class MyPageAppBarFragment : Fragment() ,OnBackPressedListener{
     companion object {
         fun newInstance() = MyPageAppBarFragment()
     }
@@ -56,5 +57,10 @@ class MyPageAppBarFragment : Fragment() {
     }
     fun logoutClick(view:View){
         loginViewModel.logoutTest()
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(HomeAppBarFragment.newInstance())
+        replaceMainFragment(HomeFragment.newInstance())
     }
 }

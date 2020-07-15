@@ -10,9 +10,10 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.ReviewReportAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
-class StoreReviewReportAppBar :Fragment() {
+class StoreReviewReportAppBar :Fragment(),OnBackPressedListener {
     companion object{
         fun newInstance()=StoreReviewReportAppBar()
     }
@@ -35,6 +36,11 @@ class StoreReviewReportAppBar :Fragment() {
     }
 
     fun onCloseClick(view:View){
+        replaceAppbarFragment(StoreAppBarFragment.newInstance(), tag = "storeAppBar")
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    override fun onBackPressed() {
         replaceAppbarFragment(StoreAppBarFragment.newInstance(), tag = "storeAppBar")
         MainActivity.supportFragmentManager.popBackStack()
     }
