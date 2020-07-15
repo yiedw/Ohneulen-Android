@@ -24,8 +24,7 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     var storeReviewList:LiveData<List<Review>> = liveData(Dispatchers.IO){
         emit(getReview())
     }
-    var storeReviewAdapter=
-        ReviewAdapter()
+    var storeReviewAdapter= ReviewAdapter()
 
     val storeInfo = getStore()
 

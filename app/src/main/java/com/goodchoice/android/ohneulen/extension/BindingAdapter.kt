@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
+import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")
@@ -59,11 +60,6 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
 
 @BindingAdapter("storeMenuDetail", "storeMenuDetailIndex")
 fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, index: Int) {
-    recyclerView.adapter = StoreMenuDetailAdapter()
-        .apply {
-        menuList = items ?: emptyList()
-        notifyDataSetChanged()
-    }
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
@@ -72,6 +68,19 @@ fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, inde
     //viewpager 처럼 딱딱 끊어지게
     val snapHelper = PagerSnapHelper()
     snapHelper.attachToRecyclerView(recyclerView)
+
+    recyclerView.adapter = StoreMenuDetailAdapter()
+        .apply {
+        menuList = items ?: emptyList()
+            setOnNextClickListener(object :StoreMenuDetailAdapter.OnNextClickListener{
+                override fun onNextClick(pos: Int) {
+                    recyclerView.scrollToPosition(pos)
+                }
+
+            })
+//        notifyDataSetChanged()
+    }
+
 }
 
 @BindingAdapter("imageResURL")

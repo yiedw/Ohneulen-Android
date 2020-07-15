@@ -26,7 +26,7 @@ class ReviewAdapter(val report: Boolean = true) :
                     reviewItemReport.visibility = View.GONE
                 reviewItemReport.setOnClickListener {
                     replaceAppbarFragment(StoreReviewReportAppBar.newInstance())
-                    addMainFragment(StoreReviewReport.newInstance(),true)
+                    addMainFragment(StoreReviewReport.newInstance(), true)
                 }
                 executePendingBindings()
             }
