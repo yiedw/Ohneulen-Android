@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreHomeReportAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreHomeReportAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
@@ -18,7 +18,7 @@ class StoreHomeReportAppBar :Fragment(),OnBackPressedListener{
         fun newInstance()=StoreHomeReportAppBar()
     }
 
-    private lateinit var binding:StoreHomeReportAppbarFragmentBinding
+    private lateinit var binding:StoreHomeReportAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +27,7 @@ class StoreHomeReportAppBar :Fragment(),OnBackPressedListener{
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.store_home_report_appbar_fragment,
+            R.layout.store_home_report_appbar,
             container,
             false
         )

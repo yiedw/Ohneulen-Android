@@ -8,7 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreMapFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreMapBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.dp
 import com.naver.maps.geometry.LatLng
@@ -19,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StoreMap : Fragment() ,OnMapReadyCallback{
 
-    private lateinit var binding: StoreMapFragmentBinding
+    private lateinit var binding: StoreMapBinding
     private val storeViewModel: StoreViewModel by viewModel()
     private lateinit var mapView: com.naver.maps.map.MapView
 
@@ -36,7 +36,7 @@ class StoreMap : Fragment() ,OnMapReadyCallback{
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.store_map_fragment,
+            R.layout.store_map,
             container,
             false
         )
@@ -57,6 +57,10 @@ class StoreMap : Fragment() ,OnMapReadyCallback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    fun onNavClick(view:View){
 
     }
 

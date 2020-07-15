@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreAppbarBinding
 
 class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {
 

@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.SearchFilterFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import kotlin.collections.HashMap
@@ -21,7 +21,7 @@ class SearchFilter : Fragment() {
     }
 
     private val searchViewModel: SearchViewModel by viewModel()
-    private lateinit var binding: SearchFilterFragmentBinding
+    private lateinit var binding: SearchFilterBinding
     private var filterViewHashMap = HashMap<String, View>()
     private var filterMainPositionHashMap = HashMap<String, Int>()
     private var filterSubPositionHashMap = HashMap<String, Int>()
@@ -35,7 +35,7 @@ class SearchFilter : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.search_filter_fragment,
+            R.layout.search_filter,
             container,
             false
         )

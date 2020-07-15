@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageReviewFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.MypageReviewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyPageReview : Fragment() {
@@ -15,7 +15,7 @@ class MyPageReview : Fragment() {
         fun newInstance() = MyPageReview()
     }
 
-    private lateinit var binding: MypageReviewFragmentBinding
+    private lateinit var binding: MypageReviewBinding
     private val mypageViewModel :MyPageViewModel by viewModel()
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class MyPageReview : Fragment() {
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_review_fragment,
+            R.layout.mypage_review,
             container,
             false
         )

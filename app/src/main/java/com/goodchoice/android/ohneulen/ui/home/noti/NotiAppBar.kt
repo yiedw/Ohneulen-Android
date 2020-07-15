@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.NotiAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.NotiAppbarBinding
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
@@ -19,7 +19,7 @@ class NotiAppBar :Fragment(),OnBackPressedListener{
         fun newInstance()=NotiAppBar()
     }
 
-    private lateinit var binding: NotiAppbarFragmentBinding
+    private lateinit var binding: NotiAppbarBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +27,7 @@ class NotiAppBar :Fragment(),OnBackPressedListener{
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.noti_appbar_fragment,
+            R.layout.noti_appbar,
             container,
             false
         )

@@ -16,7 +16,7 @@
 
 
         <TextView
-            android:id="@+id/mypage_withdrawal_appbar_center"
+            android:id="@+id/mypage_secession_appbar_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="회원 탈퇴"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/mypage_withdrawal_appbar_back"
+            android:id="@+id/mypage_secession_appbar_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

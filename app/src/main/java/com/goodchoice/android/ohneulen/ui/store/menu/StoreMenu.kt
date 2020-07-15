@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreMenuFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreMenuBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,7 +17,7 @@ class StoreMenu : Fragment() {
             StoreMenu()
     }
 
-    private lateinit var binding: StoreMenuFragmentBinding
+    private lateinit var binding: StoreMenuBinding
     private val storeViewModel: StoreViewModel by viewModel()
 
     override fun onCreateView(
@@ -27,7 +27,7 @@ class StoreMenu : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.store_menu_fragment,
+            R.layout.store_menu,
             container,
             false
         )

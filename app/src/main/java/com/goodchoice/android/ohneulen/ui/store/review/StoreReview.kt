@@ -13,7 +13,7 @@ import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreReviewFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreReviewBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
@@ -25,7 +25,7 @@ class StoreReview : Fragment() {
             StoreReview()
     }
 
-    private lateinit var binding: StoreReviewFragmentBinding
+    private lateinit var binding: StoreReviewBinding
     private val storeViewModel : StoreViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +34,7 @@ class StoreReview : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.store_review_fragment,
+            R.layout.store_review,
             container,
             false
         )

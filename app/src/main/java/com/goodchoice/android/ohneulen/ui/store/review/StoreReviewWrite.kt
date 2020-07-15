@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteBinding
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteImageItemBinding
 import com.goodchoice.android.ohneulen.util.dp
 import com.gun0912.tedpermission.PermissionListener
@@ -26,7 +26,7 @@ class StoreReviewWrite : Fragment() {
             StoreReviewWrite()
     }
 
-    private lateinit var binding: StoreReviewWriteFragmentBinding
+    private lateinit var binding: StoreReviewWriteBinding
     private var  selectedUriList:List<Uri>?=null
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class StoreReviewWrite : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.store_review_write_fragment,
+            R.layout.store_review_write,
             container,
             false
         )

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.SearchFilterAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.SearchFilterAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -17,7 +17,7 @@ class SearchFilterAppbar :Fragment(),OnBackPressedListener{
     companion object{
         fun newInstance()=SearchFilterAppbar()
     }
-    private lateinit var binding:SearchFilterAppbarFragmentBinding
+    private lateinit var binding:SearchFilterAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +26,7 @@ class SearchFilterAppbar :Fragment(),OnBackPressedListener{
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.search_filter_appbar_fragment,
+            R.layout.search_filter_appbar,
             container,
             false
         )

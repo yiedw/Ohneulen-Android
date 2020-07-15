@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageInfoAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.MypageInfoAppbarBinding
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
@@ -17,7 +17,7 @@ class MyPageInfoAppBar : Fragment() ,OnBackPressedListener{
         fun newInstance() = MyPageInfoAppBar()
     }
 
-    private lateinit var binding: MypageInfoAppbarFragmentBinding
+    private lateinit var binding: MypageInfoAppbarBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,7 +25,7 @@ class MyPageInfoAppBar : Fragment() ,OnBackPressedListener{
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_info_appbar_fragment,
+            R.layout.mypage_info_appbar,
             container,
             false
         )

@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.SearchMapFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.SearchMapBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.gun0912.tedpermission.PermissionListener
@@ -33,7 +33,7 @@ class SearchMap : Fragment() {
     private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
 
-    private lateinit var binding: SearchMapFragmentBinding
+    private lateinit var binding: SearchMapBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +42,7 @@ class SearchMap : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.search_map_fragment,
+            R.layout.search_map,
             container,
             false
         )

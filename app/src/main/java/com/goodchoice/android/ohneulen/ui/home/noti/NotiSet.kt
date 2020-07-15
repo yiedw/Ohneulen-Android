@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.NotiSetFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.NotiSetBinding
 
 class NotiSet :Fragment(){
     companion object{
         fun newInstance()=NotiSet()
     }
-    private lateinit var binding:NotiSetFragmentBinding
+    private lateinit var binding:NotiSetBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +22,7 @@ class NotiSet :Fragment(){
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.noti_set_fragment,
+            R.layout.noti_set,
             container,
             false
         )

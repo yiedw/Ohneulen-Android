@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreHomeFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
@@ -17,7 +17,7 @@ class StoreHome : Fragment() {
             StoreHome()
     }
 
-    private lateinit var binding: StoreHomeFragmentBinding
+    private lateinit var binding: StoreHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +26,7 @@ class StoreHome : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.store_home_fragment,
+            R.layout.store_home,
             container,
             false
         )

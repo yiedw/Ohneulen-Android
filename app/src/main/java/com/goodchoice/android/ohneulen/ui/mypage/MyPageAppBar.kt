@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.MypageAppbarBinding
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -22,7 +22,7 @@ class MyPageAppBar : Fragment() ,OnBackPressedListener{
         fun newInstance() = MyPageAppBar()
     }
 
-    private lateinit var binding: MypageAppbarFragmentBinding
+    private lateinit var binding: MypageAppbarBinding
     private val loginViewModel:LoginViewModel by viewModel()
 
     override fun onCreateView(
@@ -32,7 +32,7 @@ class MyPageAppBar : Fragment() ,OnBackPressedListener{
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_appbar_fragment,
+            R.layout.mypage_appbar,
             container,
             false
         )

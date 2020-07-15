@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageWithdrawalFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.MypageSecessionBinding
 
 class MyPageWithdrawal :Fragment() {
     companion object{
         fun newInstance()=MyPageWithdrawal()
     }
-    private lateinit var binding:MypageWithdrawalFragmentBinding
+    private lateinit var binding:MypageSecessionBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +22,7 @@ class MyPageWithdrawal :Fragment() {
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_withdrawal_fragment,
+            R.layout.mypage_secession,
             container,
             false
         )

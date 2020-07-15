@@ -1,14 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.store
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class StoreViewModel(networkService: NetworkService) : ViewModel() {
     val storeMenuList: LiveData<MutableList<StoreMenu>> = liveData(Dispatchers.IO) {
@@ -36,6 +34,13 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     val image2 = R.drawable.food_sample2
     val image3 = R.drawable.food_sample3
     val image4 = R.drawable.food_sample4
+
+
+    fun kakaoNav(){
+        viewModelScope.launch(Dispatchers.IO) {
+
+        }
+    }
 
 
 }

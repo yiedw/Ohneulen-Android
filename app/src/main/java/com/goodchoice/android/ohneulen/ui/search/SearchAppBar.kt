@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.SearchAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.SearchAppbarBinding
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
@@ -20,7 +20,7 @@ class SearchAppBar : Fragment() ,OnBackPressedListener{
         fun newInstance() = SearchAppBar()
     }
 
-    private lateinit var binding: SearchAppbarFragmentBinding
+    private lateinit var binding: SearchAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +29,7 @@ class SearchAppBar : Fragment() ,OnBackPressedListener{
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.search_appbar_fragment,
+            R.layout.search_appbar,
             container,
             false
         )

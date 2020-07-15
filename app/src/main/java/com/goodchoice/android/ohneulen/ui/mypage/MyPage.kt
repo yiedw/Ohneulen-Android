@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.MypageBinding
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -23,7 +23,7 @@ class MyPage : Fragment() {
         fun newInstance() = MyPage()
     }
 
-    private lateinit var binding: MypageFragmentBinding
+    private lateinit var binding: MypageBinding
     private val loginViewModel: LoginViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +32,7 @@ class MyPage : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_fragment,
+            R.layout.mypage,
             container,
             false
         )

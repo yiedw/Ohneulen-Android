@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
@@ -31,7 +31,7 @@ class StoreAppBar : Fragment() ,OnBackPressedListener{
         fun newInstance() = StoreAppBar()
     }
 
-    private lateinit var binding: StoreAppbarFragmentBinding
+    private lateinit var binding: StoreAppbarBinding
     private lateinit var shareLink: String
 
     //나중에 되돌리기
@@ -45,7 +45,7 @@ class StoreAppBar : Fragment() ,OnBackPressedListener{
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.store_appbar_fragment,
+            R.layout.store_appbar,
             container,
             false
         )

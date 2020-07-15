@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageInfoFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.MypageInfoBinding
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.gun0912.tedpermission.PermissionListener
@@ -23,7 +23,7 @@ class MyPageInfo : Fragment() {
         fun newInstance() = MyPageInfo()
     }
 
-    private lateinit var binding: MypageInfoFragmentBinding
+    private lateinit var binding: MypageInfoBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +32,7 @@ class MyPageInfo : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_info_fragment,
+            R.layout.mypage_info,
             container,
             false
         )
