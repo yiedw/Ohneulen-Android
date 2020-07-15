@@ -11,10 +11,10 @@ import com.goodchoice.android.ohneulen.databinding.StoreHomeFragmentBinding
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
-class StoreHomeFragment : Fragment() {
+class StoreHome : Fragment() {
     companion object {
         fun newInstance() =
-            StoreHomeFragment()
+            StoreHome()
     }
 
     private lateinit var binding: StoreHomeFragmentBinding
@@ -42,7 +42,7 @@ class StoreHomeFragment : Fragment() {
     fun submitClick(view: View) {
 //        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         replaceAppbarFragment(StoreHomeReportAppBar.newInstance())
-        addMainFragment(StoreHomeReportFragment.newInstance(), true)
+        addMainFragment(StoreHomeReport.newInstance(), true)
     }
 
 }

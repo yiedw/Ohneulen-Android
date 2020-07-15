@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.NotiSetFragmentBinding
 
-class NotiSetFragment :Fragment(){
+class NotiSet :Fragment(){
     companion object{
-        fun newInstance()=NotiSetFragment()
+        fun newInstance()=NotiSet()
     }
     private lateinit var binding:NotiSetFragmentBinding
 

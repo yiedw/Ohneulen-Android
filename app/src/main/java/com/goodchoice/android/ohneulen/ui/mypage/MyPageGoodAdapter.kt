@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
@@ -23,7 +23,7 @@ class MyPageGoodAdapter :
                 store = item
                 executePendingBindings()
                 root.setOnClickListener {
-                    addAppbarFragment(StoreAppBarFragment.newInstance(), true)
+                    addAppbarFragment(StoreAppBar.newInstance(), true)
                     addMainFragment(StoreFragment.newInstance(), true)
                 }
             }

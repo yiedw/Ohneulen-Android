@@ -8,15 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.NotiAppbarFragmentBinding
-import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
-import com.goodchoice.android.ohneulen.ui.home.HomeFragment
+import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
+import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class NotiAppBarFragment :Fragment(),OnBackPressedListener{
+class NotiAppBar :Fragment(),OnBackPressedListener{
     companion object{
-        fun newInstance()=NotiAppBarFragment()
+        fun newInstance()=NotiAppBar()
     }
 
     private lateinit var binding: NotiAppbarFragmentBinding
@@ -36,17 +36,17 @@ class NotiAppBarFragment :Fragment(),OnBackPressedListener{
     }
 
     fun backClick(view:View){
-        replaceAppbarFragment(HomeAppBarFragment.newInstance())
-        replaceMainFragment(HomeFragment.newInstance())
+        replaceAppbarFragment(HomeAppBar.newInstance())
+        replaceMainFragment(Home.newInstance())
     }
 
     fun setClick(view:View){
-        replaceAppbarFragment(NotiSetAppbarFragment.newInstance())
-        replaceMainFragment(NotiSetFragment.newInstance())
+        replaceAppbarFragment(NotiSetAppbar.newInstance())
+        replaceMainFragment(NotiSet.newInstance())
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(HomeAppBarFragment.newInstance())
-        replaceMainFragment(HomeFragment.newInstance())
+        replaceAppbarFragment(HomeAppBar.newInstance())
+        replaceMainFragment(Home.newInstance())
     }
 }

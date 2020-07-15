@@ -9,18 +9,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMapFragmentBinding
-import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.dp
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
-import kotlinx.android.synthetic.main.store_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
-class StoreMapFragment : Fragment() ,OnMapReadyCallback{
+class StoreMap : Fragment() ,OnMapReadyCallback{
 
     private lateinit var binding: StoreMapFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
@@ -29,7 +26,7 @@ class StoreMapFragment : Fragment() ,OnMapReadyCallback{
 
     companion object {
         fun newInstance() =
-            StoreMapFragment()
+            StoreMap()
     }
 
     override fun onCreateView(

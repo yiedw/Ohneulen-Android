@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.home.noti
+package com.goodchoice.android.ohneulen.ui.mypage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,20 +7,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.NotiFragmentBinding
-import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
-import com.goodchoice.android.ohneulen.ui.home.HomeFragment
+import com.goodchoice.android.ohneulen.databinding.MypageWithdrawalAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class NotiFragment :Fragment(){
-
+class MyPageWithdrawalAppBar :Fragment(),OnBackPressedListener{
     companion object{
-        fun newInstance()=NotiFragment()
+        fun newInstance()=MyPageWithdrawalAppBar()
     }
-
-    private lateinit var binding:NotiFragmentBinding
+    private lateinit var binding:MypageWithdrawalAppbarFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,12 +25,21 @@ class NotiFragment :Fragment(){
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.noti_fragment,
+            R.layout.mypage_withdrawal_appbar_fragment,
             container,
             false
         )
-
+        binding.fragment=this
         return binding.root
     }
 
+    fun backClick(view: View){
+        replaceAppbarFragment(MyPageInfoAppBar.newInstance())
+        replaceMainFragment(MyPageInfo.newInstance())
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(MyPageInfoAppBar.newInstance())
+        replaceMainFragment(MyPageInfo.newInstance())
+    }
 }

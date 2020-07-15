@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.home.noti.NotiAppBarFragment" />
+            type="com.goodchoice.android.ohneulen.ui.home.noti.NotiAppBar" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

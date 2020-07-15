@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,10 +17,10 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MyPageFragment : Fragment() {
+class MyPage : Fragment() {
 
     companion object {
-        fun newInstance() = MyPageFragment()
+        fun newInstance() = MyPage()
     }
 
     private lateinit var binding: MypageFragmentBinding
@@ -58,8 +59,8 @@ class MyPageFragment : Fragment() {
 
     fun infoClick(view: View) {
         if (loginViewModel.isLogin.value!!) {
-            replaceAppbarFragment(MyPageInfoAppBarFragment.newInstance())
-            replaceMainFragment(MyPageInfoFragment.newInstance())
+            replaceAppbarFragment(MyPageInfoAppBar.newInstance())
+            replaceMainFragment(MyPageInfo.newInstance())
         } else {
             replaceAppbarFragment(LoginAppBar.newInstance())
             replaceMainFragment(Login.newInstance())
@@ -68,21 +69,37 @@ class MyPageFragment : Fragment() {
     }
 
     fun goodClick(view: View) {
-        replaceAppbarFragment(MyPageGoodAppBarFragment.newInstance())
-        replaceMainFragment(MyPageGoodFragment.newInstance())
+        if (binding.mypageNickName.visibility == View.GONE) {
+            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+            return
+        }
+        replaceAppbarFragment(MyPageGoodAppBar.newInstance())
+        replaceMainFragment(MyPageGood.newInstance())
     }
 
     fun reviewClick(view: View) {
-        replaceAppbarFragment(MyPageReviewAppBarFragment.newInstance())
-        replaceMainFragment(MyPageReviewFragment.newInstance())
+        if (binding.mypageNickName.visibility == View.GONE) {
+            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+            return
+        }
+        replaceAppbarFragment(MyPageReviewAppBar.newInstance())
+        replaceMainFragment(MyPageReview.newInstance())
     }
 
     fun inquireClick(view: View) {
+        if (binding.mypageNickName.visibility == View.GONE) {
+            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+            return
+        }
         replaceAppbarFragment(MyPageInquireAppBar.newInstance())
-        replaceMainFragment(MyPageInquireFragment.newInstance())
+        replaceMainFragment(MyPageInquire.newInstance())
     }
 
     fun FAQClick(view: View) {
+        if (binding.mypageNickName.visibility == View.GONE) {
+            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+            return
+        }
         replaceAppbarFragment(MyPageFAQAppBar.newInstance())
         replaceMainFragment(MyPageFAQ.newInstance())
     }

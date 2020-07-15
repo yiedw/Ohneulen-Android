@@ -1,7 +1,7 @@
 package com.goodchoice.android.ohneulen.util
 
 open class Event<out T>(private val content: T) {
-    var hasBeenHandled = false
+    private var hasBeenHandled = false
         private set
 
     fun getContentIfNotHandled(): T? {

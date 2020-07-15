@@ -3,8 +3,8 @@ package com.goodchoice.android.ohneulen.ui.login
 import android.app.Application
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
+import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.util.Event
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
@@ -34,8 +34,8 @@ class LoginViewModel(private val networkService: NetworkService,application: App
             )
             if (loginResponse.resultCode == "000" || loginResponse.resultCode == "021") {
                 isLogin.postValue(true)
-                replaceMainFragment(MyPageFragment.newInstance())
-                replaceAppbarFragment(MyPageAppBarFragment.newInstance())
+                replaceMainFragment(MyPage.newInstance())
+                replaceAppbarFragment(MyPageAppBar.newInstance())
                 if(check){
                     //토큰 저장
                 }

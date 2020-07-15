@@ -18,9 +18,9 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 
-class MyPageInfoFragment : Fragment() {
+class MyPageInfo : Fragment() {
     companion object {
-        fun newInstance() = MyPageInfoFragment()
+        fun newInstance() = MyPageInfo()
     }
 
     private lateinit var binding: MypageInfoFragmentBinding
@@ -60,8 +60,8 @@ class MyPageInfoFragment : Fragment() {
     }
 
     fun withdrawalClick(view:View){
-        replaceAppbarFragment(MyPageWithdrawalAppBarFragment.newInstance())
-        replaceMainFragment(MyPageWithdrawalFragment.newInstance())
+        replaceAppbarFragment(MyPageWithdrawalAppBar.newInstance())
+        replaceMainFragment(MyPageWithdrawal.newInstance())
     }
 
     private fun showImage(uri: Uri) {

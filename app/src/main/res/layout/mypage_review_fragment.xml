@@ -9,7 +9,7 @@
             type="com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel" />
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageReviewFragment" />
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageReview" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

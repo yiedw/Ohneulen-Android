@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
-import com.goodchoice.android.ohneulen.ui.home.HomeFragment
-import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
+import com.goodchoice.android.ohneulen.ui.home.Home
+import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.addMainFragment
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                             val code = deepLink.getQueryParameter(ConstList.CODE)
                             Timber.e(code)
                             replaceAppbarFragment(
-                                StoreAppBarFragment.newInstance(),
+                                StoreAppBar.newInstance(),
                                 tag = "storeAppBar"
                             )
                             addMainFragment(StoreFragment.newInstance())
@@ -85,8 +85,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 } else {
                     //일반적으로 앱을 실행 했을때
-                    replaceAppbarFragment(HomeAppBarFragment.newInstance())
-                    replaceMainFragment(HomeFragment.newInstance())
+                    replaceAppbarFragment(HomeAppBar.newInstance())
+                    replaceMainFragment(Home.newInstance())
                 }
             }
 

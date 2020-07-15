@@ -10,9 +10,9 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreHomeReportFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 
-class StoreHomeReportFragment : Fragment() {
+class StoreHomeReport : Fragment() {
     companion object {
-        fun newInstance() = StoreHomeReportFragment()
+        fun newInstance() = StoreHomeReport()
     }
 
     private lateinit var binding: StoreHomeReportFragmentBinding

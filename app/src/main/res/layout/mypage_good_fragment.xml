@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodFragment" />
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageGood" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

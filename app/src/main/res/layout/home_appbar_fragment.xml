@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment" />
+            type="com.goodchoice.android.ohneulen.ui.home.HomeAppBar" />
 
     </data>
 

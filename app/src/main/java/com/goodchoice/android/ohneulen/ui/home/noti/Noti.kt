@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.mypage
+package com.goodchoice.android.ohneulen.ui.home.noti
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageWithdrawalFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.NotiFragmentBinding
 
-class MyPageWithdrawalFragment :Fragment() {
+class Noti :Fragment(){
+
     companion object{
-        fun newInstance()=MyPageWithdrawalFragment()
+        fun newInstance()=Noti()
     }
-    private lateinit var binding:MypageWithdrawalFragmentBinding
+
+    private lateinit var binding:NotiFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,10 +24,12 @@ class MyPageWithdrawalFragment :Fragment() {
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_withdrawal_fragment,
+            R.layout.noti_fragment,
             container,
             false
         )
+
         return binding.root
     }
+
 }

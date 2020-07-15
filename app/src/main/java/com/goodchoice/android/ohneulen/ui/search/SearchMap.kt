@@ -20,10 +20,10 @@ import net.daum.mf.map.api.MapView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchMapFragment : Fragment() {
+class SearchMap : Fragment() {
 
     companion object {
-        fun newInstance() = SearchMapFragment()
+        fun newInstance() = SearchMap()
     }
 
     private val mapView by lazy {

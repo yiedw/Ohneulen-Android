@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.home.noti
+package com.goodchoice.android.ohneulen.ui.mypage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,42 +7,40 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.NotiSetAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.MypageGoodAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class NotiSetAppbarFragment :Fragment(),OnBackPressedListener{
-
-    companion object{
-        fun newInstance()=NotiSetAppbarFragment()
+class MyPageGoodAppBar : Fragment() ,OnBackPressedListener{
+    companion object {
+        fun newInstance() = MyPageGoodAppBar()
     }
 
-    private lateinit var binding:NotiSetAppbarFragmentBinding
+    private lateinit var binding: MypageGoodAppbarFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.noti_set_appbar_fragment,
+            R.layout.mypage_good_appbar_fragment,
             container,
             false
         )
-
-        binding.fragment=this
+        binding.fragment = this
         return binding.root
     }
 
-    fun backClick(view:View){
-        replaceAppbarFragment(NotiAppBarFragment.newInstance())
-        replaceMainFragment(NotiFragment.newInstance())
+    fun backClick(view: View) {
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+        replaceMainFragment(MyPage.newInstance())
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(NotiAppBarFragment.newInstance())
-        replaceMainFragment(NotiFragment.newInstance())
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+        replaceMainFragment(MyPage.newInstance())
     }
 }

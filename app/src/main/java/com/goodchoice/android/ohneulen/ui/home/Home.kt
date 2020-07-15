@@ -10,17 +10,17 @@ import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.databinding.HomeFragmentBinding
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
-import com.goodchoice.android.ohneulen.ui.search.SearchFragment
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
+import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment() : Fragment() {
+class Home() : Fragment() {
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = Home()
     }
 
     private val mainViewModel: MainViewModel by viewModel()
@@ -45,8 +45,8 @@ class HomeFragment() : Fragment() {
         binding.homeEditText.setOnEditorActionListener { v, actionId, _ ->
             if (v!!.id == R.id.home_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
                 mainViewModel.searchEditText = binding.homeEditText.text.toString()
-                replaceAppbarFragment(SearchAppBarFragment.newInstance())
-                replaceMainFragment(SearchFragment.newInstance(), tag = "search")
+                replaceAppbarFragment(SearchAppBar.newInstance())
+                replaceMainFragment(Search.newInstance(), tag = "search")
             }
 
             return@setOnEditorActionListener false
@@ -55,14 +55,14 @@ class HomeFragment() : Fragment() {
 
     fun searchOnClick(view: View) {
         mainViewModel.searchEditText = binding.homeEditText.text.toString()
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
-        replaceMainFragment(SearchFragment.newInstance(), tag = "search")
+        replaceAppbarFragment(SearchAppBar.newInstance())
+        replaceMainFragment(Search.newInstance(), tag = "search")
     }
 
     fun currentLocationClick(view: View) {
         mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
-        replaceMainFragment(SearchFragment.newInstance())
+        replaceAppbarFragment(SearchAppBar.newInstance())
+        replaceMainFragment(Search.newInstance())
 
     }
 

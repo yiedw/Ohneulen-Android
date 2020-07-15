@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.search
+package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.SearchFilterAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
-class SearchFilterAppbarFragment :Fragment(),OnBackPressedListener{
-
+class StoreReviewWriteAppbar:Fragment(),OnBackPressedListener {
     companion object{
-        fun newInstance()=SearchFilterAppbarFragment()
+        fun newInstance()=
+            StoreReviewWriteAppbar()
     }
-    private lateinit var binding:SearchFilterAppbarFragmentBinding
+    private lateinit var binding:StoreReviewWriteAppbarFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +25,7 @@ class SearchFilterAppbarFragment :Fragment(),OnBackPressedListener{
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.search_filter_appbar_fragment,
+            R.layout.store_review_write_appbar_fragment,
             container,
             false
         )
@@ -35,14 +34,12 @@ class SearchFilterAppbarFragment :Fragment(),OnBackPressedListener{
     }
 
     fun closeOnClick(view:View){
-//        MainActivity.supportFragmentManager.popBackStack()
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
         MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
         MainActivity.supportFragmentManager.popBackStack()
     }
-
 }

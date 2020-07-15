@@ -35,12 +35,12 @@ class MyPageFAQAppBar :Fragment(),OnBackPressedListener{
     }
 
     fun backClick(view:View){
-        replaceAppbarFragment(MyPageAppBarFragment.newInstance())
-        replaceMainFragment(MyPageFragment.newInstance())
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+        replaceMainFragment(MyPage.newInstance())
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(MyPageAppBarFragment.newInstance())
-        replaceMainFragment(MyPageFragment.newInstance())
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+        replaceMainFragment(MyPage.newInstance())
     }
 }

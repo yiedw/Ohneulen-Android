@@ -15,9 +15,9 @@ import timber.log.Timber
 import kotlin.collections.HashMap
 
 
-class SearchFilterFragment : Fragment() {
+class SearchFilter : Fragment() {
     companion object {
-        fun newInstance() = SearchFilterFragment()
+        fun newInstance() = SearchFilter()
     }
 
     private val searchViewModel: SearchViewModel by viewModel()
@@ -40,8 +40,8 @@ class SearchFilterFragment : Fragment() {
             false
         )
         binding.apply {
-            lifecycleOwner = this@SearchFilterFragment
-            fragment = this@SearchFilterFragment
+            lifecycleOwner = this@SearchFilter
+            fragment = this@SearchFilter
             viewModel = searchViewModel
         }
 

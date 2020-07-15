@@ -20,10 +20,10 @@ import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchFragment : Fragment() {
+class Search : Fragment() {
 
     companion object {
-        fun newInstance() = SearchFragment()
+        fun newInstance() = Search()
     }
 
     private var switchOn = false
@@ -60,8 +60,8 @@ class SearchFragment : Fragment() {
 
         //바인딩
         binding.apply {
-            lifecycleOwner = this@SearchFragment
-            binding.fragment = this@SearchFragment
+            lifecycleOwner = this@Search
+            binding.fragment = this@Search
             viewModel = searchViewModel
         }
         return binding.root
@@ -73,7 +73,7 @@ class SearchFragment : Fragment() {
 
 
         //맵 (삭제, 추가)
-        val searchMapFragment = SearchMapFragment.newInstance()
+        val searchMapFragment = SearchMap.newInstance()
         childFragmentManager.beginTransaction()
             .replace(R.id.search_map, searchMapFragment).commit()
 
@@ -131,8 +131,8 @@ class SearchFragment : Fragment() {
     }
 
     fun filterClick(view: View) {
-        replaceAppbarFragment(SearchFilterAppbarFragment.newInstance())
-        addMainFragment(SearchFilterFragment.newInstance(), true)
+        replaceAppbarFragment(SearchFilterAppbar.newInstance())
+        addMainFragment(SearchFilter.newInstance(), true)
     }
 
 //    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {

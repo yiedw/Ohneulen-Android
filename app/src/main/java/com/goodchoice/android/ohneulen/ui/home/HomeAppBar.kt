@@ -8,17 +8,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.HomeAppbarFragmentBinding
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBarFragment
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageFragment
-import com.goodchoice.android.ohneulen.ui.home.noti.NotiAppBarFragment
-import com.goodchoice.android.ohneulen.ui.home.noti.NotiFragment
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
+import com.goodchoice.android.ohneulen.ui.mypage.MyPage
+import com.goodchoice.android.ohneulen.ui.home.noti.NotiAppBar
+import com.goodchoice.android.ohneulen.ui.home.noti.Noti
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class HomeAppBarFragment :Fragment(){
+class HomeAppBar :Fragment(){
 
     companion object{
-        fun newInstance()=HomeAppBarFragment()
+        fun newInstance()=HomeAppBar()
     }
 
     private lateinit var binding:HomeAppbarFragmentBinding
@@ -42,12 +42,12 @@ class HomeAppBarFragment :Fragment(){
     }
 
     fun myClick(view: View){
-        replaceAppbarFragment(MyPageAppBarFragment.newInstance())
-        replaceMainFragment(MyPageFragment.newInstance())
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+        replaceMainFragment(MyPage.newInstance())
     }
 
     fun notiClick(view:View){
-        replaceAppbarFragment(NotiAppBarFragment.newInstance())
-        replaceMainFragment(NotiFragment.newInstance())
+        replaceAppbarFragment(NotiAppBar.newInstance())
+        replaceMainFragment(Noti.newInstance())
     }
 }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBarFragment
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -30,7 +30,7 @@ class SearchStoreAdapter :
                 }
                 root.setOnClickListener {
 //                    Timber.e(SystemClock.currentThreadTimeMillis().toString())
-                    replaceAppbarFragment(StoreAppBarFragment.newInstance(), tag = "storeAppBar")
+                    replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
                     addMainFragment(StoreFragment.newInstance(), true)
                 }
             }

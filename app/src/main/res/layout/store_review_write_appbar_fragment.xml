@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.store.review.StoreReviewWriteAppbarFragment" />
+            type="com.goodchoice.android.ohneulen.ui.store.review.StoreReviewWriteAppbar" />
 
     </data>
 

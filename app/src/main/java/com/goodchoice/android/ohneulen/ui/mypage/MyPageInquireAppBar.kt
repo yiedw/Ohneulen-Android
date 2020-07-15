@@ -35,8 +35,8 @@ class MyPageInquireAppBar :Fragment() ,OnBackPressedListener{
         return binding.root
     }
     fun backClick(view:View){
-        replaceAppbarFragment(MyPageAppBarFragment.newInstance())
-        replaceMainFragment(MyPageFragment.newInstance())
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+        replaceMainFragment(MyPage.newInstance())
     }
 
     fun newClick(view:View){
@@ -45,7 +45,7 @@ class MyPageInquireAppBar :Fragment() ,OnBackPressedListener{
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(MyPageAppBarFragment.newInstance())
-        replaceMainFragment(MyPageFragment.newInstance())
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+        replaceMainFragment(MyPage.newInstance())
     }
 }

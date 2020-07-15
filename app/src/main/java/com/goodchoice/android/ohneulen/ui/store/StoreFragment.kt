@@ -13,14 +13,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
-import com.goodchoice.android.ohneulen.ui.store.home.StoreHomeFragment
-import com.goodchoice.android.ohneulen.ui.store.map.StoreMapFragment
-import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuFragment
-import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewFragment
+import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
+import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
+import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
+import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -142,7 +141,7 @@ class StoreFragment : Fragment() {
                     binding.storeNewScrollView.scrollTo(0, 0)
                     stickyHeader()
                     if (position == 3) {
-                        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBarFragment).changeBlack()
+                        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBar).changeBlack()
 
                     }
                     binding.storeNewScrollView.invalidate()
@@ -171,10 +170,10 @@ class StoreFragment : Fragment() {
     //viewPager에 들어갈 fragmentList
     private fun getFragmentList(): ArrayList<Fragment> {
         return arrayListOf(
-            StoreHomeFragment.newInstance(),
-            StoreMapFragment.newInstance(),
-            StoreMenuFragment.newInstance(),
-            StoreReviewFragment.newInstance()
+            StoreHome.newInstance(),
+            StoreMap.newInstance(),
+            StoreMenu.newInstance(),
+            StoreReview.newInstance()
         )
     }
 

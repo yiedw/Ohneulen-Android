@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageReviewAppBarFragment" />
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageReviewAppBar" />
 
     </data>
 

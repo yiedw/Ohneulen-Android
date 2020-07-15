@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.mypage
+package com.goodchoice.android.ohneulen.ui.home.noti
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,17 +7,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageGoodFragmentBinding
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
-import com.goodchoice.android.ohneulen.ui.search.SearchFragment
+import com.goodchoice.android.ohneulen.databinding.NotiSetAppbarFragmentBinding
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class MyPageGoodFragment :Fragment(){
+class NotiSetAppbar :Fragment(),OnBackPressedListener{
+
     companion object{
-        fun newInstance()=MyPageGoodFragment()
+        fun newInstance()=NotiSetAppbar()
     }
-    private lateinit var binding:MypageGoodFragmentBinding
+
+    private lateinit var binding:NotiSetAppbarFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,15 +27,22 @@ class MyPageGoodFragment :Fragment(){
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_good_fragment,
+            R.layout.noti_set_appbar_fragment,
             container,
             false
         )
+
         binding.fragment=this
         return binding.root
     }
-    fun moveSearch(view:View){
-        replaceMainFragment(SearchFragment.newInstance())
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
+
+    fun backClick(view:View){
+        replaceAppbarFragment(NotiAppBar.newInstance())
+        replaceMainFragment(Noti.newInstance())
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(NotiAppBar.newInstance())
+        replaceMainFragment(Noti.newInstance())
     }
 }

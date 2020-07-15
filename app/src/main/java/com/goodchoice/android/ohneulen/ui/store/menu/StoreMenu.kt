@@ -11,10 +11,10 @@ import com.goodchoice.android.ohneulen.databinding.StoreMenuFragmentBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StoreMenuFragment : Fragment() {
+class StoreMenu : Fragment() {
     companion object {
         fun newInstance() =
-            StoreMenuFragment()
+            StoreMenu()
     }
 
     private lateinit var binding: StoreMenuFragmentBinding
@@ -37,7 +37,7 @@ class StoreMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            lifecycleOwner = this@StoreMenuFragment
+            lifecycleOwner = this@StoreMenu
             viewModel = storeViewModel
         }
     }

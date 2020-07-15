@@ -19,10 +19,10 @@ import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StoreReviewFragment : Fragment() {
+class StoreReview : Fragment() {
     companion object {
         fun newInstance() =
-            StoreReviewFragment()
+            StoreReview()
     }
 
     private lateinit var binding: StoreReviewFragmentBinding
@@ -51,8 +51,8 @@ class StoreReviewFragment : Fragment() {
     }
 
     fun reviewWriteClick(view:View){
-        addAppbarFragment(StoreReviewWriteAppbarFragment.newInstance(),true)
-        addMainFragment(StoreReviewWriteFragment.newInstance(),true)
+        addAppbarFragment(StoreReviewWriteAppbar.newInstance(),true)
+        addMainFragment(StoreReviewWrite.newInstance(),true)
     }
 
     private fun sampleChartSetting(){

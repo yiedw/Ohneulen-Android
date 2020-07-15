@@ -11,11 +11,11 @@ import com.goodchoice.android.ohneulen.databinding.StoreMenuDetailBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StoreMenuDetailFragment(private var inputIndex:Int) : Fragment() {
+class StoreMenuDetail(private var inputIndex:Int) : Fragment() {
 
     companion object {
         fun newInstance(index:Int) =
-            StoreMenuDetailFragment(
+            StoreMenuDetail(
                 index
             )
     }
@@ -43,7 +43,7 @@ class StoreMenuDetailFragment(private var inputIndex:Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            lifecycleOwner = this@StoreMenuDetailFragment
+            lifecycleOwner = this@StoreMenuDetail
             viewModel=storeViewModel
         }
 

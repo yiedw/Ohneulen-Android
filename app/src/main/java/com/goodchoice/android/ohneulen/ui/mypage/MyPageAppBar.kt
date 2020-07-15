@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageAppbarFragmentBinding
-import com.goodchoice.android.ohneulen.ui.home.HomeAppBarFragment
-import com.goodchoice.android.ohneulen.ui.home.HomeFragment
+import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
+import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MyPageAppBarFragment : Fragment() ,OnBackPressedListener{
+class MyPageAppBar : Fragment() ,OnBackPressedListener{
     companion object {
-        fun newInstance() = MyPageAppBarFragment()
+        fun newInstance() = MyPageAppBar()
     }
 
     private lateinit var binding: MypageAppbarFragmentBinding
@@ -52,15 +52,15 @@ class MyPageAppBarFragment : Fragment() ,OnBackPressedListener{
 
     }
     fun backClick(view: View){
-        replaceAppbarFragment(HomeAppBarFragment.newInstance())
-        replaceMainFragment(HomeFragment.newInstance())
+        replaceAppbarFragment(HomeAppBar.newInstance())
+        replaceMainFragment(Home.newInstance())
     }
     fun logoutClick(view:View){
         loginViewModel.logoutTest()
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(HomeAppBarFragment.newInstance())
-        replaceMainFragment(HomeFragment.newInstance())
+        replaceAppbarFragment(HomeAppBar.newInstance())
+        replaceMainFragment(Home.newInstance())
     }
 }

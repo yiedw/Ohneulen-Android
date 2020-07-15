@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreAppbarFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBarFragment
-import com.goodchoice.android.ohneulen.ui.search.SearchFragment
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
+import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -23,13 +23,12 @@ import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.iosParameters
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
-import timber.log.Timber
 
 
-class StoreAppBarFragment : Fragment() ,OnBackPressedListener{
+class StoreAppBar : Fragment() ,OnBackPressedListener{
 
     companion object {
-        fun newInstance() = StoreAppBarFragment()
+        fun newInstance() = StoreAppBar()
     }
 
     private lateinit var binding: StoreAppbarFragmentBinding
@@ -84,10 +83,10 @@ class StoreAppBarFragment : Fragment() ,OnBackPressedListener{
     }
 
     fun backClick(view: View) {
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
+        replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
-            replaceMainFragment(SearchFragment.newInstance())
+            replaceMainFragment(Search.newInstance())
         } else {
             MainActivity.supportFragmentManager.popBackStack()
         }
@@ -102,10 +101,10 @@ class StoreAppBarFragment : Fragment() ,OnBackPressedListener{
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(SearchAppBarFragment.newInstance())
+        replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
-            replaceMainFragment(SearchFragment.newInstance())
+            replaceMainFragment(Search.newInstance())
         } else {
             MainActivity.supportFragmentManager.popBackStack()
         }

@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.search.SearchFilterAppbarFragment" />
+            type="com.goodchoice.android.ohneulen.ui.search.SearchFilterAppbar" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

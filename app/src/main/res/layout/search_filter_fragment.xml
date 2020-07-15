@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.search.SearchFilterFragment" />
+            type="com.goodchoice.android.ohneulen.ui.search.SearchFilter" />
 
         <variable
             name="viewModel"

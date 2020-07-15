@@ -19,11 +19,11 @@ import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import timber.log.Timber
 
-class StoreReviewWriteFragment : Fragment() {
+class StoreReviewWrite : Fragment() {
 
     companion object {
         fun newInstance() =
-            StoreReviewWriteFragment()
+            StoreReviewWrite()
     }
 
     private lateinit var binding: StoreReviewWriteFragmentBinding

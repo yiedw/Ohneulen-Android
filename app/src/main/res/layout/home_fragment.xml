@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.home.HomeFragment" />
+            type="com.goodchoice.android.ohneulen.ui.home.Home" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
-        tools:context=".ui.home.HomeFragment">
+        tools:context=".ui.home.Home">
 
         <TextView
             android:id="@+id/home_subtitle"
