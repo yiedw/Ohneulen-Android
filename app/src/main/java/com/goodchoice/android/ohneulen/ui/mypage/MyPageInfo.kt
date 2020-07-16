@@ -60,8 +60,8 @@ class MyPageInfo : Fragment() {
     }
 
     fun withdrawalClick(view:View){
-        replaceAppbarFragment(MyPageWithdrawalAppBar.newInstance())
-        replaceMainFragment(MyPageWithdrawal.newInstance())
+        replaceAppbarFragment(MyPageSecessionAppBar.newInstance())
+        replaceMainFragment(MyPageSecession.newInstance())
     }
 
     private fun showImage(uri: Uri) {

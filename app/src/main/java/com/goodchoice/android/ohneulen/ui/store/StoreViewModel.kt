@@ -1,14 +1,11 @@
 package com.goodchoice.android.ohneulen.ui.store
 
-import android.content.Intent
-import android.net.Uri
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class StoreViewModel(networkService: NetworkService) : ViewModel() {
     val storeMenuList: LiveData<MutableList<StoreMenu>> = liveData(Dispatchers.IO) {

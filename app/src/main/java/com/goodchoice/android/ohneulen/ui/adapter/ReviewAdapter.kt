@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Review
@@ -14,8 +16,8 @@ import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
 class ReviewAdapter(val report: Boolean = true) :
-    RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
-    var reviewList = listOf<Review>()
+    ListAdapter<Review, ReviewAdapter.ReviewViewHolder>(ReviewDIffUtil) {
+//    var reviewList = listOf<Review>()
 
     inner class ReviewViewHolder(private val binding: ReviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -28,7 +30,7 @@ class ReviewAdapter(val report: Boolean = true) :
                     replaceAppbarFragment(StoreReviewReportAppBar.newInstance())
                     addMainFragment(StoreReviewReport.newInstance(), true)
                 }
-                executePendingBindings()
+//                executePendingBindings()
             }
         }
     }
@@ -43,9 +45,19 @@ class ReviewAdapter(val report: Boolean = true) :
             ReviewViewHolder(it)
         }
 
-    override fun getItemCount() = reviewList.size
+    override fun getItemCount() = super.getItemCount()
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
-        holder.bind(reviewList[position])
+        holder.bind(getItem(position))
+    }
+}
+
+object ReviewDIffUtil :DiffUtil.ItemCallback<Review>() {
+    override fun areItemsTheSame(oldItem: Review, newItem: Review): Boolean {
+        return oldItem.seq==newItem.seq
+    }
+
+    override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {
+        return oldItem==newItem
     }
 }

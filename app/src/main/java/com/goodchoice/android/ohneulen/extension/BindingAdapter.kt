@@ -105,8 +105,7 @@ fun setMyPageGoodAdapter(recyclerView: RecyclerView, adapter: MyPageGoodAdapter)
 fun setReview(recyclerView: RecyclerView, adapter: ReviewAdapter, items: List<Review>?) {
     recyclerView.adapter=adapter.apply {
         if (items != null) {
-            reviewList=items
-//            notifyDataSetChanged()
+            submitList(items)
         }
     }
 
@@ -125,7 +124,7 @@ fun setInquire(recyclerView: RecyclerView,adapter:InquireAdapter,items: List<Inq
 fun setFAQ(recyclerView: RecyclerView,adapter:FAQAdapter,items:List<FAQ>?){
     recyclerView.adapter=adapter.apply {
         if(items!=null){
-            FAQList=items
+            submitList(items)
         }
     }
 }
