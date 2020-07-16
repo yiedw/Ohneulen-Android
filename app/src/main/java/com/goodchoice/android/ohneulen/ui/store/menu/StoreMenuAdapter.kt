@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMenuItemBinding
@@ -11,10 +13,10 @@ import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.addMainFragment
 
-class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHolder>() {
-    var itemList = listOf<StoreMenu>()
+class StoreMenuAdapter :
+    ListAdapter<StoreMenu, StoreMenuAdapter.StoreMenuViewHolder>(StoreMenuDiffUtil) {
 
-    override fun getItemCount() = itemList.size
+    override fun getItemCount() = super.getItemCount()
 
     inner class StoreMenuViewHolder(private val binding: StoreMenuItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -26,9 +28,9 @@ class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHold
                     addMainFragment(
                         StoreMenuDetail.newInstance(
                             adapterPosition
-                        ), true)
+                        ), true
+                    )
                 }
-                executePendingBindings()
             }
         }
     }
@@ -44,7 +46,18 @@ class StoreMenuAdapter : RecyclerView.Adapter<StoreMenuAdapter.StoreMenuViewHold
         }
 
     override fun onBindViewHolder(holder: StoreMenuViewHolder, position: Int) {
-        holder.bind(itemList[position])
+        holder.bind(getItem(position))
     }
+}
+
+object StoreMenuDiffUtil : DiffUtil.ItemCallback<StoreMenu>() {
+    override fun areItemsTheSame(oldItem: StoreMenu, newItem: StoreMenu): Boolean {
+        return oldItem.seq == newItem.seq
+    }
+
+    override fun areContentsTheSame(oldItem: StoreMenu, newItem: StoreMenu): Boolean {
+        return oldItem == newItem
+    }
+
 }
 

@@ -26,7 +26,7 @@ fun setSearchStoreAdapter(
     items: List<Store>?
 ) {
     recyclerView.adapter = adapter?.apply {
-        itemList = items ?: emptyList()
+        submitList(items)
 //        notifyDataSetChanged()
     }
 
@@ -53,9 +53,10 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
 //    Timber.e(items.toString())
     recyclerView.adapter = StoreMenuAdapter()
         .apply {
-        itemList = items ?: emptyList()
+            submitList(items)
+//            itemList = items ?: emptyList()
 //        notifyDataSetChanged()
-    }
+        }
 }
 
 @BindingAdapter("storeMenuDetail", "storeMenuDetailIndex")
@@ -71,15 +72,15 @@ fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, inde
 
     recyclerView.adapter = StoreMenuDetailAdapter()
         .apply {
-        menuList = items ?: emptyList()
-            setOnNextClickListener(object :StoreMenuDetailAdapter.OnNextClickListener{
+            menuList = items ?: emptyList()
+            setOnNextClickListener(object : StoreMenuDetailAdapter.OnNextClickListener {
                 override fun onNextClick(pos: Int) {
                     recyclerView.scrollToPosition(pos)
                 }
 
             })
 //        notifyDataSetChanged()
-    }
+        }
 
 }
 
@@ -103,7 +104,7 @@ fun setMyPageGoodAdapter(recyclerView: RecyclerView, adapter: MyPageGoodAdapter)
 
 @BindingAdapter("reviewAdapter", "review")
 fun setReview(recyclerView: RecyclerView, adapter: ReviewAdapter, items: List<Review>?) {
-    recyclerView.adapter=adapter.apply {
+    recyclerView.adapter = adapter.apply {
         if (items != null) {
             submitList(items)
         }
@@ -111,19 +112,19 @@ fun setReview(recyclerView: RecyclerView, adapter: ReviewAdapter, items: List<Re
 
 }
 
-@BindingAdapter("inquireAdapter","inquire")
-fun setInquire(recyclerView: RecyclerView,adapter:InquireAdapter,items: List<Inquire>?){
-    recyclerView.adapter=adapter.apply {
-        if(items!=null){
-            inquireList=items
+@BindingAdapter("inquireAdapter", "inquire")
+fun setInquire(recyclerView: RecyclerView, adapter: InquireAdapter, items: List<Inquire>?) {
+    recyclerView.adapter = adapter.apply {
+        if (items != null) {
+            submitList(items)
         }
     }
 }
 
-@BindingAdapter("FAQAdapter","FAQ")
-fun setFAQ(recyclerView: RecyclerView,adapter:FAQAdapter,items:List<FAQ>?){
-    recyclerView.adapter=adapter.apply {
-        if(items!=null){
+@BindingAdapter("FAQAdapter", "FAQ")
+fun setFAQ(recyclerView: RecyclerView, adapter: FAQAdapter, items: List<FAQ>?) {
+    recyclerView.adapter = adapter.apply {
+        if (items != null) {
             submitList(items)
         }
     }

@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
@@ -15,18 +17,20 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
 
 class SearchStoreAdapter :
-    RecyclerView.Adapter<SearchStoreAdapter.SearchPartnerViewHolder>() {
-    var itemList = listOf<Store>()
+    ListAdapter<Store, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
 
-    inner class SearchPartnerViewHolder(private val binding: StoreItemBinding) :
+    inner class SearchStoreViewHolder(private val binding: StoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Store) {
             binding.apply {
                 store = item
-                executePendingBindings()
-                storeItemGood.setOnClickListener{
-                    Toast.makeText(binding.root.context,item.storeName+"이 찜목록에 저장됨",Toast.LENGTH_LONG).show()
+                storeItemGood.setOnClickListener {
+                    Toast.makeText(
+                        binding.root.context,
+                        item.storeName + "이 찜목록에 저장됨",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 root.setOnClickListener {
 //                    Timber.e(SystemClock.currentThreadTimeMillis().toString())
@@ -37,22 +41,33 @@ class SearchStoreAdapter :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchPartnerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchStoreViewHolder {
         return DataBindingUtil.inflate<StoreItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.store_item,
             parent,
             false
         ).let {
-            SearchPartnerViewHolder(it)
+            SearchStoreViewHolder(it)
         }
     }
 
-    override fun getItemCount() = itemList.size
+    override fun getItemCount() = super.getItemCount()
 
-    override fun onBindViewHolder(holder: SearchPartnerViewHolder, position: Int) {
-        holder.bind(itemList[position])
+    override fun onBindViewHolder(holder: SearchStoreViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
+
+}
+
+object SearchStoreDiffUtil : DiffUtil.ItemCallback<Store>() {
+    override fun areItemsTheSame(oldItem: Store, newItem: Store): Boolean {
+        return oldItem.seq == newItem.seq
+    }
+
+    override fun areContentsTheSame(oldItem: Store, newItem: Store): Boolean {
+        return oldItem == newItem
+    }
 
 }

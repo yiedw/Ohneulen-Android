@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Category
@@ -68,3 +69,4 @@ class SearchFilterAdapter(private val categoryKind: Int) :
             holder.subFilterBind(itemList[position].minorName, itemList[position].check)
     }
 }
+

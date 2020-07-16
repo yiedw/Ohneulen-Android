@@ -16,7 +16,7 @@ import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
 class ReviewAdapter(val report: Boolean = true) :
-    ListAdapter<Review, ReviewAdapter.ReviewViewHolder>(ReviewDIffUtil) {
+    ListAdapter<Review, ReviewAdapter.ReviewViewHolder>(ReviewDiffUtil) {
 //    var reviewList = listOf<Review>()
 
     inner class ReviewViewHolder(private val binding: ReviewItemBinding) :
@@ -52,7 +52,7 @@ class ReviewAdapter(val report: Boolean = true) :
     }
 }
 
-object ReviewDIffUtil :DiffUtil.ItemCallback<Review>() {
+object ReviewDiffUtil :DiffUtil.ItemCallback<Review>() {
     override fun areItemsTheSame(oldItem: Review, newItem: Review): Boolean {
         return oldItem.seq==newItem.seq
     }

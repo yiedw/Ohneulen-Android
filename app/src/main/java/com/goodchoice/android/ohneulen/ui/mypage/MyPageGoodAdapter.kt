@@ -3,6 +3,8 @@ package com.goodchoice.android.ohneulen.ui.mypage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
@@ -13,15 +15,13 @@ import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
 
 class MyPageGoodAdapter :
-    RecyclerView.Adapter<MyPageGoodAdapter.MyPageGoodViewHolder>() {
-    var itemList = listOf<Store>()
+    ListAdapter<Store,MyPageGoodAdapter.MyPageGoodViewHolder>(MyPageGoodDiffUtil) {
 
     inner class MyPageGoodViewHolder(private val binding: StoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Store) {
             binding.apply {
                 store = item
-                executePendingBindings()
                 root.setOnClickListener {
                     addAppbarFragment(StoreAppBar.newInstance(), true)
                     addMainFragment(StoreFragment.newInstance(), true)
@@ -41,9 +41,19 @@ class MyPageGoodAdapter :
         }
     }
 
-    override fun getItemCount() = itemList.size
+    override fun getItemCount() = super.getItemCount()
 
     override fun onBindViewHolder(holder: MyPageGoodViewHolder, position: Int) {
-        holder.bind(itemList[position])
+        holder.bind(getItem(position))
     }
+}
+object MyPageGoodDiffUtil:DiffUtil.ItemCallback<Store>(){
+    override fun areItemsTheSame(oldItem: Store, newItem: Store): Boolean {
+        return oldItem.seq==newItem.seq
+    }
+
+    override fun areContentsTheSame(oldItem: Store, newItem: Store): Boolean {
+        return oldItem==newItem
+    }
+
 }
