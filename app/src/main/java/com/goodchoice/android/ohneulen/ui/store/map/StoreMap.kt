@@ -1,9 +1,13 @@
 package com.goodchoice.android.ohneulen.ui.store.map
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,8 +20,9 @@ import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
-class StoreMap : Fragment() ,OnMapReadyCallback{
+class StoreMap : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: StoreMapBinding
     private val storeViewModel: StoreViewModel by viewModel()
@@ -46,12 +51,13 @@ class StoreMap : Fragment() ,OnMapReadyCallback{
         )
         layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.rightToRight=ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
 
         mapView = binding.storeMapView
-        mapView.layoutParams=layoutParams
+        mapView.layoutParams = layoutParams
         mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
+        binding.fragment = this
         return binding.root
     }
 
@@ -60,8 +66,17 @@ class StoreMap : Fragment() ,OnMapReadyCallback{
 
     }
 
-    fun onNavClick(view:View){
+    fun onNavClick(view: View) {
+        //매장데이터 넣어주기
+        try {
+            val kakaoMap =
+                "kakaomap://route?sp=37.537229,127.005515&ep=37.4979502,127.0276368&by=CAR"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(kakaoMap))
+            startActivity(intent)
 
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "카카오맵이 없습니다", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onStart() {
@@ -102,7 +117,7 @@ class StoreMap : Fragment() ,OnMapReadyCallback{
     override fun onMapReady(naverMap: NaverMap) {
         val x = storeViewModel.storeInfo[0].addressX
         val y = storeViewModel.storeInfo[0].addressY
-        val cameraUpdate=CameraUpdate.scrollTo(LatLng(x,y))
+        val cameraUpdate = CameraUpdate.scrollTo(LatLng(x, y))
         naverMap.moveCamera(cameraUpdate)
     }
 

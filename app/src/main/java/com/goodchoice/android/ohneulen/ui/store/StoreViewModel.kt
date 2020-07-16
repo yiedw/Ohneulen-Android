@@ -1,5 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.store
 
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.*
@@ -36,11 +38,7 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     val image4 = R.drawable.food_sample4
 
 
-    fun kakaoNav(){
-        viewModelScope.launch(Dispatchers.IO) {
 
-        }
-    }
 
 
 }
