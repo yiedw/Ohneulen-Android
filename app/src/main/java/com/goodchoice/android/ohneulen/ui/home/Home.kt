@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.MainViewModel
-import com.goodchoice.android.ohneulen.databinding.HomeFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.HomeBinding
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.util.constant.ConstList
@@ -24,7 +24,7 @@ class Home() : Fragment() {
     }
 
     private val mainViewModel: MainViewModel by viewModel()
-    private lateinit var binding: HomeFragmentBinding
+    private lateinit var binding: HomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +32,7 @@ class Home() : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.home_fragment,
+            R.layout.home,
             container,
             false
         )

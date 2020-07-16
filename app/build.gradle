@@ -110,6 +110,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-dynamic-links-ktx:19.1.0'
     implementation 'com.google.firebase:firebase-analytics-ktx:17.4.3'
 
+    //Navigation
+//    def nav_version="2.2.2"
+//    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+//    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+
     //Paging Library
 //    def paging_version = "2.1.2"
 //    implementation "androidx.paging:paging-runtime:$paging_version" // For Kotlin use paging-runtime-ktx

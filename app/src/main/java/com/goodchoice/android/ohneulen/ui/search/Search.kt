@@ -15,7 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.SearchFragmentBinding
+import com.goodchoice.android.ohneulen.databinding.SearchBinding
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,7 +27,7 @@ class Search : Fragment() {
     }
 
     private var switchOn = false
-    private lateinit var binding: SearchFragmentBinding
+    private lateinit var binding: SearchBinding
     private val searchViewModel: SearchViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
 
@@ -39,7 +39,7 @@ class Search : Fragment() {
         binding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.search_fragment,
+                R.layout.search,
                 container,
                 false
             )
