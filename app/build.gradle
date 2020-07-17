@@ -108,7 +108,7 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics:17.4.4"
     implementation "com.google.firebase:firebase-messaging:20.2.3"
     implementation 'com.google.firebase:firebase-dynamic-links-ktx:19.1.0'
-    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.3'
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.4'
 
     //Navigation
 //    def nav_version="2.2.2"

@@ -75,7 +75,10 @@ class StoreMap : Fragment(), OnMapReadyCallback {
             startActivity(intent)
 
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(requireContext(), "카카오맵이 없습니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"카카오맵이 깔려있지 않습니다 스토어로 이동합니다",Toast.LENGTH_SHORT).show()
+            val uri="market://details?id=net.daum.android.map"
+            val intent=Intent(Intent.ACTION_VIEW,Uri.parse(uri))
+            startActivity(intent)
         }
     }
 

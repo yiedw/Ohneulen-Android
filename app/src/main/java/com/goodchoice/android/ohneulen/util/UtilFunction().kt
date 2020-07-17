@@ -12,6 +12,7 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
 import timber.log.Timber
@@ -106,7 +107,7 @@ fun Int.dp(): Int {
 fun fcmToken(context: Context) {
 //    FirebaseApp.initializeApp(context)
     FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { task ->
-        Timber.e("fcmToken : "+task.token)
+        Timber.e("fcmToken : $task.token")
     }
 
     //푸시알람 받기
