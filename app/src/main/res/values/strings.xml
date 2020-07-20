@@ -22,4 +22,9 @@
 
     <string name="scheme_main">main</string>
     <string name="scheme_detail">detail</string>
+    <string name="notification">알림</string>
+    <string name="notification_set">알림 설정</string>
+    <string name="sound">소리</string>
+    <string name="vibrate">진동</string>
+    <string name="border_lightgrey_1dp">border</string>
 </resources>

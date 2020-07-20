@@ -10,10 +10,12 @@
 
 
     <FrameLayout
+        android:paddingHorizontal="17dp"
+        android:paddingVertical="12dp"
         android:id="@+id/appbar_frameLayout"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="@color/colorWhite"
+        android:layout_height="48dp"
+        android:background="@color/colorHeader"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
