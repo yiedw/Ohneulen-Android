@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Ohneulen</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_email">이메일을 입력하세요</string>
+    <string name="prompt_password">비밀번호를 입력하세요</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
@@ -27,4 +27,9 @@
     <string name="sound">소리</string>
     <string name="vibrate">진동</string>
     <string name="border_lightgrey_1dp">border</string>
+    <string name="login">로그인</string>
+    <string name="email_tv_basic">이메일</string>
+    <string name="email_tv_fail">이메일 형식이 올바르지 않습니다</string>
+    <string name="pw_tv_basic">비밀번호</string>
+    <string name="pw_tv_fail">비밀번호를 다시 확인하세요</string>
 </resources>

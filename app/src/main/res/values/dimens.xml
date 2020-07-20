@@ -3,5 +3,5 @@
     <dimen name="fragment_horizontal_margin">16dp</dimen>
     <dimen name="fragment_vertical_margin">16dp</dimen>
     <dimen name="header_center">17sp</dimen>
-    <dimen name="main_contents"/>
+    <dimen name="main_contents">15sp</dimen>
 </resources>

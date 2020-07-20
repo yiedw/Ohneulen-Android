@@ -19,69 +19,195 @@
         android:layout_height="match_parent"
         tools:context=".ui.login.Login">
 
-        <EditText
-            android:id="@+id/login_email"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/login_logo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
-            android:selectAllOnFocus="true"
-            android:text="@={viewModel.memEmail}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/login_email_clear"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="@{fragment::emailClear}"
-            android:text="x"
-            app:layout_constraintBottom_toBottomOf="@id/login_email"
-            app:layout_constraintRight_toRightOf="@id/login_email"
-            app:layout_constraintTop_toTopOf="@id/login_email" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/login_email"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edittext_border"
+            android:paddingHorizontal="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_logo"
+            tools:ignore="RtlSymmetry">
 
-        <EditText
+            <TextView
+                android:id="@+id/login_email_tv"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/email_tv_basic"
+                android:textColor="#a9a9a9"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/login_email_et"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:layout_marginBottom="9dp"
+                android:background="@null"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorCGrey"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="parent" />
+
+            <ImageView
+                android:id="@+id/login_email_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/login_email_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/check_green"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/login_pw"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:selectAllOnFocus="true"
-            android:text="@={viewModel.memPw}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_email" />
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_border"
+            android:paddingHorizontal="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_email"
+            tools:ignore="RtlSymmetry">
 
-        <Button
-            android:id="@+id/login_pw_clear"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="@{fragment::pwClear}"
-            android:text="x"
-            app:layout_constraintBottom_toBottomOf="@id/login_pw"
-            app:layout_constraintRight_toRightOf="@id/login_pw"
-            app:layout_constraintTop_toTopOf="@id/login_pw" />
+            <TextView
+                android:id="@+id/login_pw_tv"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/pw_tv_basic"
+                android:textColor="#a9a9a9"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/login_pw_et"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:layout_marginBottom="9dp"
+                android:background="@null"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorCGrey"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="parent" />
+
+            <ImageView
+                android:id="@+id/login_pw_hidden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/hidden"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/login_pw_clear"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/login_pw_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/login_pw_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/check_green"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <CheckBox
+            android:id="@+id/login_auto"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/checkbox_selector"
+            android:button="@android:color/transparent"
+            android:textColor="#a9a9a9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_pw" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="9dp"
+            android:text="로그인 유지"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@id/login_auto"
+            app:layout_constraintTop_toBottomOf="@id/login_pw" />
 
         <Button
             android:id="@+id/login_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/login_bt_false"
+            android:enabled="false"
             android:onClick="@{fragment::submitClick}"
             android:text="로그인"
-            app:layout_constraintTop_toBottomOf="@+id/login_pw" />
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/login_auto" />
 
-        <CheckBox
-            android:id="@+id/login_auto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="자동로그인"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_submit" />
+        <!--        <Button-->
+        <!--            android:id="@+id/login_email_clear"-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:onClick="@{fragment::emailClear}"-->
+        <!--            android:text="x"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@id/login_email"-->
+        <!--            app:layout_constraintRight_toRightOf="@id/login_email"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/login_email" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/login_pw_clear"-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:onClick="@{fragment::pwClear}"-->
+        <!--            android:text="x"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@id/login_pw"-->
+        <!--            app:layout_constraintRight_toRightOf="@id/login_pw"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/login_pw" />-->
+
 
         <TextView
             android:id="@+id/login_find_email"

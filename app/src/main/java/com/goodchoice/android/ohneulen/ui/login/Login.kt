@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.EditorInfo
@@ -11,6 +12,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginBinding
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Login : Fragment() {
@@ -43,60 +45,49 @@ class Login : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        loginViewModel.loginErrorToast.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let {
-                val toast =
-                    Toast.makeText(requireContext(), "아이디 혹은 비밀번호가 틀립니다", Toast.LENGTH_SHORT)
-                toast.setGravity(
-                    Gravity.CENTER_HORIZONTAL or Gravity.TOP,
-                    0,
-                    binding.loginEmail.y.toInt() - 30
-                )
-                toast.show()
-            }
-        })
-        binding.loginPw.setOnEditorActionListener { v, actionId, _->
-            if (v!!.id == R.id.login_pw && actionId == EditorInfo.IME_ACTION_DONE) {
+        binding.loginEmailEt.setOnFocusChangeListener { v, hasFocus ->
+
+            if (!hasFocus and !binding.loginEmailEt.text.isNullOrEmpty()) {
                 val emailRegex =
                     Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
-                if (binding.loginEmail.text.matches(emailRegex)) {
-                    loginViewModel.login(binding.loginAuto.isChecked)
+                if (binding.loginEmailEt.text.matches(emailRegex)) {
+                    binding.loginEmailTv.text = requireContext().getString(R.string.email_tv_basic)
+                    binding.loginEmailTv.setTextColor(requireContext().getColor(R.color.colorWeightGrey))
+                    binding.loginEmailCheck.visibility = View.VISIBLE
+                    binding.loginEmailClear.visibility = View.GONE
                 } else {
-                    val toast = Toast.makeText(requireContext(), "이메일 형식이 잘못됨", Toast.LENGTH_SHORT)
-                    toast.setGravity(
-                        Gravity.CENTER_HORIZONTAL or Gravity.TOP,
-                        0,
-                        binding.loginEmail.y.toInt() - 30
-                    )
-                    toast.show()
+                    binding.loginEmailTv.text = requireContext().getString(R.string.email_tv_fail)
+                    binding.loginEmailTv.setTextColor(requireContext().getColor(R.color.colorRed))
                 }
             }
-            return@setOnEditorActionListener false
+        }
+
+        binding.loginPwEt.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus and !binding.loginPwEt.text.isNullOrEmpty()) {
+                val pwRegex = Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+                if (binding.loginPwEt.text.matches(pwRegex)) {
+                    binding.loginPwTv.text = requireContext().getString(R.string.pw_tv_basic)
+                    binding.loginPwTv.setTextColor(requireContext().getColor(R.color.colorWeightGrey))
+                    binding.loginPwCheck.visibility = View.VISIBLE
+                    binding.loginPwClear.visibility = View.GONE
+                    binding.loginPwHidden.visibility = View.GONE
+                } else {
+                    binding.loginPwTv.text = requireContext().getString(R.string.pw_tv_fail)
+                    binding.loginPwTv.setTextColor(requireContext().getColor(R.color.colorRed))
+                }
+            }
         }
     }
 
-    fun emailClear(view: View) {
-        binding.loginEmail.text.clear()
-    }
-
-    fun pwClear(view: View) {
-        binding.loginPw.text.clear()
-    }
-
+    //    fun emailClear(view: View) {
+//        binding.loginEmail.text.clear()
+//    }
+//
+//    fun pwClear(view: View) {
+//        binding.loginPw.text.clear()
+//    }
+//
     fun submitClick(view: View) {
-        val emailRegex =
-            Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
-        if (binding.loginEmail.text.matches(emailRegex)) {
-            loginViewModel.login(binding.loginAuto.isChecked)
-        } else {
-            val toast = Toast.makeText(requireContext(), "이메일 형식이 잘못됨", Toast.LENGTH_SHORT)
-            toast.setGravity(
-                Gravity.CENTER_HORIZONTAL or Gravity.TOP,
-                0,
-                binding.loginEmail.y.toInt() - 30
-            )
-            toast.show()
-        }
     }
 
     fun findEmailClick(view: View) {

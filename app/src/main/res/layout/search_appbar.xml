@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:focusable="true"
-            android:src="@drawable/logo"
+            android:src="@drawable/ohneulen_icon"
             android:text="Search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
