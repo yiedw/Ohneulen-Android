@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyPage : Fragment() {
@@ -37,6 +39,7 @@ class MyPage : Fragment() {
             false
         )
         binding.fragment = this
+        MainActivity.bottomNav.visibility=View.GONE
         return binding.root
     }
 
@@ -49,10 +52,13 @@ class MyPage : Fragment() {
             //로그인 상태일때
             if (it) {
                 binding.mypageNickName.visibility = View.VISIBLE
+                binding.mypageEmail.visibility = View.VISIBLE
+                binding.mypageLogin.visibility = View.GONE
                 binding.mypageEmail.text = "AAA@AAA.com"
             } else {
                 binding.mypageNickName.visibility = View.GONE
-                binding.mypageEmail.text = "로그인"
+                binding.mypageEmail.visibility = View.GONE
+                binding.mypageLogin.visibility = View.VISIBLE
             }
         })
     }
