@@ -43,7 +43,7 @@
                 android:layout_height="30dp"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center"
-                android:src="@drawable/heart_icon" />
+                android:src="@drawable/heart" />
 
         </LinearLayout>
 

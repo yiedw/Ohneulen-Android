@@ -39,7 +39,7 @@ class FireBaseInstanceIDService : FirebaseMessagingService() {
             channelMessage.setShowBadge(false)
             notiChannel.createNotificationChannel(channelMessage)
             val notificationBuilder = NotificationCompat.Builder(this, channel)
-                .setSmallIcon(R.drawable.heart_icon)
+                .setSmallIcon(R.drawable.heart)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setChannelId(channel)
@@ -51,7 +51,7 @@ class FireBaseInstanceIDService : FirebaseMessagingService() {
             notificationManager.notify(9999, notificationBuilder.build())
         } else {
             val notificationBuilder = NotificationCompat.Builder(this, "")
-                .setSmallIcon(R.drawable.heart_icon)
+                .setSmallIcon(R.drawable.heart)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)

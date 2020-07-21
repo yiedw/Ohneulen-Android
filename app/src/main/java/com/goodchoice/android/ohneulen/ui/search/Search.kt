@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchBinding
@@ -44,18 +45,18 @@ class Search : Fragment() {
                 false
             )
         //mvm 을 이용해서 데이터 받아오기
-        searchViewModel.searchEditText = mainViewModel.searchEditText
-
-        //검색어기반
-        if (searchViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
-            binding.searchEditText.setText(mainViewModel.searchEditText)
-            if (!binding.searchEditText.text.toString().isBlank()) {
-                //검색어를 이용해서 지도정보 불러오기
-                searchViewModel.searchMapData()
-            } else {
-                Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
-            }
-        }
+//        searchViewModel.searchEditText = mainViewModel.searchEditText
+//
+//        검색어기반
+//        if (searchViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
+//            binding.searchEditText.setText(mainViewModel.searchEditText)
+//            if (!binding.searchEditText.text.toString().isBlank()) {
+//                //검색어를 이용해서 지도정보 불러오기
+//                searchViewModel.searchMapData()
+//            } else {
+//                Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
 
         //바인딩
@@ -88,45 +89,47 @@ class Search : Fragment() {
             }
         )
 
-        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
-            if (v!!.id == R.id.search_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (!binding.searchEditText.text.toString().isBlank()) {
-                    val imm: InputMethodManager =
-                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
-                    searchViewModel.searchEditText = binding.searchEditText.text.toString()
-                    mainViewModel.searchEditText = binding.searchEditText.text.toString()
-                    searchViewModel.searchMapData()
-                } else {
-                    Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-            return@setOnEditorActionListener false
-        }
+//        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
+//            if (v!!.id == R.id.search_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                if (!binding.searchEditText.text.toString().isBlank()) {
+//                    val imm: InputMethodManager =
+//                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                    imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+//                    searchViewModel.searchEditText = binding.searchEditText.text.toString()
+//                    mainViewModel.searchEditText = binding.searchEditText.text.toString()
+//                    searchViewModel.searchMapData()
+//                } else {
+//                    Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)
+//                        .show()
+//                }
+//            }
+//            return@setOnEditorActionListener false
+//        }
 
 
     }
 
 
-    fun searchClick(view: View) {
-        if (!binding.searchEditText.text.toString().isBlank()) {
-            searchViewModel.searchEditText = binding.searchEditText.text.toString()
-            mainViewModel.searchEditText = binding.searchEditText.text.toString()
-            searchViewModel.searchMapData()
-        } else {
-            Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG).show()
-        }
-
-
-    }
+//    fun searchClick(view: View) {
+//        if (!binding.searchEditText.text.toString().isBlank()) {
+//            searchViewModel.searchEditText = binding.searchEditText.text.toString()
+//            mainViewModel.searchEditText = binding.searchEditText.text.toString()
+//            searchViewModel.searchMapData()
+//        } else {
+//            Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG).show()
+//        }
+//
+//
+//    }
 
     fun switchClick(view: View) {
-        if (!switchOn)
+        if (!switchOn) {
             binding.searchMap.visibility = View.GONE
-        else
+            Glide.with(requireContext()).load(R.drawable.open).into(binding.searchSwitch)
+        } else {
             binding.searchMap.visibility = View.VISIBLE
-
+            Glide.with(requireContext()).load(R.drawable.close).into(binding.searchSwitch)
+        }
         switchOn = !switchOn
     }
 

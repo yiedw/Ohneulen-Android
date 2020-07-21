@@ -1,12 +1,14 @@
 package com.goodchoice.android.ohneulen.ui.search
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
@@ -25,12 +27,13 @@ class SearchStoreAdapter :
         fun bind(item: Store) {
             binding.apply {
                 store = item
-                storeItemGood.setOnClickListener {
-                    Toast.makeText(
-                        binding.root.context,
-                        item.storeName + "이 찜목록에 저장됨",
-                        Toast.LENGTH_LONG
-                    ).show()
+                storeItemGoodBasic.setOnClickListener {
+                    storeItemGoodRed.visibility = View.VISIBLE
+                    storeItemGoodBasic.visibility = View.GONE
+                }
+                storeItemGoodRed.setOnClickListener {
+                    storeItemGoodRed.visibility = View.GONE
+                    storeItemGoodBasic.visibility = View.VISIBLE
                 }
                 root.setOnClickListener {
 //                    Timber.e(SystemClock.currentThreadTimeMillis().toString())

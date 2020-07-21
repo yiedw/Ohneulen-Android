@@ -23,6 +23,8 @@ import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import com.google.android.material.bottomnavigation.BottomNavigationMenu
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_activity.*
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var supportFragmentManager: FragmentManager
         lateinit var appbarFrameLayout: FrameLayout
         lateinit var mainFrameLayout: FrameLayout
+        lateinit var bottomNav: BottomNavigationView
         lateinit var initMainFrameLayout: ViewGroup.LayoutParams
     }
 
@@ -53,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         mainFrameLayout = main_frameLayout
         appbarFrameLayout.bringToFront()
         initMainFrameLayout = mainFrameLayout.layoutParams
+        bottomNav = main_bottom_nav
 //        if (savedInstanceState == null) {
 //            replaceAppbarFragment(HomeAppBarFragment.newInstance())
 //            replaceMainFragment(HomeFragment.newInstance())
@@ -122,7 +126,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
 
 }

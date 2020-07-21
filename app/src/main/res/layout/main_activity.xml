@@ -10,8 +10,6 @@
 
 
     <FrameLayout
-        android:paddingHorizontal="17dp"
-        android:paddingVertical="12dp"
         android:id="@+id/appbar_frameLayout"
         android:layout_width="0dp"
         android:layout_height="48dp"
@@ -22,15 +20,26 @@
 
     </FrameLayout>
 
+<!--        android:paddingHorizontal="20dp"-->
     <FrameLayout
-        android:paddingHorizontal="20dp"
         android:id="@+id/main_frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_bottom_nav"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar_frameLayout"
         tools:context=".ui.MainActivity" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="?android:attr/windowBackground"
+        android:textAlignment="center"
+        app:itemIconSize="23dp"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

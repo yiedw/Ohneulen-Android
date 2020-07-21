@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,6 +49,8 @@ class Login : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        MainActivity.bottomNav.visibility=View.GONE
 
 
         //이메일 검사
