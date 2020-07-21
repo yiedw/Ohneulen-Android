@@ -15,8 +15,11 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         tools:context=".ui.login.Login">
 
         <ImageView
@@ -54,11 +57,16 @@
             <EditText
                 android:id="@+id/login_email_et"
                 android:layout_width="match_parent"
-                android:layout_height="19dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="9dp"
                 android:background="@null"
                 android:hint="@string/prompt_email"
+                android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
+                android:nextFocusDown="@id/login_pw_et"
+                android:onClick="@{fragment::emailClear}"
+                android:paddingTop="27dp"
+                android:singleLine="true"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorCGrey"
                 android:textSize="13sp"
@@ -95,8 +103,7 @@
             android:background="@drawable/edittext_border"
             android:paddingHorizontal="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_email"
-            tools:ignore="RtlSymmetry">
+            app:layout_constraintTop_toBottomOf="@id/login_email">
 
             <TextView
                 android:id="@+id/login_pw_tv"
@@ -112,23 +119,41 @@
             <EditText
                 android:id="@+id/login_pw_et"
                 android:layout_width="match_parent"
-                android:layout_height="19dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="9dp"
                 android:background="@null"
+                android:focusableInTouchMode="true"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
+                android:paddingTop="27dp"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorCGrey"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="parent" />
+                app:layout_constraintRight_toLeftOf="parent">
+
+
+            </EditText>
 
             <ImageView
                 android:id="@+id/login_pw_hidden"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
+                android:onClick="@{fragment::pwHidden}"
                 android:src="@drawable/hidden"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/login_pw_clear"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/login_pw_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:onClick="@{fragment::pwHidden}"
+                android:src="@drawable/open"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/login_pw_clear"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -137,6 +162,7 @@
                 android:id="@+id/login_pw_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{fragment::pwClear}"
                 android:src="@drawable/delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -166,10 +192,12 @@
             app:layout_constraintTop_toBottomOf="@id/login_pw" />
 
         <TextView
+            android:id="@+id/login_auto_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="9dp"
+            android:onClick="@{fragment::autoTvClick}"
             android:text="로그인 유지"
             android:textSize="14sp"
             app:layout_constraintLeft_toRightOf="@id/login_auto"
@@ -188,31 +216,11 @@
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/login_auto" />
 
-        <!--        <Button-->
-        <!--            android:id="@+id/login_email_clear"-->
-        <!--            android:layout_width="30dp"-->
-        <!--            android:layout_height="30dp"-->
-        <!--            android:onClick="@{fragment::emailClear}"-->
-        <!--            android:text="x"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@id/login_email"-->
-        <!--            app:layout_constraintRight_toRightOf="@id/login_email"-->
-        <!--            app:layout_constraintTop_toTopOf="@id/login_email" />-->
-
-        <!--        <Button-->
-        <!--            android:id="@+id/login_pw_clear"-->
-        <!--            android:layout_width="30dp"-->
-        <!--            android:layout_height="30dp"-->
-        <!--            android:onClick="@{fragment::pwClear}"-->
-        <!--            android:text="x"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@id/login_pw"-->
-        <!--            app:layout_constraintRight_toRightOf="@id/login_pw"-->
-        <!--            app:layout_constraintTop_toTopOf="@id/login_pw" />-->
-
-
         <TextView
             android:id="@+id/login_find_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="65dp"
             android:layout_marginBottom="100dp"
             android:onClick="@{fragment::findEmailClick}"
             android:text="아이디 찾기"
@@ -236,6 +244,7 @@
             android:id="@+id/login_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="65dp"
             android:onClick="@{fragment::signUpClick}"
             android:text="회원가입"
             app:layout_constraintLeft_toRightOf="@id/login_find_pw"
