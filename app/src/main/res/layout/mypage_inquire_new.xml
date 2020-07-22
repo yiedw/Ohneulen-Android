@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,64 +9,118 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorHeader">
 
-        <TextView
-            android:id="@+id/mypage_inquire_new_tv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="분류"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/mypage_inquire_new_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_tv1" />
-
-        <TextView
-            android:id="@+id/mypage_inquire_new_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="제목"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_spinner" />
-
-        <EditText
-            android:id="@+id/mypage_inquire_new_et1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_title" />
-
-        <TextView
-            android:id="@+id/mypage_inquire_new_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내용"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_et1" />
-
-        <EditText
-            android:id="@+id/mypage_inquire_new_et2"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:hint="내용을쓰시오"
+            android:background="@drawable/background_new"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
             app:layout_constraintBottom_toTopOf="@id/mypage_inquire_new_submit"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_content" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                android:id="@+id/mypage_inquire_new_tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="분류"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Spinner
+                android:id="@+id/mypage_inquire_new_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:autofillHints="선택해 주세요"
+                android:background="@drawable/background_border_cgrey"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_tv1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/open"
+                app:layout_constraintBottom_toBottomOf="@id/mypage_inquire_new_spinner"
+                app:layout_constraintRight_toRightOf="@id/mypage_inquire_new_spinner"
+                app:layout_constraintTop_toTopOf="@id/mypage_inquire_new_spinner" />
+
+            <TextView
+                android:id="@+id/mypage_inquire_new_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="제목"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_spinner" />
+
+            <EditText
+                android:id="@+id/mypage_inquire_new_et1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_border_cgrey"
+                android:hint="제목을 입력해 주세요"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_title" />
+
+            <TextView
+                android:id="@+id/mypage_inquire_new_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="내용"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_et1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="34dp"
+                android:background="@color/colorCGrey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="   @id/mypage_inquire_new_content">
+
+                <EditText
+                    android:ellipsize="start"
+                    android:padding="15dp"
+                    android:id="@+id/mypage_inquire_new_et2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="보내 주신 문의 내용을 정확히 확인하고 빠르게 처리하기 위해 연락을 드릴 수 있습니다."
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_content" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/mypage_inquire_new_submit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/colorGreen"
             android:text="작성완료"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_contents"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

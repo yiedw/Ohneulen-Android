@@ -43,7 +43,7 @@
         <ImageView
             android:id="@+id/mypage_appbar_logout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:onClick="@{fragment::logoutClick}"
             android:src="@drawable/logout"
