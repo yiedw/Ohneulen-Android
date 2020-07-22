@@ -36,8 +36,8 @@ class StoreFragment : Fragment() {
     }
 
     //나중에 되돌리기
-    private val initMainFragment: ViewGroup.LayoutParams =
-        MainActivity.mainFrameLayout.layoutParams
+//    private val initMainFragment: ViewGroup.LayoutParams =
+//        MainActivity.mainFrameLayout.layoutParams
 
     private lateinit var binding: StoreFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
@@ -65,7 +65,7 @@ class StoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        basicSetting()
+//        basicSetting()
         viewPagerSetting()
         stickyHeader()
 
@@ -124,27 +124,27 @@ class StoreFragment : Fragment() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     state = position
-                    if (position == 3) {
-                        reviewSetting()
-                    } else if (position == 1) {
-                        basicSetting()
-                        mapSetting()
-//                        scrollBlock()
-                    } else {
-                        basicSetting()
-                    }
+//                    if (position == 3) {
+//                        reviewSetting()
+//                    } else if (position == 1) {
+//                        basicSetting()
+//                        mapSetting()
+////                        scrollBlock()
+//                    } else {
+//                        basicSetting()
+//                    }
                     val view =
                         (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
                         )
-                    updatePagerHeightForChild(view!!, binding.storeViewPager2)
+//                    updatePagerHeightForChild(view!!, binding.storeViewPager2)
                     binding.storeNewScrollView.scrollTo(0, 0)
                     stickyHeader()
-                    if (position == 3) {
-                        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBar).changeBlack()
-
-                    }
-                    binding.storeNewScrollView.invalidate()
+//                    if (position == 3) {
+//                        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBar).changeBlack()
+//
+//                    }
+//                    binding.storeNewScrollView.invalidate()
                 }
             }
         )
@@ -210,7 +210,7 @@ class StoreFragment : Fragment() {
     //리뷰 페이지 세팅
     private fun reviewSetting() {
         binding.storeImage.visibility = View.GONE
-        MainActivity.mainFrameLayout.layoutParams = initMainFragment
+//        MainActivity.mainFrameLayout.layoutParams = initMainFragment
 
         //리뷰가 없을때 후기가 위로 딱 붙게하기
         val layoutParams = ConstraintLayout.LayoutParams(

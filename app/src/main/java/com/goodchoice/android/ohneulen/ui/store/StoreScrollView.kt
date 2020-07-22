@@ -64,13 +64,13 @@ class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListene
         else
             header?.translationY =
                 scrollY.toFloat() - mHeaderInitPosition
-        MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
-            MainActivity.appbarFrameLayout.context,
-            R.color.colorWhite
-        )
-        if (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") != null) {
-            (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBar).changeBlack()
-        }
+//        MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
+//            MainActivity.appbarFrameLayout.context,
+//            R.color.colorWhite
+//        )
+//        if (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") != null) {
+//            (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBar).changeBlack()
+//        }
         callStickListener()
     }
 
@@ -83,13 +83,13 @@ class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListene
 
     fun freeHeader() {
         header?.translationY = 0f
-        MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
-            MainActivity.appbarFrameLayout.context,
-            R.color.colorTransparent
-        )
-        if (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") != null) {
-            (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBar).changeWhite()
-        }
+//        MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
+//            MainActivity.appbarFrameLayout.context,
+//            R.color.colorTransparent
+//        )
+//        if (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") != null) {
+//            (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBar).changeWhite()
+//        }
         callFreeListener()
     }
 

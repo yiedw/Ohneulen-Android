@@ -49,7 +49,7 @@ class StoreAppBar : Fragment() ,OnBackPressedListener{
             container,
             false
         )
-        changeBlack()
+//        changeBlack()
         binding.fragment = this
 
         return binding.root
@@ -72,15 +72,15 @@ class StoreAppBar : Fragment() ,OnBackPressedListener{
         }
     }
 
-    fun changeBlack() {
-        binding.storeAppbarBack.setTextColor(Color.BLACK)
-        binding.storeAppbarShare.setTextColor(Color.BLACK)
-    }
-
-    fun changeWhite() {
-        binding.storeAppbarBack.setTextColor(Color.WHITE)
-        binding.storeAppbarShare.setTextColor(Color.WHITE)
-    }
+//    fun changeBlack() {
+//        binding.storeAppbarBack.setTextColor(Color.BLACK)
+//        binding.storeAppbarShare.setTextColor(Color.BLACK)
+//    }
+//
+//    fun changeWhite() {
+//        binding.storeAppbarBack.setTextColor(Color.WHITE)
+//        binding.storeAppbarShare.setTextColor(Color.WHITE)
+//    }
 
     fun backClick(view: View) {
         replaceAppbarFragment(SearchAppBar.newInstance())

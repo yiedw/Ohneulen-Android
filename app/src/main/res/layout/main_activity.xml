@@ -11,6 +11,7 @@
 
     <FrameLayout
         android:id="@+id/appbar_frameLayout"
+        android:paddingHorizontal="20dp"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:background="@color/colorHeader"

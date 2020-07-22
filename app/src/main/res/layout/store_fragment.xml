@@ -26,114 +26,18 @@
             android:background="@android:color/white"
             android:orientation="vertical">
 
-
-            <!--            사진-->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/store_image"
+                android:id="@+id/store_top"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp">
 
-                <ImageView
-                    android:id="@+id/store_bigImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    bind:imageResID="@{viewModel.image1}" />
-
-                <ImageView
-                    android:id="@+id/store_image1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/store_image2"
-                    app:layout_constraintTop_toBottomOf="@id/store_bigImage"
-                    bind:imageResID="@{viewModel.image2}" />
-
-                <ImageView
-                    android:id="@+id/store_image2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/store_image1"
-                    app:layout_constraintRight_toLeftOf="@id/store_image3"
-                    app:layout_constraintTop_toBottomOf="@id/store_bigImage"
-                    bind:imageResID="@{viewModel.image3}" />
-
-                <ImageView
-                    android:id="@+id/store_image3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/store_image2"
+                <RatingBar
+                    android:id="@+id/store_fragment_rating"
+                    android:layout_width="73dp"
+                    android:layout_height="13dp"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/store_bigImage"
-                    bind:imageResID="@{viewModel.image4}" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/store_detail"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginHorizontal="50dp"
-                android:background="@color/colorWhite90"
-                app:layout_constraintBottom_toTopOf="@id/store_tab"
-                app:layout_constraintLeft_toLeftOf="parent">
-
-                <TextView
-                    android:id="@+id/store_detail_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="카 페"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/store_detail_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="업 종"
-                    android:textAlignment="center"
-                    android:textSize="12sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/store_detail_name" />
-
-                <TextView
-                    android:id="@+id/store_detail_point"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="평점"
-                    android:textAlignment="center"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/store_detail_good"
-                    app:layout_constraintTop_toBottomOf="@id/store_detail_category" />
-
-                <TextView
-                    android:id="@+id/store_detail_good"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="찜"
-                    android:textAlignment="center"
-                    app:layout_constraintLeft_toRightOf="@id/store_detail_point"
-                    app:layout_constraintRight_toLeftOf="@id/store_detail_review"
-                    app:layout_constraintTop_toBottomOf="@id/store_detail_category" />
-
-                <TextView
-                    android:id="@+id/store_detail_review"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="후기"
-                    android:textAlignment="center"
-                    app:layout_constraintLeft_toRightOf="@id/store_detail_good"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/store_detail_category" />
-
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -144,7 +48,7 @@
                 android:layout_height="50dp"
                 android:background="@color/colorWhite"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/store_image"
+                app:layout_constraintTop_toBottomOf="@id/store_top"
                 app:tabGravity="fill">
 
             </com.google.android.material.tabs.TabLayout>
