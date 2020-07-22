@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageGood" />
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageLike" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +14,7 @@
         android:onClick="@{fragment.moveSearch}">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mypage_good_rv"
+            android:id="@+id/mypage_like_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -23,7 +23,7 @@
             android:visibility="gone"/>
 
         <LinearLayout
-            android:id="@+id/mypage_good_zero"
+            android:id="@+id/mypage_like_zero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

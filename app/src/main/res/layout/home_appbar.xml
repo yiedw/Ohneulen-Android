@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/home_appbar_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:gravity="center"
             android:onClick="@{fragment::myClick}"
@@ -40,7 +40,7 @@
         <ImageView
             android:id="@+id/home_appbar_noti"
             android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:src="@drawable/notifications_icon"
             android:text="right"

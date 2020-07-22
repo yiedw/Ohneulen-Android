@@ -16,7 +16,6 @@ import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyPage : Fragment() {
@@ -79,8 +78,8 @@ class MyPage : Fragment() {
             Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
             return
         }
-        replaceAppbarFragment(MyPageGoodAppBar.newInstance())
-        replaceMainFragment(MyPageGood.newInstance())
+        replaceAppbarFragment(MyPageLikeAppBar.newInstance())
+        replaceMainFragment(MyPageLike.newInstance())
     }
 
     fun reviewClick(view: View) {

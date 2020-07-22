@@ -12,14 +12,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inquire_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp">
 
 
         <TextView
             android:id="@+id/inquire_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="@{inquire.title}"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/main_contents"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,16 +31,30 @@
             android:id="@+id/inquire_item_nickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
             android:text="@{inquire.nickName}"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
+
+        <TextView
+            android:id="@+id/inquire_item_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:text=" | "
+            app:layout_constraintLeft_toRightOf="@id/inquire_item_nickName"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
 
         <TextView
             android:id="@+id/inquire_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
             android:text="@{inquire.date}"
-            app:layout_constraintLeft_toRightOf="@id/inquire_item_nickName"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@id/inquire_item_tv"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
 
         <TextView
@@ -44,33 +62,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{inquire.status}"
+            android:textColor="@color/colorHeader"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/inquire_item_date"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/inquire_item_contour"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorBorderLightGrey"
+            app:layout_constraintTop_toBottomOf="@id/inquire_item_nickName" />
 
         <LinearLayout
             android:id="@+id/inquire_item_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inquire_item_date">
+            app:layout_constraintTop_toBottomOf="@id/inquire_item_contour">
 
             <TextView
                 android:id="@+id/inquire_item_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{inquire.content}" />
+                android:text="@{inquire.content}"
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:id="@+id/inquire_item_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorLightGrey"
-                android:text="@{inquire.answer}" />
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreyFA"
+                android:text="@{inquire.answer}"
+                android:textColor="@color/colorTextGrey" />
 
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

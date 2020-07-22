@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAppBar" />
+            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageLikeAppBar" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/mypage_good_appbar_back"
+            android:id="@+id/mypage_like_appbar_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/mypage_good_appbar_center"
+            android:id="@+id/mypage_like_appbar_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"

@@ -20,4 +20,6 @@
     <color name="colorWeightGrey">#a9a9a9</color>
     <color name="colorCGrey">#cccccc</color>
     <color name="colorContour">#e5e5e5</color>
+    <color name="colorTextGrey">#808080</color>
+    <color name="colorGreyFA">#fafafa</color>
 </resources>
