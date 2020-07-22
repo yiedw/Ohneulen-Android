@@ -7,11 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.FAQ
 import com.goodchoice.android.ohneulen.databinding.FaqItemBinding
 
-class FAQAdapter : ListAdapter<FAQ,FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
+class FAQAdapter : ListAdapter<FAQ, FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
 
 
     inner class FAQViewHolder(private val binding: FaqItemBinding) :
@@ -21,10 +22,10 @@ class FAQAdapter : ListAdapter<FAQ,FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
                 faqItem.setOnClickListener {
                     if (faqItemContent.visibility == View.GONE) {
                         faqItemContent.visibility = View.VISIBLE
-                        faqItemOpen.text = "close"
+                        Glide.with(binding.root).load(R.drawable.close).into(binding.faqItemOpen)
                     } else {
                         faqItemContent.visibility = View.GONE
-                        faqItemOpen.text = "open"
+                        Glide.with(binding.root).load(R.drawable.open).into(binding.faqItemOpen)
                     }
                 }
                 faq = item
@@ -43,7 +44,7 @@ class FAQAdapter : ListAdapter<FAQ,FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
             FAQViewHolder(it)
         }
 
-    override fun getItemCount() =super.getItemCount()
+    override fun getItemCount() = super.getItemCount()
 
     override fun onBindViewHolder(holder: FAQViewHolder, position: Int) {
         holder.bind(getItem(position))
