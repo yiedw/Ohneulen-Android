@@ -12,11 +12,11 @@ import com.goodchoice.android.ohneulen.databinding.StoreMenuItemBinding
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import timber.log.Timber
 
 class StoreMenuAdapter :
     ListAdapter<StoreMenu, StoreMenuAdapter.StoreMenuViewHolder>(StoreMenuDiffUtil) {
 
-    override fun getItemCount() = super.getItemCount()
 
     inner class StoreMenuViewHolder(private val binding: StoreMenuItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

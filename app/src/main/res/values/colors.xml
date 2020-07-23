@@ -21,5 +21,6 @@
     <color name="colorCGrey">#cccccc</color>
     <color name="colorContour">#e5e5e5</color>
     <color name="colorTextGrey">#808080</color>
+    <color name="colorGrey88">#888888</color>
     <color name="colorGreyFA">#fafafa</color>
 </resources>

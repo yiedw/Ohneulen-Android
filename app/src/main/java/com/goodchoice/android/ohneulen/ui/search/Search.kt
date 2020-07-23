@@ -133,10 +133,7 @@ class Search : Fragment() {
         switchOn = !switchOn
     }
 
-    fun filterClick(view: View) {
-        replaceAppbarFragment(SearchFilterAppbar.newInstance())
-        addMainFragment(SearchFilter.newInstance(), true)
-    }
+
 
 //    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
 //        if (v!!.id == R.id.search_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {

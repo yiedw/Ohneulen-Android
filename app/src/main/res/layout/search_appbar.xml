@@ -52,9 +52,10 @@
         <ImageView
             android:id="@+id/search_appbar_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
             android:src="@drawable/filter"
+            android:onClick="@{fragment::filterClick}"
             app:layout_constraintBottom_toBottomOf="@id/search_appbar_et"
             app:layout_constraintRight_toRightOf="@id/search_appbar_et"
             app:layout_constraintTop_toTopOf="@id/search_appbar_et" />

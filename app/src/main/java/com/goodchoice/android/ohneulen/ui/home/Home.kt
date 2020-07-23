@@ -1,11 +1,15 @@
 package com.goodchoice.android.ohneulen.ui.home
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.MainViewModel
@@ -42,6 +46,19 @@ class Home() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //문자열 색 입히기
+        val title = resources.getString(R.string.home_title)
+        val spanBuilder = SpannableStringBuilder(title)
+        spanBuilder.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorOhneulen)),
+            0,
+            3,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.homeTitle.append(spanBuilder)
+
+
+
         binding.homeEditText.setOnEditorActionListener { v, actionId, _ ->
             if (v!!.id == R.id.home_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
                 mainViewModel.searchEditText = binding.homeEditText.text.toString()

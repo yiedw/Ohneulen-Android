@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -16,6 +17,8 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
+import com.goodchoice.android.ohneulen.ui.mypage.MyPage
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
@@ -32,7 +35,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     companion object {
         lateinit var supportFragmentManager: FragmentManager
@@ -57,14 +60,12 @@ class MainActivity : AppCompatActivity() {
         appbarFrameLayout.bringToFront()
         initMainFrameLayout = mainFrameLayout.layoutParams
         bottomNav = main_bottom_nav
-//        if (savedInstanceState == null) {
-//            replaceAppbarFragment(HomeAppBarFragment.newInstance())
-//            replaceMainFragment(HomeFragment.newInstance())
-//
-//        }
 
         //초기 데이터 받아오기
         initData
+
+        //네비게이션 연결
+        main_bottom_nav.setOnNavigationItemSelectedListener(this)
 
         //다이나믹 링크
         Firebase.dynamicLinks
@@ -125,6 +126,19 @@ class MainActivity : AppCompatActivity() {
                 (fragment as OnBackPressedListener).onBackPressed()
             }
         }
+    }
+
+    //바텀 네비게이션 설정
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        Timber.e("asdfsadf")
+        when (item.itemId) {
+            R.id.menu_bottom_nav_more -> {
+                replaceAppbarFragment(MyPageAppBar.newInstance())
+                replaceMainFragment(MyPage.newInstance())
+                Timber.e("asdf")
+            }
+        }
+        return true
     }
 
 

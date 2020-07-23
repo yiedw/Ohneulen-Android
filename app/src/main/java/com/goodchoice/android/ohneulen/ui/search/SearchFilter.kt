@@ -1,10 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -46,36 +48,36 @@ class SearchFilter : Fragment() {
         }
 
 
-            filterViewHashMap = searchViewModel.filterViewHashMap
-            filterMainPositionHashMap = searchViewModel.filterMainPositionHashMap
-            filterSubPositionHashMap = searchViewModel.filterSubPositionHashMap
+        filterViewHashMap = searchViewModel.filterViewHashMap
+        filterMainPositionHashMap = searchViewModel.filterMainPositionHashMap
+        filterSubPositionHashMap = searchViewModel.filterSubPositionHashMap
 
-            val reverse=filterViewHashMap.keys.reversed()
-            for (i in reverse) {
-                val filterMainPosition = filterMainPositionHashMap[i]
-                val filterSubPosition = filterSubPositionHashMap[i]
-                val filterName =
-                    searchViewModel.categoryList.value!![filterMainPosition!!].subCategoryList[filterSubPosition!!].minorName
+        val reverse = filterViewHashMap.keys.reversed()
+        for (i in reverse) {
+            val filterMainPosition = filterMainPositionHashMap[i]
+            val filterSubPosition = filterSubPositionHashMap[i]
+            val filterName =
+                searchViewModel.categoryList.value!![filterMainPosition!!].subCategoryList[filterSubPosition!!].minorName
 
-                val layoutInflater = this.layoutInflater
-                val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
-                selectView.findViewById<TextView>(R.id.filter_select_title).text =
-                    filterName
+            val layoutInflater = this.layoutInflater
+            val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
+            selectView.findViewById<TextView>(R.id.filter_select_title).text =
+                filterName
 
-                selectView.setOnClickListener {
-                    check = false
-                    val categoryList = searchViewModel.categoryList.value
-                    categoryList!![filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
-                        false
+            selectView.setOnClickListener {
+                check = false
+                val categoryList = searchViewModel.categoryList.value
+                categoryList!![filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
+                    false
 //                        Timber.e(filterMainPositionHashMap[filterCode].toString()+","+filterSubPositionHashMap[filterCode])
-                    filterMainPositionHashMap.remove(i)
-                    filterSubPositionHashMap.remove(i)
-                    filterViewHashMap.remove(i)
-                    binding.searchFilterSelect.removeView(selectView)
-                    searchViewModel.categoryList.value = categoryList
-                }
-                binding.searchFilterSelect.addView(selectView)
+                filterMainPositionHashMap.remove(i)
+                filterSubPositionHashMap.remove(i)
+                filterViewHashMap.remove(i)
+                binding.searchFilterSelect.removeView(selectView)
+                searchViewModel.categoryList.value = categoryList
             }
+            binding.searchFilterSelect.addView(selectView)
+        }
 
         return binding.root
     }
@@ -133,9 +135,9 @@ class SearchFilter : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        searchViewModel.filterViewHashMap=filterViewHashMap
-        searchViewModel.filterMainPositionHashMap=filterMainPositionHashMap
-        searchViewModel.filterSubPositionHashMap=filterSubPositionHashMap
+        searchViewModel.filterViewHashMap = filterViewHashMap
+        searchViewModel.filterMainPositionHashMap = filterMainPositionHashMap
+        searchViewModel.filterSubPositionHashMap = filterSubPositionHashMap
         binding.searchFilterSelect.removeAllViewsInLayout()
 
     }
@@ -173,6 +175,46 @@ class SearchFilter : Fragment() {
                 filterViewHashMap.remove(filterCode)
             }
         }
+    }
+
+    fun onFoodClick(view: View) {
+        binding.searchFilterFood.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.colorOhneulen
+            )
+        )
+        binding.searchFilterFood.background = ContextCompat.getDrawable(
+            requireContext(),
+            R.drawable.background_rounding_filter_select
+        )
+        binding.searchFilterOptions.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.colorCGrey
+            )
+        )
+        binding.searchFilterOptions.background = null
+    }
+
+    fun onOptionsClick(view: View) {
+        binding.searchFilterOptions.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.colorOhneulen
+            )
+        )
+        binding.searchFilterOptions.background = ContextCompat.getDrawable(
+            requireContext(),
+            R.drawable.background_rounding_filter_select
+        )
+        binding.searchFilterFood.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.colorCGrey
+            )
+        )
+        binding.searchFilterFood.background = null
     }
 
 }

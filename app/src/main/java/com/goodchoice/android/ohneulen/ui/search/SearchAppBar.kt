@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
+import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
@@ -43,11 +44,14 @@ class SearchAppBar : Fragment() {
             container,
             false
         )
-        if (searchViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
+        if (mainViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
+            if (mainViewModel.searchEditText.isBlank())
+                mainViewModel.searchEditText = "강남역"
+
             searchViewModel.searchEditText = mainViewModel.searchEditText
             searchViewModel.searchMapData()
+            binding.searchAppbarEt.setText(mainViewModel.searchEditText)
         }
-        binding.searchAppbarEt.setText(mainViewModel.searchEditText)
         binding.fragment = this
         return binding.root
     }
@@ -70,8 +74,13 @@ class SearchAppBar : Fragment() {
         }
     }
 
-    fun clearClick(view:View){
+    fun clearClick(view: View) {
         binding.searchAppbarEt.text.clear()
+    }
+
+    fun filterClick(view: View) {
+        replaceAppbarFragment(SearchFilterAppbar.newInstance())
+        addMainFragment(SearchFilter.newInstance(), true)
     }
 
 }

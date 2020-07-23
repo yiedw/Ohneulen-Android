@@ -17,68 +17,73 @@
         android:layout_marginTop="70dp"
         tools:context=".ui.home.Home">
 
+
         <TextView
-            android:id="@+id/home_subtitle"
-            android:layout_width="match_parent"
+            android:id="@+id/home_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="뭘 먹지?"
-            android:textSize="14sp"
+            android:lineSpacingExtra="10sp"
+            android:paddingHorizontal="30dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/home_searchCon"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/colorLightGrey"
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="14dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.05"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_subtitle">
+            app:layout_constraintTop_toBottomOf="@id/home_title">
 
             <EditText
                 android:id="@+id/home_editText"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorTransparent"
+                android:background="@drawable/background_home_search"
+                android:hint="강남역 고기"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:text="강남"
+                android:paddingStart="40dp"
+                android:paddingTop="13dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="12dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="1dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:onClick="@{fragment::currentLocationClick}"
+                android:src="@drawable/location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/home_editText"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
                 android:id="@+id/home_search"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="17dp"
                 android:focusable="true"
                 android:gravity="center"
                 android:onClick="@{fragment::searchOnClick}"
-                android:text="검색"
+                android:src="@drawable/search"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/home_editText"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toRightOf="@id/home_editText"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorLightGrey"
-            android:focusable="true"
-            android:gravity="center"
-            android:onClick="@{fragment::currentLocationClick}"
-            android:text="현재 위치로 검색"
-            android:textAlignment="center"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.05"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_searchCon" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
@@ -20,6 +21,7 @@ import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -55,11 +57,13 @@ class StoreFragment : Fragment() {
         )
         binding.fragment = this
         binding.viewModel = storeViewModel
+        binding.lifecycleOwner=this
         //어둡게 만들기
-        binding.storeBigImage.setColorFilter(
-            ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),
-            PorterDuff.Mode.SRC_OVER
-        )
+//        binding.storeBigImage.setColorFilter(
+//            ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),
+//            PorterDuff.Mode.SRC_OVER
+//        )
+
         return binding.root
     }
 
@@ -84,6 +88,8 @@ class StoreFragment : Fragment() {
             freeHeader()
         }
     }
+
+
 
 
     //viewPager setting
@@ -179,49 +185,49 @@ class StoreFragment : Fragment() {
 
     //기본세팅
     //mainFragment -> Appbar 와 겹치게
-    private fun basicSetting() {
-        MainActivity.appbarFrameLayout.background =
-            ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
-        binding.storeImage.visibility = View.VISIBLE
-        //mainfragment 를 화면 맨위에 딱 붙이게 하기위한 작업
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            0
-        )
-        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-        MainActivity.mainFrameLayout.layoutParams = layoutParams
-    }
+//    private fun basicSetting() {
+//        MainActivity.appbarFrameLayout.background =
+//            ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
+//        binding.storeImage.visibility = View.VISIBLE
+//        //mainfragment 를 화면 맨위에 딱 붙이게 하기위한 작업
+//        val layoutParams = ConstraintLayout.LayoutParams(
+//            ConstraintLayout.LayoutParams.MATCH_PARENT,
+//            0
+//        )
+//        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+//        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+//        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+//        MainActivity.mainFrameLayout.layoutParams = layoutParams
+//    }
 
-    private fun mapSetting() {
-        //지도를 화면에 딱맞게(스크롤뷰 안먹게)
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            0
-        )
-        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.topToBottom = R.id.store_tab
-        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        binding.storeViewPager2.layoutParams = layoutParams
-    }
+//    private fun mapSetting() {
+//        //지도를 화면에 딱맞게(스크롤뷰 안먹게)
+//        val layoutParams = ConstraintLayout.LayoutParams(
+//            ConstraintLayout.LayoutParams.MATCH_PARENT,
+//            0
+//        )
+//        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+//        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+//        layoutParams.topToBottom = R.id.store_tab
+//        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+//        binding.storeViewPager2.layoutParams = layoutParams
+//    }
 
     //리뷰 페이지 세팅
-    private fun reviewSetting() {
-        binding.storeImage.visibility = View.GONE
-//        MainActivity.mainFrameLayout.layoutParams = initMainFragment
-
-        //리뷰가 없을때 후기가 위로 딱 붙게하기
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.topToBottom = R.id.store_tab
-        binding.storeViewPager2.layoutParams = layoutParams
-
-    }
+//    private fun reviewSetting() {
+//        binding.storeImage.visibility = View.GONE
+////        MainActivity.mainFrameLayout.layoutParams = initMainFragment
+//
+//        //리뷰가 없을때 후기가 위로 딱 붙게하기
+//        val layoutParams = ConstraintLayout.LayoutParams(
+//            ConstraintLayout.LayoutParams.MATCH_PARENT,
+//            ConstraintLayout.LayoutParams.WRAP_CONTENT
+//        )
+//        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+//        layoutParams.topToBottom = R.id.store_tab
+//        binding.storeViewPager2.layoutParams = layoutParams
+//
+//    }
 
 
 }

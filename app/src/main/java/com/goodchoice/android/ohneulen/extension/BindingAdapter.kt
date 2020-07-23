@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.extension
 
+import android.media.Image
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
+import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import timber.log.Timber
 
 //searchStore
@@ -43,7 +45,6 @@ fun setFilterAdapter(
     recyclerView.adapter = adapter.apply {
         searchViewModel = viewModel
         itemList = items
-//        notifyDataSetChanged()
     }
 }
 
@@ -54,8 +55,6 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
     recyclerView.adapter = StoreMenuAdapter()
         .apply {
             submitList(items)
-//            itemList = items ?: emptyList()
-//        notifyDataSetChanged()
         }
 }
 
@@ -128,5 +127,18 @@ fun setFAQ(recyclerView: RecyclerView, adapter: FAQAdapter, items: List<FAQ>?) {
             submitList(items)
         }
     }
+}
+
+@BindingAdapter("storeImageList")
+fun setStoreImage(recyclerView: RecyclerView, items: List<Photo>?) {
+    val linearLayoutManager = LinearLayoutManager(recyclerView.context)
+    linearLayoutManager.orientation = RecyclerView.HORIZONTAL
+    recyclerView.layoutManager = linearLayoutManager
+    recyclerView.adapter = StoreImageAdapter().apply {
+        if (items != null) {
+            submitList(items)
+        }
+    }
+
 }
 
