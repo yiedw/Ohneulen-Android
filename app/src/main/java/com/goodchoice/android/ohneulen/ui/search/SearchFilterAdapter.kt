@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +20,13 @@ class SearchFilterAdapter(private val categoryKind: Int) :
     lateinit var searchViewModel: SearchViewModel
     var itemList = mutableListOf<Category>()
     var previousPosition = 0
+    var selectPosition = 0
 
     inner class SearchFilterViewHolder(private val binding: SearchFilterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun mainFilterBind(item: String) {
             binding.apply {
-                if (adapterPosition == 0) {
+                if (adapterPosition == selectPosition) {
                     filterCategory.setBackgroundColor(
                         ContextCompat.getColor(
                             root.context,
@@ -32,10 +34,21 @@ class SearchFilterAdapter(private val categoryKind: Int) :
                         )
                     )
                     filterCategory.setTextColor(ContextCompat.getColor(root.context, R.color.white))
+                } else {
+                    binding.apply {
+                        filterCategory.setBackgroundColor(
+                            Color.parseColor("#f6f6f6")
+                        )
+                        filterCategory.setTextColor(
+                            ContextCompat.getColor(
+                                root.context,
+                                R.color.colorGrey88
+                            )
+                        )
+                    }
                 }
                 filterCategory.text = item
                 root.setOnClickListener {
-
                     filterCategory.setBackgroundColor(
                         ContextCompat.getColor(
                             root.context,
@@ -45,9 +58,10 @@ class SearchFilterAdapter(private val categoryKind: Int) :
                     filterCategory.setTextColor(ContextCompat.getColor(root.context, R.color.white))
                     searchViewModel.mainCategoryPosition.postValue(adapterPosition)
                     searchViewModel.subCategoryPosition = 0
-
+                    notifyItemChanged(previousPosition)
+                    previousPosition = adapterPosition
+                    selectPosition = adapterPosition
                 }
-                executePendingBindings()
             }
         }
 
@@ -75,6 +89,20 @@ class SearchFilterAdapter(private val categoryKind: Int) :
                 }
             }
         }
+
+        fun mainFilterSelect() {
+            binding.apply {
+                filterCategory.setBackgroundColor(
+                    Color.parseColor("#f6f6f6")
+                )
+                filterCategory.setTextColor(
+                    ContextCompat.getColor(
+                        root.context,
+                        R.color.colorGrey88
+                    )
+                )
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -92,9 +120,9 @@ class SearchFilterAdapter(private val categoryKind: Int) :
 
 
     override fun onBindViewHolder(holder: SearchFilterViewHolder, position: Int) {
-        if (categoryKind == ConstList.MAIN_CATEGORY)
+        if (categoryKind == ConstList.MAIN_CATEGORY) {
             holder.mainFilterBind(itemList[position].minorName)
-        else
+        } else
             holder.subFilterBind(itemList[position].minorName, itemList[position].check)
     }
 }

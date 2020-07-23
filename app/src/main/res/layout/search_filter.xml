@@ -70,7 +70,7 @@
             android:id="@+id/search_filter_mainRv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#dedede"
+            android:background="#f6f6f6"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/search_filter_select"
             app:layout_constraintLeft_toLeftOf="parent"

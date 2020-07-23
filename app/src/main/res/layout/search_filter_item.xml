@@ -17,7 +17,6 @@
             android:paddingVertical="8dp"
             android:paddingStart="20dp"
             android:text="테스트"
-
             android:textColor="@color/colorGrey88"
             android:textSize="@dimen/main_contents"
             app:layout_constraintBottom_toBottomOf="parent"

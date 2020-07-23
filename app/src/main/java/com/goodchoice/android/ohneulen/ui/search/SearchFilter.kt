@@ -113,6 +113,7 @@ class SearchFilter : Fragment() {
         //초기화 클릭
         binding.searchFilterReset.setOnClickListener {
             val categoryList = searchViewModel.categoryList.value!!
+            Timber.e(filterViewHashMap.keys.size.toString())
             for (i in filterViewHashMap.keys) {
                 categoryList[filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
                     false
