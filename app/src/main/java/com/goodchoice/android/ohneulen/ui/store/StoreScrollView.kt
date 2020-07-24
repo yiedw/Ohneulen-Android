@@ -50,7 +50,7 @@ class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListene
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
         val scrolly = t
-        if (scrolly > mHeaderInitPosition - MainActivity.appbarFrameLayout.height) {
+        if (scrolly > mHeaderInitPosition) {
             stickHeader()
         } else {
             freeHeader()
@@ -58,12 +58,8 @@ class StoreScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListene
     }
 
     private fun stickHeader() {
-        if (StoreFragment.state != 3)
-            header?.translationY =
-                scrollY.toFloat() + MainActivity.appbarFrameLayout.height - mHeaderInitPosition
-        else
-            header?.translationY =
-                scrollY.toFloat() - mHeaderInitPosition
+        header?.translationY =
+            scrollY.toFloat() - mHeaderInitPosition
 //        MainActivity.appbarFrameLayout.background = ContextCompat.getDrawable(
 //            MainActivity.appbarFrameLayout.context,
 //            R.color.colorWhite

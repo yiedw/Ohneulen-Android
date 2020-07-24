@@ -4,4 +4,6 @@
     <dimen name="fragment_vertical_margin">16dp</dimen>
     <dimen name="header_center">17sp</dimen>
     <dimen name="main_contents">15sp</dimen>
+    <dimen name="store_home_normal">29dp</dimen>
+    <dimen name="store_home_three">16dp</dimen>
 </resources>

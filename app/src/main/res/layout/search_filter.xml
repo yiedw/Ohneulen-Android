@@ -65,73 +65,147 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_filter_mainRv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#f6f6f6"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/search_filter_select"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/search_filter_subRv"
-            app:layout_constraintTop_toBottomOf="@id/search_filter_choice"
-            bind:categoryList="@{viewModel.mainCategory}"
-            bind:filterAdapter="@{viewModel.mainCategoryAdapter}"
-            bind:searchFilterViewModel="@{viewModel}" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_filter_subRv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@android:color/white"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="@id/search_filter_mainRv"
-            app:layout_constraintLeft_toRightOf="@id/search_filter_mainRv"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/search_filter_mainRv"
-            bind:categoryList="@{viewModel.subCategory}"
-            bind:filterAdapter="@{viewModel.subCategoryAdapter}"
-            bind:searchFilterViewModel="@{viewModel}" />
-
-        <LinearLayout
-            android:id="@+id/search_filter_select"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="gone"
+            android:id="@+id/search_filter_food_con"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#666666"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/search_filter_reset"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_filter_subRv">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/search_filter_submit"
+            app:layout_constraintTop_toBottomOf="@id/search_filter_choice">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_filter_mainRv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#f6f6f6"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/search_filter_subRv"
+                bind:categoryList="@{viewModel.mainCategory}"
+                bind:filterAdapter="@{viewModel.mainCategoryAdapter}"
+                bind:searchFilterViewModel="@{viewModel}" />
 
 
-        </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_filter_subRv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/white"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@id/search_filter_mainRv"
+                app:layout_constraintLeft_toRightOf="@id/search_filter_mainRv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/search_filter_mainRv"
+                bind:categoryList="@{viewModel.subCategory}"
+                bind:filterAdapter="@{viewModel.subCategoryAdapter}"
+                bind:searchFilterViewModel="@{viewModel}" />
 
+            <LinearLayout
+                android:id="@+id/search_filter_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#666666"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_filter_subRv">
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/white"
+            android:id="@+id/search_filter_options_con"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="15dp"
+            app:layout_constraintBottom_toTopOf="@id/search_filter_submit"
+            app:layout_constraintTop_toBottomOf="@id/search_filter_choice">
+
+            <TextView
+                android:id="@+id/search_filter_options_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정렬"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/main_contents"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/search_filter_options_contour1"
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBorderLightGrey"
+                app:layout_constraintTop_toBottomOf="@id/search_filter_options_tv"/>
+            <LinearLayout
+                android:id="@+id/search_filter_options_linear1"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                app:layout_constraintTop_toBottomOf="@id/search_filter_options_contour1"
+                android:weightSum="2">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="최신순"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="평점순"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="편의"
+                app:layout_constraintTop_toBottomOf="@id/search_filter_options_linear1"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorContour"
+            app:layout_constraintBottom_toTopOf="@id/search_filter_reset" />
 
         <TextView
             android:id="@+id/search_filter_reset"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:background="#666666"
+            android:background="#f6f6f6"
             android:focusable="true"
             android:gravity="center"
             android:text="초기화"
             android:textAlignment="center"
+            android:textColor="@color/colorGrey88"
+            android:textSize="@dimen/main_contents"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/search_filter_complete" />
+            app:layout_constraintRight_toLeftOf="@id/search_filter_submit" />
 
         <TextView
-            android:id="@+id/search_filter_complete"
+            android:id="@+id/search_filter_submit"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#666666"
+            android:background="@color/white"
             android:focusable="true"
             android:gravity="center"
             android:text="선택완료"
             android:textAlignment="center"
+            android:textColor="@color/colorGreen"
+            android:textSize="@dimen/main_contents"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/search_filter_reset"
             app:layout_constraintRight_toRightOf="parent"

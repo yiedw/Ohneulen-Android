@@ -28,7 +28,7 @@ class StoreMenuDetail(private var inputIndex:Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        storeViewModel.index=this.inputIndex
+        storeViewModel.menuIndex=this.inputIndex
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.store_menu_detail,

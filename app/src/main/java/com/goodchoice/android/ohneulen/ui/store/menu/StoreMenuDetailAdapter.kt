@@ -37,6 +37,7 @@ class StoreMenuDetailAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(menuItem: StoreMenu) {
             binding.apply {
+                storeMenuDetailBack
                 if (menuList.size - 1 == adapterPosition) {
                     storeMenuDetailRight.visibility = View.GONE
                 }

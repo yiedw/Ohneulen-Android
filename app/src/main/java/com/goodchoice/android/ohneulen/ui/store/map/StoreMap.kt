@@ -45,15 +45,18 @@ class StoreMap : Fragment(), OnMapReadyCallback {
             container,
             false
         )
+        mapView = binding.storeMapView
+
         val layoutParams = ConstraintLayout.LayoutParams(
             0,
-            328.dp()
+            0
         )
+//
+        layoutParams.bottomToTop=R.id.store_map_con
         layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
 
-        mapView = binding.storeMapView
         mapView.layoutParams = layoutParams
         mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
@@ -75,9 +78,10 @@ class StoreMap : Fragment(), OnMapReadyCallback {
             startActivity(intent)
 
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(requireContext(),"카카오맵이 깔려있지 않습니다 스토어로 이동합니다",Toast.LENGTH_SHORT).show()
-            val uri="market://details?id=net.daum.android.map"
-            val intent=Intent(Intent.ACTION_VIEW,Uri.parse(uri))
+            Toast.makeText(requireContext(), "카카오맵이 깔려있지 않습니다 스토어로 이동합니다", Toast.LENGTH_SHORT)
+                .show()
+            val uri = "market://details?id=net.daum.android.map"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             startActivity(intent)
         }
     }

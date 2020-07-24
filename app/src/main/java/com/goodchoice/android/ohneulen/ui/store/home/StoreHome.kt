@@ -30,7 +30,7 @@ class StoreHome : Fragment() {
             container,
             false
         )
-        binding.storeHome.scrollTo(0, 0)
+//        binding.storeHome.scrollTo(0, 0)
         binding.fragment = this
         return binding.root
     }

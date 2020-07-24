@@ -17,11 +17,9 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/store_menu_detail_rv"
+            android:id="@+id/store_image_detail_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            bind:storeMenuDetailIndex="@{viewModel.menuIndex}"
-            bind:storeMenuDetail="@{viewModel.storeMenuList}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

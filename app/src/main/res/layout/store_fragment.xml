@@ -33,10 +33,11 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/store_top"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
                 android:paddingTop="15dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/store_fragment_name"
@@ -95,18 +96,19 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/store_top"
-                bind:storeImageList="@{viewModel.storeImageList}"
-                />
+                bind:storeImageList="@{viewModel.storeImageList}" />
 
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/store_tab"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="@color/colorWhite"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/store_fragment_image_rv"
-                app:tabGravity="fill">
+                app:tabGravity="fill"
+                app:tabIndicator="@color/white"
+                app:tabSelectedTextColor="@color/colorOhneulen">
 
             </com.google.android.material.tabs.TabLayout>
 
@@ -114,7 +116,6 @@
                 android:id="@+id/store_viewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/store_tab" />
 
 

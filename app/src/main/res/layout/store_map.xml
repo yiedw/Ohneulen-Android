@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.store.map.StoreMap" />
@@ -12,19 +13,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <com.naver.maps.map.MapView
             android:id="@+id/store_mapView"
             android:layout_width="0dp"
-            android:layout_height="320dp"
+            android:layout_height="0dp"
             android:background="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@id/store_map_con"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/store_map_con"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
+            android:background="@color/colorOhneulen"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/store_mapView">
@@ -37,10 +41,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:onClick="@{fragment::onNavClick}"
                 android:id="@+id/store_map_nav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{fragment::onNavClick}"
                 android:text="길찾기"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

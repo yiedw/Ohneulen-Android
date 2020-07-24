@@ -85,7 +85,7 @@ fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, inde
 
 @BindingAdapter("imageResURL")
 fun setImageViewURL(imageView: ImageView, resURL: String) {
-
+    Glide.with(imageView.context)
 }
 
 @BindingAdapter("imageResID")
@@ -141,4 +141,7 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Photo>?) {
     }
 
 }
+
+//@BindingAdapter("Image")
+//fun setImageDetail()
 

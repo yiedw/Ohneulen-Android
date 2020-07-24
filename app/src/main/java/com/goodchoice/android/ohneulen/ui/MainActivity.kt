@@ -130,12 +130,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     //바텀 네비게이션 설정
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        Timber.e("asdfsadf")
         when (item.itemId) {
             R.id.menu_bottom_nav_more -> {
                 replaceAppbarFragment(MyPageAppBar.newInstance())
                 replaceMainFragment(MyPage.newInstance())
-                Timber.e("asdf")
             }
         }
         return true

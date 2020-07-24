@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.store
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,10 @@ import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
+import com.goodchoice.android.ohneulen.util.dp
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -57,7 +60,7 @@ class StoreFragment : Fragment() {
         )
         binding.fragment = this
         binding.viewModel = storeViewModel
-        binding.lifecycleOwner=this
+        binding.lifecycleOwner = this
         //어둡게 만들기
 //        binding.storeBigImage.setColorFilter(
 //            ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),
@@ -79,6 +82,10 @@ class StoreFragment : Fragment() {
         super.onResume()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
 
     //스크롤되면 헤더 붙이기
     private fun stickyHeader() {
@@ -90,15 +97,13 @@ class StoreFragment : Fragment() {
     }
 
 
-
-
     //viewPager setting
     private fun viewPagerSetting() {
         binding.storeViewPager2.adapter = StorePagerAdapter(
             getFragmentList(), childFragmentManager,
             lifecycle
         )
-        binding.storeViewPager2.offscreenPageLimit = 4
+        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
 
         //애니메이션 삭제
         binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -132,24 +137,28 @@ class StoreFragment : Fragment() {
                     state = position
 //                    if (position == 3) {
 //                        reviewSetting()
-//                    } else if (position == 1) {
-//                        basicSetting()
+//                    } else
+//                    if (position == 1) {
 //                        mapSetting()
 ////                        scrollBlock()
-//                    } else {
+//                    }
+//                    else {
 //                        basicSetting()
 //                    }
                     val view =
                         (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
                         )
-//                    updatePagerHeightForChild(view!!, binding.storeViewPager2)
+                    view?.let {
+                        updatePagerHeightForChild(view, binding.storeViewPager2)
+                    }
+
                     binding.storeNewScrollView.scrollTo(0, 0)
                     stickyHeader()
-//                    if (position == 3) {
-//                        (MainActivity.supportFragmentManager.findFragmentByTag("storeAppBar") as StoreAppBar).changeBlack()
-//
-//                    }
+                    if (position == 1) {
+                        mapSetting()
+
+                    }
 //                    binding.storeNewScrollView.invalidate()
                 }
             }
@@ -164,7 +173,7 @@ class StoreFragment : Fragment() {
             val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             view.measure(wMeasureSpec, hMeasureSpec)
 
-            if (pager.layoutParams.height != view.measuredHeight) {
+            if (pager.layoutParams.height <= view.measuredHeight) {
                 pager.layoutParams = (pager.layoutParams)
                     .also { lp ->
                         lp.height = view.measuredHeight
@@ -185,49 +194,56 @@ class StoreFragment : Fragment() {
 
     //기본세팅
     //mainFragment -> Appbar 와 겹치게
-//    private fun basicSetting() {
-//        MainActivity.appbarFrameLayout.background =
-//            ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
-//        binding.storeImage.visibility = View.VISIBLE
-//        //mainfragment 를 화면 맨위에 딱 붙이게 하기위한 작업
-//        val layoutParams = ConstraintLayout.LayoutParams(
-//            ConstraintLayout.LayoutParams.MATCH_PARENT,
-//            0
-//        )
-//        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-//        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-//        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-//        MainActivity.mainFrameLayout.layoutParams = layoutParams
-//    }
+    private fun basicSetting() {
+        MainActivity.appbarFrameLayout.background =
+            ContextCompat.getDrawable(requireActivity(), R.color.colorTransparent)
+        binding.storeTop.visibility = View.VISIBLE
+        binding.storeFragmentImageRv.visibility = View.VISIBLE
+        //mainfragment 를 화면 맨위에 딱 붙이게 하기위한 작업
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            0
+        )
+        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+        MainActivity.mainFrameLayout.layoutParams = layoutParams
+    }
 
-//    private fun mapSetting() {
-//        //지도를 화면에 딱맞게(스크롤뷰 안먹게)
-//        val layoutParams = ConstraintLayout.LayoutParams(
-//            ConstraintLayout.LayoutParams.MATCH_PARENT,
-//            0
-//        )
-//        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-//        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-//        layoutParams.topToBottom = R.id.store_tab
+    private fun mapSetting() {
+        //지도를 화면에 딱맞게(스크롤뷰 안먹게)
+        val metrics=resources.displayMetrics
+        //store_map_nav height만큼 다시 빼준다
+        val px=48*(metrics.densityDpi/DisplayMetrics.DENSITY_DEFAULT)
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            MainActivity.bottomNav.top - binding.storeTab.bottom-px
+        )
+        Timber.e("bottonNav.top ${MainActivity.bottomNav.top}")
+        Timber.e("storeTab.bottom ${binding.storeTab.bottom}")
+        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.topToBottom = R.id.store_tab
 //        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-//        binding.storeViewPager2.layoutParams = layoutParams
-//    }
+        binding.storeViewPager2.layoutParams = layoutParams
+    }
 
     //리뷰 페이지 세팅
-//    private fun reviewSetting() {
-//        binding.storeImage.visibility = View.GONE
-////        MainActivity.mainFrameLayout.layoutParams = initMainFragment
-//
-//        //리뷰가 없을때 후기가 위로 딱 붙게하기
-//        val layoutParams = ConstraintLayout.LayoutParams(
-//            ConstraintLayout.LayoutParams.MATCH_PARENT,
-//            ConstraintLayout.LayoutParams.WRAP_CONTENT
-//        )
-//        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-//        layoutParams.topToBottom = R.id.store_tab
-//        binding.storeViewPager2.layoutParams = layoutParams
-//
-//    }
+    private fun reviewSetting() {
+//        MainActivity.mainFrameLayout.layoutParams = initMainFragment
+        binding.storeTop.visibility = View.GONE
+        binding.storeFragmentImageRv.visibility = View.GONE
+
+        //리뷰가 없을때 후기가 위로 딱 붙게하기
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.topToBottom = R.id.store_tab
+        binding.storeViewPager2.layoutParams = layoutParams
+
+    }
 
 
 }

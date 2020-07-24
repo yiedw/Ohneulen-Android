@@ -88,39 +88,8 @@ class Search : Fragment() {
                 }
             }
         )
-
-//        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
-//            if (v!!.id == R.id.search_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                if (!binding.searchEditText.text.toString().isBlank()) {
-//                    val imm: InputMethodManager =
-//                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                    imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
-//                    searchViewModel.searchEditText = binding.searchEditText.text.toString()
-//                    mainViewModel.searchEditText = binding.searchEditText.text.toString()
-//                    searchViewModel.searchMapData()
-//                } else {
-//                    Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)
-//                        .show()
-//                }
-//            }
-//            return@setOnEditorActionListener false
-//        }
-
-
     }
 
-
-//    fun searchClick(view: View) {
-//        if (!binding.searchEditText.text.toString().isBlank()) {
-//            searchViewModel.searchEditText = binding.searchEditText.text.toString()
-//            mainViewModel.searchEditText = binding.searchEditText.text.toString()
-//            searchViewModel.searchMapData()
-//        } else {
-//            Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG).show()
-//        }
-//
-//
-//    }
 
     fun switchClick(view: View) {
         if (!switchOn) {
@@ -132,23 +101,6 @@ class Search : Fragment() {
         }
         switchOn = !switchOn
     }
-
-
-
-//    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-//        if (v!!.id == R.id.search_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
-//            if (!binding.searchEditText.text.toString().isBlank()) {
-//                val imm:InputMethodManager=requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                imm.hideSoftInputFromWindow(et)
-//                searchViewModel.searchEditText = binding.searchEditText.text.toString()
-//                mainViewModel.searchEditText = binding.searchEditText.text.toString()
-//                searchViewModel.searchMapData()
-//            } else {
-//                Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG).show()
-//            }
-//        }
-//        return false
-//    }
 
 
 }

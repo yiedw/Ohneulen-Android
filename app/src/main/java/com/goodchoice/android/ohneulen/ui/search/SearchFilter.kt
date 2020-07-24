@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import kotlin.collections.HashMap
@@ -79,6 +80,7 @@ class SearchFilter : Fragment() {
             binding.searchFilterSelect.addView(selectView)
         }
 
+        MainActivity.bottomNav.visibility=View.GONE
         return binding.root
     }
 
@@ -111,22 +113,22 @@ class SearchFilter : Fragment() {
             })
 
         //초기화 클릭
-        binding.searchFilterReset.setOnClickListener {
-            val categoryList = searchViewModel.categoryList.value!!
-            Timber.e(filterViewHashMap.keys.size.toString())
-            for (i in filterViewHashMap.keys) {
-                categoryList[filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
-                    false
-            }
-            searchViewModel.categoryList.postValue(categoryList)
-            filterViewHashMap.clear()
-            filterMainPositionHashMap.clear()
-            filterSubPositionHashMap.clear()
-            binding.searchFilterSelect.removeAllViews()
-        }
+//        binding.searchFilterReset.setOnClickListener {
+//            val categoryList = searchViewModel.categoryList.value!!
+//            Timber.e(filterViewHashMap.keys.size.toString())
+//            for (i in filterViewHashMap.keys) {
+//                categoryList[filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
+//                    false
+//            }
+//            searchViewModel.categoryList.postValue(categoryList)
+//            filterViewHashMap.clear()
+//            filterMainPositionHashMap.clear()
+//            filterSubPositionHashMap.clear()
+//            binding.searchFilterSelect.removeAllViews()
+//        }
 
         //선택완료 클릭
-        binding.searchFilterComplete.setOnClickListener {
+        binding.searchFilterSubmit.setOnClickListener {
             Timber.e(filterViewHashMap.keys.toString())
         }
 
@@ -140,7 +142,7 @@ class SearchFilter : Fragment() {
         searchViewModel.filterMainPositionHashMap = filterMainPositionHashMap
         searchViewModel.filterSubPositionHashMap = filterSubPositionHashMap
         binding.searchFilterSelect.removeAllViewsInLayout()
-
+        MainActivity.bottomNav.visibility=View.VISIBLE
     }
 
     //체크리스트 뷰 만들기
@@ -217,5 +219,6 @@ class SearchFilter : Fragment() {
         )
         binding.searchFilterFood.background = null
     }
+
 
 }

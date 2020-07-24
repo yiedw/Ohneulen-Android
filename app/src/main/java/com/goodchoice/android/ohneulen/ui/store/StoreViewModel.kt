@@ -13,11 +13,22 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
         loading.postValue(true)
         emit(getStoreMenu())
     }
+
+    //menuDetail 클릭했을때 클릭한 곳으로 이동
+    var menuIndex = 0
+
     val loading = MutableLiveData<Boolean>()
+
 
     var storeImageList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
         emit(getPhoto())
     }
+
+
+    var storeImageDetailList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
+        emit(getPhotoDetail())
+    }
+    var storeImageDetailIndex = 0
 
 
     var storeReviewList: LiveData<List<Review>> = liveData(Dispatchers.IO) {
@@ -26,10 +37,6 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     var storeReviewAdapter = ReviewAdapter()
 
     val storeInfo = getStore()
-
-    //menuDetail 클릭했을때 클릭한 곳으로 이동
-    var index: Int = 0
-
 
 
 }
