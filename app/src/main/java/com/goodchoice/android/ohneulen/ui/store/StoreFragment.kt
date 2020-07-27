@@ -59,8 +59,8 @@ class StoreFragment : Fragment() {
             false
         )
         binding.fragment = this
-        binding.viewModel = storeViewModel
         binding.lifecycleOwner = this
+        binding.viewModel = storeViewModel
         //어둡게 만들기
 //        binding.storeBigImage.setColorFilter(
 //            ContextCompat.getColor(requireActivity(), R.color.colorTransparentBlack),
@@ -135,30 +135,24 @@ class StoreFragment : Fragment() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     state = position
-//                    if (position == 3) {
-//                        reviewSetting()
-//                    } else
-//                    if (position == 1) {
-//                        mapSetting()
-////                        scrollBlock()
-//                    }
-//                    else {
-//                        basicSetting()
-//                    }
+
                     val view =
                         (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
                         )
                     view?.let {
-                        updatePagerHeightForChild(view, binding.storeViewPager2)
+                        if (position != 1)
+                            updatePagerHeightForChild(view, binding.storeViewPager2)
+                        else {
+                            mapSetting()
+
+                        }
                     }
 
                     binding.storeNewScrollView.scrollTo(0, 0)
                     stickyHeader()
-                    if (position == 1) {
-                        mapSetting()
-
-                    }
+//                    if (position == 1) {
+//                    }
 //                    binding.storeNewScrollView.invalidate()
                 }
             }
@@ -173,7 +167,8 @@ class StoreFragment : Fragment() {
             val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             view.measure(wMeasureSpec, hMeasureSpec)
 
-            if (pager.layoutParams.height <= view.measuredHeight) {
+            if (pager.layoutParams.height != view.measuredHeight) {
+                Timber.e("sadfsadf")
                 pager.layoutParams = (pager.layoutParams)
                     .also { lp ->
                         lp.height = view.measuredHeight
@@ -212,15 +207,13 @@ class StoreFragment : Fragment() {
 
     private fun mapSetting() {
         //지도를 화면에 딱맞게(스크롤뷰 안먹게)
-        val metrics=resources.displayMetrics
+        val metrics = resources.displayMetrics
         //store_map_nav height만큼 다시 빼준다
-        val px=48*(metrics.densityDpi/DisplayMetrics.DENSITY_DEFAULT)
+        val px = 48 * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
         val layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
-            MainActivity.bottomNav.top - binding.storeTab.bottom-px
+            MainActivity.bottomNav.top - binding.storeTab.bottom - px
         )
-        Timber.e("bottonNav.top ${MainActivity.bottomNav.top}")
-        Timber.e("storeTab.bottom ${binding.storeTab.bottom}")
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.topToBottom = R.id.store_tab

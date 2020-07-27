@@ -14,6 +14,7 @@ import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
+import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
@@ -36,7 +37,7 @@ class SearchStoreAdapter :
                     storeItemGoodBasic.visibility = View.VISIBLE
                 }
                 root.setOnClickListener {
-//                    Timber.e(SystemClock.currentThreadTimeMillis().toString())
+                    StoreHome.store = item
                     replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
                     addMainFragment(StoreFragment.newInstance(), true)
                 }

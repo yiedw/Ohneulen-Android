@@ -8,13 +8,16 @@ data class Store(
     val secondCate: String,
     val brandSeq: String,
     val storeName: String,
-    val bizLicense:String,
-    val bizTel:String,
+    val bizLicense: String,
+    val bizTel: String,
     val addressOld: String,
     val addressRoad: String,
     val addressX: Double,
     val addressY: Double,
-    val status: String
+    val status: String,
+    val contents: String,
+    val open: String,
+    val update:String
 
 )
 
@@ -29,7 +32,9 @@ fun getStore(): MutableList<Store> {
                 "백반집$i",
                 "사업자번호",
                 "사업장 전화",
-                "주소", "도로명", 37.499417, 127.0250764, "open"
+                "주소", "도로명", 37.499417, 127.0250764, "open", "설명 쌸라쌸라",
+                "2010.04.30",
+                "2020.06.30"
             )
         )
     }

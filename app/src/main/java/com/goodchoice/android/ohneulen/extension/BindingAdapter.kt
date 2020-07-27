@@ -29,7 +29,6 @@ fun setSearchStoreAdapter(
 ) {
     recyclerView.adapter = adapter?.apply {
         submitList(items)
-//        notifyDataSetChanged()
     }
 
 }
