@@ -8,6 +8,7 @@
         <variable
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.store.review.StoreReview" />
+
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
@@ -15,13 +16,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/store_review_write"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/colorBrownishGrey"
+            android:background="@drawable/submit_bt_ohneulen"
             android:focusable="true"
             android:gravity="center"
             android:onClick="@{fragment::reviewWriteClick}"
@@ -31,48 +33,168 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.github.mikephil.charting.charts.RadarChart
-            android:id="@+id/store_review_radarChart"
+
+        <!--        <com.github.mikephil.charting.charts.HorizontalBarChart-->
+        <!--            android:id="@+id/store_review_chart"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="130dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/store_review_write"-->
+
+        <!--            />-->
+        <LinearLayout
+            android:id="@+id/store_review_chart"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="#fafafa"
-            app:layout_constraintLeft_toLeftOf="@id/store_review_write"
-            app:layout_constraintTop_toBottomOf="@id/store_review_write" />
-
-        <TextView
-            android:id="@+id/store_review_this"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:drawableLeft="@drawable/circle_squash60"
-            android:drawablePadding="10dp"
-            android:text="이 업체"
-            android:textSize="12sp"
-            app:layout_constraintRight_toLeftOf="@id/store_review_average"
-            app:layout_constraintTop_toTopOf="@id/store_review_radarChart" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/store_review_write">
 
-        <TextView
-            android:id="@+id/store_review_average"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:drawableLeft="@drawable/circle_grey"
-            android:drawablePadding="10dp"
-            android:text="업체 평균"
-            android:textSize="12sp"
-            app:layout_constraintRight_toRightOf="@id/store_review_radarChart"
-            app:layout_constraintTop_toTopOf="@id/store_review_radarChart" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
+                <TextView
+                    android:id="@+id/store_review_rating_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="가격"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/store_review_progressbar_price"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="24dp"
+                    android:max="100"
+                    android:progress="30"
+                    android:progressDrawable="@drawable/custom_progress"
+                    app:layout_constraintBottom_toBottomOf="@id/store_review_rating_tv1"
+                    app:layout_constraintLeft_toRightOf="@id/store_review_rating_tv1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/store_review_rating_tv1" />
+
+                <TextView
+                    android:id="@+id/store_review_rating_tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3dp"
+                    android:text="맛"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/store_review_rating_tv1" />
+
+                <ProgressBar
+                    android:id="@+id/store_review_progressbar_flavor"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:max="100"
+                    android:progress="30"
+                    android:progressDrawable="@drawable/custom_progress"
+                    app:layout_constraintBottom_toBottomOf="@id/store_review_rating_tv2"
+                    app:layout_constraintLeft_toLeftOf="@id/store_review_progressbar_price"
+                    app:layout_constraintRight_toRightOf="@id/store_review_progressbar_price"
+                    app:layout_constraintTop_toTopOf="@id/store_review_rating_tv2" />
+
+                <TextView
+                    android:id="@+id/store_review_rating_tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3dp"
+                    android:text="친절도"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/store_review_rating_tv2" />
+
+                <ProgressBar
+                    android:id="@+id/store_review_progressbar_kindness"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:max="100"
+                    android:progress="30"
+                    android:progressDrawable="@drawable/custom_progress"
+                    app:layout_constraintBottom_toBottomOf="@id/store_review_rating_tv3"
+                    app:layout_constraintLeft_toLeftOf="@id/store_review_progressbar_flavor"
+                    app:layout_constraintRight_toRightOf="@id/store_review_progressbar_flavor"
+                    app:layout_constraintTop_toTopOf="@id/store_review_rating_tv3" />
+
+                <TextView
+                    android:id="@+id/store_review_rating_tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3dp"
+                    android:text="청결도"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/store_review_rating_tv3" />
+
+                <ProgressBar
+                    android:id="@+id/store_review_progressbar_clean"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:max="100"
+                    android:progress="30"
+                    android:progressDrawable="@drawable/custom_progress"
+                    app:layout_constraintBottom_toBottomOf="@id/store_review_rating_tv4"
+                    app:layout_constraintLeft_toLeftOf="@id/store_review_progressbar_kindness"
+                    app:layout_constraintRight_toRightOf="@id/store_review_progressbar_kindness"
+                    app:layout_constraintTop_toTopOf="@id/store_review_rating_tv4" />
+
+                <TextView
+                    android:id="@+id/store_review_rating_tv5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3dp"
+                    android:text="분위기"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/store_review_rating_tv4" />
+
+                <ProgressBar
+                    android:id="@+id/store_review_progressbar_mood"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:max="100"
+                    android:progress="30"
+                    android:progressDrawable="@drawable/custom_progress"
+                    app:layout_constraintBottom_toBottomOf="@id/store_review_rating_tv5"
+                    app:layout_constraintLeft_toLeftOf="@id/store_review_progressbar_clean"
+                    app:layout_constraintRight_toRightOf="@id/store_review_progressbar_clean"
+                    app:layout_constraintTop_toTopOf="@id/store_review_rating_tv5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="#f0f0f0"/>
+
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/store_review_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/store_review_radarChart"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            bind:reviewAdapter="@{viewModel.storeReviewAdapter}"
-            bind:review="@{viewModel.storeReviewList}"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_review_chart"
+            bind:review="@{viewModel.storeReviewList}"
+            bind:reviewAdapter="@{viewModel.storeReviewAdapter}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

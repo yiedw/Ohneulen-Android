@@ -9,10 +9,11 @@ import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import kotlin.math.sin
 
 val viewModelModule = module {
     viewModel { HomeViewModel() }
-    viewModel { StoreViewModel(get()) }
+    single { StoreViewModel(get()) }
     viewModel { MyPageViewModel() }
     single { LoginViewModel(get(),androidApplication()) }
     single { SearchViewModel(get(),get()) }

@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
@@ -30,6 +31,7 @@ class StoreFragment : Fragment() {
 
     companion object {
         fun newInstance() = StoreFragment()
+        lateinit var store: Store
 
         // 각 fragment
         // 0 -> home
@@ -58,6 +60,8 @@ class StoreFragment : Fragment() {
             container,
             false
         )
+        storeViewModel.storeInfo=Companion.store
+
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = storeViewModel
@@ -168,7 +172,6 @@ class StoreFragment : Fragment() {
             view.measure(wMeasureSpec, hMeasureSpec)
 
             if (pager.layoutParams.height != view.measuredHeight) {
-                Timber.e("sadfsadf")
                 pager.layoutParams = (pager.layoutParams)
                     .also { lp ->
                         lp.height = view.measuredHeight

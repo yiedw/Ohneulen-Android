@@ -7,6 +7,10 @@
         <variable
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.store.map.StoreMap" />
+
+        <variable
+            name="store"
+            type="com.goodchoice.android.ohneulen.data.model.Store" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,25 +31,46 @@
             android:id="@+id/store_map_con"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:background="@color/colorOhneulen"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/store_mapView">
 
             <TextView
+                android:id="@+id/store_map_addressRoad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="주소"
+                android:text="@{store.addressRoad}"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@id/store_map_addressOld"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/store_map_nav"
+            <TextView
+                android:id="@+id/store_map_addressOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{store.addressOld}"
+                android:textColor="#c0c0c0"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/store_map_addressRoad" />
+
+            <Button
+                android:id="@+id/store_map_nav"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@drawable/background_rounding"
+                android:drawableStart="@drawable/find_road"
                 android:onClick="@{fragment::onNavClick}"
-                android:text="길찾기"
+                android:paddingStart="7dp"
+                android:text="길 찾기"
+                android:textColor="#666666"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

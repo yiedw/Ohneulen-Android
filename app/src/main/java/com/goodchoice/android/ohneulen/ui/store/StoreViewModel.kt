@@ -36,7 +36,7 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     }
     var storeReviewAdapter = ReviewAdapter()
 
-    val storeInfo = getStore()
+    lateinit var storeInfo :Store
 
 
 }

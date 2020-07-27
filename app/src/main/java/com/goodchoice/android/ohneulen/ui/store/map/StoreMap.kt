@@ -52,7 +52,7 @@ class StoreMap : Fragment(), OnMapReadyCallback {
             0
         )
 //
-        layoutParams.bottomToTop=R.id.store_map_con
+        layoutParams.bottomToTop = R.id.store_map_con
         layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
@@ -61,6 +61,7 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
         binding.fragment = this
+        binding.store = storeViewModel.storeInfo
         return binding.root
     }
 
@@ -122,8 +123,8 @@ class StoreMap : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(naverMap: NaverMap) {
-        val x = storeViewModel.storeInfo[0].addressX
-        val y = storeViewModel.storeInfo[0].addressY
+        val x = storeViewModel.storeInfo.addressX
+        val y = storeViewModel.storeInfo.addressY
         val cameraUpdate = CameraUpdate.scrollTo(LatLng(x, y))
         naverMap.moveCamera(cameraUpdate)
     }

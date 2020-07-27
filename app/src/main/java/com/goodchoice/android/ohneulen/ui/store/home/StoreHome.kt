@@ -9,17 +9,21 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
+import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StoreHome : Fragment() {
     companion object {
         fun newInstance() =
             StoreHome()
-        lateinit var store: Store
     }
 
     private lateinit var binding: StoreHomeBinding
+    private val storeViewModel: StoreViewModel by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +38,7 @@ class StoreHome : Fragment() {
         )
 //        binding.storeHome.scrollTo(0, 0)
         binding.fragment = this
-        binding.store=Companion.store
+        binding.store=storeViewModel.storeInfo
         return binding.root
     }
 

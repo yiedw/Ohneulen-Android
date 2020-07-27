@@ -37,7 +37,7 @@ class SearchStoreAdapter :
                     storeItemGoodBasic.visibility = View.VISIBLE
                 }
                 root.setOnClickListener {
-                    StoreHome.store = item
+                    StoreFragment.store = item
                     replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
                     addMainFragment(StoreFragment.newInstance(), true)
                 }
