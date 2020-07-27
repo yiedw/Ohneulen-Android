@@ -12,6 +12,13 @@
         <item name="windowNoTitle">true</item>
 
         <item name="android:windowLightStatusBar">true</item>
+
     </style>
+
+    <style name="starRatingBarM" parent="Widget.AppCompat.RatingBar">
+
+        <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
+    </style>
+    "
 
 </resources>

@@ -43,12 +43,50 @@
         <!--            app:layout_constraintTop_toBottomOf="@id/store_review_write"-->
 
         <!--            />-->
+        <RatingBar
+            android:layout_marginTop="20dp"
+            android:id="@+id/store_review_ratingbar"
+            style="@style/starRatingBarM"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:numStars="5"
+            android:rating="4.7"
+            android:stepSize="0.001"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/store_review_rating_score"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_review_write"
+            />
+
+        <TextView
+            android:id="@+id/store_review_rating_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.8"
+            android:textColor="@color/colorOhneulen"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@id/store_review_ratingbar"
+            app:layout_constraintLeft_toRightOf="@id/store_review_ratingbar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/store_review_ratingbar" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_review_ratingbar"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:text="50개의 후기가 있습니다"
+
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:id="@+id/store_review_chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/store_review_write">
+            app:layout_constraintTop_toBottomOf="@id/store_review_ratingbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -181,7 +219,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="24dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
 
 
         </LinearLayout>
