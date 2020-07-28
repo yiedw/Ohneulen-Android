@@ -42,16 +42,15 @@ class StoreReview : Fragment() {
             container,
             false
         )
+        binding.fragment = this
+        binding.lifecycleOwner = this
+        binding.viewModel = storeViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        chartSetting()
-        binding.fragment = this
-        binding.lifecycleOwner = this
-        binding.viewModel = storeViewModel
-
     }
 
     fun reviewWriteClick(view: View) {

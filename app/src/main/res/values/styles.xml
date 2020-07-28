@@ -19,6 +19,11 @@
 
         <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
     </style>
-    "
+
+    <style name="starRatingBarS" parent="Widget.AppCompat.RatingBar">
+
+        <item name="android:progressDrawable">@drawable/custom_ratingbar_small</item>
+    </style>
+
 
 </resources>

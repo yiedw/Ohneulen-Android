@@ -46,7 +46,7 @@ class StoreHome : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun submitClick(view: View) {
+    fun reportClick(view: View) {
 //        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         replaceAppbarFragment(StoreHomeReportAppBar.newInstance())
         addMainFragment(StoreHomeReport.newInstance(), true)

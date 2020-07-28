@@ -269,7 +269,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/submit_bt_ohneulen"
             android:text="매장 정보 신고"
-            android:onClick="@{fragment::submitClick}"
+            android:onClick="@{fragment::reportClick}"
             android:textColor="@color/white"
             android:textSize="@dimen/main_contents" />
 

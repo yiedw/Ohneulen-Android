@@ -70,10 +70,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RatingBar
+                    android:isIndicator="false"
                     android:id="@+id/store_fragment_rating_start"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    style="@style/starRatingBarS"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="13dp"
                     android:numStars="5"
                     app:layout_constraintBottom_toBottomOf="@id/store_fragment_rating"
                     app:layout_constraintRight_toRightOf="parent"
