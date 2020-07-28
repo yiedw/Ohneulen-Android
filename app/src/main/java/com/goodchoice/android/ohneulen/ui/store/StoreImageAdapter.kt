@@ -28,6 +28,10 @@ class StoreImageAdapter :
                     .load(item.photoURL)
                     .apply(RequestOptions().transform(CenterCrop(),RoundedCorners(20)))
                     .into(storeImageItem)
+
+                root.setOnClickListener {
+
+                }
             }
         }
     }

@@ -22,8 +22,8 @@ class StoreMenuDetailAdapter() :
     var menuList = listOf<StoreMenu>()
     var liveIndex = MutableLiveData<Int>(0)
     interface OnNextClickListener{
-        fun onNextClick(pos:Int)
-    }
+        fun onNext
+
     private var mListener:OnNextClickListener?=null
 
     fun setOnNextClickListener(listener:OnNextClickListener){
