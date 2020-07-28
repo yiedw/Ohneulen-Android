@@ -34,7 +34,7 @@ class StoreHomeReport : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.storeHomeReport.translationY=MainActivity.appbarFrameLayout.height.toFloat()
+//        binding.storeHomeReport.translationY=MainActivity.appbarFrameLayout.height.toFloat()
     }
 
     fun onClick(view: View) {

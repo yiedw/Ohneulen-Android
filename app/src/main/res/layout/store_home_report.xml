@@ -29,8 +29,9 @@
                 android:id="@+id/store_home_report_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginTop="25dp"
                 android:text="에서 \n정정해야 할 내용이 있나요?"
+                android:textAlignment="center"
                 android:textColor="@color/colorTextBlack"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -42,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="정정해야할 내용을 알려주세요"
+                android:text="정정해야 할 사항을 알려 주세요"
                 android:textColor="@color/colorTextBlack"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -81,16 +82,16 @@
                     android:textColor="#777777" />
             </RadioGroup>
 
-            <LinearLayout
-                android:layout_marginTop="13dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/edittext_background_grey"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/store_home_report_radio"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
-                android:layout_marginBottom="30dp">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/store_home_report_radio">
 
                 <EditText
                     android:id="@+id/store_home_report_content"
@@ -100,12 +101,9 @@
                     android:hint="회원님의 의견을 반영해 더 나은 서비스로 보답드리겠습니다."
                     android:textColor="@color/colorCGrey"
                     android:textSize="13sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/store_home_report_radio" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
-
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
