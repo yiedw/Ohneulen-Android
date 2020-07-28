@@ -37,6 +37,8 @@ fun getPhotoDetail(): MutableList<Photo> {
     return samplePhotoList
 }
 
+
+
 fun getProfileImage(): Photo {
     return Photo(
         "a",
@@ -45,3 +47,4 @@ fun getProfileImage(): Photo {
         "https://lh3.googleusercontent.com/proxy/wLWqgBMhdBh1RPjRT3iQk63S7flh6PAHsmhpQwbHLZ3d-rpR1aRube24VdobOlsqwgM4JZ6YBAkv-CuAKw21NZiG5OlqO3vPkmO80X3H8wJhsA"
     )
 }
+

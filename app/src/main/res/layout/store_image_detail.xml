@@ -20,6 +20,8 @@
             android:id="@+id/store_image_detail_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            bind:imageDetailList="@{viewModel.storeImageDetailList}"
+            bind:imageDetailIndex="@{viewModel.storeImageDetailIndex}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -18,6 +18,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
+import com.goodchoice.android.ohneulen.ui.store.StoreImageDetailAdapter
 import timber.log.Timber
 
 //searchStore
@@ -84,7 +85,7 @@ fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, inde
 
 @BindingAdapter("imageResURL")
 fun setImageViewURL(imageView: ImageView, resURL: String) {
-    Glide.with(imageView.context)
+    Glide.with(imageView.context).load(resURL).centerCrop().into(imageView)
 }
 
 @BindingAdapter("imageResID")
@@ -138,9 +139,29 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Photo>?) {
             submitList(items)
         }
     }
-
 }
 
-//@BindingAdapter("Image")
-//fun setImageDetail()
+@BindingAdapter("imageDetailList", "imageDetailIndex")
+fun setImageDetail(recyclerView: RecyclerView, items: List<Photo>?, index: Int) {
+    val linearLayoutManager = LinearLayoutManager(recyclerView.context)
+    linearLayoutManager.orientation = RecyclerView.HORIZONTAL
+    linearLayoutManager.scrollToPosition(index)
+    recyclerView.layoutManager = linearLayoutManager
+    recyclerView.onFlingListener = null;
+    //viewpager 처럼 딱딱 끊어지게
+    val snapHelper = PagerSnapHelper()
+    snapHelper.attachToRecyclerView(recyclerView)
+
+    recyclerView.adapter = StoreImageDetailAdapter()
+        .apply {
+            imageList = items ?: emptyList()
+            setOnNextClickListener(object : StoreImageDetailAdapter.OnNextClickListener {
+                override fun onNextClick(pos: Int) {
+                    recyclerView.scrollToPosition(pos)
+                }
+
+            })
+        }
+}
+
 

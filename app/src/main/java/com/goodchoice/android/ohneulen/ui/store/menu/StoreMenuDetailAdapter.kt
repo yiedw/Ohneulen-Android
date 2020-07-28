@@ -20,7 +20,7 @@ class StoreMenuDetailAdapter() :
 
     lateinit var photoList: MutableList<Photo>
     var menuList = listOf<StoreMenu>()
-    var liveIndex = MutableLiveData<Int>(0)
+//    var liveIndex = MutableLiveData<Int>(0)
     interface OnNextClickListener{
         fun onNextClick(pos:Int)
     }
@@ -31,13 +31,11 @@ class StoreMenuDetailAdapter() :
     }
 
     inner class StoreMenuDetailViewHolder(
-        private val binding: StoreMenuDetailItemBinding,
-        val context: Context
-    ) :
+        private val binding: StoreMenuDetailItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(menuItem: StoreMenu) {
             binding.apply {
-                storeMenuDetailBack
+//                storeMenuDetailBack
                 if (menuList.size - 1 == adapterPosition) {
                     storeMenuDetailRight.visibility = View.GONE
                 }
@@ -75,7 +73,7 @@ class StoreMenuDetailAdapter() :
             parent,
             false
         ).let {
-            StoreMenuDetailViewHolder(it, parent.context)
+            StoreMenuDetailViewHolder(it)
         }
 
     override fun getItemCount() = menuList.size

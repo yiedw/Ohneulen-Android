@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="photo"
+            type="com.goodchoice.android.ohneulen.data.model.Photo" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorTransparentBlack">
+
+        <ImageView
+            android:id="@+id/store_image_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="39dp"
+            android:layout_marginRight="21dp"
+            android:src="@drawable/image_detail_close"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+
+            android:id="@+id/store_image_detail_image"
+            android:layout_width="match_parent"
+            android:layout_height="269dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:imageResURL="@{photo.photoURL}" />
+
+        <ImageView
+            android:id="@+id/store_image_detail_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:src="@drawable/before"
+            app:layout_constraintBottom_toBottomOf="@id/store_image_detail_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/store_image_detail_image" />
+
+        <ImageView
+            android:id="@+id/store_image_detail_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:src="@drawable/next"
+            app:layout_constraintBottom_toBottomOf="@id/store_image_detail_image"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/store_image_detail_image" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

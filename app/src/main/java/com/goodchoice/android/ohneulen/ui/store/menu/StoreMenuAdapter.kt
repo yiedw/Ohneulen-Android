@@ -24,7 +24,7 @@ class StoreMenuAdapter :
             binding.apply {
                 storeMenu = item
                 storeMenuItem.setOnClickListener {
-                    MainActivity.appbarFrameLayout.visibility = View.INVISIBLE
+                    MainActivity.appbarFrameLayout.visibility = View.GONE
                     addMainFragment(
                         StoreMenuDetail.newInstance(
                             adapterPosition
