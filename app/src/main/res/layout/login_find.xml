@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp">
 
 
         <TextView
@@ -20,8 +21,10 @@
             android:layout_height="40dp"
             android:gravity="center"
             android:onClick="@{fragment::findEmailClick}"
-            android:text="아이디 찾기"
+            android:text="아이디"
             android:textAlignment="center"
+            android:textColor="@color/colorOhneulen"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/login_find_pw"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +35,9 @@
             android:layout_height="40dp"
             android:gravity="center"
             android:onClick="@{fragment::findPwClick}"
-            android:text="비밀번호 찾기"
+            android:text="비밀번호"
+            android:textSize="24sp"
+            android:textColor="@color/colorCGrey"
             android:textAlignment="center"
             app:layout_constraintLeft_toRightOf="@id/login_find_email"
             app:layout_constraintRight_toRightOf="parent"

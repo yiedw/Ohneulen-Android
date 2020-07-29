@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageAppbarBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -52,6 +53,7 @@ class MyPageAppBar : Fragment() ,OnBackPressedListener{
 
     }
     fun backClick(view: View){
+        MainActivity.bottomNav.visibility=View.VISIBLE
         replaceAppbarFragment(HomeAppBar.newInstance())
         replaceMainFragment(Home.newInstance())
     }

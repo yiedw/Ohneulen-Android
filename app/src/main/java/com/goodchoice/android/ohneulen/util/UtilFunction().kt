@@ -123,5 +123,14 @@ fun fcmToken(context: Context) {
         })
 }
 
+//이메일 체크
+fun emailCheck(email: String): Boolean {
+    val emailRegex =
+        Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
+    if(email.matches(emailRegex))
+        return true
+    return false
+}
+
 
 

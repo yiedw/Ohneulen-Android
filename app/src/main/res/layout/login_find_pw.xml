@@ -11,7 +11,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:paddingHorizontal="20dp">
 
 
         <RadioGroup
@@ -19,63 +21,192 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RadioButton
+            <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/login_find_pw_rb1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="휴대폰 번호로 찾기" />
+                android:buttonTint="@color/colorBlack"
+                android:text="휴대폰 번호로 찾기"
+                android:textColor="@color/colorBlack" />
 
             <LinearLayout
-                android:id="@+id/login_find_pw_phone"
+                android:id="@+id/login_find_pw_linearLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical">
 
 
-                <EditText
-                    android:id="@+id/login_find_pw_et1"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/login_find_pw_phone"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="휴대폰번호입력" />
+                    android:layout_height="55dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:paddingHorizontal="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/login_logo">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="19dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/email_tv_basic"
+                        android:textColor="#a9a9a9"
+                        android:textSize="13sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/login_find_pw_phone_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="9dp"
+                        android:background="@null"
+                        android:hint="@string/prompt_email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:nextFocusDown="@id/login_pw_et"
+                        android:paddingTop="27dp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHint="@color/colorCGrey"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/login_find_pw_phone_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/delete"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/login_find_pw_phone_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/check_green"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Button
-                    android:id="@+id/login_find_pw_bt1"
+                    android:id="@+id/login_find_pw_phone_bt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/background_rounding_cgrey"
+                    android:enabled="false"
                     android:text="인증번호 받기"
+                    android:textColor="@color/white"
                     app:layout_constraintLeft_toLeftOf="parent" />
             </LinearLayout>
 
-            <RadioButton
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="#e5e5e5" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/login_find_pw_rb2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="이메일로 찾기" />
+                android:layout_marginTop="8dp"
+                android:buttonTint="@color/colorBlack"
+                android:text="이메일로 찾기"
+                android:textColor="@color/colorBlack" />
 
             <LinearLayout
-                android:id="@+id/login_find_pw_email"
+                android:id="@+id/login_find_pw_linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_find_pw_phone">
 
 
-                <EditText
-                    android:id="@+id/login_find_pw_et2"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/login_find_pw_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="이메일을 입력하세요"
-                    android:visibility="gone" />
+                    android:layout_height="55dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:paddingHorizontal="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/login_logo">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="19dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/email_tv_basic"
+                        android:textColor="#a9a9a9"
+                        android:textSize="13sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/login_find_pw_email_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="9dp"
+                        android:background="@null"
+                        android:hint="@string/prompt_email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:nextFocusDown="@id/login_pw_et"
+                        android:paddingTop="27dp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHint="@color/colorCGrey"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/login_find_pw_email_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/delete"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/login_find_pw_email_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/check_green"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Button
-                    android:id="@+id/login_find_pw_bt2"
+                    android:id="@+id/login_find_pw_email_bt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/background_rounding_cgrey"
+                    android:enabled="false"
                     android:text="비밀번호 재설정"
-                    android:visibility="gone" />
+                    android:textColor="@color/white"
+                    app:layout_constraintLeft_toLeftOf="parent" />
 
             </LinearLayout>
         </RadioGroup>

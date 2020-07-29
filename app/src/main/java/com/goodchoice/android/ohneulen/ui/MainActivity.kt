@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 replaceMainFragment(MyPage.newInstance())
             }
         }
-        return true
+        return false
     }
 
 

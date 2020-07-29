@@ -10,17 +10,18 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginFindEmailBinding
 
 class LoginFindEmail :Fragment() {
-    companion object{
-        fun newInstance()=LoginFindEmail()
+    companion object {
+        fun newInstance() = LoginFindEmail()
     }
-    private lateinit var binding:LoginFindEmailBinding
+
+    private lateinit var binding: LoginFindEmailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.login_find_email,
             container,
@@ -28,4 +29,5 @@ class LoginFindEmail :Fragment() {
         )
         return binding.root
     }
+
 }
