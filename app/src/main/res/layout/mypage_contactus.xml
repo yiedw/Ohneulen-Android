@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorHeader"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/mypage_contactus_submit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_new"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="제목"
+                    android:textColor="@color/colorTextBlack" />
+
+                <EditText
+                    android:id="@+id/mypage_contactus_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_border_cgrey"
+                    android:hint="제목을 입력해 주세요"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="이름"
+                    android:textColor="@color/colorTextBlack" />
+
+                <EditText
+                    android:id="@+id/mypage_contactus_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_border_cgrey"
+                    android:hint="이름을 입력해 주세요"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="이메일"
+                    android:textColor="@color/colorTextBlack" />
+
+                <EditText
+                    android:id="@+id/mypage_contactus_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_border_cgrey"
+                    android:hint="이메일을 입력해 주세요"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="연락처"
+                    android:textColor="@color/colorTextBlack" />
+
+                <EditText
+                    android:id="@+id/mypage_contactus_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_border_cgrey"
+                    android:hint="연락처를 입력해 주세요"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="13sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="내용"
+                    android:textColor="@color/colorTextBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="215dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="34dp"
+                    android:background="@color/colorCGrey">
+
+                    <EditText
+                        android:id="@+id/mypage_inquire_new_et2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ellipsize="start"
+                        android:hint="보내 주신 문의 내용을 정확히 확인하고 빠르게 처리하기 위해 연락을 드릴 수 있습니다."
+                        android:padding="15dp"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="오늘은 개인정보 수집 및 이용의 내역을 확인하였으며, 이에 동의합니다"
+                    android:textColor="#141414" 
+                    android:layout_marginBottom="30dp"/>
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/mypage_contactus_submit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorGreen"
+            android:text="작성 완료"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

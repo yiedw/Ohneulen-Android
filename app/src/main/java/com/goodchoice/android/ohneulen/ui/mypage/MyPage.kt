@@ -109,5 +109,20 @@ class MyPage : Fragment() {
         replaceMainFragment(MyPageFAQ.newInstance())
     }
 
+    fun termsClick(view:View){
+        replaceAppbarFragment(MyPageTermsAppBar.newInstance())
+        replaceMainFragment(MyPageTerms.newInstance())
+    }
+
+    fun companyClick(view:View){
+        replaceAppbarFragment(MyPageCompanyAppBar.newInstance())
+        replaceMainFragment(MyPageCompany.newInstance())
+    }
+
+    fun contactusClick(view:View){
+        replaceAppbarFragment(MyPageContactusAppBar.newInstance())
+        replaceMainFragment(MyPageContactus.newInstance())
+    }
+
 
 }
