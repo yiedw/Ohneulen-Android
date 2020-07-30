@@ -1,11 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.search
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.dp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import kotlin.collections.HashMap
@@ -80,7 +82,7 @@ class SearchFilter : Fragment() {
             binding.searchFilterSelect.addView(selectView)
         }
 
-        MainActivity.bottomNav.visibility=View.GONE
+        MainActivity.bottomNav.visibility = View.GONE
         return binding.root
     }
 
@@ -134,6 +136,30 @@ class SearchFilter : Fragment() {
 
         //뒤에 레이아웃 터치 안먹게 하기
         binding.searchFilter.setOnTouchListener { v, event -> true }
+
+
+        //클릭시 배경바꾸기
+
+
+        //options 편의바 생성
+        //sample
+        val sampleConvenienceList = listOf<String>(
+            "영업중", "주차 가능", "예약 가능", "배달 가능", "포장 가능", "반려동물",
+            "비건 식당", "놀이방", "와이파이"
+        )
+        for (i in sampleConvenienceList.iterator()) {
+            binding.searchFilterConvenience.addView(toggleButtonGenerate(i))
+        }
+
+        //영업일 생성
+        //sample
+        val sampleOpenList = listOf<String>(
+            "연중무휴", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"
+        )
+        for (i in sampleOpenList.iterator()) {
+            binding.searchFilterOpen.addView(toggleButtonGenerate(i))
+        }
+
     }
 
     override fun onDestroy() {
@@ -142,7 +168,7 @@ class SearchFilter : Fragment() {
         searchViewModel.filterMainPositionHashMap = filterMainPositionHashMap
         searchViewModel.filterSubPositionHashMap = filterSubPositionHashMap
         binding.searchFilterSelect.removeAllViewsInLayout()
-        MainActivity.bottomNav.visibility=View.VISIBLE
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
     //체크리스트 뷰 만들기
@@ -181,6 +207,8 @@ class SearchFilter : Fragment() {
     }
 
     fun onFoodClick(view: View) {
+        binding.searchFilterFoodCon.visibility = View.VISIBLE
+        binding.searchFilterOptionsCon.visibility = View.GONE
         binding.searchFilterFood.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -201,6 +229,8 @@ class SearchFilter : Fragment() {
     }
 
     fun onOptionsClick(view: View) {
+        binding.searchFilterFoodCon.visibility = View.GONE
+        binding.searchFilterOptionsCon.visibility = View.VISIBLE
         binding.searchFilterOptions.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -218,6 +248,93 @@ class SearchFilter : Fragment() {
             )
         )
         binding.searchFilterFood.background = null
+    }
+
+    private fun toggleButtonGenerate(text: String): ToggleButton {
+
+        // convenience list를 가져와서 갯수만큼 뷰를 추가
+
+        val param = GridLayout.LayoutParams()
+        param.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+        param.height = 32.dp()
+
+
+        val tb = ToggleButton(requireContext())
+        tb.layoutParams = param
+//        tb.gravity = Gravity.CENTER
+//        tb.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
+        tb.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+        tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+        tb.text = text
+        tb.textOff = text
+        tb.textOn = text
+        tb.setPadding(0, 0, 0, 0)
+        tb.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                tb.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.background_rounding_ohneulen
+                )
+            } else {
+                tb.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+            }
+
+        }
+
+        return tb
+//        binding.searchFilterConvenience.addView()
+    }
+
+    fun sortButtonClick(view: View) {
+        if (view == binding.searchFilterRecent) {
+            binding.apply {
+                searchFilterRecent.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
+                searchFilterRecent.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.background_rounding_ohneulen
+                )
+
+                searchFilterRating.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+                searchFilterRating.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorBlack
+                    )
+                )
+            }
+        } else {
+            binding.apply {
+                searchFilterRating.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
+                searchFilterRating.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.background_rounding_ohneulen
+                )
+
+                searchFilterRecent.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+                searchFilterRecent.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorBlack
+                    )
+                )
+            }
+
+        }
     }
 
 
