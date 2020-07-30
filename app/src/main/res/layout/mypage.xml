@@ -98,7 +98,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:drawableRight="@drawable/more_point"
                 android:gravity="fill"
-                android:onClick="@{fragment::goodClick}"
+                android:onClick="@{fragment::likeClick}"
                 android:text="@string/good"
                 android:textColor="@color/colorTextBlack"
                 android:textSize="@dimen/main_contents" />
@@ -116,6 +116,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:drawableRight="@drawable/more_point"
                 android:gravity="fill"
+                android:onClick="@{fragment::recentClick}"
                 android:text="@string/recent_list"
                 android:textColor="@color/colorTextBlack"
                 android:textSize="@dimen/main_contents" />

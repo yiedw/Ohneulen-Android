@@ -19,6 +19,8 @@ import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
+import com.goodchoice.android.ohneulen.ui.search.Search
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
@@ -131,6 +133,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     //바텀 네비게이션 설정
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menu_bottom_nav_map -> {
+                replaceAppbarFragment(SearchAppBar.newInstance())
+                replaceMainFragment(Search.newInstance())
+            }
+
+
             R.id.menu_bottom_nav_more -> {
                 replaceAppbarFragment(MyPageAppBar.newInstance())
                 replaceMainFragment(MyPage.newInstance())

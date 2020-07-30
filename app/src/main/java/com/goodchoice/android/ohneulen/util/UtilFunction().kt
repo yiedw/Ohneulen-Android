@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Base64
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
@@ -127,9 +130,20 @@ fun fcmToken(context: Context) {
 fun emailCheck(email: String): Boolean {
     val emailRegex =
         Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
-    if(email.matches(emailRegex))
+    if (email.matches(emailRegex))
         return true
     return false
+}
+
+fun textColor(titleText: String, start: Int, end: Int, color: Int): SpannableString {
+    val spannableString = SpannableString(titleText)
+    spannableString.setSpan(
+        ForegroundColorSpan(color),
+        start,
+        end,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    return spannableString
 }
 
 

@@ -73,13 +73,22 @@ class MyPage : Fragment() {
 
     }
 
-    fun goodClick(view: View) {
+    fun likeClick(view: View) {
         if (binding.mypageNickName.visibility == View.GONE) {
             Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
             return
         }
         replaceAppbarFragment(MyPageLikeAppBar.newInstance())
         replaceMainFragment(MyPageLike.newInstance())
+    }
+
+    fun recentClick(view:View){
+        if (binding.mypageNickName.visibility == View.GONE) {
+            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+            return
+        }
+        replaceAppbarFragment(MyPageRecentAppBar.newInstance())
+        replaceMainFragment(MyPageRecent.newInstance())
     }
 
     fun reviewClick(view: View) {
@@ -101,10 +110,7 @@ class MyPage : Fragment() {
     }
 
     fun FAQClick(view: View) {
-        if (binding.mypageNickName.visibility == View.GONE) {
-            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
-            return
-        }
+
         replaceAppbarFragment(MyPageFAQAppBar.newInstance())
         replaceMainFragment(MyPageFAQ.newInstance())
     }
