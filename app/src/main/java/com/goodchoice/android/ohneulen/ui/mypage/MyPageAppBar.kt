@@ -54,8 +54,9 @@ class MyPageAppBar : Fragment() ,OnBackPressedListener{
     }
     fun backClick(view: View){
         MainActivity.bottomNav.visibility=View.VISIBLE
-        replaceAppbarFragment(HomeAppBar.newInstance())
-        replaceMainFragment(Home.newInstance())
+        MainActivity.bottomNav.selectedItemId=R.id.menu_bottom_nav_home
+//        replaceAppbarFragment(HomeAppBar.newInstance())
+//        replaceMainFragment(Home.newInstance())
     }
     fun logoutClick(view:View){
         loginViewModel.logoutTest()

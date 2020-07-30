@@ -43,7 +43,6 @@ class MyPageRecent : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //색 삽입
         val text = binding.mypageRecentEmptyTv.text.toString()
-        Timber.e(text.toString())
         binding.mypageRecentEmptyTv.text =
             textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
     }

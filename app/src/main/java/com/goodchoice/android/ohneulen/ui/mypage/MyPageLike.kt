@@ -43,7 +43,6 @@ class MyPageLike : Fragment() {
 
         //색 삽입
         val text = binding.mypageLikeEmptyTv.text.toString()
-        Timber.e(text.toString())
         binding.mypageLikeEmptyTv.text =
             textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
 

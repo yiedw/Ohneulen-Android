@@ -105,6 +105,11 @@ class SearchFilter : Fragment() {
                     searchViewModel.categoryList.value!![searchViewModel.mainCategoryPosition.value!!].subCategoryList
                 if (!check) {
                     check = true
+                    if (filterViewHashMap.isNullOrEmpty()) {
+                        binding.searchFilterTv1.visibility = View.GONE
+                    } else {
+                        binding.searchFilterTv1.visibility = View.VISIBLE
+                    }
                     return@Observer
                 }
                 val index = searchViewModel.subCategoryPosition
@@ -179,6 +184,7 @@ class SearchFilter : Fragment() {
             val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
             selectView.findViewById<TextView>(R.id.filter_select_title).text =
                 filterName
+
             filterMainPositionHashMap[filterCode] =
                 searchViewModel.mainCategoryPosition.value!!
             filterSubPositionHashMap[filterCode] = searchViewModel.subCategoryPosition
@@ -187,7 +193,7 @@ class SearchFilter : Fragment() {
                 val categoryList = searchViewModel.categoryList.value
                 categoryList!![filterMainPositionHashMap[filterCode]!!].subCategoryList[filterSubPositionHashMap[filterCode]!!].check =
                     false
-//                        Timber.e(filterMainPositionHashMap[filterCode].toString()+","+filterSubPositionHashMap[filterCode])
+
                 filterMainPositionHashMap.remove(filterCode)
                 filterSubPositionHashMap.remove(filterCode)
                 filterViewHashMap.remove(filterCode)
@@ -204,6 +210,14 @@ class SearchFilter : Fragment() {
                 filterViewHashMap.remove(filterCode)
             }
         }
+        //2개가 필요
+        if (filterViewHashMap.isNullOrEmpty()) {
+            binding.searchFilterTv1.visibility = View.GONE
+        } else {
+            binding.searchFilterTv1.visibility = View.VISIBLE
+        }
+
+
     }
 
     fun onFoodClick(view: View) {

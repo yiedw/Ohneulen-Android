@@ -38,7 +38,7 @@ class MyPage : Fragment() {
             false
         )
         binding.fragment = this
-        MainActivity.bottomNav.visibility=View.GONE
+        MainActivity.bottomNav.visibility = View.GONE
         return binding.root
     }
 
@@ -62,6 +62,11 @@ class MyPage : Fragment() {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivity.bottomNav.visibility = View.VISIBLE
+    }
+
     fun infoClick(view: View) {
         if (loginViewModel.isLogin.value!!) {
             replaceAppbarFragment(MyPageInfoAppBar.newInstance())
@@ -78,11 +83,12 @@ class MyPage : Fragment() {
             Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
             return
         }
+//        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
         replaceAppbarFragment(MyPageLikeAppBar.newInstance())
         replaceMainFragment(MyPageLike.newInstance())
     }
 
-    fun recentClick(view:View){
+    fun recentClick(view: View) {
         if (binding.mypageNickName.visibility == View.GONE) {
             Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
             return
@@ -115,17 +121,17 @@ class MyPage : Fragment() {
         replaceMainFragment(MyPageFAQ.newInstance())
     }
 
-    fun termsClick(view:View){
+    fun termsClick(view: View) {
         replaceAppbarFragment(MyPageTermsAppBar.newInstance())
         replaceMainFragment(MyPageTerms.newInstance())
     }
 
-    fun companyClick(view:View){
+    fun companyClick(view: View) {
         replaceAppbarFragment(MyPageCompanyAppBar.newInstance())
         replaceMainFragment(MyPageCompany.newInstance())
     }
 
-    fun contactusClick(view:View){
+    fun contactusClick(view: View) {
         replaceAppbarFragment(MyPageContactusAppBar.newInstance())
         replaceMainFragment(MyPageContactus.newInstance())
     }

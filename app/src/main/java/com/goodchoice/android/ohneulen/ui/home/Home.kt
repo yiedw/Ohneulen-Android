@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.databinding.HomeBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.util.constant.ConstList
@@ -41,6 +42,7 @@ class Home() : Fragment() {
             false
         )
         binding.fragment = this
+//        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
         return binding.root
     }
 

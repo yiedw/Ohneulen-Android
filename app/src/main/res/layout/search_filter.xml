@@ -100,18 +100,38 @@
                 bind:filterAdapter="@{viewModel.subCategoryAdapter}"
                 bind:searchFilterViewModel="@{viewModel}" />
 
-            <LinearLayout
-                android:id="@+id/search_filter_select"
+
+            <TextView
+                android:id="@+id/search_filter_tv1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#666666"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_filter_subRv">
+                android:background="#707070"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="* 최대 5개까지 선택 가능"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/search_filter_hs" />
 
-            </LinearLayout>
+            <HorizontalScrollView
+                android:id="@+id/search_filter_hs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#707070"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+
+                <LinearLayout
+                    android:id="@+id/search_filter_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp" />
+            </HorizontalScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/search_filter_options_con"

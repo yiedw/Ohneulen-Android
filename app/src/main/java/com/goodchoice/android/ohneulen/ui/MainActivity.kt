@@ -19,6 +19,8 @@ import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageLike
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageLikeAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
@@ -92,8 +94,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     }
                 } else {
                     //일반적으로 앱을 실행 했을때
-                    replaceAppbarFragment(HomeAppBar.newInstance())
-                    replaceMainFragment(Home.newInstance())
+                    bottomNav.selectedItemId=R.id.menu_bottom_nav_home
                 }
             }
 
@@ -133,15 +134,28 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     //바텀 네비게이션 설정
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menu_bottom_nav_home -> {
+                replaceAppbarFragment(HomeAppBar.newInstance())
+                replaceMainFragment(Home.newInstance())
+                return true
+            }
             R.id.menu_bottom_nav_map -> {
                 replaceAppbarFragment(SearchAppBar.newInstance())
                 replaceMainFragment(Search.newInstance())
+                return true
             }
+
+//            R.id.menu_bottom_nav_like -> {
+//                replaceAppbarFragment(MyPageLikeAppBar.newInstance())
+//                replaceMainFragment(MyPageLike.newInstance())
+//                return true
+//            }
 
 
             R.id.menu_bottom_nav_more -> {
                 replaceAppbarFragment(MyPageAppBar.newInstance())
                 replaceMainFragment(MyPage.newInstance())
+                return true
             }
         }
         return false
