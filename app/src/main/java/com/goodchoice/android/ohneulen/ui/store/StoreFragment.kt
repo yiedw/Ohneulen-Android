@@ -76,7 +76,7 @@ class StoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        basicSetting()
+
         viewPagerSetting()
         stickyHeader()
 
@@ -131,9 +131,10 @@ class StoreFragment : Fragment() {
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
-        TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
+                    TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
         }.attach()
+        binding.storeNewScrollView.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.white))
         binding.storeViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -154,7 +155,7 @@ class StoreFragment : Fragment() {
                     }
 
                     binding.storeNewScrollView.scrollTo(0, 0)
-                    stickyHeader()
+//                    stickyHeader()
 //                    if (position == 1) {
 //                    }
 //                    binding.storeNewScrollView.invalidate()

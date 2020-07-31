@@ -110,20 +110,6 @@ class SearchMap : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-//        Timber.e("onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-//        Timber.e("onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-//        Timber.e("onStop")
-    }
     fun deleteMapView(){
         binding.searchMapMapView.removeView(mapView)
     }
