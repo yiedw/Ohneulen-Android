@@ -61,7 +61,6 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
         binding.fragment = this
-        binding.store = storeViewModel.storeInfo
         return binding.root
     }
 
@@ -123,8 +122,8 @@ class StoreMap : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(naverMap: NaverMap) {
-        val x = storeViewModel.storeInfo.addressX
-        val y = storeViewModel.storeInfo.addressY
+        val x = storeViewModel.storeDetail.value!!.storeInfo.store.addrX.toDouble()
+        val y = storeViewModel.storeDetail.value!!.storeInfo.store.addrY.toDouble()
         val cameraUpdate = CameraUpdate.scrollTo(LatLng(x, y))
         naverMap.moveCamera(cameraUpdate)
     }

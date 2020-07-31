@@ -1,6 +1,5 @@
 package com.goodchoice.android.ohneulen.extension
 
-import android.media.Image
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +18,7 @@ import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageDetailAdapter
+import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import timber.log.Timber
 
 //searchStore
@@ -88,6 +88,15 @@ fun setImageViewURL(imageView: ImageView, resURL: String) {
     Glide.with(imageView.context).load(resURL).centerCrop().into(imageView)
 }
 
+@BindingAdapter("ohneulenImage")
+fun setOhneulenImageViewURL(
+    imageView: ImageView,
+    image: Image
+) {
+    Glide.with(imageView.context).load("$BaseUrl.Ohneulen$image.photoURL").centerCrop()
+        .into(imageView)
+}
+
 @BindingAdapter("imageResID")
 fun setImageViewResID(imageView: ImageView, resID: Int) {
     Glide.with(imageView.context)
@@ -130,7 +139,7 @@ fun setFAQ(recyclerView: RecyclerView, adapter: FAQAdapter, items: List<FAQ>?) {
 }
 
 @BindingAdapter("storeImageList")
-fun setStoreImage(recyclerView: RecyclerView, items: List<Photo>?) {
+fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     recyclerView.layoutManager = linearLayoutManager

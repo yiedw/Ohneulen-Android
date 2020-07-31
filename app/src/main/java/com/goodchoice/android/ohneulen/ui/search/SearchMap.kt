@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.search.*
 import net.daum.mf.map.api.MapView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -72,6 +73,7 @@ class SearchMap : Fragment() {
                         MapView.CurrentLocationTrackingMode.TrackingModeOff
                 }
                 mapView.setMapCenterPoint(t, false)
+                searchViewModel.getStoreList()
             }
         )
 
@@ -110,10 +112,11 @@ class SearchMap : Fragment() {
         }
     }
 
-    fun deleteMapView(){
+    fun deleteMapView() {
         binding.searchMapMapView.removeView(mapView)
     }
-    private fun addMapView(){
+
+    private fun addMapView() {
         binding.searchMapMapView.addView(mapView)
     }
 }

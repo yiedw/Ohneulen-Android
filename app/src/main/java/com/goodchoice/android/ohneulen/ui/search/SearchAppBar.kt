@@ -74,6 +74,11 @@ class SearchAppBar : Fragment() {
         }
     }
 
+    fun submitClick(view:View){
+        searchViewModel.searchEditText=binding.searchAppbarEt.text.toString()
+        searchViewModel.searchMapData()
+    }
+
     fun clearClick(view: View) {
         binding.searchAppbarEt.text.clear()
     }

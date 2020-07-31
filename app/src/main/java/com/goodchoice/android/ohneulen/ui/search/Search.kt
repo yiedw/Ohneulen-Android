@@ -68,7 +68,7 @@ class Search : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -88,6 +88,10 @@ class Search : Fragment() {
                 }
             }
         )
+
+        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+            binding.searchStoreAmount.text="매장 ${it.size}"
+        })
     }
 
 

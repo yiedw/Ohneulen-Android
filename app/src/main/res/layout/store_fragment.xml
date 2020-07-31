@@ -9,13 +9,14 @@
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.store.StoreFragment" />
 
+
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
 
-        <variable
-            name="store"
-            type="com.goodchoice.android.ohneulen.data.model.Store" />
+<!--        <variable-->
+<!--            name="storeDetail"-->
+<!--            type="com.goodchoice.android.ohneulen.data.model.StoreDetail" />-->
     </data>
 
     <com.goodchoice.android.ohneulen.ui.store.StoreScrollView
@@ -42,7 +43,7 @@
                     android:id="@+id/store_fragment_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{store.storeName}"
+                    android:text="@{viewModel.storeDetail.storeInfo.store.storeName}"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/header_center"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -99,7 +100,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/store_top"
-                bind:storeImageList="@{viewModel.storeImageList}" />
+                bind:storeImageList="@{viewModel.storeDetail.storeInfo.image}"
+                />
 
 
             <com.google.android.material.tabs.TabLayout

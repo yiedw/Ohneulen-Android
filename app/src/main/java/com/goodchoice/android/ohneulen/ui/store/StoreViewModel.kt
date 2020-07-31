@@ -5,13 +5,30 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 
-class StoreViewModel(networkService: NetworkService) : ViewModel() {
+class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     val storeMenuList: LiveData<MutableList<StoreMenu>> = liveData(Dispatchers.IO) {
         loading.postValue(true)
         emit(getStoreMenu())
+    }
+
+    var storeDetail=MutableLiveData<StoreDetail>()
+    //storeDetail 가져오기
+    fun getStoreDetail(storeSeq:String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val storeDetailResponse=networkService.requestGetStoreInfo(
+                storeSeq.toRequestBody()
+            )
+            if(storeDetailResponse.resultCode=="000"){
+                storeDetail.postValue(storeDetailResponse.resultData)
+            }
+        }
     }
 
     //menuDetail 클릭했을때 클릭한 곳으로 이동
@@ -36,7 +53,6 @@ class StoreViewModel(networkService: NetworkService) : ViewModel() {
     }
     var storeReviewAdapter = ReviewAdapter()
 
-    lateinit var storeInfo :Store
 
 
 }

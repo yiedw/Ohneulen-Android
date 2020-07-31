@@ -351,5 +351,19 @@ class SearchFilter : Fragment() {
         }
     }
 
+    fun resetClick(view:View){
+        //음식선택일때
+        if(binding.searchFilterFoodCon.visibility==View.VISIBLE){
+//            searchViewModel.categoryList.value!!.clear()
+            filterViewHashMap.clear()
+        }
+
+        //옵션선택일때
+        else{
+
+        }
+
+    }
+
 
 }

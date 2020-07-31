@@ -90,19 +90,19 @@ class SearchFilterAdapter(private val categoryKind: Int) :
             }
         }
 
-        fun mainFilterSelect() {
-            binding.apply {
-                filterCategory.setBackgroundColor(
-                    Color.parseColor("#f6f6f6")
-                )
-                filterCategory.setTextColor(
-                    ContextCompat.getColor(
-                        root.context,
-                        R.color.colorGrey88
-                    )
-                )
-            }
-        }
+//        fun mainFilterSelect() {
+//            binding.apply {
+//                filterCategory.setBackgroundColor(
+//                    Color.parseColor("#f6f6f6")
+//                )
+//                filterCategory.setTextColor(
+//                    ContextCompat.getColor(
+//                        root.context,
+//                        R.color.colorGrey88
+//                    )
+//                )
+//            }
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

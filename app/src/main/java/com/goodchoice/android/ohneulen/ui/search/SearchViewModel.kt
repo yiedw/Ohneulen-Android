@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.data.model.Store
-import com.goodchoice.android.ohneulen.data.model.getStore
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +19,12 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var kakaoMapPoint = MutableLiveData<MapPoint>()
     var toastMessage = MutableLiveData<Boolean>(false)
 
-    val searchStoreList: LiveData<MutableList<Store>> = liveData(Dispatchers.IO) {
-        loading.postValue(true)
-        emit(getStore())
-    }
+    //    var searchStoreList: LiveData<MutableList<Store>> = liveData(Dispatchers.IO) {
+//        loading.postValue(true)
+//        emit(getStore())
+//    }
+    var searchStoreList = MutableLiveData<List<Store>>()
+
     val searchStoreAdapter = SearchStoreAdapter()
 
     val mainCategoryAdapter = SearchFilterAdapter(ConstList.MAIN_CATEGORY)
@@ -71,6 +72,15 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 //        }
 //        return temp
 //    }
+
+    fun getStoreList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val storeListResponse = networkService.requestGetStoreList()
+            if (storeListResponse.resultCode == "000") {
+                searchStoreList.postValue(storeListResponse.resultData)
+            }
+        }
+    }
 
 
     fun searchMapData() {

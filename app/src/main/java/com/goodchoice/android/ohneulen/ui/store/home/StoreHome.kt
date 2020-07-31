@@ -38,7 +38,7 @@ class StoreHome : Fragment() {
         )
 //        binding.storeHome.scrollTo(0, 0)
         binding.fragment = this
-        binding.store=storeViewModel.storeInfo
+//        binding.store=storeViewModel.storeInfo
         return binding.root
     }
 

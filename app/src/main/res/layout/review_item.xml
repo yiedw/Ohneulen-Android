@@ -60,7 +60,7 @@
             android:id="@+id/review_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{review.date}"
+            android:text="@{review.modifyDate}"
             app:layout_constraintLeft_toRightOf="@id/review_item_nickName"
             app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 

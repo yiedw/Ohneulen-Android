@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
-                    android:text="@{store.addressRoad}"
+                    android:text="@{store.addrDepth1}"
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_three"
-                    android:text="@{store.addressRoad}"
+                    android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_three"
-                    android:text="@{store.addressRoad}"
+                    android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -148,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
-                    android:text="@{store.addressRoad}"
+                    android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -169,7 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
-                    android:text="@{store.addressRoad}"
+                    android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -190,7 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
-                    android:text="@{store.addressRoad}"
+                    android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
-                    android:text="@{store.addressRoad}"
+                    android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -232,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_three"
-                    android:text="@{store.addressRoad}"
+                    android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -296,7 +296,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
-                android:text="@{store.open}"
+                android:text=""
                 android:textColor="#c0c0c0"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toRightOf="@id/store_home_open_tv1"
@@ -306,7 +306,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{store.update}"
+                android:text=""
                 android:textColor="#c0c0c0"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="@id/store_home_open_tv2"
