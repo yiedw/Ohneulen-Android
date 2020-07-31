@@ -3,7 +3,6 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -14,9 +13,10 @@ import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
-import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import timber.log.Timber
 
 
 class SearchStoreAdapter :
@@ -35,6 +35,13 @@ class SearchStoreAdapter :
                 storeItemGoodRed.setOnClickListener {
                     storeItemGoodRed.visibility = View.GONE
                     storeItemGoodBasic.visibility = View.VISIBLE
+                }
+                if (item.image.isNotEmpty()) {
+                    Glide.with(root).load("${BaseUrl.Ohneulen}${item.image[0].photoURL}")
+                        .centerCrop().into(storeItemImage)
+                }
+                else{
+                    storeItemImage.setImageResource(0)
                 }
                 root.setOnClickListener {
                     StoreFragment.storeSeq = item.seq

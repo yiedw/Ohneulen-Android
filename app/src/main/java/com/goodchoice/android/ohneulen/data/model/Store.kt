@@ -29,7 +29,7 @@ data class Store(
     val insertID: String,
     val modifyDate: String,
     val modifyID: String,
-    val image: List<Any>
+    val image: List<Image>
 )
 
 data class Cate1Name(
