@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,12 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Review
 import com.goodchoice.android.ohneulen.databinding.ReviewItemBinding
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReport
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReportAppBar
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
 class ReviewAdapter(val report: Boolean = true) :
@@ -21,6 +24,7 @@ class ReviewAdapter(val report: Boolean = true) :
 
     inner class ReviewViewHolder(private val binding: ReviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(reviewItem: Review) {
             binding.apply {
                 review = reviewItem
@@ -30,7 +34,16 @@ class ReviewAdapter(val report: Boolean = true) :
                     replaceAppbarFragment(StoreReviewReportAppBar.newInstance())
                     addMainFragment(StoreReviewReport.newInstance(), true)
                 }
-//                executePendingBindings()
+
+                //리뷰에 사진이 있을때
+                if (!reviewItem.imgList.isNullOrEmpty()) {
+                    Glide.with(root).load(BaseUrl.Ohneulen + reviewItem.imgList[0].photoURL)
+                        .centerCrop()
+                        .into(reviewItemImage)
+                }
+
+                //날짜 넣어주기(형식 약간 변경)
+                reviewItemDate.text="${reviewItem.modifyDate.substring(0,4)}.${reviewItem.modifyDate.substring(5,7)}.${reviewItem.modifyDate.substring(8,10)}"
             }
         }
     }
@@ -52,12 +65,12 @@ class ReviewAdapter(val report: Boolean = true) :
     }
 }
 
-object ReviewDiffUtil :DiffUtil.ItemCallback<Review>() {
+object ReviewDiffUtil : DiffUtil.ItemCallback<Review>() {
     override fun areItemsTheSame(oldItem: Review, newItem: Review): Boolean {
-        return oldItem.seq==newItem.seq
+        return oldItem.seq == newItem.seq
     }
 
     override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {
-        return oldItem==newItem
+        return oldItem == newItem
     }
 }

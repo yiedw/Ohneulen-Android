@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.store
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +16,18 @@ import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
+import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.goodchoice.android.ohneulen.util.dp
+import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.store_home.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -31,7 +35,7 @@ class StoreFragment : Fragment() {
 
     companion object {
         fun newInstance() = StoreFragment()
-        var storeSeq:String=""
+        var storeSeq: String = ""
 //        lateinit var store: Store
 
         // 각 fragment
@@ -61,7 +65,7 @@ class StoreFragment : Fragment() {
             container,
             false
         )
-        binding.viewModel=storeViewModel
+        binding.viewModel = storeViewModel
         binding.fragment = this
         binding.lifecycleOwner = this
 
@@ -78,15 +82,32 @@ class StoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+            storeHeader(it)
 
         })
-
         viewPagerSetting()
         stickyHeader()
+
 
     }
 
 
+
+    //카테고리 좋아요 후기 갯수
+    private fun storeHeader(storeDetail: StoreDetail) {
+        val store = storeDetail.storeInfo.store
+        val likeCnt =
+            textColor("51", 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+        val reviewCnt = textColor(
+            storeDetail.reviewCnt.toString(),
+            0,
+            storeDetail.reviewCnt.toString().length,
+            ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
+        )
+
+        val text = TextUtils.concat("${store.cate1Name!!.minorName} /좋아요 ",likeCnt," /후기 ",reviewCnt)
+        binding.storeFragmentDetail.text =text
+    }
 
 
     //스크롤되면 헤더 붙이기
@@ -129,10 +150,15 @@ class StoreFragment : Fragment() {
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
-                    TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
+        TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
         }.attach()
-        binding.storeNewScrollView.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.white))
+        binding.storeNewScrollView.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.white
+            )
+        )
         binding.storeViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

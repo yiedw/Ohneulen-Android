@@ -7,5 +7,5 @@ object ConstList {
     const val SUB_CATEGORY=1
 
     const val SEGMENT_STORE ="store"
-    const val CODE="code"
+    const val SEQ="code"
 }

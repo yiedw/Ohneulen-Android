@@ -8,9 +8,9 @@
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.store.map.StoreMap" />
 
-        <variable
-            name="store"
-            type="com.goodchoice.android.ohneulen.data.model.Store" />
+
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,9 +42,7 @@
                 android:id="@+id/store_map_addressRoad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:textColor="@color/colorBlack"
-                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@id/store_map_addressOld"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +51,6 @@
                 android:id="@+id/store_map_addressOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:textColor="#c0c0c0"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -28,6 +28,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
             if(storeDetailResponse.resultCode=="000"){
                 storeDetail.postValue(storeDetailResponse.resultData)
             }
+
         }
     }
 
@@ -48,9 +49,14 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     var storeImageDetailIndex = 0
 
 
-    var storeReviewList: LiveData<List<Review>> = liveData(Dispatchers.IO) {
-        emit(getReview())
-    }
+//    var storeReviewList: LiveData<List<Review>> = liveData(Dispatchers.IO) {
+//        emit(getReview())
+//    }
+//    var storeReviewList=MutableLiveData<List<Review>>()
+//    private fun getStoreReviewList(){
+//
+//    }
+
     var storeReviewAdapter = ReviewAdapter()
 
 

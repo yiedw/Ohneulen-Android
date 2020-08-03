@@ -4,7 +4,7 @@ data class Review(
     val content: String,
     val imgList: List<Image>,
     val insertDate: String,
-    val member_seq: Any,
+    val member_seq: String,
     val modifyDate: String,
     val point_1: String,
     val point_2: String,

@@ -19,8 +19,6 @@ import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageLike
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageLikeAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
@@ -30,14 +28,12 @@ import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import com.google.android.material.bottomnavigation.BottomNavigationMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -82,8 +78,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     val segment = deepLink!!.lastPathSegment
                     when (segment) {
                         ConstList.SEGMENT_STORE -> {
-                            val code = deepLink.getQueryParameter(ConstList.CODE)
-                            Timber.e(code)
+                            val seq = deepLink.getQueryParameter(ConstList.SEQ)
+                            StoreFragment.storeSeq=seq!!
                             replaceAppbarFragment(
                                 StoreAppBar.newInstance(),
                                 tag = "storeAppBar"

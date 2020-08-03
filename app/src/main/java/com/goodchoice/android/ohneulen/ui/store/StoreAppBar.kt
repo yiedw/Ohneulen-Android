@@ -1,7 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store
 
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -60,7 +59,7 @@ class StoreAppBar : Fragment() ,OnBackPressedListener{
         val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
             //웹으로 봤을때 페이지
 
-            link = Uri.parse("https://www.ohneulen.com/" + ConstList.SEGMENT_STORE+"?"+ConstList.CODE+"="+"DF3DT2")
+            link = Uri.parse("https://www.ohneulen.com/" + ConstList.SEGMENT_STORE+"?"+ConstList.SEQ+"="+StoreFragment.storeSeq)
             domainUriPrefix = "https://ohneulen.page.link"
             androidParameters("com.goodchoice.android.ohneulen") { }
             iosParameters("com.goodchoice.ios.ohneulen") {}

@@ -26,7 +26,6 @@ class StoreImageAdapter :
     inner class StoreImageViewHolder(private val binding: StoreImageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Image) {
-            Timber.e("${BaseUrl.Ohneulen}${item.photoURL}")
             binding.apply {
                 Glide.with(root)
                     .load("${BaseUrl.Ohneulen}${item.photoURL}")

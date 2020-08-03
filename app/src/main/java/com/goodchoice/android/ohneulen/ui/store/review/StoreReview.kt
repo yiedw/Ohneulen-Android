@@ -1,7 +1,9 @@
 package com.goodchoice.android.ohneulen.ui.store.review
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import android.widget.RatingBar
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -16,12 +19,15 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreReviewBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.textColor
 import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreReview : Fragment() {
     companion object {
@@ -50,8 +56,57 @@ class StoreReview : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        chartSetting()
+        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+            reviewCnt(it)
+            //리뷰가 0개일때
+            if (it.reviewCnt == 0) {
+                reviewEmpty()
+            } else {
+                reviewNotEmpty()
+            }
+        })
     }
+
+    @SuppressLint("SetTextI18n")
+    private fun reviewCnt(storeDetail: StoreDetail) {
+        binding.storeReviewTv1.text = "${storeDetail.reviewCnt}개의 후기가 있습니다"
+    }
+
+    private fun reviewEmpty() {
+        binding.storeReviewEmpty.visibility = View.VISIBLE
+        binding.storeReviewCon.visibility = View.GONE
+        binding.storeReviewRatingbar.visibility = View.GONE
+        binding.storeReviewRatingScore.visibility = View.GONE
+        binding.storeReviewTv1.visibility = View.GONE
+        binding.storeReviewChart.visibility = View.GONE
+        binding.storeReviewRv.visibility=View.GONE
+        val text = TextUtils.concat(
+            "아직 작성된 후기가 없어요\n",
+            "지금 나만의 ",
+            textColor("맛집", 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen)),
+            "을 공유하시려면\n",
+            "상단의 ",
+            textColor(
+                "후기 작성하기",
+                0,
+                7,
+                ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
+            ),
+            "버튼을 클릭해 주세요!"
+        )
+        binding.storeReviewEmptyTv.text=text
+    }
+
+    private fun reviewNotEmpty() {
+        binding.storeReviewEmpty.visibility = View.GONE
+        binding.storeReviewCon.visibility = View.VISIBLE
+        binding.storeReviewRatingbar.visibility = View.VISIBLE
+        binding.storeReviewRatingScore.visibility = View.VISIBLE
+        binding.storeReviewTv1.visibility = View.VISIBLE
+        binding.storeReviewChart.visibility = View.VISIBLE
+        binding.storeReviewRv.visibility=View.VISIBLE
+    }
+
 
     fun reviewWriteClick(view: View) {
         addAppbarFragment(StoreReviewWriteAppbar.newInstance(), true)

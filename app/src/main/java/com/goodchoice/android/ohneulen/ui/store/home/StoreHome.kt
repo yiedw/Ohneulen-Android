@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.model.Store
+import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
-import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -38,18 +38,38 @@ class StoreHome : Fragment() {
         )
 //        binding.storeHome.scrollTo(0, 0)
         binding.fragment = this
-//        binding.store=storeViewModel.storeInfo
+        binding.viewModel = storeViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+            storeUpdate(it)
+        })
+    }
+
+    //개업일 업데이트
+    private fun storeUpdate(storeDetail: StoreDetail) {
+        val store = storeDetail.storeInfo.store
+        val openDate = store.openDate.substring(0, 4) + "." + store.openDate.substring(
+            4,
+            6
+        ) + "." + store.openDate.substring(6)
+        val modifyDate = store.modifyDate.substring(0, 4) + "." + store.modifyDate.substring(
+            5,
+            7
+        ) + "." + store.modifyDate.substring(8, 10)
+        binding.storeHomeOpenTv2.text = "$openDate\n$modifyDate"
     }
 
     fun reportClick(view: View) {
 //        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         replaceAppbarFragment(StoreHomeReportAppBar.newInstance())
-        addMainFragment(StoreHomeReport.newInstance(), true)
+        addMainFragment(
+            StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.store.storeName),
+            true
+        )
     }
 
 }

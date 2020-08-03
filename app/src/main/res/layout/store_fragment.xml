@@ -14,9 +14,9 @@
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
 
-<!--        <variable-->
-<!--            name="storeDetail"-->
-<!--            type="com.goodchoice.android.ohneulen.data.model.StoreDetail" />-->
+        <!--        <variable-->
+        <!--            name="storeDetail"-->
+        <!--            type="com.goodchoice.android.ohneulen.data.model.StoreDetail" />-->
     </data>
 
     <com.goodchoice.android.ohneulen.ui.store.StoreScrollView
@@ -53,7 +53,6 @@
                     android:id="@+id/store_fragment_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="카페·디저트 / 좋아요 51 / 후기 100+"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/store_fragment_name" />
@@ -100,9 +99,14 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/store_top"
-                bind:storeImageList="@{viewModel.storeDetail.storeInfo.image}"
-                />
+                bind:storeImageList="@{viewModel.storeDetail.storeInfo.image}" />
 
+            <View
+                android:id="@+id/store_fragment_border"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="#f6f6f6"
+                app:layout_constraintTop_toBottomOf="@id/store_fragment_image_rv" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/store_tab"
@@ -110,17 +114,24 @@
                 android:layout_height="40dp"
                 android:background="@color/colorWhite"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/store_fragment_image_rv"
+                app:layout_constraintTop_toBottomOf="@id/store_fragment_border"
                 app:tabIndicator="@color/white"
                 app:tabSelectedTextColor="@color/colorOhneulen">
 
             </com.google.android.material.tabs.TabLayout>
 
+            <View
+                android:id="@+id/store_fragment_border2"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="#f6f6f6"
+                app:layout_constraintTop_toBottomOf="@id/store_tab" />
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/store_viewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/store_tab" />
+                app:layout_constraintTop_toBottomOf="@id/store_fragment_border2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

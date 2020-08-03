@@ -13,11 +13,10 @@
         android:id="@+id/store_menu_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="15dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="15dp">
+        android:paddingTop="15dp">
 
         <ImageView
+            android:layout_marginStart="20dp"
             android:id="@+id/store_menu_item_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -57,10 +56,18 @@
             android:layout_marginTop="10dp"
             android:text="@{storeMenu.contents}"
             android:textColor="#c0c0c0"
+            android:layout_marginEnd="15dp"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/store_menu_item_image"
             app:layout_constraintLeft_toRightOf="@id/store_menu_item_image"
             app:layout_constraintTop_toBottomOf="@id/store_menu_item_price" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_marginTop="15dp"
+            android:background="#f6f6f6"
+            app:layout_constraintTop_toBottomOf="@id/store_menu_item_image" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

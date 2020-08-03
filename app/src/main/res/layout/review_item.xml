@@ -25,9 +25,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp">
+        android:layout_marginTop="15dp"
+        >
 
         <ImageView
+            android:src="@drawable/default_profile"
             android:id="@+id/review_item_profile"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -60,7 +62,6 @@
             android:id="@+id/review_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{review.modifyDate}"
             app:layout_constraintLeft_toRightOf="@id/review_item_nickName"
             app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 
@@ -68,7 +69,7 @@
             android:id="@+id/review_item_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="신고"
+            android:text=" 신고"
             app:layout_constraintLeft_toRightOf="@id/review_item_date"
             app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 
@@ -78,6 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:text="@{review.content}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/review_item_image"
@@ -115,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
+            android:background="#ebebeb"
             app:layout_constraintTop_toBottomOf="@id/review_item_good_text" />
 
 

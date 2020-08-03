@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMapBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
@@ -58,7 +59,7 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
 
         mapView.layoutParams = layoutParams
-        mapView.getMapAsync(this)
+//        mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
         binding.fragment = this
         return binding.root
@@ -66,8 +67,15 @@ class StoreMap : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+            binding.storeMapAddressRoad.text = it.storeInfo.store.addrRoad1
+            val addrOld =
+                "${it.storeInfo.store.addrDepth1} ${it.storeInfo.store.addrDepth2} ${it.storeInfo.store.addrDepth3}"
+            binding.storeMapAddressOld.text = addrOld
+            mapView.getMapAsync(this)
+        })
     }
+
 
     fun onNavClick(view: View) {
         //매장데이터 넣어주기
@@ -124,7 +132,8 @@ class StoreMap : Fragment(), OnMapReadyCallback {
     override fun onMapReady(naverMap: NaverMap) {
         val x = storeViewModel.storeDetail.value!!.storeInfo.store.addrX.toDouble()
         val y = storeViewModel.storeDetail.value!!.storeInfo.store.addrY.toDouble()
-        val cameraUpdate = CameraUpdate.scrollTo(LatLng(x, y))
+        val cameraUpdate = CameraUpdate.scrollTo(LatLng(y, x))
+        naverMap.moveCamera(CameraUpdate.zoomTo(17.0))
         naverMap.moveCamera(cameraUpdate)
     }
 
