@@ -10,6 +10,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageCompanyAppbarBinding
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import timber.log.Timber
 
 class MyPageCompanyAppBar :Fragment() {
     companion object{
@@ -28,6 +29,7 @@ class MyPageCompanyAppBar :Fragment() {
             container,
             false
         )
+        binding.fragment=this
         return binding.root
     }
 

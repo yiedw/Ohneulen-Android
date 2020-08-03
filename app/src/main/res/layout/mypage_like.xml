@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="13dp"
                 android:gravity="center"
+                android:text="더 많은 맛집이 있어요 \n 지금 찾으러 가보실래요?"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toTopOf="@id/mypage_like_empty_iv"
                 app:layout_constraintTop_toTopOf="parent"

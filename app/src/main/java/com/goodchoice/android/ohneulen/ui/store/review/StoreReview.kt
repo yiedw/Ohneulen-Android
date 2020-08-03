@@ -74,7 +74,6 @@ class StoreReview : Fragment() {
 
     private fun reviewEmpty() {
         binding.storeReviewEmpty.visibility = View.VISIBLE
-        binding.storeReviewCon.visibility = View.GONE
         binding.storeReviewRatingbar.visibility = View.GONE
         binding.storeReviewRatingScore.visibility = View.GONE
         binding.storeReviewTv1.visibility = View.GONE
@@ -99,7 +98,6 @@ class StoreReview : Fragment() {
 
     private fun reviewNotEmpty() {
         binding.storeReviewEmpty.visibility = View.GONE
-        binding.storeReviewCon.visibility = View.VISIBLE
         binding.storeReviewRatingbar.visibility = View.VISIBLE
         binding.storeReviewRatingScore.visibility = View.VISIBLE
         binding.storeReviewTv1.visibility = View.VISIBLE

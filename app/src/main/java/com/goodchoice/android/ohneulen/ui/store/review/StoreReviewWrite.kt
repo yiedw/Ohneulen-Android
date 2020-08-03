@@ -13,10 +13,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteBinding
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteImageItemBinding
+import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.dp
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class StoreReviewWrite : Fragment() {
@@ -27,7 +29,8 @@ class StoreReviewWrite : Fragment() {
     }
 
     private lateinit var binding: StoreReviewWriteBinding
-    private var  selectedUriList:List<Uri>?=null
+    private var selectedUriList: List<Uri>? = null
+    private val storeViewMode: StoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +43,8 @@ class StoreReviewWrite : Fragment() {
             container,
             false
         )
-        binding.fragment=this
+        binding.fragment = this
+        binding.viewModel = storeViewMode
         return binding.root
     }
 
@@ -48,14 +52,14 @@ class StoreReviewWrite : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun imageAdd(view:View){
-        val permissionListener=object :PermissionListener{
+    fun imageAdd(view: View) {
+        val permissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
-               TedImagePicker.with(requireContext())
-                   .errorListener { message -> Timber.e(message) }
-                   .selectedUri(selectedUriList)
-                   .max(10,"10개만 가능")
-                   .startMultiImage { list:List<Uri> -> showMultiImage(list) }
+                TedImagePicker.with(requireContext())
+                    .errorListener { message -> Timber.e(message) }
+                    .selectedUri(selectedUriList)
+                    .max(10, "10개만 가능")
+                    .startMultiImage { list: List<Uri> -> showMultiImage(list) }
 
             }
 
@@ -73,22 +77,24 @@ class StoreReviewWrite : Fragment() {
             .check()
     }
 
-    private fun showMultiImage(uriList:List<Uri>){
-        selectedUriList=uriList
-        val viewSize=50.dp()
+    private fun showMultiImage(uriList: List<Uri>) {
+        selectedUriList = uriList
+        val viewSize = 50.dp()
         uriList.forEach {
-            val itemBinding= StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
+            val itemBinding =
+                StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
             Glide.with(requireContext())
                 .load(it)
                 .apply(RequestOptions().centerCrop())
                 .into(itemBinding.storeReviewWriteImage)
-            val layoutParams=FrameLayout.LayoutParams(viewSize,viewSize)
-            layoutParams.setMargins(5.dp(),5.dp(),5.dp(),5.dp())
-            itemBinding.root.layoutParams=layoutParams
+            val layoutParams = FrameLayout.LayoutParams(viewSize, viewSize)
+            layoutParams.setMargins(5.dp(), 5.dp(), 5.dp(), 5.dp())
+            itemBinding.root.layoutParams = layoutParams
             binding.storeReviewWriteImage.addView(itemBinding.root)
         }
     }
-    fun onClick(view:View){
+
+    fun onClick(view: View) {
 
     }
 }
