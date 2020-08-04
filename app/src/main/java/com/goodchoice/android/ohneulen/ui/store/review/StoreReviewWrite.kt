@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -13,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteBinding
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteImageItemBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.dp
 import com.gun0912.tedpermission.PermissionListener
@@ -32,6 +34,10 @@ class StoreReviewWrite : Fragment() {
     private var selectedUriList: List<Uri>? = null
     private val storeViewMode: StoreViewModel by viewModel()
 
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility=View.GONE
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,6 +56,11 @@ class StoreReviewWrite : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivity.bottomNav.visibility=View.VISIBLE
     }
 
     fun imageAdd(view: View) {
@@ -92,6 +103,10 @@ class StoreReviewWrite : Fragment() {
             itemBinding.root.layoutParams = layoutParams
             binding.storeReviewWriteImage.addView(itemBinding.root)
         }
+    }
+
+    fun textColorChange(view:View){
+
     }
 
     fun onClick(view: View) {

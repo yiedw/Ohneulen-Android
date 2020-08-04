@@ -12,6 +12,8 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreHomeReportBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.textColor
+import org.koin.android.ext.android.bind
+import timber.log.Timber
 
 class StoreHomeReport(private val storeName: String) : Fragment() {
     companion object {
@@ -19,6 +21,11 @@ class StoreHomeReport(private val storeName: String) : Fragment() {
     }
 
     private lateinit var binding: StoreHomeReportBinding
+
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility=View.GONE
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +44,12 @@ class StoreHomeReport(private val storeName: String) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.storeHomeReport.translationY=MainActivity.appbarFrameLayout.height.toFloat()
         reportTitle()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivity.bottomNav.visibility=View.VISIBLE
     }
 
     private fun reportTitle() {
@@ -53,6 +64,8 @@ class StoreHomeReport(private val storeName: String) : Fragment() {
         binding.storeHomeReportTitle.text = mStoreName
 
     }
+
+
 
     fun onClick(view: View) {
 

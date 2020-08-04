@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="photo"
-            type="com.goodchoice.android.ohneulen.data.model.Photo" />
+            name="image"
+            type="com.goodchoice.android.ohneulen.data.model.Image" />
 
 
     </data>
@@ -36,7 +36,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:imageResURL="@{photo.photoURL}" />
+            bind:ohneulenImage="@{image}" />
 
         <ImageView
             android:id="@+id/store_image_detail_left"

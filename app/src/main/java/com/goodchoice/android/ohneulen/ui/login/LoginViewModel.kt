@@ -20,13 +20,13 @@ class LoginViewModel(private val networkService: NetworkService,application: App
 
     var isLogin = MutableLiveData(false)
 
-    var memEmail = "aaa@aa.com"
-    var memPw = "qwer1234"
+//    var memEmail = "aaa@aa.com"
+//    var memPw = "qwer1234"
 
     val loginErrorToast=MutableLiveData<Event<Boolean>>()
 
 
-    fun login(check:Boolean) {
+    fun login(memEmail:String,memPw:String,check:Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
             val loginResponse = networkService.requestLogin(
                 memEmail.toRequestBody(), memPw.toRequestBody()

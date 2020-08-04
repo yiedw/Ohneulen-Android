@@ -38,9 +38,9 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     val loading = MutableLiveData<Boolean>()
 
 
-    var storeImageList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
-        emit(getPhoto())
-    }
+//    var storeImageList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
+//        emit(getPhoto())
+//    }
 
 
     var storeImageDetailList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {

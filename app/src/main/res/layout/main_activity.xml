@@ -13,7 +13,7 @@
         android:id="@+id/appbar_frameLayout"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:background="@color/colorHeader"
+        android:background="@color/colorWhite"
         android:paddingHorizontal="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

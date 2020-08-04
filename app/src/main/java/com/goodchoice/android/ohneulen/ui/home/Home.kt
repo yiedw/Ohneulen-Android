@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
@@ -17,12 +18,13 @@ import com.goodchoice.android.ohneulen.databinding.HomeBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Home() : Fragment() {
+class Home() : Fragment(),OnBackPressedListener {
 
     companion object {
         fun newInstance() = Home()
@@ -30,6 +32,9 @@ class Home() : Fragment() {
 
     private val mainViewModel: MainViewModel by viewModel()
     private lateinit var binding: HomeBinding
+
+    private val FINISH_TIME: Long = 3000
+    private var backPressedTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,7 +87,17 @@ class Home() : Fragment() {
         mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
         replaceAppbarFragment(SearchAppBar.newInstance())
         replaceMainFragment(Search.newInstance())
+    }
 
+    override fun onBackPressed() {
+        val tempTime: Long = System.currentTimeMillis();
+        val intervalTime: Long = tempTime - backPressedTime
+        if (intervalTime < FINISH_TIME) {
+            requireActivity().finish()
+        } else {
+            Toast.makeText(activity, "뒤로가기를 한번 더 누르면 앱이 종료됩니다", Toast.LENGTH_SHORT).show()
+            backPressedTime = tempTime
+        }
     }
 
 

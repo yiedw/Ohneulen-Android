@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.Image
 import com.goodchoice.android.ohneulen.data.model.Photo
 import com.goodchoice.android.ohneulen.databinding.StoreImageDetailItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
@@ -15,7 +16,7 @@ class StoreImageDetailAdapter :
     RecyclerView.Adapter<StoreImageDetailAdapter.StoreImageDetailViewHolder>() {
 
 
-    var imageList = listOf<Photo>()
+    var imageList = listOf<Image>()
 
     interface OnNextClickListener {
         fun onNextClick(pos: Int)
@@ -23,15 +24,16 @@ class StoreImageDetailAdapter :
 
     private var mListener: OnNextClickListener? = null
 
-    fun setOnNextClickListener(listener: OnNextClickListener){
-        this.mListener=listener
+    fun setOnNextClickListener(listener: OnNextClickListener) {
+        this.mListener = listener
     }
 
     inner class StoreImageDetailViewHolder(
         private val binding: StoreImageDetailItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Photo) {
+        fun bind(item: Image) {
             binding.apply {
+                image = item
                 if (imageList.size - 1 == adapterPosition) {
                     storeImageDetailRight.visibility = View.GONE
                 } else {
@@ -55,7 +57,6 @@ class StoreImageDetailAdapter :
                     MainActivity.appbarFrameLayout.visibility = View.VISIBLE
                 }
 
-                photo = item
             }
         }
     }
@@ -66,7 +67,7 @@ class StoreImageDetailAdapter :
             R.layout.store_image_detail_item,
             parent,
             false
-        ).let{
+        ).let {
             StoreImageDetailViewHolder(it)
         }
 

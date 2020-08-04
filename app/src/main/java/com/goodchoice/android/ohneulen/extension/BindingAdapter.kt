@@ -89,11 +89,12 @@ fun setImageViewURL(imageView: ImageView, resURL: String) {
 }
 
 @BindingAdapter("ohneulenImage")
-fun setOhneulenImageViewURL(
+fun setOhneulenImageView(
     imageView: ImageView,
     image: Image
 ) {
-    Glide.with(imageView.context).load("$BaseUrl.Ohneulen$image.photoURL").centerCrop()
+//    Timber.e(image.photoURL)
+    Glide.with(imageView.context).load("${BaseUrl.Ohneulen}${image.photoURL}").centerCrop()
         .into(imageView)
 }
 
@@ -151,7 +152,7 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
 }
 
 @BindingAdapter("imageDetailList", "imageDetailIndex")
-fun setImageDetail(recyclerView: RecyclerView, items: List<Photo>?, index: Int) {
+fun setImageDetail(recyclerView: RecyclerView, items: List<Image>?, index: Int) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)

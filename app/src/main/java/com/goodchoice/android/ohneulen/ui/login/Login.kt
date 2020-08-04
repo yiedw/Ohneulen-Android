@@ -50,7 +50,7 @@ class Login : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        MainActivity.bottomNav.visibility=View.GONE
+        MainActivity.bottomNav.visibility = View.GONE
 
 
         //이메일 검사
@@ -159,6 +159,11 @@ class Login : Fragment() {
     }
 
     fun submitClick(view: View) {
+        loginViewModel.login(
+            binding.loginEmailEt.text.toString(),
+            binding.loginPwEt.text.toString(),
+            binding.loginAuto.isChecked
+        )
     }
 
     fun findEmailClick(view: View) {
