@@ -41,7 +41,7 @@
             android:id="@+id/review_item_ratingbar"
             style="@style/starRatingBarS"
             android:layout_width="wrap_content"
-            android:layout_height="12dp"
+            android:layout_height="15dp"
             android:layout_marginLeft="7dp"
             android:isIndicator="true"
             android:numStars="5"

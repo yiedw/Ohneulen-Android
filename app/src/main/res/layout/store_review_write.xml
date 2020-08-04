@@ -71,9 +71,9 @@
                     android:id="@+id/store_review_write_rating"
                     style="@style/starRatingBarL"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="36dp"
                     android:rating="5"
-                    android:stepSize="0.5"
+                    android:stepSize="1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/store_review_write_tv1" />

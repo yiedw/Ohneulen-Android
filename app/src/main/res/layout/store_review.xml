@@ -48,7 +48,7 @@
             android:id="@+id/store_review_ratingbar"
             style="@style/starRatingBarM"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="24dp"
             android:layout_marginTop="20dp"
             android:isIndicator="true"
             android:numStars="5"
