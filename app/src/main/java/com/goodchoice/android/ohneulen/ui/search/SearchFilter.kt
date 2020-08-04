@@ -11,6 +11,7 @@ import android.widget.GridLayout
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,7 +21,6 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import kotlin.collections.HashMap
 
 
 class SearchFilter : Fragment() {
@@ -30,13 +30,12 @@ class SearchFilter : Fragment() {
 
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var binding: SearchFilterBinding
-    private var filterViewHashMap = HashMap<String, View>()
-    private var filterMainPositionHashMap = HashMap<String, Int>()
-    private var filterSubPositionHashMap = HashMap<String, Int>()
     var check = false
 
     var position = 0
     var previousPosition = 0
+
+    var filterCheck = false
 
 
     override fun onCreateView(
@@ -57,36 +56,7 @@ class SearchFilter : Fragment() {
         }
 
 
-        filterViewHashMap = searchViewModel.filterViewHashMap
-        filterMainPositionHashMap = searchViewModel.filterMainPositionHashMap
-        filterSubPositionHashMap = searchViewModel.filterSubPositionHashMap
 
-//        val reverse = filterViewHashMap.keys.reversed()
-//        for (i in reverse) {
-//            val filterMainPosition = filterMainPositionHashMap[i]
-//            val filterSubPosition = filterSubPositionHashMap[i]
-//            val filterName =
-//                searchViewModel.categoryList.value!![filterMainPosition!!].subCategoryList[filterSubPosition!!].minorName
-//
-//            val layoutInflater = this.layoutInflater
-//            val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
-//            selectView.findViewById<TextView>(R.id.filter_select_title).text =
-//                filterName
-//
-//            selectView.setOnClickListener {
-//                check = false
-//                val categoryList = searchViewModel.categoryList.value
-//                categoryList!![filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
-//                    false
-////                        Timber.e(filterMainPositionHashMap[filterCode].toString()+","+filterSubPositionHashMap[filterCode])
-//                filterMainPositionHashMap.remove(i)
-//                filterSubPositionHashMap.remove(i)
-//                filterViewHashMap.remove(i)
-//                binding.searchFilterSelect.removeView(selectView)
-//                searchViewModel.categoryList.value = categoryList
-//            }
-//            binding.searchFilterSelect.addView(selectView)
-//        }
 
         MainActivity.bottomNav.visibility = View.GONE
         return binding.root
@@ -99,24 +69,23 @@ class SearchFilter : Fragment() {
 
         //메인카테고리 클릭시 서브 카테고리 변경
         searchViewModel.mainCategoryPosition.observe(viewLifecycleOwner, Observer {
+            searchViewModel.subCategoryPosition = 0
             searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[it])
         })
 
-        //음식 메인카테고리 리스트 생성
+        //음식 선택시 아래 뷰 생성
         foodFilterGenerate()
+
+        //음식 메인카테고리 리스트 생성
+        bottomViewGenerate()
 
 
         //선택완료 클릭
         binding.searchFilterSubmit.setOnClickListener {
-            Timber.e(filterViewHashMap.keys.toString())
         }
 
         //뒤에 레이아웃 터치 안먹게 하기
         binding.searchFilter.setOnTouchListener { v, event -> true }
-
-
-        //클릭시 배경바꾸기
-
 
         //options 편의바 생성
         //sample
@@ -145,7 +114,70 @@ class SearchFilter : Fragment() {
     }
 
 
-    private fun subCategoryChange() {
+    //아래 체크뷰 생성
+    private fun bottomViewGenerate() {
+        searchViewModel.subCategory.observe(viewLifecycleOwner, Observer {
+            if (searchViewModel.filterHashMap.size == 1) {
+                binding.searchFilterTv1.visibility = View.VISIBLE
+            } else if (searchViewModel.filterHashMap.isNullOrEmpty()) {
+                binding.searchFilterTv1.visibility = View.GONE
+                binding.searchFilterSelect.removeAllViews()
+            }
+
+//                Timber.e("${searchViewModel.mainCategoryPosition.value!!} ${searchViewModel.subCategoryPosition}")
+            if (!searchViewModel.filterHashMap.isNullOrEmpty() && !searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!].isNullOrEmpty()) {
+                val filterName =
+                    searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].minorName
+                val layoutInflater = this.layoutInflater
+                val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
+                selectView.findViewById<TextView>(R.id.filter_select_title).text =
+                    filterName
+
+                //클릭할시 뷰 삭제
+                var removeIndex = 0
+                selectView.setOnClickListener {
+                    //바텀뷰 삭제
+                    for (i in 0 until binding.searchFilterSelect.childCount) {
+                        if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == filterName) {
+                            removeIndex = i
+                            break
+                        }
+                    }
+                    binding.searchFilterSelect.removeViewAt(removeIndex)
+
+                    //해시맵삭제
+                    for (i in searchViewModel.filterHashMap.keys) {
+                        val mainFilterPosition = i / 10
+                        val subFilterPosition = i % 10
+                        if (searchViewModel.subCategoryList[mainFilterPosition][subFilterPosition].minorName == filterName) {
+                            searchViewModel.filterHashMap.remove(i)
+                            searchViewModel.subCategoryList[mainFilterPosition][subFilterPosition].check =
+                                false
+                            searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                            break
+                        }
+                    }
+
+
+                }
+
+                //체크된거 클릭
+                if (searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].check) {
+                    binding.searchFilterSelect.addView(selectView, 0)
+                } else {
+                    //체크된거 삭제
+                    for (i in 0 until binding.searchFilterSelect.childCount) {
+                        if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == filterName) {
+                            removeIndex = i
+                            binding.searchFilterSelect.removeViewAt(removeIndex)
+                            break
+                        }
+                    }
+                }
+            }
+        })
+
+
     }
 
     private fun foodFilterGenerate() {
@@ -332,8 +364,13 @@ class SearchFilter : Fragment() {
     fun resetClick(view: View) {
         //음식선택일때
         if (binding.searchFilterFoodCon.visibility == View.VISIBLE) {
-//            searchViewModel.categoryList.value!!.clear()
-            filterViewHashMap.clear()
+            for (i in searchViewModel.filterHashMap.keys) {
+                val mainFilterPosition = i / 10
+                val subFilterPosition = i % 10
+                searchViewModel.subCategoryList[mainFilterPosition][subFilterPosition].check = false
+            }
+            searchViewModel.filterHashMap.clear()
+            searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
         }
 
         //옵션선택일때

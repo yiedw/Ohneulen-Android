@@ -25,6 +25,9 @@ class SearchFilterSubAdapter() :
 
         fun subFilterBind(items: Category) {
             binding.apply {
+                if (items.check) {
+                    filterCheck.visibility = View.VISIBLE
+                }
                 filterCategory.text = items.minorName
                 filterCategory.setTextColor(
                     ContextCompat.getColor(
@@ -34,8 +37,23 @@ class SearchFilterSubAdapter() :
                 )
                 root.setOnClickListener {
                     searchViewModel.subCategoryPosition = adapterPosition
-                    val tempCategoryList = searchViewModel.categoryList.value
-                    searchViewModel.categoryList.postValue(tempCategoryList)
+                    val subCategory =
+                        searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
+
+                    subCategory.check = !subCategory.check
+                    searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                    if (subCategory.check) {
+                        searchViewModel.filterHashMap.set(
+                            searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition,
+                            items.minorCode
+                        )
+                    } else {
+                        searchViewModel.filterHashMap.remove(
+                            searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition
+                        )
+                    }
+
+
                 }
             }
         }

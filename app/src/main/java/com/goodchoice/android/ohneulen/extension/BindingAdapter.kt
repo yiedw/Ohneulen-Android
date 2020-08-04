@@ -36,28 +36,6 @@ fun setSearchStoreAdapter(
 }
 
 //filter
-//@BindingAdapter("filterAdapter", "categoryList", "searchFilterViewModel")
-//fun setFilterAdapter(
-//    recyclerView: RecyclerView,
-//    adapter: SearchFilterAdapter,
-//    items: MutableList<Category>,
-//    viewModel: SearchViewModel
-//) {
-//    recyclerView.adapter = adapter.apply {
-//        searchViewModel = viewModel
-//        itemList = items
-//    }
-//}
-
-//fun setFilterMainAdapter(
-//    recyclerView: RecyclerView,
-//    items: MutableList<Category>
-//) {
-//    recyclerView.adapter=SearchFilterMainAdapter().apply {
-//        submitList(items)
-//    }
-//}
-
 @BindingAdapter("subCategory", "subCategoryViewModel")
 fun setFilterSubAdapter(
     recyclerView: RecyclerView,

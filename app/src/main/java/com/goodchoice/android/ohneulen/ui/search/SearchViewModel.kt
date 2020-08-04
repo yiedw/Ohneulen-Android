@@ -24,20 +24,16 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 //        emit(getStore())
 //    }
     var searchStoreList = MutableLiveData<List<Store>>()
-
     val searchStoreAdapter = SearchStoreAdapter()
 
-//    val mainCategoryAdapter = SearchFilterAdapter(ConstList.MAIN_CATEGORY)
-//    val subCategoryAdapter = SearchFilterAdapter(ConstList.SUB_CATEGORY)
+    val filterHashMap=HashMap<Int,String>()
+
 
 
     var mainCategoryPosition = MutableLiveData<Int>(0)
     var subCategoryPosition = 0
-    val categoryList = MutableLiveData(initData.mainCategoryList)
+//    val categoryList = MutableLiveData(initData.mainCategoryList)
 
-    var filterViewHashMap = HashMap<String, View>()
-    var filterMainPositionHashMap = HashMap<String, Int>()
-    var filterSubPositionHashMap = HashMap<String, Int>()
 
 
     val mainCategory = initData.mainCategoryList
