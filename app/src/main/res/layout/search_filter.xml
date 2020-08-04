@@ -73,32 +73,35 @@
             app:layout_constraintBottom_toTopOf="@id/search_filter_submit"
             app:layout_constraintTop_toBottomOf="@id/search_filter_choice">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_filter_mainRv"
+            <LinearLayout
+                android:id="@+id/search_filter_main"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="#f6f6f6"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/search_filter_subRv"
-                bind:categoryList="@{viewModel.mainCategory}"
-                bind:filterAdapter="@{viewModel.mainCategoryAdapter}"
-                bind:searchFilterViewModel="@{viewModel}" />
+                app:layout_constraintRight_toLeftOf="@id/search_filter_subRv">
 
+            </LinearLayout>
+
+            <!--            화면 면적 잡아주기-->
+            <!--            <View-->
+            <!--                android:id="@+id/search_filter_etc1"-->
+            <!--                android:layout_width="200dp"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                app:layout_constraintLeft_toRightOf="@id/search_filter_main"-->
+            <!--                app:layout_constraintRight_toRightOf="parent" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_filter_subRv"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:background="@android:color/white"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@id/search_filter_mainRv"
-                app:layout_constraintLeft_toRightOf="@id/search_filter_mainRv"
+                app:layout_constraintLeft_toRightOf="@id/search_filter_main"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/search_filter_mainRv"
-                bind:categoryList="@{viewModel.subCategory}"
-                bind:filterAdapter="@{viewModel.subCategoryAdapter}"
-                bind:searchFilterViewModel="@{viewModel}" />
+                bind:subCategory="@{viewModel.subCategory}"
+                bind:subCategoryViewModel="@{viewModel}" />
 
 
             <TextView
@@ -267,6 +270,7 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

@@ -11,11 +11,12 @@ import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
-import com.goodchoice.android.ohneulen.ui.search.SearchFilterAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
+import com.goodchoice.android.ohneulen.ui.search.SearchFilterMainAdapter
+import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
@@ -35,16 +36,37 @@ fun setSearchStoreAdapter(
 }
 
 //filter
-@BindingAdapter("filterAdapter", "categoryList", "searchFilterViewModel")
-fun setFilterAdapter(
+//@BindingAdapter("filterAdapter", "categoryList", "searchFilterViewModel")
+//fun setFilterAdapter(
+//    recyclerView: RecyclerView,
+//    adapter: SearchFilterAdapter,
+//    items: MutableList<Category>,
+//    viewModel: SearchViewModel
+//) {
+//    recyclerView.adapter = adapter.apply {
+//        searchViewModel = viewModel
+//        itemList = items
+//    }
+//}
+
+//fun setFilterMainAdapter(
+//    recyclerView: RecyclerView,
+//    items: MutableList<Category>
+//) {
+//    recyclerView.adapter=SearchFilterMainAdapter().apply {
+//        submitList(items)
+//    }
+//}
+
+@BindingAdapter("subCategory", "subCategoryViewModel")
+fun setFilterSubAdapter(
     recyclerView: RecyclerView,
-    adapter: SearchFilterAdapter,
-    items: MutableList<Category>,
+    items: List<Category>,
     viewModel: SearchViewModel
 ) {
-    recyclerView.adapter = adapter.apply {
+    recyclerView.adapter = SearchFilterSubAdapter().apply {
         searchViewModel = viewModel
-        itemList = items
+        submitList(items)
     }
 }
 

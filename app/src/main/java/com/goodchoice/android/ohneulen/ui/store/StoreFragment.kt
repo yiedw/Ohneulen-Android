@@ -83,14 +83,14 @@ class StoreFragment : Fragment() {
 
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             storeHeader(it)
-
+            binding.storeNewScrollView.scrollTo(0, 0)
         })
         viewPagerSetting()
         stickyHeader()
+        binding.storeNewScrollView.scrollTo(0, 0)
 
 
     }
-
 
 
     //카테고리 좋아요 후기 갯수
@@ -105,8 +105,9 @@ class StoreFragment : Fragment() {
             ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
         )
 
-        val text = TextUtils.concat("${store.cate1Name!!.minorName} /좋아요 ",likeCnt," /후기 ",reviewCnt)
-        binding.storeFragmentDetail.text =text
+        val text =
+            TextUtils.concat("${store.cate1Name!!.minorName} /좋아요 ", likeCnt, " /후기 ", reviewCnt)
+        binding.storeFragmentDetail.text = text
     }
 
 

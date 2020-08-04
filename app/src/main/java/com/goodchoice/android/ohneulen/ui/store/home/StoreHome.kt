@@ -36,7 +36,6 @@ class StoreHome : Fragment() {
             container,
             false
         )
-//        binding.storeHome.scrollTo(0, 0)
         binding.fragment = this
         binding.viewModel = storeViewModel
         return binding.root
@@ -47,6 +46,7 @@ class StoreHome : Fragment() {
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             storeUpdate(it)
         })
+
     }
 
     //개업일 업데이트

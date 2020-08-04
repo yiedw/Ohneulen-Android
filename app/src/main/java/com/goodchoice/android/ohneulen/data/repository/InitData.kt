@@ -1,7 +1,6 @@
 package com.goodchoice.android.ohneulen.data.repository
 
 import com.goodchoice.android.ohneulen.data.model.Category
-import com.goodchoice.android.ohneulen.data.model.MainCategory
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +13,8 @@ class InitData(private val networkService: NetworkService) {
 
     private val memId = "aaa@aa.com"
     private val memPw = "qwer1234"
-    var categoryList = mutableListOf<MainCategory>()
+    var mainCategoryList = mutableListOf<Category>()
+    var subCategoryList = mutableListOf<List<Category>>()
 
     init {
         tempLogin()
@@ -31,12 +31,11 @@ class InitData(private val networkService: NetworkService) {
 
     //카테고리
     private fun getCategory() {
-        categoryList = mutableListOf<MainCategory>()
         CoroutineScope(Dispatchers.IO).launch {
             val mainCategoryResponse = networkService.requestCategory("category".toRequestBody())
 
             for (i in mainCategoryResponse.resultData.indices) {
-                val subCategoryList = mutableListOf<Category>()
+                val tempSubCategoryList = mutableListOf<Category>()
                 CoroutineScope(Dispatchers.IO).async {
                     val subCategoryResponse = networkService.requestCategory(
                         mainCategoryResponse.resultData[i].minorCode.toRequestBody()
@@ -45,7 +44,7 @@ class InitData(private val networkService: NetworkService) {
                         val subCategoryMajorCode = subCategoryResponse.resultData[j].majorCode
                         val subCategoryMinorCode = subCategoryResponse.resultData[j].minorCode
                         val subCategoryMinorName = subCategoryResponse.resultData[j].minorName
-                        subCategoryList.add(
+                        tempSubCategoryList.add(
                             Category(
                                 subCategoryMajorCode,
                                 subCategoryMinorCode,
@@ -58,11 +57,19 @@ class InitData(private val networkService: NetworkService) {
                 val mainMajorCode = mainCategoryResponse.resultData[i].majorCode
                 val mainMinorCode = mainCategoryResponse.resultData[i].minorCode
                 val mainMinorName = mainCategoryResponse.resultData[i].minorName
-                categoryList.add(
-                    MainCategory(mainMajorCode, mainMinorCode, mainMinorName, subCategoryList)
-                )
+                if (i == 0) {
+                    mainCategoryList.add(
+                        Category(mainMajorCode, mainMinorCode, mainMinorName, true)
+                    )
+                }
+                else{
+                    mainCategoryList.add(
+                        Category(mainMajorCode, mainMinorCode, mainMinorName, false)
+                    )
+                }
+                subCategoryList.add(tempSubCategoryList)
             }
-            Timber.e(categoryList.toString())
+            Timber.e(mainCategoryList.toString())
         }
     }
 }

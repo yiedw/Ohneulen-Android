@@ -1,5 +1,8 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +35,9 @@ class SearchFilter : Fragment() {
     private var filterSubPositionHashMap = HashMap<String, Int>()
     var check = false
 
+    var position = 0
+    var previousPosition = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,84 +61,50 @@ class SearchFilter : Fragment() {
         filterMainPositionHashMap = searchViewModel.filterMainPositionHashMap
         filterSubPositionHashMap = searchViewModel.filterSubPositionHashMap
 
-        val reverse = filterViewHashMap.keys.reversed()
-        for (i in reverse) {
-            val filterMainPosition = filterMainPositionHashMap[i]
-            val filterSubPosition = filterSubPositionHashMap[i]
-            val filterName =
-                searchViewModel.categoryList.value!![filterMainPosition!!].subCategoryList[filterSubPosition!!].minorName
-
-            val layoutInflater = this.layoutInflater
-            val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
-            selectView.findViewById<TextView>(R.id.filter_select_title).text =
-                filterName
-
-            selectView.setOnClickListener {
-                check = false
-                val categoryList = searchViewModel.categoryList.value
-                categoryList!![filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
-                    false
-//                        Timber.e(filterMainPositionHashMap[filterCode].toString()+","+filterSubPositionHashMap[filterCode])
-                filterMainPositionHashMap.remove(i)
-                filterSubPositionHashMap.remove(i)
-                filterViewHashMap.remove(i)
-                binding.searchFilterSelect.removeView(selectView)
-                searchViewModel.categoryList.value = categoryList
-            }
-            binding.searchFilterSelect.addView(selectView)
-        }
+//        val reverse = filterViewHashMap.keys.reversed()
+//        for (i in reverse) {
+//            val filterMainPosition = filterMainPositionHashMap[i]
+//            val filterSubPosition = filterSubPositionHashMap[i]
+//            val filterName =
+//                searchViewModel.categoryList.value!![filterMainPosition!!].subCategoryList[filterSubPosition!!].minorName
+//
+//            val layoutInflater = this.layoutInflater
+//            val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
+//            selectView.findViewById<TextView>(R.id.filter_select_title).text =
+//                filterName
+//
+//            selectView.setOnClickListener {
+//                check = false
+//                val categoryList = searchViewModel.categoryList.value
+//                categoryList!![filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
+//                    false
+////                        Timber.e(filterMainPositionHashMap[filterCode].toString()+","+filterSubPositionHashMap[filterCode])
+//                filterMainPositionHashMap.remove(i)
+//                filterSubPositionHashMap.remove(i)
+//                filterViewHashMap.remove(i)
+//                binding.searchFilterSelect.removeView(selectView)
+//                searchViewModel.categoryList.value = categoryList
+//            }
+//            binding.searchFilterSelect.addView(selectView)
+//        }
 
         MainActivity.bottomNav.visibility = View.GONE
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        App.categorySwitch.observe(
-//            viewLifecycleOwner, Observer {
-//            }
-//        )
 
-//        //메인카테고리 클릭시 서브카테고리 변경
-        searchViewModel.mainCategoryPosition.observe(viewLifecycleOwner,
-            Observer {
-                searchViewModel.subCategory.postValue(searchViewModel.categoryList.value!![it].subCategoryList)
-            })
-        //체크리스트 저장
-        searchViewModel.categoryList.observe(viewLifecycleOwner,
-            Observer {
-                searchViewModel.subCategory.value =
-                    searchViewModel.categoryList.value!![searchViewModel.mainCategoryPosition.value!!].subCategoryList
-                if (!check) {
-                    check = true
-                    if (filterViewHashMap.isNullOrEmpty()) {
-                        binding.searchFilterTv1.visibility = View.GONE
-                    } else {
-                        binding.searchFilterTv1.visibility = View.VISIBLE
-                    }
-                    return@Observer
-                }
-                val index = searchViewModel.subCategoryPosition
-                val filterCode = searchViewModel.subCategory.value!![index].minorCode
-                val filterName = searchViewModel.subCategory.value!![index].minorName
-                makeSelectView(filterCode, filterName, index)
 
-            })
+        //메인카테고리 클릭시 서브 카테고리 변경
+        searchViewModel.mainCategoryPosition.observe(viewLifecycleOwner, Observer {
+            searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[it])
+        })
 
-        //초기화 클릭
-//        binding.searchFilterReset.setOnClickListener {
-//            val categoryList = searchViewModel.categoryList.value!!
-//            Timber.e(filterViewHashMap.keys.size.toString())
-//            for (i in filterViewHashMap.keys) {
-//                categoryList[filterMainPositionHashMap[i]!!].subCategoryList[filterSubPositionHashMap[i]!!].check =
-//                    false
-//            }
-//            searchViewModel.categoryList.postValue(categoryList)
-//            filterViewHashMap.clear()
-//            filterMainPositionHashMap.clear()
-//            filterSubPositionHashMap.clear()
-//            binding.searchFilterSelect.removeAllViews()
-//        }
+        //음식 메인카테고리 리스트 생성
+        foodFilterGenerate()
+
 
         //선택완료 클릭
         binding.searchFilterSubmit.setOnClickListener {
@@ -169,55 +141,99 @@ class SearchFilter : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        searchViewModel.filterViewHashMap = filterViewHashMap
-        searchViewModel.filterMainPositionHashMap = filterMainPositionHashMap
-        searchViewModel.filterSubPositionHashMap = filterSubPositionHashMap
-        binding.searchFilterSelect.removeAllViewsInLayout()
         MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
-    //체크리스트 뷰 만들기
-    private fun makeSelectView(filterCode: String, filterName: String, index: Int) {
 
-        if (searchViewModel.subCategory.value!![index].check) {
-            val layoutInflater = this.layoutInflater
-            val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
-            selectView.findViewById<TextView>(R.id.filter_select_title).text =
-                filterName
+    private fun subCategoryChange() {
+    }
 
-            filterMainPositionHashMap[filterCode] =
-                searchViewModel.mainCategoryPosition.value!!
-            filterSubPositionHashMap[filterCode] = searchViewModel.subCategoryPosition
-            selectView.setOnClickListener {
-                check = false
-                val categoryList = searchViewModel.categoryList.value
-                categoryList!![filterMainPositionHashMap[filterCode]!!].subCategoryList[filterSubPositionHashMap[filterCode]!!].check =
-                    false
+    private fun foodFilterGenerate() {
+        val mainCategory = searchViewModel.mainCategory
+        for (i in mainCategory.indices) {
+            val inflater =
+                requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            inflater.inflate(R.layout.search_filter_item, binding.searchFilterMain, true)
+            val childView = binding.searchFilterMain.getChildAt(i)
+            childView.findViewById<TextView>(R.id.filter_category).text = mainCategory[i].minorName
 
-                filterMainPositionHashMap.remove(filterCode)
-                filterSubPositionHashMap.remove(filterCode)
-                filterViewHashMap.remove(filterCode)
-                binding.searchFilterSelect.removeView(selectView)
-                searchViewModel.categoryList.value = categoryList
+            if (i == 0) {
+                childView.findViewById<TextView>(R.id.filter_category).setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+                childView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorOhneulen
+                    )
+                )
             }
-            binding.searchFilterSelect.addView(selectView)
-            filterViewHashMap[filterCode] = selectView
-        } else {
-            if (filterViewHashMap[filterCode] != null) {
-                binding.searchFilterSelect.removeView(filterViewHashMap[filterCode])
-                filterMainPositionHashMap.remove(filterCode)
-                filterSubPositionHashMap.remove(filterCode)
-                filterViewHashMap.remove(filterCode)
+            //클릭했을때
+            childView.setOnClickListener {
+                previousPosition = position
+                position = i
+                val previousView = binding.searchFilterMain.getChildAt(previousPosition)
+                previousView.findViewById<TextView>(R.id.filter_category).setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorGrey88
+                    )
+                )
+                previousView.setBackgroundColor(
+                    Color.parseColor("#f6f6f6")
+                )
+                childView.findViewById<TextView>(R.id.filter_category).setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+                childView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorOhneulen
+                    )
+                )
+                searchViewModel.mainCategoryPosition.postValue(position)
+
             }
+
         }
-        //2개가 필요
-        if (filterViewHashMap.isNullOrEmpty()) {
-            binding.searchFilterTv1.visibility = View.GONE
-        } else {
-            binding.searchFilterTv1.visibility = View.VISIBLE
-        }
+    }
+
+    private fun toggleButtonGenerate(text: String): ToggleButton {
+
+        // convenience list를 가져와서 갯수만큼 뷰를 추가
+
+        val param = GridLayout.LayoutParams()
+        param.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+        param.height = 32.dp()
 
 
+        val tb = ToggleButton(requireContext())
+        tb.layoutParams = param
+//        tb.gravity = Gravity.CENTER
+//        tb.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
+        tb.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+        tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+        tb.text = text
+        tb.textOff = text
+        tb.textOn = text
+        tb.setPadding(0, 0, 0, 0)
+        tb.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                tb.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.background_rounding_ohneulen
+                )
+            } else {
+                tb.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+            }
+
+        }
+
+        return tb
+//        binding.searchFilterConvenience.addView()
     }
 
     fun onFoodClick(view: View) {
@@ -262,44 +278,6 @@ class SearchFilter : Fragment() {
             )
         )
         binding.searchFilterFood.background = null
-    }
-
-    private fun toggleButtonGenerate(text: String): ToggleButton {
-
-        // convenience list를 가져와서 갯수만큼 뷰를 추가
-
-        val param = GridLayout.LayoutParams()
-        param.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-        param.height = 32.dp()
-
-
-        val tb = ToggleButton(requireContext())
-        tb.layoutParams = param
-//        tb.gravity = Gravity.CENTER
-//        tb.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
-        tb.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
-        tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
-        tb.text = text
-        tb.textOff = text
-        tb.textOn = text
-        tb.setPadding(0, 0, 0, 0)
-        tb.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                tb.background = ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.background_rounding_ohneulen
-                )
-            } else {
-                tb.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
-                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
-            }
-
-        }
-
-        return tb
-//        binding.searchFilterConvenience.addView()
     }
 
     fun sortButtonClick(view: View) {
@@ -351,15 +329,15 @@ class SearchFilter : Fragment() {
         }
     }
 
-    fun resetClick(view:View){
+    fun resetClick(view: View) {
         //음식선택일때
-        if(binding.searchFilterFoodCon.visibility==View.VISIBLE){
+        if (binding.searchFilterFoodCon.visibility == View.VISIBLE) {
 //            searchViewModel.categoryList.value!!.clear()
             filterViewHashMap.clear()
         }
 
         //옵션선택일때
-        else{
+        else {
 
         }
 

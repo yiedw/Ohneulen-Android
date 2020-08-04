@@ -115,6 +115,7 @@
             app:layout_constraintTop_toTopOf="@id/review_item_good" />
 
         <View
+            android:id="@+id/review_item_border"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"

@@ -27,51 +27,24 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 
     val searchStoreAdapter = SearchStoreAdapter()
 
-    val mainCategoryAdapter = SearchFilterAdapter(ConstList.MAIN_CATEGORY)
-    val subCategoryAdapter = SearchFilterAdapter(ConstList.SUB_CATEGORY)
+//    val mainCategoryAdapter = SearchFilterAdapter(ConstList.MAIN_CATEGORY)
+//    val subCategoryAdapter = SearchFilterAdapter(ConstList.SUB_CATEGORY)
+
+
     var mainCategoryPosition = MutableLiveData<Int>(0)
     var subCategoryPosition = 0
-    val categoryList = MutableLiveData(initData.categoryList)
+    val categoryList = MutableLiveData(initData.mainCategoryList)
 
     var filterViewHashMap = HashMap<String, View>()
     var filterMainPositionHashMap = HashMap<String, Int>()
     var filterSubPositionHashMap = HashMap<String, Int>()
 
 
-    val mainCategory = mainCategoryInit()
+    val mainCategory = initData.mainCategoryList
+    val subCategoryList = initData.subCategoryList
+    var subCategory=MutableLiveData<List<Category>>(subCategoryList[0])
 
-    var subCategory = MutableLiveData(categoryList.value!![0].subCategoryList)
-//    var subCategory = MutableLiveData(subCategoryInit())
 
-    private fun mainCategoryInit(): MutableList<Category> {
-        val temp = mutableListOf<Category>()
-        for (i in categoryList.value!!.indices) {
-            temp.add(
-                Category(
-                    categoryList.value!![i].majorCode,
-                    categoryList.value!![i].minorCode,
-                    categoryList.value!![i].minorName,
-                    false
-                )
-            )
-        }
-        return temp
-    }
-
-//    private fun subCategoryInit(): MutableList<Category> {
-//        val temp = mutableListOf<Category>()
-//        for (i in categoryList[0].subCategoryList.indices) {
-//            temp.add(
-//                Category(
-//                    categoryList[0].subCategoryList[i].majorCode,
-//                    categoryList[0].subCategoryList[i].minorCode,
-//                    categoryList[0].subCategoryList[i].minorName,
-//                    false
-//                )
-//            )
-//        }
-//        return temp
-//    }
 
     fun getStoreList() {
         viewModelScope.launch(Dispatchers.IO) {
