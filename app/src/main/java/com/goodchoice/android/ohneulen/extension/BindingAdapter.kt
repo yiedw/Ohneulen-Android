@@ -15,7 +15,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
-import com.goodchoice.android.ohneulen.ui.search.SearchFilterMainAdapter
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageDetailAdapter
@@ -130,10 +130,11 @@ fun setInquire(recyclerView: RecyclerView, adapter: InquireAdapter, items: List<
     }
 }
 
-@BindingAdapter("FAQAdapter", "FAQ")
-fun setFAQ(recyclerView: RecyclerView, adapter: FAQAdapter, items: List<FAQ>?) {
-    recyclerView.adapter = adapter.apply {
+@BindingAdapter( "FAQ","mypageViewModelFAQ")
+fun setFAQ(recyclerView: RecyclerView, items: List<FAQ>?,viewModel:MyPageViewModel) {
+    recyclerView.adapter = FAQAdapter().apply {
         if (items != null) {
+            myPageViewModel=viewModel
             submitList(items)
         }
     }

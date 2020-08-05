@@ -1,8 +1,10 @@
 package com.goodchoice.android.ohneulen.ui.home
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -75,6 +77,23 @@ class Home() : Fragment(),OnBackPressedListener {
 
             return@setOnEditorActionListener false
         }
+
+        binding.homeEditText.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.homeEditText.text.toString().isEmpty()) {
+                    binding.homeClear.visibility = View.GONE
+                } else {
+                    binding.homeClear.visibility = View.VISIBLE
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
     }
 
     fun searchOnClick(view: View) {

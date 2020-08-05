@@ -4,7 +4,8 @@ data class FAQ(
     val seq:String,
     val classification:String,
     val title:String,
-    val content:String
+    val content:String,
+    var check:Boolean=false
 )
 
 fun getFAQ(): List<FAQ> {

@@ -8,11 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageTermsAppbarBinding
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import timber.log.Timber
 
-class MyPageTermsAppBar :Fragment(){
+class MyPageTermsAppBar :Fragment(),OnBackPressedListener{
 
     companion object{
         fun newInstance()=MyPageTermsAppBar()
@@ -36,6 +37,11 @@ class MyPageTermsAppBar :Fragment(){
     }
 
     fun onBackClick(view:View){
+        replaceMainFragment(MyPage.newInstance())
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+    }
+
+    override fun onBackPressed() {
         replaceMainFragment(MyPage.newInstance())
         replaceAppbarFragment(MyPageAppBar.newInstance())
     }

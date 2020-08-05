@@ -2,6 +2,8 @@ package com.goodchoice.android.ohneulen.ui.search
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,10 +74,26 @@ class SearchAppBar : Fragment() {
             }
             return@setOnEditorActionListener false
         }
+
+        binding.searchAppbarEt.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.searchAppbarEt.text.toString().isEmpty()) {
+                    binding.searchAppbarClear.visibility = View.GONE
+                } else {
+                    binding.searchAppbarClear.visibility = View.VISIBLE
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
     }
 
-    fun submitClick(view:View){
-        searchViewModel.searchEditText=binding.searchAppbarEt.text.toString()
+    fun submitClick(view: View) {
+        searchViewModel.searchEditText = binding.searchAppbarEt.text.toString()
         searchViewModel.searchMapData()
     }
 

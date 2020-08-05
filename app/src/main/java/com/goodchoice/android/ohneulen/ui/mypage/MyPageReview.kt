@@ -8,6 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageReviewBinding
+import com.goodchoice.android.ohneulen.ui.search.Search
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyPageReview : Fragment() {
@@ -34,4 +38,11 @@ class MyPageReview : Fragment() {
         binding.viewModel=mypageViewModel
         return binding.root
     }
+
+    fun moveSearch(view: View) {
+        replaceMainFragment(Search.newInstance())
+        replaceAppbarFragment(SearchAppBar.newInstance())
+    }
+
+
 }

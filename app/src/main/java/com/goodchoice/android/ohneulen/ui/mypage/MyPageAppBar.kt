@@ -84,5 +84,6 @@ class MyPageAppBar : Fragment(), OnBackPressedListener {
     override fun onBackPressed() {
         replaceAppbarFragment(HomeAppBar.newInstance())
         replaceMainFragment(Home.newInstance())
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 }

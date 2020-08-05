@@ -65,6 +65,10 @@ class Search : Fragment() {
             binding.fragment = this@Search
             viewModel = searchViewModel
         }
+        //맵 (삭제, 추가)
+        val searchMapFragment = SearchMap.newInstance()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.search_map, searchMapFragment).commit()
         return binding.root
     }
 
@@ -73,10 +77,7 @@ class Search : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        //맵 (삭제, 추가)
-        val searchMapFragment = SearchMap.newInstance()
-        childFragmentManager.beginTransaction()
-            .replace(R.id.search_map, searchMapFragment).commit()
+
 
 
         //검색어 없을시 토스트 띄우기

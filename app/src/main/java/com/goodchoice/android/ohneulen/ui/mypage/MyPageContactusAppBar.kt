@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageContactusAppbarBinding
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class MyPageContactusAppBar : Fragment() {
+class MyPageContactusAppBar : Fragment() ,OnBackPressedListener{
     companion object {
         fun newInstance() = MyPageContactusAppBar()
     }
@@ -34,6 +35,11 @@ class MyPageContactusAppBar : Fragment() {
     }
 
     fun backClick(view:View){
+        replaceAppbarFragment(MyPageAppBar.newInstance())
+        replaceMainFragment(MyPage.newInstance())
+    }
+
+    override fun onBackPressed() {
         replaceAppbarFragment(MyPageAppBar.newInstance())
         replaceMainFragment(MyPage.newInstance())
     }

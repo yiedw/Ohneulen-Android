@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
@@ -27,9 +28,7 @@ class MyPageViewModel : ViewModel() {
     }
 
     //자주 찾는 질문
-    var mypageFAQAdapter= FAQAdapter()
-    var mypageFAQList:LiveData<List<FAQ>> = liveData(Dispatchers.IO){
-        emit(getFAQ())
-    }
+//    var mypageFAQAdapter= FAQAdapter()
+    var mypageFAQList = MutableLiveData(getFAQ())
 
 }

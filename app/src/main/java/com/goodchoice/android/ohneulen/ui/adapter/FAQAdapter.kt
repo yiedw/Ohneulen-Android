@@ -11,22 +11,41 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.FAQ
 import com.goodchoice.android.ohneulen.databinding.FaqItemBinding
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel
+import timber.log.Timber
 
 class FAQAdapter : ListAdapter<FAQ, FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
 
+    lateinit var myPageViewModel: MyPageViewModel
 
     inner class FAQViewHolder(private val binding: FaqItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FAQ) {
             binding.apply {
+                if (item.check) {
+                    faqItemContent.visibility = View.VISIBLE
+//                    Glide.with(binding.root).load(R.drawable.close).into(binding.faqItemOpen)
+                } else {
+                    faqItemContent.visibility = View.GONE
+//                    Glide.with(binding.root).load(R.drawable.open).into(binding.faqItemOpen)
+                }
                 faqItem.setOnClickListener {
-                    if (faqItemContent.visibility == View.GONE) {
-                        faqItemContent.visibility = View.VISIBLE
-                        Glide.with(binding.root).load(R.drawable.close).into(binding.faqItemOpen)
-                    } else {
-                        faqItemContent.visibility = View.GONE
-                        Glide.with(binding.root).load(R.drawable.open).into(binding.faqItemOpen)
+                    for (i in myPageViewModel.mypageFAQList.value!!.indices) {
+                        if (i != adapterPosition && myPageViewModel.mypageFAQList.value!![i].check) {
+                            myPageViewModel.mypageFAQList.value!![i].check = false
+                            notifyItemChanged(i)
+                        }
                     }
+                    myPageViewModel.mypageFAQList.value!![adapterPosition].check =
+                        !myPageViewModel.mypageFAQList.value!![adapterPosition].check
+                    notifyItemChanged(adapterPosition)
+//                    if (faqItemContent.visibility == View.GONE) {
+//                        faqItemContent.visibility = View.VISIBLE
+//                        Glide.with(binding.root).load(R.drawable.close).into(binding.faqItemOpen)
+//                    } else {
+//                        faqItemContent.visibility = View.GONE
+//                        Glide.with(binding.root).load(R.drawable.open).into(binding.faqItemOpen)
+//                    }
                 }
                 faq = item
             }

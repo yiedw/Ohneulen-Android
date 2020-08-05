@@ -29,11 +29,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:onClick="@{fragment::submitClick}"
             android:id="@+id/search_appbar_submit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
+            android:onClick="@{fragment::submitClick}"
             android:src="@drawable/search"
             app:layout_constraintBottom_toBottomOf="@id/search_appbar_et"
             app:layout_constraintLeft_toLeftOf="@id/search_appbar_et"
@@ -55,8 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/filter"
             android:onClick="@{fragment::filterClick}"
+            android:src="@drawable/filter"
             app:layout_constraintBottom_toBottomOf="@id/search_appbar_et"
             app:layout_constraintRight_toRightOf="@id/search_appbar_et"
             app:layout_constraintTop_toTopOf="@id/search_appbar_et" />

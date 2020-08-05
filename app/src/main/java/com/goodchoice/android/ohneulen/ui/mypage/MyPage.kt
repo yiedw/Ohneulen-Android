@@ -38,7 +38,6 @@ class MyPage : Fragment() {
             false
         )
         binding.fragment = this
-        MainActivity.bottomNav.visibility = View.GONE
         return binding.root
     }
 
@@ -62,10 +61,7 @@ class MyPage : Fragment() {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MainActivity.bottomNav.visibility = View.VISIBLE
-    }
+
 
     fun infoClick(view: View) {
         if (loginViewModel.isLogin.value!!) {

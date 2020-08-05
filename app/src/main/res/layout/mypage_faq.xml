@@ -22,7 +22,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             bind:FAQ="@{viewModel.mypageFAQList}"
-            bind:FAQAdapter="@{viewModel.mypageFAQAdapter}" />
+            bind:mypageViewModelFAQ="@{viewModel}"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
