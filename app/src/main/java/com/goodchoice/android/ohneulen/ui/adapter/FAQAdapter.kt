@@ -24,10 +24,12 @@ class FAQAdapter : ListAdapter<FAQ, FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
             binding.apply {
                 if (item.check) {
                     faqItemContent.visibility = View.VISIBLE
-//                    Glide.with(binding.root).load(R.drawable.close).into(binding.faqItemOpen)
+                    faqItemOpen.visibility = View.GONE
+                    faqItemClose.visibility = View.VISIBLE
                 } else {
                     faqItemContent.visibility = View.GONE
-//                    Glide.with(binding.root).load(R.drawable.open).into(binding.faqItemOpen)
+                    faqItemOpen.visibility = View.VISIBLE
+                    faqItemClose.visibility = View.GONE
                 }
                 faqItem.setOnClickListener {
                     for (i in myPageViewModel.mypageFAQList.value!!.indices) {

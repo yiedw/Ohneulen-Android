@@ -13,6 +13,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget=JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "com.goodchoice.android.ohneulen"
@@ -36,7 +39,6 @@ android {
 
     //review_chart 쓸때 필요
 //    configurations { implementation.exclude group: 'org.jetbrains', module: 'annotations' }
-
 
 
 }

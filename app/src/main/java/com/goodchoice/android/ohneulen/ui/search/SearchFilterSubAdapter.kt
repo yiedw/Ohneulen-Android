@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -40,13 +41,19 @@ class SearchFilterSubAdapter() :
                     val subCategory =
                         searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
 
+                    if (!subCategory.check) {
+                        if (searchViewModel.filterHashMap.size > 4) {
+                            Toast.makeText(root.context, "최대 5개까지 선택 가능합니다.", Toast.LENGTH_SHORT)
+                                .show()
+                            return@setOnClickListener
+                        }
+
+                    }
                     subCategory.check = !subCategory.check
                     searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
                     if (subCategory.check) {
-                        searchViewModel.filterHashMap.set(
-                            searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition,
+                        searchViewModel.filterHashMap[searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition] =
                             items.minorCode
-                        )
                     } else {
                         searchViewModel.filterHashMap.remove(
                             searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition

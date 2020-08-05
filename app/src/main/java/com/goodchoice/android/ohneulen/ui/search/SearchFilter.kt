@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
+import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
@@ -33,9 +34,14 @@ class SearchFilter : Fragment() {
     var check = false
 
     var position = 0
-    var previousPosition = 0
+    private var previousPosition = 0
 
     var filterCheck = false
+
+    private var checkRecent=false
+    private var checkRating=false
+    private val checkConvenienceList= mutableListOf<Boolean>()
+    private val checkOpenList= mutableListOf<Boolean>()
 
 
     override fun onCreateView(
@@ -89,10 +95,16 @@ class SearchFilter : Fragment() {
 
         //options 편의바 생성
         //sample
+
+
         val sampleConvenienceList = listOf<String>(
             "영업중", "주차 가능", "예약 가능", "배달 가능", "포장 가능", "반려동물",
             "비건 식당", "놀이방", "와이파이"
         )
+        for(i in sampleConvenienceList.indices){
+            checkConvenienceList.add(false)
+        }
+        //뷰 생성
         for (i in sampleConvenienceList.iterator()) {
             binding.searchFilterConvenience.addView(toggleButtonGenerate(i))
         }
@@ -102,9 +114,16 @@ class SearchFilter : Fragment() {
         val sampleOpenList = listOf<String>(
             "연중무휴", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"
         )
+
+        for(i in sampleOpenList.indices){
+            checkOpenList.add(false)
+        }
+
+        //뷰 생성
         for (i in sampleOpenList.iterator()) {
             binding.searchFilterOpen.addView(toggleButtonGenerate(i))
         }
+
 
     }
 
@@ -364,6 +383,10 @@ class SearchFilter : Fragment() {
     fun resetClick(view: View) {
         //음식선택일때
         if (binding.searchFilterFoodCon.visibility == View.VISIBLE) {
+            if (searchViewModel.filterHashMap.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "음식을 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
+                return
+            }
             for (i in searchViewModel.filterHashMap.keys) {
                 val mainFilterPosition = i / 10
                 val subFilterPosition = i % 10
@@ -375,7 +398,7 @@ class SearchFilter : Fragment() {
 
         //옵션선택일때
         else {
-
+//            if(!checkRating )
         }
 
     }

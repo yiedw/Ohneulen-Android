@@ -29,6 +29,12 @@ class Login : Fragment() {
     private val loginViewModel: LoginViewModel by viewModel()
     private var emailCheck = false
     private var pwCheck = false
+
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.GONE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,10 +53,10 @@ class Login : Fragment() {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        MainActivity.bottomNav.visibility = View.GONE
 
 
         //이메일 검사
@@ -133,6 +139,11 @@ class Login : Fragment() {
             }
             return@setOnKeyListener false
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivity.bottomNav.visibility=View.VISIBLE
     }
 
 

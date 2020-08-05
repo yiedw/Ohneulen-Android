@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageLike" />
+            type="com.goodchoice.android.ohneulen.ui.like.Like" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:paddingHorizontal="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mypage_like_rv"
+            android:id="@+id/like_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mypage_like_zero"
+            android:id="@+id/like_zero"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_marginTop="15dp"
@@ -36,19 +36,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/mypage_like_empty_tv"
+                android:id="@+id/like_empty_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="13dp"
                 android:gravity="center"
                 android:text="더 많은 맛집이 있어요 \n 지금 찾으러 가보실래요?"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toTopOf="@id/mypage_like_empty_iv"
+                app:layout_constraintBottom_toTopOf="@id/like_empty_iv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <ImageView
-                android:id="@+id/mypage_like_empty_iv"
+                android:id="@+id/like_empty_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -57,7 +57,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mypage_like_empty_tv" />
+                app:layout_constraintTop_toBottomOf="@id/like_empty_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

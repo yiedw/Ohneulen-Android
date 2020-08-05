@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
@@ -17,6 +18,8 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
+import com.goodchoice.android.ohneulen.ui.like.Like
+import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
@@ -79,7 +82,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     when (segment) {
                         ConstList.SEGMENT_STORE -> {
                             val seq = deepLink.getQueryParameter(ConstList.SEQ)
-                            StoreFragment.storeSeq=seq!!
+                            StoreFragment.storeSeq = seq!!
                             replaceAppbarFragment(
                                 StoreAppBar.newInstance(),
                                 tag = "storeAppBar"
@@ -90,7 +93,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     }
                 } else {
                     //일반적으로 앱을 실행 했을때
-                    bottomNav.selectedItemId=R.id.menu_bottom_nav_home
+                    bottomNav.selectedItemId = R.id.menu_bottom_nav_home
                 }
             }
 
@@ -129,6 +132,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     //바텀 네비게이션 설정
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        bottomNav.visibility = View.VISIBLE
         when (item.itemId) {
             R.id.menu_bottom_nav_home -> {
                 replaceAppbarFragment(HomeAppBar.newInstance())
@@ -141,11 +145,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 return true
             }
 
-//            R.id.menu_bottom_nav_like -> {
-//                replaceAppbarFragment(MyPageLikeAppBar.newInstance())
-//                replaceMainFragment(MyPageLike.newInstance())
-//                return true
-//            }
+            R.id.menu_bottom_nav_like -> {
+                replaceAppbarFragment(LikeAppBar.newInstance())
+                replaceMainFragment(Like.newInstance())
+                return true
+            }
 
 
             R.id.menu_bottom_nav_more -> {

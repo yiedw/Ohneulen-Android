@@ -107,6 +107,7 @@ fun Int.dp(): Int {
         .toInt()
 }
 
+
 fun fcmToken(context: Context) {
 //    FirebaseApp.initializeApp(context)
     FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { task ->

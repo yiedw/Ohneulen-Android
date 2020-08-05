@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
@@ -102,6 +103,8 @@ class SearchAppBar : Fragment() {
     }
 
     fun filterClick(view: View) {
+        val imm=requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken,0)
         replaceAppbarFragment(SearchFilterAppbar.newInstance())
         addMainFragment(SearchFilter.newInstance(), true)
     }

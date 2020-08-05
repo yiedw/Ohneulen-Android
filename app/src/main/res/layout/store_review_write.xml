@@ -38,30 +38,30 @@
                     android:layout_marginTop="25dp"
                     android:text="@{viewModel.storeDetail.storeInfo.store.storeName}"
                     android:textAlignment="center"
-                    android:textSize="16sp"
                     android:textColor="@color/colorTextBlack"
+                    android:textSize="16sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:textColor="@color/colorTextBlack"
                     android:id="@+id/store_review_write_tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.storeDetail.storeInfo.store.storeName}"
                     android:textAlignment="center"
+                    android:textColor="@color/colorTextBlack"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/store_review_write_tv2"
                     app:layout_constraintTop_toBottomOf="@id/store_review_write_name" />
 
                 <TextView
-                    android:textColor="@color/colorTextBlack"
                     android:id="@+id/store_review_write_tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="에서 어떠셨나요?"
                     android:textAlignment="center"
+                    android:textColor="@color/colorTextBlack"
                     app:layout_constraintBottom_toBottomOf="@id/store_review_write_tv1"
                     app:layout_constraintLeft_toRightOf="@id/store_review_write_tv1"
                     app:layout_constraintRight_toRightOf="parent"
@@ -523,8 +523,8 @@
 
                 </RadioGroup>
 
-                <LinearLayout
-                    android:id="@+id/store_review_linear1"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/store_review_write_con1"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="25dp"
@@ -535,34 +535,60 @@
                     app:layout_constraintTop_toBottomOf="@id/store_review_rg5">
 
                     <EditText
+                        android:id="@+id/store_review_write_et"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@null"
-                        android:hint="후기를 작성해라"
+                        android:gravity="top"
+                        android:hint="후기를 작성해 주세요."
                         android:textColor="@color/colorCGrey"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:maxLength="1000"/>
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/store_review_write_et_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/colorCGrey"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/store_review_write_max_et" />
+
+                    <TextView
+                        android:id="@+id/store_review_write_max_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" /1,000"
+                        android:textColor="@color/colorCGrey"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:id="@+id/store_review_write_image"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="5"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/store_review_linear1">
+                    app:layout_constraintTop_toBottomOf="@id/store_review_write_con1">
 
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/store_review_write_image_p"
                         android:layout_width="60dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
+                        android:layout_height="60dp"
+                        android:layout_marginHorizontal="2.5dp"
                         android:background="@drawable/background_border_cgrey"
                         android:focusable="true"
                         android:gravity="center"
                         android:onClick="@{fragment::imageAdd}"
-                        android:text="+"
-                        android:textAlignment="center" />
+                        android:scaleType="center"
+                        android:src="@drawable/photo_plus" />
 
 
                 </LinearLayout>

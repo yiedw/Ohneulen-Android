@@ -54,6 +54,11 @@ class StoreFragment : Fragment() {
     private lateinit var binding: StoreFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
 
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.VISIBLE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

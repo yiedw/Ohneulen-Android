@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.mypage
+package com.goodchoice.android.ohneulen.ui.like
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,20 +8,27 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageLikeBinding
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
+import com.goodchoice.android.ohneulen.databinding.LikeBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.Search
+import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.goodchoice.android.ohneulen.util.textColor
-import timber.log.Timber
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MyPageLike : Fragment() {
-    companion object {
-        fun newInstance() = MyPageLike()
+class Like : Fragment() {
+
+    companion object{
+        fun newInstance()=Like()
     }
+    private lateinit var binding: LikeBinding
 
-    private lateinit var binding: MypageLikeBinding
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.VISIBLE
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,27 +37,18 @@ class MyPageLike : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_like,
+            R.layout.like,
             container,
             false
         )
-        binding.fragment = this
+        val text = binding.likeEmptyTv.text.toString()
+        binding.likeEmptyTv.text =
+            textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        //색 삽입
-        val text = binding.mypageLikeEmptyTv.text.toString()
-        binding.mypageLikeEmptyTv.text =
-            textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
-
-    }
     fun moveSearch(view: View) {
         replaceMainFragment(Search.newInstance())
         replaceAppbarFragment(SearchAppBar.newInstance())
     }
-
-
 }

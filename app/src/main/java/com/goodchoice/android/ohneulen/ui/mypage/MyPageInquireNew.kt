@@ -1,6 +1,8 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInquireNewBinding
+import java.text.DecimalFormat
 
 class MyPageInquireNew : Fragment() {
     companion object {
@@ -42,5 +45,36 @@ class MyPageInquireNew : Fragment() {
             it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = it
         }
+
+        //제목 글자수 세기
+        binding.mypageInquireNewEt1.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.mypageInquireNewEt1Length.text=binding.mypageInquireNewEt1.text.length.toString()
+            }
+
+        })
+
+        //내용 글자수 세기
+        binding.mypageInquireNewEt2.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val format=DecimalFormat("###,###")
+                val length=binding.mypageInquireNewEt2.length()
+                binding.mypageInquireNewEt2Length.text=format.format(length)
+            }
+
+        })
     }
 }

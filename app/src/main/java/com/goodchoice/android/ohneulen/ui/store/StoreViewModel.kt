@@ -57,6 +57,8 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 //
 //    }
 
+
+
     var storeReviewAdapter = ReviewAdapter()
 
 

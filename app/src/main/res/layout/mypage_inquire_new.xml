@@ -63,6 +63,29 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_spinner" />
 
+            <TextView
+                android:id="@+id/mypage_inquire_new_et1_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="0"
+                android:textColor="@color/colorCGrey"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@id/mypage_inquire_new_title"
+                app:layout_constraintLeft_toRightOf="@id/mypage_inquire_new_title"
+                app:layout_constraintTop_toTopOf="@id/mypage_inquire_new_title" />
+
+            <TextView
+                android:id="@+id/mypage_inquire_new_et1_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/30"
+                android:textColor="@color/colorCGrey"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@id/mypage_inquire_new_title"
+                app:layout_constraintLeft_toRightOf="@id/mypage_inquire_new_et1_length"
+                app:layout_constraintTop_toTopOf="@id/mypage_inquire_new_title" />
+
             <EditText
                 android:id="@+id/mypage_inquire_new_et1"
                 android:layout_width="match_parent"
@@ -70,6 +93,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/background_border_cgrey"
                 android:hint="제목을 입력해 주세요"
+                android:maxLength="30"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="10dp"
                 android:textColor="@color/colorTextBlack"
@@ -86,6 +110,28 @@
                 android:textColor="@color/colorTextBlack"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_et1" />
+            <TextView
+                android:id="@+id/mypage_inquire_new_et2_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="0"
+                android:textColor="@color/colorCGrey"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@id/mypage_inquire_new_content"
+                app:layout_constraintLeft_toRightOf="@id/mypage_inquire_new_title"
+                app:layout_constraintTop_toTopOf="@id/mypage_inquire_new_content" />
+
+            <TextView
+                android:id="@+id/mypage_inquire_new_et2_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/1000"
+                android:textColor="@color/colorCGrey"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@id/mypage_inquire_new_content"
+                app:layout_constraintLeft_toRightOf="@id/mypage_inquire_new_et2_length"
+                app:layout_constraintTop_toTopOf="@id/mypage_inquire_new_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,10 +145,12 @@
                 <EditText
                     android:id="@+id/mypage_inquire_new_et2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@null"
                     android:ellipsize="start"
+                    android:gravity="top"
                     android:hint="보내 주신 문의 내용을 정확히 확인하고 빠르게 처리하기 위해 연락을 드릴 수 있습니다."
+                    android:maxLength="1000"
                     android:padding="15dp"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp"

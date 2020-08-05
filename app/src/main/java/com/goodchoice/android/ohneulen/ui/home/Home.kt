@@ -37,6 +37,10 @@ class Home() : Fragment(),OnBackPressedListener {
 
     private val FINISH_TIME: Long = 3000
     private var backPressedTime: Long = 0
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.VISIBLE
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

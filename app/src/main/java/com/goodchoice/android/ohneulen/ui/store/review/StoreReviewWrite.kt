@@ -2,11 +2,13 @@ package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
+import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -22,6 +24,7 @@ import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.text.DecimalFormat
 
 class StoreReviewWrite : Fragment() {
 
@@ -31,13 +34,14 @@ class StoreReviewWrite : Fragment() {
     }
 
     private lateinit var binding: StoreReviewWriteBinding
-    private var selectedUriList: List<Uri>? = null
+    private var selectedUriList: MutableList<Uri>? = null
     private val storeViewMode: StoreViewModel by viewModel()
 
     override fun onResume() {
         super.onResume()
-        MainActivity.bottomNav.visibility=View.GONE
+        MainActivity.bottomNav.visibility = View.GONE
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,11 +60,28 @@ class StoreReviewWrite : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.storeReviewWriteEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val temp = binding.storeReviewWriteEt.text.toString().length
+                val format=DecimalFormat("###,###")
+                val length=format.format(temp)
+                binding.storeReviewWriteEtLength.text =length
+            }
+
+        })
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        MainActivity.bottomNav.visibility=View.VISIBLE
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
     fun imageAdd(view: View) {
@@ -69,7 +90,7 @@ class StoreReviewWrite : Fragment() {
                 TedImagePicker.with(requireContext())
                     .errorListener { message -> Timber.e(message) }
                     .selectedUri(selectedUriList)
-                    .max(10, "10개만 가능")
+                    .max(5, "최대 5개까지 등록 가능합니다")
                     .startMultiImage { list: List<Uri> -> showMultiImage(list) }
 
             }
@@ -83,31 +104,35 @@ class StoreReviewWrite : Fragment() {
         TedPermission.with(requireContext())
             .setPermissionListener(permissionListener)
             .setRationaleMessage("사진을 가져오기 위해서는 갤러리 접근 권한이 필요합니다")
-            .setDeniedMessage("거부하면 사진을 가져올수없다")
+            .setDeniedMessage("권한이 없으면 사진을 가져올 수 없습니다")
             .setPermissions(android.Manifest.permission.READ_CONTACTS)
             .check()
     }
 
     private fun showMultiImage(uriList: List<Uri>) {
-        selectedUriList = uriList
-        val viewSize = 50.dp()
+        selectedUriList = uriList.toMutableList()
+        val width = 60.dp()
+        val height = 60.dp()
         uriList.forEach {
+            val uri = it
             val itemBinding =
                 StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
             Glide.with(requireContext())
                 .load(it)
                 .apply(RequestOptions().centerCrop())
                 .into(itemBinding.storeReviewWriteImage)
-            val layoutParams = FrameLayout.LayoutParams(viewSize, viewSize)
-            layoutParams.setMargins(5.dp(), 5.dp(), 5.dp(), 5.dp())
+            val layoutParams = FrameLayout.LayoutParams(width, height)
+            layoutParams.leftMargin = binding.storeReviewWriteImageP.marginLeft
+            layoutParams.rightMargin = binding.storeReviewWriteImageP.marginLeft
             itemBinding.root.layoutParams = layoutParams
-            binding.storeReviewWriteImage.addView(itemBinding.root)
+            itemBinding.root.setOnClickListener {
+                binding.storeReviewWriteImage.removeView(itemBinding.root)
+                selectedUriList!!.remove(uri)
+            }
+            binding.storeReviewWriteImage.addView(itemBinding.root, 0)
         }
     }
 
-    fun textColorChange(view:View){
-
-    }
 
     fun onClick(view: View) {
 

@@ -36,4 +36,5 @@ class MyPageInquire : Fragment(){
         binding.viewModel=mypageViewModel
         return binding.root
     }
+
 }

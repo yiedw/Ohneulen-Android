@@ -4,9 +4,6 @@
 
     <data>
 
-        <variable
-            name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageLikeAppBar" />
 
     </data>
 
@@ -14,21 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/mypage_like_appbar_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:gravity="center"
-            android:onClick="@{fragment::backClick}"
-            android:src="@drawable/back"
-            android:text="뒤로"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageView-->
+<!--            android:id="@+id/like_appbar_back"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:focusable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:src="@drawable/back"-->
+<!--            android:text="뒤로"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
-            android:id="@+id/mypage_like_appbar_center"
+            android:id="@+id/like_appbar_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"

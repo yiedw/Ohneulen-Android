@@ -11,6 +11,8 @@ import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.like.Like
+import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -26,6 +28,11 @@ class MyPage : Fragment() {
 
     private lateinit var binding: MypageBinding
     private val loginViewModel: LoginViewModel by viewModel()
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.VISIBLE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,6 +68,10 @@ class MyPage : Fragment() {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivity.bottomNav.visibility = View.GONE
+    }
 
 
     fun infoClick(view: View) {
@@ -75,18 +86,21 @@ class MyPage : Fragment() {
     }
 
     fun likeClick(view: View) {
-        if (binding.mypageNickName.visibility == View.GONE) {
-            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+        if (!loginViewModel.isLogin.value!!) {
+            replaceAppbarFragment(LoginAppBar.newInstance())
+            replaceMainFragment(Login.newInstance())
             return
         }
 //        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
-        replaceAppbarFragment(MyPageLikeAppBar.newInstance())
-        replaceMainFragment(MyPageLike.newInstance())
+//        replaceAppbarFragment(LikeAppBar.newInstance())
+//        replaceMainFragment(Like.newInstance())
+        MainActivity.bottomNav.selectedItemId=R.id.menu_bottom_nav_like
     }
 
     fun recentClick(view: View) {
-        if (binding.mypageNickName.visibility == View.GONE) {
-            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+        if (!loginViewModel.isLogin.value!!) {
+            replaceAppbarFragment(LoginAppBar.newInstance())
+            replaceMainFragment(Login.newInstance())
             return
         }
         replaceAppbarFragment(MyPageRecentAppBar.newInstance())
@@ -94,8 +108,9 @@ class MyPage : Fragment() {
     }
 
     fun reviewClick(view: View) {
-        if (binding.mypageNickName.visibility == View.GONE) {
-            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+        if (!loginViewModel.isLogin.value!!) {
+            replaceAppbarFragment(LoginAppBar.newInstance())
+            replaceMainFragment(Login.newInstance())
             return
         }
         replaceAppbarFragment(MyPageReviewAppBar.newInstance())
@@ -103,8 +118,9 @@ class MyPage : Fragment() {
     }
 
     fun inquireClick(view: View) {
-        if (binding.mypageNickName.visibility == View.GONE) {
-            Toast.makeText(requireContext(), "로그인 하시오", Toast.LENGTH_SHORT).show()
+        if (!loginViewModel.isLogin.value!!) {
+            replaceAppbarFragment(LoginAppBar.newInstance())
+            replaceMainFragment(Login.newInstance())
             return
         }
         replaceAppbarFragment(MyPageInquireAppBar.newInstance())
@@ -112,7 +128,6 @@ class MyPage : Fragment() {
     }
 
     fun FAQClick(view: View) {
-
         replaceAppbarFragment(MyPageFAQAppBar.newInstance())
         replaceMainFragment(MyPageFAQ.newInstance())
     }

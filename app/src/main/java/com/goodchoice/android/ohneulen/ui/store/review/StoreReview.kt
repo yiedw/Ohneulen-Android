@@ -24,6 +24,7 @@ import com.goodchoice.android.ohneulen.databinding.StoreReviewBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -107,7 +108,7 @@ class StoreReview : Fragment() {
 
 
     fun reviewWriteClick(view: View) {
-        addAppbarFragment(StoreReviewWriteAppbar.newInstance(), true)
+        replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
         addMainFragment(StoreReviewWrite.newInstance(), true)
     }
 
