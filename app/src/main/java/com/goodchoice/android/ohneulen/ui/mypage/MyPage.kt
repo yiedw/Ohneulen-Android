@@ -94,7 +94,7 @@ class MyPage : Fragment() {
 //        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
 //        replaceAppbarFragment(LikeAppBar.newInstance())
 //        replaceMainFragment(Like.newInstance())
-        MainActivity.bottomNav.selectedItemId=R.id.menu_bottom_nav_like
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
     }
 
     fun recentClick(view: View) {
@@ -135,6 +135,11 @@ class MyPage : Fragment() {
     fun termsClick(view: View) {
         replaceAppbarFragment(MyPageTermsAppBar.newInstance())
         replaceMainFragment(MyPageTerms.newInstance())
+    }
+
+    fun term2Click(view: View) {
+        replaceAppbarFragment(MyPageTerm2AppBar.newInstance())
+        replaceMainFragment(MyPageTerm2.newInstance())
     }
 
     fun companyClick(view: View) {

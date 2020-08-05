@@ -56,7 +56,7 @@ class StoreFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        MainActivity.bottomNav.visibility = View.VISIBLE
+        MainActivity.bottomNav.visibility = View.GONE
     }
 
     override fun onCreateView(
@@ -93,8 +93,11 @@ class StoreFragment : Fragment() {
         viewPagerSetting()
         stickyHeader()
         binding.storeNewScrollView.scrollTo(0, 0)
+    }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
 
@@ -176,10 +179,16 @@ class StoreFragment : Fragment() {
                             position
                         )
                     view?.let {
-                        if (position != 1)
+                        if (position != 1) {
                             updatePagerHeightForChild(view, binding.storeViewPager2)
-                        else {
+                            binding.storeFragmentImageRv.visibility = View.VISIBLE
+                        }
+                        if (position == 3) {
+                            binding.storeFragmentImageRv.visibility = View.GONE
+
+                        } else {
                             mapSetting()
+                            binding.storeFragmentImageRv.visibility = View.VISIBLE
 
                         }
                     }

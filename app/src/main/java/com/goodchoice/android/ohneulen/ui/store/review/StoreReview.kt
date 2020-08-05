@@ -1,13 +1,17 @@
 package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.RatingBar
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -21,6 +25,8 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreReviewBinding
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
@@ -38,6 +44,9 @@ class StoreReview : Fragment() {
 
     private lateinit var binding: StoreReviewBinding
     private val storeViewModel: StoreViewModel by viewModel()
+    private val loginViewModel: LoginViewModel by viewModel()
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -79,7 +88,7 @@ class StoreReview : Fragment() {
         binding.storeReviewRatingScore.visibility = View.GONE
         binding.storeReviewTv1.visibility = View.GONE
         binding.storeReviewChart.visibility = View.GONE
-        binding.storeReviewRv.visibility=View.GONE
+        binding.storeReviewRv.visibility = View.GONE
         val text = TextUtils.concat(
             "아직 작성된 후기가 없어요\n",
             "지금 나만의 ",
@@ -94,7 +103,7 @@ class StoreReview : Fragment() {
             ),
             "버튼을 클릭해 주세요!"
         )
-        binding.storeReviewEmptyTv.text=text
+        binding.storeReviewEmptyTv.text = text
     }
 
     private fun reviewNotEmpty() {
@@ -103,13 +112,31 @@ class StoreReview : Fragment() {
         binding.storeReviewRatingScore.visibility = View.VISIBLE
         binding.storeReviewTv1.visibility = View.VISIBLE
         binding.storeReviewChart.visibility = View.VISIBLE
-        binding.storeReviewRv.visibility=View.VISIBLE
+        binding.storeReviewRv.visibility = View.VISIBLE
     }
 
 
     fun reviewWriteClick(view: View) {
-        replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
-        addMainFragment(StoreReviewWrite.newInstance(), true)
+        if (!loginViewModel.isLogin.value!!) {
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.logout_dialog)
+            dialog.findViewById<TextView>(R.id.logout_dialog_tv2).text =
+                requireContext().getString(R.string.require_login)
+            dialog.findViewById<Button>(R.id.logout_dialog_cancel).setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
+                loginViewModel.logout()
+                dialog.dismiss()
+
+            }
+            dialog.show()
+        } else {
+            replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
+            addMainFragment(StoreReviewWrite.newInstance(), true)
+
+        }
     }
 
 //    private fun chartSetting() {

@@ -75,6 +75,7 @@
                 app:layout_constraintRight_toLeftOf="parent" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/login_email_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,6 +161,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/login_pw_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

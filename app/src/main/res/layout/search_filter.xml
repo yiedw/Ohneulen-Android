@@ -301,6 +301,7 @@
             android:background="@color/white"
             android:focusable="true"
             android:gravity="center"
+            android:onClick="@{fragment::submitClick}"
             android:text="선택완료"
             android:textAlignment="center"
             android:textColor="@color/colorGreen"

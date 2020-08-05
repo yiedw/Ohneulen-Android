@@ -249,6 +249,7 @@
 
         <!--        후기가 없을때-->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginBottom="30dp"
             android:id="@+id/store_review_empty"
             android:layout_width="match_parent"
             android:layout_height="130dp"

@@ -26,7 +26,7 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Home() : Fragment(),OnBackPressedListener {
+class Home() : Fragment(), OnBackPressedListener {
 
     companion object {
         fun newInstance() = Home()
@@ -82,7 +82,7 @@ class Home() : Fragment(),OnBackPressedListener {
             return@setOnEditorActionListener false
         }
 
-        binding.homeEditText.addTextChangedListener(object:TextWatcher{
+        binding.homeEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (binding.homeEditText.text.toString().isEmpty()) {
                     binding.homeClear.visibility = View.GONE
@@ -101,6 +101,10 @@ class Home() : Fragment(),OnBackPressedListener {
     }
 
     fun searchOnClick(view: View) {
+        if (binding.homeEditText.text.isNotBlank()) {
+            Toast.makeText(requireContext(), "검색어를 입력해 주세요", Toast.LENGTH_SHORT).show()
+            return
+        }
         mainViewModel.searchEditText = binding.homeEditText.text.toString()
         replaceAppbarFragment(SearchAppBar.newInstance())
         replaceMainFragment(Search.newInstance(), tag = "search")

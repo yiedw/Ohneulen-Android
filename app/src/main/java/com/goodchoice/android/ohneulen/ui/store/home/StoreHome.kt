@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,16 +51,23 @@ class StoreHome : Fragment() {
     }
 
     //개업일 업데이트
+    @SuppressLint("SetTextI18n")
     private fun storeUpdate(storeDetail: StoreDetail) {
         val store = storeDetail.storeInfo.store
-        val openDate = store.openDate.substring(0, 4) + "." + store.openDate.substring(
+        //추후변경
+//        val openDate = store.openDate.substring(0, 4) + "." + store.openDate.substring(
+//            4,
+//            6
+//        ) + "." + store.openDate.substring(6)
+//        val modifyDate = store.modifyDate.substring(0, 4) + "." + store.modifyDate.substring(
+//            5,
+//            7
+//        ) + "." + store.modifyDate.substring(8, 10)
+        val openDate=store.openDate.substring(0, 4) + "-" + store.openDate.substring(
             4,
             6
-        ) + "." + store.openDate.substring(6)
-        val modifyDate = store.modifyDate.substring(0, 4) + "." + store.modifyDate.substring(
-            5,
-            7
-        ) + "." + store.modifyDate.substring(8, 10)
+        ) + "-" + store.openDate.substring(6)
+        val modifyDate=store.modifyDate.substring(0,10)
         binding.storeHomeOpenTv2.text = "$openDate\n$modifyDate"
     }
 

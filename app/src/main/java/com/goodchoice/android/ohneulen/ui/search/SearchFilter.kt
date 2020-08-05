@@ -38,10 +38,10 @@ class SearchFilter : Fragment() {
 
     var filterCheck = false
 
-    private var checkRecent=false
-    private var checkRating=false
-    private val checkConvenienceList= mutableListOf<Boolean>()
-    private val checkOpenList= mutableListOf<Boolean>()
+    private var checkRecent = false
+    private var checkRating = false
+    private val checkConvenienceList = mutableListOf<Boolean>()
+    private val checkOpenList = mutableListOf<Boolean>()
 
 
     override fun onCreateView(
@@ -101,7 +101,7 @@ class SearchFilter : Fragment() {
             "영업중", "주차 가능", "예약 가능", "배달 가능", "포장 가능", "반려동물",
             "비건 식당", "놀이방", "와이파이"
         )
-        for(i in sampleConvenienceList.indices){
+        for (i in sampleConvenienceList.indices) {
             checkConvenienceList.add(false)
         }
         //뷰 생성
@@ -115,7 +115,7 @@ class SearchFilter : Fragment() {
             "연중무휴", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"
         )
 
-        for(i in sampleOpenList.indices){
+        for (i in sampleOpenList.indices) {
             checkOpenList.add(false)
         }
 
@@ -401,6 +401,16 @@ class SearchFilter : Fragment() {
 //            if(!checkRating )
         }
 
+    }
+
+    fun submitClick(view: View) {
+        //음식 선택일때
+        if (binding.searchFilterFoodCon.visibility == View.VISIBLE) {
+            if (searchViewModel.filterHashMap.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "음식을 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
     }
 
 

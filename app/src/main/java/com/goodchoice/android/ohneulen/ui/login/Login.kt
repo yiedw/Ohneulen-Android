@@ -2,7 +2,9 @@ package com.goodchoice.android.ohneulen.ui.login
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -58,87 +60,126 @@ class Login : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //클리어 표시
+        binding.loginEmailEt.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
 
-        //이메일 검사
-        binding.loginEmailEt.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus and !binding.loginEmailEt.text.isNullOrEmpty()) {
-                val emailRegex =
-                    Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
-                if (binding.loginEmailEt.text.matches(emailRegex)) {
-                    binding.loginEmailTv.text = requireContext().getString(R.string.email_tv_basic)
-                    binding.loginEmailTv.setTextColor(requireContext().getColor(R.color.colorWeightGrey))
-                    binding.loginEmailCheck.visibility = View.VISIBLE
-                    binding.loginEmailClear.visibility = View.GONE
-                    emailCheck = true
-                    if (pwCheck) {
-                        binding.loginSubmit.isEnabled = pwCheck
-                        binding.loginSubmit.background =
-                            requireContext().getDrawable(R.drawable.login_bt_true)
-                    }
-                } else {
-                    binding.loginEmailTv.text = requireContext().getString(R.string.email_tv_fail)
-                    binding.loginEmailTv.setTextColor(requireContext().getColor(R.color.colorRed))
-                    binding.loginEmailCheck.visibility = View.GONE
-                    binding.loginEmailClear.visibility = View.VISIBLE
-                    emailCheck = false
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(binding.loginEmailEt.text.isNotBlank()){
+                    binding.loginEmailClear.visibility=View.VISIBLE
+                }
+                else{
+                    binding.loginEmailClear.visibility=View.GONE
                 }
             }
-            if (hasFocus) {
-                binding.loginEmail.background =
-                    requireContext().getDrawable(R.drawable.edittext_border_select)
-                binding.loginLogo.visibility = View.GONE
-            } else {
-                binding.loginEmail.background =
-                    requireContext().getDrawable(R.drawable.edittext_border)
+
+        })
+
+        binding.loginPwEt.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
             }
-        }
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
 
-        //비밀번호 검사
-        binding.loginPwEt.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus and !binding.loginPwEt.text.isNullOrEmpty()) {
-                val pwRegex = Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
-                if (binding.loginPwEt.text.matches(pwRegex)) {
-                    binding.loginPwTv.text = requireContext().getString(R.string.pw_tv_basic)
-                    binding.loginPwTv.setTextColor(requireContext().getColor(R.color.colorWeightGrey))
-                    binding.loginPwCheck.visibility = View.VISIBLE
-                    binding.loginPwClear.visibility = View.GONE
-                    binding.loginPwHidden.visibility = View.GONE
-                    pwCheck = true
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(binding.loginPwEt.text.isNotBlank()){
+                    binding.loginPwClear.visibility=View.VISIBLE
+                }
+                else{
+                    binding.loginPwClear.visibility=View.GONE
 
-                    if (emailCheck) {
-                        binding.loginSubmit.isEnabled = emailCheck
-                        binding.loginSubmit.background =
-                            requireContext().getDrawable(R.drawable.login_bt_true)
-                    }
-
-                } else {
-                    binding.loginPwTv.text = requireContext().getString(R.string.pw_tv_fail)
-                    binding.loginPwTv.setTextColor(requireContext().getColor(R.color.colorRed))
-                    binding.loginPwHidden.visibility = View.VISIBLE
-                    binding.loginPwClear.visibility = View.VISIBLE
-                    binding.loginPwCheck.visibility = View.GONE
-                    pwCheck = false
                 }
             }
-            if (hasFocus) {
-                binding.loginPw.background =
-                    requireContext().getDrawable(R.drawable.edittext_border_select)
-                binding.loginLogo.visibility = View.GONE
-            } else {
-                binding.loginPw.background =
-                    requireContext().getDrawable(R.drawable.edittext_border)
-            }
-        }
 
-        //비밀번호 엔터 눌렀을 때
-        binding.loginPwEt.setOnKeyListener { v, keyCode, event ->
-            if ((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                binding.loginPwEt.clearFocus()
-                return@setOnKeyListener true
-            }
-            return@setOnKeyListener false
-        }
+        })
+
+
+//        //이메일 검사
+//        binding.loginEmailEt.setOnFocusChangeListener { v, hasFocus ->
+//            if (!hasFocus and !binding.loginEmailEt.text.isNullOrEmpty()) {
+//                val emailRegex =
+//                    Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
+//                if (binding.loginEmailEt.text.matches(emailRegex)) {
+//                    binding.loginEmailTv.text = requireContext().getString(R.string.email_tv_basic)
+//                    binding.loginEmailTv.setTextColor(requireContext().getColor(R.color.colorWeightGrey))
+//                    binding.loginEmailCheck.visibility = View.VISIBLE
+//                    binding.loginEmailClear.visibility = View.GONE
+//                    emailCheck = true
+//                    if (pwCheck) {
+//                        binding.loginSubmit.isEnabled = pwCheck
+//                        binding.loginSubmit.background =
+//                            requireContext().getDrawable(R.drawable.login_bt_true)
+//                    }
+//                } else {
+//                    binding.loginEmailTv.text = requireContext().getString(R.string.email_tv_fail)
+//                    binding.loginEmailTv.setTextColor(requireContext().getColor(R.color.colorRed))
+//                    binding.loginEmailCheck.visibility = View.GONE
+//                    binding.loginEmailClear.visibility = View.VISIBLE
+//                    emailCheck = false
+//                }
+//            }
+//            if (hasFocus) {
+//                binding.loginEmail.background =
+//                    requireContext().getDrawable(R.drawable.edittext_border_select)
+//                binding.loginLogo.visibility = View.GONE
+//            } else {
+//                binding.loginEmail.background =
+//                    requireContext().getDrawable(R.drawable.edittext_border)
+//            }
+//        }
+//
+//
+//        //비밀번호 검사
+//        binding.loginPwEt.setOnFocusChangeListener { v, hasFocus ->
+//            if (!hasFocus and !binding.loginPwEt.text.isNullOrEmpty()) {
+//                val pwRegex = Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+//                if (binding.loginPwEt.text.matches(pwRegex)) {
+//                    binding.loginPwTv.text = requireContext().getString(R.string.pw_tv_basic)
+//                    binding.loginPwTv.setTextColor(requireContext().getColor(R.color.colorWeightGrey))
+//                    binding.loginPwCheck.visibility = View.VISIBLE
+//                    binding.loginPwClear.visibility = View.GONE
+//                    binding.loginPwHidden.visibility = View.GONE
+//                    pwCheck = true
+//
+//                    if (emailCheck) {
+//                        binding.loginSubmit.isEnabled = emailCheck
+//                        binding.loginSubmit.background =
+//                            requireContext().getDrawable(R.drawable.login_bt_true)
+//                    }
+//
+//                } else {
+//                    binding.loginPwTv.text = requireContext().getString(R.string.pw_tv_fail)
+//                    binding.loginPwTv.setTextColor(requireContext().getColor(R.color.colorRed))
+//                    binding.loginPwHidden.visibility = View.VISIBLE
+//                    binding.loginPwClear.visibility = View.VISIBLE
+//                    binding.loginPwCheck.visibility = View.GONE
+//                    pwCheck = false
+//                }
+//            }
+//            if (hasFocus) {
+//                binding.loginPw.background =
+//                    requireContext().getDrawable(R.drawable.edittext_border_select)
+//                binding.loginLogo.visibility = View.GONE
+//            } else {
+//                binding.loginPw.background =
+//                    requireContext().getDrawable(R.drawable.edittext_border)
+//            }
+//        }
+//
+//        //비밀번호 엔터 눌렀을 때
+//        binding.loginPwEt.setOnKeyListener { v, keyCode, event ->
+//            if ((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                binding.loginPwEt.clearFocus()
+//                return@setOnKeyListener true
+//            }
+//            return@setOnKeyListener false
+//        }
     }
 
     override fun onDestroy() {
