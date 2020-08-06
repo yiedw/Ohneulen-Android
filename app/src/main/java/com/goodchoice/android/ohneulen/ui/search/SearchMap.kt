@@ -51,6 +51,14 @@ class SearchMap : Fragment() {
         mapViewContainer = binding.searchMapMapView
         addMapView()
 //        mapViewContainer.addView(mapView)
+
+        return binding.root
+
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mapView.setOnTouchListener { _, _ -> true }
 
         //맵 포인트가 바뀌면 바로 반영
@@ -102,14 +110,6 @@ class SearchMap : Fragment() {
                     MapView.CurrentLocationTrackingMode.TrackingModeOff
             }
         }
-        return binding.root
-
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
 
     }
 

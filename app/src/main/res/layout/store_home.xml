@@ -95,7 +95,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -105,30 +105,36 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="14sp" />
 
-                <TextView
+
+                <LinearLayout
+                    android:id="@+id/store_home_openDay"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_three"
-                    android:text=""
                     android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
+                    android:orientation="vertical">
+
+
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="휴무일"
                     android:textColor="@color/colorBlack"
                     android:textSize="14sp" />
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/store_home_closeDay"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/store_home_three"
                     android:text=""
                     android:textColor="@color/colorGrey88"

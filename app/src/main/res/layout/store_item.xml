@@ -37,25 +37,24 @@
             app:layout_constraintLeft_toRightOf="@id/store_item_image"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/store_item_good_basic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/heart"
-            app:layout_constraintBottom_toBottomOf="@id/store_item_name"
-            app:layout_constraintLeft_toRightOf="@id/store_item_name"
-            app:layout_constraintTop_toTopOf="@id/store_item_name" />
+<!--        <ImageView-->
+<!--            android:id="@+id/store_item_good_basic"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="6dp"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:src="@drawable/heart"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/store_item_name"-->
+<!--            app:layout_constraintLeft_toRightOf="@id/store_item_name"-->
+<!--            app:layout_constraintTop_toTopOf="@id/store_item_name" />-->
 
         <ImageView
-            android:id="@+id/store_item_good_red"
+            android:id="@+id/store_item_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/heart_red"
-            android:visibility="gone"
+            android:src="@drawable/search_store_like_selector"
             app:layout_constraintBottom_toBottomOf="@id/store_item_name"
             app:layout_constraintLeft_toRightOf="@id/store_item_name"
             app:layout_constraintTop_toTopOf="@id/store_item_name" />

@@ -57,10 +57,8 @@ class StoreHomeReport(private val storeName: String) : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val temp = binding.storeHomeReportContent.text.toString().length
-                val format = DecimalFormat("###,###")
-                val length = format.format(temp)
-                binding.storeReportEtLength.text = length
+                val length = binding.storeHomeReportContent.text.toString().length
+                binding.storeReportEtLength.text = length.toString()
             }
 
         })

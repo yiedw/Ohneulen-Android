@@ -35,25 +35,20 @@ class SearchStoreAdapter :
         fun bind(item: Store) {
             binding.apply {
                 store = item
-                //빈 하트일때
-                storeItemGoodBasic.setOnClickListener {
+                storeItemLike.isSelected=item.likes
+
+                storeItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
                         loginDialog(root.context, SearchAppBar.newInstance())
                         return@setOnClickListener
                     }
-                    storeItemGoodRed.visibility = View.VISIBLE
-                    storeItemGoodBasic.visibility = View.GONE
-                    Toast.makeText(
-                        root.context,
-                        "찜 목록에 저장되었습니다",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (storeItemLike.isSelected) {
+                        storeItemLike.isSelected = false
+                    } else
+                        storeItemLike.isSelected = !storeItem.isSelected
+
                 }
-                //빨간하트일때
-                storeItemGoodRed.setOnClickListener {
-                    storeItemGoodRed.visibility = View.GONE
-                    storeItemGoodBasic.visibility = View.VISIBLE
-                }
+
                 if (item.image.isNotEmpty()) {
                     Glide.with(root).load("${BaseUrl.Ohneulen}${item.image[0].photoURL}")
                         .centerCrop().into(storeItemImage)

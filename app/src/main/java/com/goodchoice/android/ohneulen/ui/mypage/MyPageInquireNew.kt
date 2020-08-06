@@ -70,9 +70,8 @@ class MyPageInquireNew : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val format=DecimalFormat("###,###")
                 val length=binding.mypageInquireNewEt2.length()
-                binding.mypageInquireNewEt2Length.text=format.format(length)
+                binding.mypageInquireNewEt2Length.text=length.toString()
             }
 
         })

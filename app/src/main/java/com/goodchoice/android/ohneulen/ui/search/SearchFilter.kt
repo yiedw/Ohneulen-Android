@@ -21,7 +21,6 @@ import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 
 class SearchFilter : Fragment() {
@@ -145,7 +144,7 @@ class SearchFilter : Fragment() {
                 val filterName =
                     searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].minorName
                 val layoutInflater = this.layoutInflater
-                val selectView = layoutInflater.inflate(R.layout.filter_selecter, null)
+                val selectView = layoutInflater.inflate(R.layout.filter_selector, null)
                 selectView.findViewById<TextView>(R.id.filter_select_title).text =
                     filterName
 

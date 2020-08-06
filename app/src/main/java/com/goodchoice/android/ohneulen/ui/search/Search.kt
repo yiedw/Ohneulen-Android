@@ -70,16 +70,16 @@ class Search : Fragment() {
             binding.fragment = this@Search
             viewModel = searchViewModel
         }
-        //맵 (삭제, 추가)
-        val searchMapFragment = SearchMap.newInstance()
-        childFragmentManager.beginTransaction()
-            .replace(R.id.search_map, searchMapFragment).commit()
         return binding.root
     }
 
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //맵 (삭제, 추가)
+        val searchMapFragment = SearchMap.newInstance()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.search_map, searchMapFragment).commit()
 
 
 

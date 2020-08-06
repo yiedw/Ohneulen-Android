@@ -131,7 +131,7 @@
                         android:id="@+id/mypage_inquire_new_et2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@null"
+                        android:background="#f6f6f6"
                         android:ellipsize="start"
                         android:gravity="top"
                         android:hint="보내 주신 문의 내용을 정확히 확인하고 빠르게 처리하기 위해 연락을 드릴 수 있습니다."

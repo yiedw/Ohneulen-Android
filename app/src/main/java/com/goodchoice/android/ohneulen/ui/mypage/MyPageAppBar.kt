@@ -57,12 +57,6 @@ class MyPageAppBar : Fragment(), OnBackPressedListener {
 
     }
 
-    fun backClick(view: View) {
-        MainActivity.bottomNav.visibility = View.VISIBLE
-        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
-//        replaceAppbarFragment(HomeAppBar.newInstance())
-//        replaceMainFragment(Home.newInstance())
-    }
 
     fun logoutClick(view: View) {
         val dialog = Dialog(requireContext())
@@ -81,9 +75,13 @@ class MyPageAppBar : Fragment(), OnBackPressedListener {
 
     }
 
-    override fun onBackPressed() {
-        replaceAppbarFragment(HomeAppBar.newInstance())
-        replaceMainFragment(Home.newInstance())
+    fun backClick(view: View) {
         MainActivity.bottomNav.visibility = View.VISIBLE
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
+    }
+
+    override fun onBackPressed() {
+        MainActivity.bottomNav.visibility = View.VISIBLE
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
     }
 }
