@@ -1,27 +1,42 @@
 package com.goodchoice.android.ohneulen.ui.store
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreImageDetailBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StoreImageDetail(private val index: Int) : Fragment() {
+class StoreImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPressedListener {
     companion object {
-        fun newInstance(index: Int) = StoreImageDetail(index)
+        fun newInstance(index: Int) = StoreImageDetailDialog(index)
     }
 
     private lateinit var binding: StoreImageDetailBinding
+
     private val storeViewModel: StoreViewModel by viewModel()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.image_dialog)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog
+        dialog!!.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
     }
 
     override fun onCreateView(
@@ -30,19 +45,22 @@ class StoreImageDetail(private val index: Int) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
+            LayoutInflater.from(context),
             R.layout.store_image_detail,
-            container,
+            null,
             false
         )
-        binding.lifecycleOwner = this
+
+        binding.lifecycleOwner = binding.lifecycleOwner
         binding.viewModel = storeViewModel
+        binding.dialog = this
         storeViewModel.storeImageDetailIndex = index
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onBackPressed() {
+        dismiss()
     }
+
 
 }

@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.extension
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -152,8 +153,8 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
     }
 }
 
-@BindingAdapter("imageDetailList", "imageDetailIndex")
-fun setImageDetail(recyclerView: RecyclerView, items: List<Image>?, index: Int) {
+@BindingAdapter("imageDetailList", "imageDetailIndex","imageDetailDialog")
+fun setImageDetail(recyclerView: RecyclerView, items: List<Image>?, index: Int,dialog:DialogFragment) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
@@ -166,6 +167,7 @@ fun setImageDetail(recyclerView: RecyclerView, items: List<Image>?, index: Int) 
     recyclerView.adapter = StoreImageDetailAdapter()
         .apply {
             imageList = items ?: emptyList()
+            dialogFragment=dialog
             setOnNextClickListener(object : StoreImageDetailAdapter.OnNextClickListener {
                 override fun onNextClick(pos: Int) {
                     recyclerView.scrollToPosition(pos)

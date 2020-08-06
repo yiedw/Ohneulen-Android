@@ -30,5 +30,10 @@
         <item name="android:progressDrawable">@drawable/custom_ratingbar_large</item>
     </style>
 
+    <style name="image_dialog" parent="android:Theme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 
 </resources>

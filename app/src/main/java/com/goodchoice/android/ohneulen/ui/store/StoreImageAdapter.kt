@@ -1,7 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.store
 
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -15,9 +15,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Image
 import com.goodchoice.android.ohneulen.databinding.StoreImageItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import timber.log.Timber
 
 class StoreImageAdapter :
     ListAdapter<Image, StoreImageAdapter.StoreImageViewHolder>(StoreImageDiffUtil) {
@@ -33,12 +31,15 @@ class StoreImageAdapter :
                     .into(storeImageItem)
 
                 root.setOnClickListener {
-                    MainActivity.appbarFrameLayout.visibility = View.GONE
-                    addMainFragment(
-                        StoreImageDetail.newInstance(
-                            adapterPosition
-                        ), true
-                    )
+                    val dialog=StoreImageDetailDialog.newInstance(adapterPosition)
+                    dialog.show(MainActivity.supportFragmentManager,"asdf")
+
+//                    MainActivity.appbarFrameLayout.visibility = View.GONE
+//                    addMainFragment(
+//                        StoreImageDetail.newInstance(
+//                            adapterPosition
+//                        ), true
+//                    )
                 }
             }
         }

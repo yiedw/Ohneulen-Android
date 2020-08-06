@@ -180,5 +180,8 @@ fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
     dialog.show()
 }
 
-
+fun imageDetailDialog(context:Context){
+    val dialog=Dialog(context)
+    dialog.setContentView(R.layout.store_image_detail)
+}
 

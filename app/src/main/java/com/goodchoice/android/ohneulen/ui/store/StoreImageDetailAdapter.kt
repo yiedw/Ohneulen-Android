@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Image
@@ -15,7 +16,7 @@ import timber.log.Timber
 class StoreImageDetailAdapter :
     RecyclerView.Adapter<StoreImageDetailAdapter.StoreImageDetailViewHolder>() {
 
-
+    var dialogFragment = DialogFragment()
     var imageList = listOf<Image>()
 
     interface OnNextClickListener {
@@ -45,7 +46,6 @@ class StoreImageDetailAdapter :
                 } else {
                     storeImageDetailLeft.visibility = View.VISIBLE
                 }
-
                 storeImageDetailLeft.setOnClickListener {
                     mListener!!.onNextClick(adapterPosition - 1)
                 }
@@ -53,8 +53,9 @@ class StoreImageDetailAdapter :
                     mListener!!.onNextClick(adapterPosition + 1)
                 }
                 storeImageDetailBack.setOnClickListener {
-                    MainActivity.supportFragmentManager.popBackStack()
-                    MainActivity.appbarFrameLayout.visibility = View.VISIBLE
+                    dialogFragment.dismiss()
+//                    MainActivity.supportFragmentManager.popBackStack()
+//                    MainActivity.appbarFrameLayout.visibility = View.VISIBLE
                 }
 
             }
