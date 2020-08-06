@@ -8,40 +8,58 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginAppbarBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import timber.log.Timber
 
-class LoginAppBar: Fragment() ,OnBackPressedListener{
-    companion object{
-        fun newInstance()=LoginAppBar()
+class LoginAppBar(private val backStack: Boolean, private val fragment: Fragment) :
+    Fragment(), OnBackPressedListener {
+    companion object {
+        fun newInstance(backStack: Boolean = false, fragment: Fragment = MyPageAppBar()) =
+            LoginAppBar(backStack, fragment)
     }
 
-    private lateinit var binding:LoginAppbarBinding
+    private lateinit var binding: LoginAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.login_appbar,
             container,
             false
         )
-        binding.fragment=this
+        binding.fragment = this
+//        Timber.e("ASdf")
         return binding.root
     }
-    fun backClick(view:View){
-        replaceAppbarFragment(MyPageAppBar.newInstance())
-        replaceMainFragment(MyPage.newInstance())
+
+    fun backClick(view: View) {
+        replaceAppbarFragment(fragment)
+        if (!backStack) {
+//            replaceAppbarFragment(MyPageAppBar.newInstance())
+            replaceMainFragment(MyPage.newInstance())
+            return
+        }
+//        MainActivity.supportFragmentManager.popBackStack()
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(MyPageAppBar.newInstance())
-        replaceMainFragment(MyPage.newInstance())
+        replaceAppbarFragment(fragment)
+        if (!backStack) {
+//            replaceAppbarFragment(MyPageAppBar.newInstance())
+            replaceMainFragment(MyPage.newInstance())
+            return
+        }
+//        MainActivity.supportFragmentManager.popBackStack()
+        MainActivity.supportFragmentManager.popBackStack()
     }
 }

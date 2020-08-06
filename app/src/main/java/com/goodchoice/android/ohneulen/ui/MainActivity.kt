@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         Companion.supportFragmentManager = supportFragmentManager
         appbarFrameLayout = appbar_frameLayout
         mainFrameLayout = main_frameLayout
-        appbarFrameLayout.bringToFront()
+//        appbarFrameLayout.bringToFront()
         initMainFrameLayout = mainFrameLayout.layoutParams
         bottomNav = main_bottom_nav
 

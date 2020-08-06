@@ -48,7 +48,7 @@ class MyPageAppBar : Fragment(), OnBackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it)
                 binding.mypageAppbarLogout.visibility = View.VISIBLE
             else

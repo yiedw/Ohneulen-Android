@@ -13,20 +13,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.toRequestBody
 
-class LoginViewModel(private val networkService: NetworkService,application: Application) :
-    AndroidViewModel(application){
+class LoginViewModel(private val networkService: NetworkService, application: Application) :
+    AndroidViewModel(application) {
 
-    var emailClick=true
+    companion object {
+        var isLogin = MutableLiveData(false)
+    }
 
-    var isLogin = MutableLiveData(false)
+    var emailClick = true
+
 
 //    var memEmail = "aaa@aa.com"
 //    var memPw = "qwer1234"
 
-    val loginErrorToast=MutableLiveData<Event<Boolean>>()
+    val loginErrorToast = MutableLiveData<Event<Boolean>>()
 
 
-    fun login(memEmail:String,memPw:String,check:Boolean) {
+    fun login(memEmail: String, memPw: String, check: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
             val loginResponse = networkService.requestLogin(
                 memEmail.toRequestBody(), memPw.toRequestBody()
@@ -36,12 +39,12 @@ class LoginViewModel(private val networkService: NetworkService,application: App
                 isLogin.postValue(true)
                 replaceMainFragment(MyPage.newInstance())
                 replaceAppbarFragment(MyPageAppBar.newInstance())
-                if(check){
+                if (check) {
                     //토큰 저장
                 }
             }
             //로그인 실패
-            else{
+            else {
                 loginErrorToast.postValue(Event(true))
             }
         }

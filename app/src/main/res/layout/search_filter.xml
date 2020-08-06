@@ -220,11 +220,6 @@
                     android:layout_marginTop="6dp"
                     android:background="#e5e5e5" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </LinearLayout>
 
                 <GridLayout
                     android:id="@+id/search_filter_convenience"
@@ -233,7 +228,7 @@
                     android:layout_marginTop="10dp"
                     android:columnCount="3"
                     android:orientation="horizontal"
-                    android:useDefaultMargins="true"></GridLayout>
+                    android:useDefaultMargins="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -263,7 +258,7 @@
                     android:layout_marginTop="10dp"
                     android:columnCount="3"
                     android:orientation="horizontal"
-                    android:useDefaultMargins="true"></GridLayout>
+                    android:useDefaultMargins="true"/>
 
 
             </LinearLayout>

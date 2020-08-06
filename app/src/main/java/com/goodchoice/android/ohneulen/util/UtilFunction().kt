@@ -9,6 +9,8 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Base64
 import android.util.TypedValue
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.ui.MainActivity
@@ -145,6 +147,11 @@ fun textColor(titleText: String, start: Int, end: Int, color: Int): SpannableStr
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     return spannableString
+}
+
+fun hideKeyboard(view: View, context: Context) {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
 

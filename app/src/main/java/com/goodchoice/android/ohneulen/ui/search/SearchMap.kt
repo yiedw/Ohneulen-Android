@@ -113,6 +113,11 @@ class SearchMap : Fragment() {
 
     }
 
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        binding.searchMapMapView.removeAllViews()
+//    }
+
 
     private fun addMapView() {
         binding.searchMapMapView.addView(mapView)

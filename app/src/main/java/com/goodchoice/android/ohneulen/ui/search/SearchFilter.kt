@@ -61,9 +61,6 @@ class SearchFilter : Fragment() {
             viewModel = searchViewModel
         }
 
-
-
-
         MainActivity.bottomNav.visibility = View.GONE
         return binding.root
     }

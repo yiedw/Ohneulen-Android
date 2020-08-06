@@ -53,7 +53,7 @@ class MyPage : Fragment() {
 //        loginViewModel.test()
         loginViewModel.loginTest()
 
-        loginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             //로그인 상태일때
             if (it) {
                 binding.mypageNickName.visibility = View.VISIBLE
@@ -75,7 +75,7 @@ class MyPage : Fragment() {
 
 
     fun infoClick(view: View) {
-        if (loginViewModel.isLogin.value!!) {
+        if (LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(MyPageInfoAppBar.newInstance())
             replaceMainFragment(MyPageInfo.newInstance())
         } else {
@@ -86,7 +86,7 @@ class MyPage : Fragment() {
     }
 
     fun likeClick(view: View) {
-        if (!loginViewModel.isLogin.value!!) {
+        if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
             replaceMainFragment(Login.newInstance())
             return
@@ -98,7 +98,7 @@ class MyPage : Fragment() {
     }
 
     fun recentClick(view: View) {
-        if (!loginViewModel.isLogin.value!!) {
+        if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
             replaceMainFragment(Login.newInstance())
             return
@@ -108,7 +108,7 @@ class MyPage : Fragment() {
     }
 
     fun reviewClick(view: View) {
-        if (!loginViewModel.isLogin.value!!) {
+        if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
             replaceMainFragment(Login.newInstance())
             return
@@ -118,7 +118,7 @@ class MyPage : Fragment() {
     }
 
     fun inquireClick(view: View) {
-        if (!loginViewModel.isLogin.value!!) {
+        if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
             replaceMainFragment(Login.newInstance())
             return

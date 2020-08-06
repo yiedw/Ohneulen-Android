@@ -22,6 +22,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
+import com.goodchoice.android.ohneulen.util.hideKeyboard
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -75,8 +76,8 @@ class Home() : Fragment(), OnBackPressedListener {
         binding.homeEditText.setOnEditorActionListener { v, actionId, _ ->
             if (v!!.id == R.id.home_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
                 mainViewModel.searchEditText = binding.homeEditText.text.toString()
-                replaceAppbarFragment(SearchAppBar.newInstance())
-                replaceMainFragment(Search.newInstance(), tag = "search")
+                hideKeyboard(view, requireContext())
+                MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
             }
 
             return@setOnEditorActionListener false
@@ -101,13 +102,13 @@ class Home() : Fragment(), OnBackPressedListener {
     }
 
     fun searchOnClick(view: View) {
-        if (binding.homeEditText.text.isNotBlank()) {
+        if (binding.homeEditText.text.isBlank()) {
             Toast.makeText(requireContext(), "검색어를 입력해 주세요", Toast.LENGTH_SHORT).show()
             return
         }
         mainViewModel.searchEditText = binding.homeEditText.text.toString()
-        replaceAppbarFragment(SearchAppBar.newInstance())
-        replaceMainFragment(Search.newInstance(), tag = "search")
+        hideKeyboard(view, requireContext())
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
     }
 
     fun currentLocationClick(view: View) {

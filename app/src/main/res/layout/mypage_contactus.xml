@@ -42,8 +42,10 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background_border_cgrey"
                     android:hint="제목을 입력해 주세요"
+                    android:imeOptions="actionNext"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
+                    android:singleLine="true"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp" />
 
@@ -61,8 +63,10 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background_border_cgrey"
                     android:hint="이름을 입력해 주세요"
+                    android:imeOptions="actionNext"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
+                    android:singleLine="true"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp" />
 
@@ -80,8 +84,10 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background_border_cgrey"
                     android:hint="이메일을 입력해 주세요"
+                    android:imeOptions="actionNext"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
+                    android:singleLine="true"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp" />
 
@@ -99,8 +105,10 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background_border_cgrey"
                     android:hint="연락처를 입력해 주세요"
+                    android:imeOptions="actionNext"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
+                    android:singleLine="true"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp" />
 
@@ -122,9 +130,10 @@
                     <EditText
                         android:id="@+id/mypage_inquire_new_et2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@null"
                         android:ellipsize="start"
+                        android:gravity="top"
                         android:hint="보내 주신 문의 내용을 정확히 확인하고 빠르게 처리하기 위해 연락을 드릴 수 있습니다."
                         android:padding="15dp"
                         android:textColor="@color/colorTextBlack"
