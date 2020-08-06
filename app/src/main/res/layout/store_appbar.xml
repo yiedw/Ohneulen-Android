@@ -26,10 +26,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/store_appbar_like"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/store_like"
+            android:onClick="@{fragment::likeClick}"
+            android:src="@drawable/store_like_selector"
             app:layout_constraintRight_toLeftOf="@id/store_appbar_share"
             app:layout_constraintTop_toTopOf="parent" />
 

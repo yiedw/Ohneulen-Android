@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.data.repository
 
 import com.goodchoice.android.ohneulen.data.model.Category
 import com.goodchoice.android.ohneulen.data.service.NetworkService
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -25,6 +26,7 @@ class InitData(private val networkService: NetworkService) {
             networkService.requestLogin(
                 memId.toRequestBody(), memPw.toRequestBody()
             )
+            LoginViewModel.isLogin.postValue(true)
             getCategory()
         }
     }

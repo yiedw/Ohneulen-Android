@@ -8,13 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
+import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.google.firebase.dynamiclinks.ktx.androidParameters
@@ -22,9 +25,10 @@ import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.iosParameters
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class StoreAppBar : Fragment() ,OnBackPressedListener{
+class StoreAppBar : Fragment(), OnBackPressedListener {
 
     companion object {
         fun newInstance() = StoreAppBar()
@@ -32,6 +36,7 @@ class StoreAppBar : Fragment() ,OnBackPressedListener{
 
     private lateinit var binding: StoreAppbarBinding
     private lateinit var shareLink: String
+    private val storeViewModel: StoreViewModel by viewModel()
 
     //나중에 되돌리기
 //    private val initMainFragment: ViewGroup.LayoutParams =
@@ -59,13 +64,20 @@ class StoreAppBar : Fragment() ,OnBackPressedListener{
         val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
             //웹으로 봤을때 페이지
 
-            link = Uri.parse("https://www.ohneulen.com/" + ConstList.SEGMENT_STORE+"?"+ConstList.SEQ+"="+StoreFragment.storeSeq)
+            link =
+                Uri.parse("https://www.ohneulen.com/" + ConstList.SEGMENT_STORE + "?" + ConstList.SEQ + "=" + StoreFragment.storeSeq)
             domainUriPrefix = "https://ohneulen.page.link"
             androidParameters("com.goodchoice.android.ohneulen") { }
             iosParameters("com.goodchoice.ios.ohneulen") {}
 //            buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)
         }
 
+        //하트상태 받아오기
+        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+            binding.storeAppbarLike.isSelected = it.storeInfo.store.likes
+        })
+
+        //공유하기 링크
         dynamicLink.addOnSuccessListener {
             shareLink = dynamicLink.result!!.shortLink.toString()
         }
@@ -88,6 +100,15 @@ class StoreAppBar : Fragment() ,OnBackPressedListener{
         } else {
             MainActivity.supportFragmentManager.popBackStack()
         }
+    }
+
+    fun likeClick(view: View) {
+        if (!LoginViewModel.isLogin.value!!) {
+            binding.storeAppbarLike.isSelected = false
+            loginDialog(requireContext(), newInstance())
+            return
+        }
+        binding.storeAppbarLike.isSelected = !binding.storeAppbarLike.isSelected
     }
 
     fun shareClick(view: View) {

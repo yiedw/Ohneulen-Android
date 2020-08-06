@@ -59,7 +59,7 @@ class MyPage : Fragment() {
                 binding.mypageNickName.visibility = View.VISIBLE
                 binding.mypageEmail.visibility = View.VISIBLE
                 binding.mypageLogin.visibility = View.GONE
-                binding.mypageEmail.text = "AAA@AAA.com"
+                binding.mypageEmail.text = loginViewModel.memberEmail
             } else {
                 binding.mypageNickName.visibility = View.GONE
                 binding.mypageEmail.visibility = View.GONE

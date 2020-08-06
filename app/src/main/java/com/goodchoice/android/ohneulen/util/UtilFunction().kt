@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.util
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -10,11 +11,17 @@ import android.text.style.ForegroundColorSpan
 import android.util.Base64
 import android.util.TypedValue
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.ui.login.Login
+import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
@@ -152,6 +159,25 @@ fun textColor(titleText: String, start: Int, end: Int, color: Int): SpannableStr
 fun hideKeyboard(view: View, context: Context) {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
+    val dialog = Dialog(context)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setContentView(R.layout.logout_dialog)
+    dialog.findViewById<TextView>(R.id.logout_dialog_tv2).text =
+        context.getString(R.string.require_login)
+    dialog.findViewById<TextView>(R.id.logout_dialog_tv1).text = "알림"
+    dialog.findViewById<Button>(R.id.logout_dialog_cancel).setOnClickListener {
+        dialog.dismiss()
+    }
+
+    dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
+        replaceAppbarFragment(LoginAppBar.newInstance(true, backFragmentAppBar))
+        addMainFragment(Login.newInstance(), true)
+        dialog.dismiss()
+    }
+    dialog.show()
 }
 
 

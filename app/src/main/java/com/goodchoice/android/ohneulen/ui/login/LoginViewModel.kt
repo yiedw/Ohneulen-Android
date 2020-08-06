@@ -23,8 +23,7 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
     var emailClick = true
 
 
-//    var memEmail = "aaa@aa.com"
-//    var memPw = "qwer1234"
+    var memberEmail = "이메일"
 
     val loginErrorToast = MutableLiveData<Event<Boolean>>()
 
@@ -36,6 +35,7 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
 
             )
             if (loginResponse.resultCode == "000" || loginResponse.resultCode == "021") {
+                memberEmail=memEmail
                 isLogin.postValue(true)
                 replaceMainFragment(MyPage.newInstance())
                 replaceAppbarFragment(MyPageAppBar.newInstance())

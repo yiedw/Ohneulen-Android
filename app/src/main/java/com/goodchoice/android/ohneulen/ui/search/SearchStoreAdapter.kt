@@ -21,11 +21,8 @@ import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
-import com.goodchoice.android.ohneulen.util.addAppbarFragment
-import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import timber.log.Timber
 
 
@@ -41,22 +38,7 @@ class SearchStoreAdapter :
                 //빈 하트일때
                 storeItemGoodBasic.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
-                        val dialog = Dialog(root.context)
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                        dialog.setContentView(R.layout.logout_dialog)
-                        dialog.findViewById<TextView>(R.id.logout_dialog_tv2).text =
-                            root.context.getString(R.string.require_login)
-                        dialog.findViewById<TextView>(R.id.logout_dialog_tv1).text = "알림"
-                        dialog.findViewById<Button>(R.id.logout_dialog_cancel).setOnClickListener {
-                            dialog.dismiss()
-                        }
-                        dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
-                            replaceAppbarFragment(LoginAppBar.newInstance(true,SearchAppBar.newInstance()))
-                            addMainFragment(Login.newInstance(),true)
-                            dialog.dismiss()
-
-                        }
-                        dialog.show()
+                        loginDialog(root.context, SearchAppBar.newInstance())
                         return@setOnClickListener
                     }
                     storeItemGoodRed.visibility = View.VISIBLE

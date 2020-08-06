@@ -6,7 +6,6 @@ data class Store(
     val seq: String,
     val kind: String,
     val cate1: String,
-    val cate1Name: Cate1Name? = null,
     val cate2: String,
     val cate3: String,
     val brand_seq: Any,
@@ -29,6 +28,8 @@ data class Store(
     val insertID: String,
     val modifyDate: String,
     val modifyID: String,
+    val cate1Name: Cate1Name? = null,
+    val likes: Boolean,
     val image: List<Image>
 )
 

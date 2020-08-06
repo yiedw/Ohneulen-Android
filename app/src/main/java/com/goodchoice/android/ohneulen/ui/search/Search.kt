@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,6 +33,10 @@ class Search : Fragment() {
     private val searchViewModel: SearchViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
 
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility=View.VISIBLE
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -118,22 +118,7 @@ class StoreReview : Fragment() {
 
     fun reviewWriteClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
-            val dialog = Dialog(requireContext())
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setContentView(R.layout.logout_dialog)
-            dialog.findViewById<TextView>(R.id.logout_dialog_tv2).text =
-                requireContext().getString(R.string.require_login)
-            dialog.findViewById<TextView>(R.id.logout_dialog_tv1).text = "알림"
-            dialog.findViewById<Button>(R.id.logout_dialog_cancel).setOnClickListener {
-                dialog.dismiss()
-            }
-
-            dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
-                replaceAppbarFragment(LoginAppBar.newInstance(true, StoreAppBar.newInstance()))
-                addMainFragment(Login.newInstance(), true)
-                dialog.dismiss()
-            }
-            dialog.show()
+            loginDialog(requireContext(), StoreAppBar.newInstance())
         } else {
             replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
             addMainFragment(StoreReviewWrite.newInstance(), true)
