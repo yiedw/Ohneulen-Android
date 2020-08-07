@@ -46,6 +46,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/background_home_search"
                 android:hint="강남역 고기"
+                android:textColorHint="#d7d7d7"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:paddingStart="40dp"
@@ -90,7 +91,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:onClick="@{fragment::searchOnClick}"
-                android:src="@drawable/search"
+                android:src="@drawable/home_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="@id/home_editText"
                 app:layout_constraintTop_toTopOf="parent" />

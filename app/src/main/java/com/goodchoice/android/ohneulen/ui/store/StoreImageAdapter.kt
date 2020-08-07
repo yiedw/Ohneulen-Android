@@ -31,15 +31,8 @@ class StoreImageAdapter :
                     .into(storeImageItem)
 
                 root.setOnClickListener {
-                    val dialog=StoreImageDetailDialog.newInstance(adapterPosition)
-                    dialog.show(MainActivity.supportFragmentManager,"asdf")
-
-//                    MainActivity.appbarFrameLayout.visibility = View.GONE
-//                    addMainFragment(
-//                        StoreImageDetail.newInstance(
-//                            adapterPosition
-//                        ), true
-//                    )
+                    val dialog = StoreImageDetailDialog.newInstance(adapterPosition)
+                    dialog.show(MainActivity.supportFragmentManager, "")
                 }
             }
         }

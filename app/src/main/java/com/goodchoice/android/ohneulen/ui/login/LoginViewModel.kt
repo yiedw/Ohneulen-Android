@@ -12,6 +12,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
+import java.lang.Exception
 
 class LoginViewModel(private val networkService: NetworkService, application: Application) :
     AndroidViewModel(application) {
@@ -30,22 +32,27 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
 
     fun login(memEmail: String, memPw: String, check: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            val loginResponse = networkService.requestLogin(
-                memEmail.toRequestBody(), memPw.toRequestBody()
-
-            )
-            if (loginResponse.resultCode == "000" || loginResponse.resultCode == "021") {
-                memberEmail=memEmail
-                isLogin.postValue(true)
-                replaceMainFragment(MyPage.newInstance())
-                replaceAppbarFragment(MyPageAppBar.newInstance())
-                if (check) {
-                    //토큰 저장
+            try {
+                val loginResponse = networkService.requestLogin(
+                    memEmail.toRequestBody(), memPw.toRequestBody()
+                )
+                if (loginResponse.resultCode == "000" || loginResponse.resultCode == "021") {
+                    memberEmail = memEmail
+                    isLogin.postValue(true)
+                    replaceMainFragment(MyPage.newInstance())
+                    replaceAppbarFragment(MyPageAppBar.newInstance())
+                    if (check) {
+                        //토큰 저장
+                    }
                 }
-            }
-            //로그인 실패
-            else {
+                //로그인 실패
+                else {
+                    loginErrorToast.postValue(Event(true))
+                }
+
+            } catch (e: Throwable) {
                 loginErrorToast.postValue(Event(true))
+
             }
         }
     }

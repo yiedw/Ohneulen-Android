@@ -28,12 +28,33 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="20dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="제목"
-                    android:textColor="@color/colorTextBlack" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="제목  "
+                        android:textColor="@color/colorTextBlack" />
+
+                    <TextView
+                        android:id="@+id/mypage_contactus_title_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/colorCGrey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/30"
+                        android:textColor="@color/colorCGrey" />
+
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/mypage_contactus_title"
@@ -141,11 +162,13 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/mypage_contactus_footer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
-                    android:text="오늘은 개인정보 수집 및 이용의 내역을 확인하였으며, 이에 동의합니다"
-                    android:textColor="#141414" />
+                    android:textColor="#141414"
+                    android:textColorLink="#141414"
+                    />
             </LinearLayout>
 
         </ScrollView>

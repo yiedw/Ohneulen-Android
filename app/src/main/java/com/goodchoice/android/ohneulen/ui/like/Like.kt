@@ -44,11 +44,11 @@ class Like : Fragment() {
         val text = binding.likeEmptyTv.text.toString()
         binding.likeEmptyTv.text =
             textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+        binding.fragment=this
         return binding.root
     }
 
     fun moveSearch(view: View) {
-        replaceMainFragment(Search.newInstance())
-        replaceAppbarFragment(SearchAppBar.newInstance())
+        MainActivity.bottomNav.selectedItemId=R.id.menu_bottom_nav_map
     }
 }

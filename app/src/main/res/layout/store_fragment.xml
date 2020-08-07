@@ -101,6 +101,17 @@
                 app:layout_constraintTop_toBottomOf="@id/store_top"
                 bind:storeImageList="@{viewModel.storeDetail.storeInfo.image}" />
 
+            <ImageView
+                android:id="@+id/store_fragment_one_image"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:onClick="@{fragment::oneImageClick}"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/store_top" />
+
             <View
                 android:id="@+id/store_fragment_border"
                 android:layout_width="match_parent"

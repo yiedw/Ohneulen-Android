@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageRecentBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -48,7 +49,6 @@ class MyPageRecent : Fragment() {
     }
 
     fun moveSearch(view: View) {
-        replaceMainFragment(Search.newInstance())
-        replaceAppbarFragment(SearchAppBar.newInstance())
+        MainActivity.bottomNav.selectedItemId=R.id.menu_bottom_nav_map
     }
 }
