@@ -23,8 +23,10 @@ import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
 import kotlinx.android.synthetic.main.search_filter.view.*
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.lang.System.out
 
 
 class SearchFilter : Fragment() {
@@ -101,64 +103,66 @@ class SearchFilter : Fragment() {
     //아래 체크뷰 생성
     private fun bottomViewGenerate() {
         searchViewModel.subCategory.observe(viewLifecycleOwner, Observer {
-            if (searchViewModel.filterHashMap.size == 1) {
+
+            if (searchViewModel.tempCate.size == 1) {
                 binding.searchFilterTv1.visibility = View.VISIBLE
-            } else if (searchViewModel.filterHashMap.isNullOrEmpty()) {
+            } else if (searchViewModel.tempCate.size == 0) {
                 binding.searchFilterTv1.visibility = View.GONE
                 binding.searchFilterSelect.removeAllViews()
             }
 
-//                Timber.e("${searchViewModel.mainCategoryPosition.value!!} ${searchViewModel.subCategoryPosition}")
-            if (!searchViewModel.filterHashMap.isNullOrEmpty() && !searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!].isNullOrEmpty()) {
-                val filterName =
-                    searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].minorName
+
+            if (!searchViewModel.tempCate.isNullOrEmpty() && !searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!].isNullOrEmpty()) {
+                val ohneulenData =
+                    searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
                 val layoutInflater = this.layoutInflater
                 val selectView = layoutInflater.inflate(R.layout.filter_selector, null)
                 selectView.findViewById<TextView>(R.id.filter_select_title).text =
-                    filterName
+                    ohneulenData.minorName
 
                 //클릭할시 뷰 삭제
                 var removeIndex = 0
                 selectView.setOnClickListener {
                     //바텀뷰 삭제
                     for (i in 0 until binding.searchFilterSelect.childCount) {
-                        if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == filterName) {
-                            removeIndex = i
-                            break
-                        }
-                    }
-                    binding.searchFilterSelect.removeViewAt(removeIndex)
-
-                    //해시맵삭제
-                    for (i in searchViewModel.filterHashMap.keys) {
-                        val mainFilterPosition = i / 10
-                        val subFilterPosition = i % 10
-                        if (searchViewModel.subCategoryList[mainFilterPosition][subFilterPosition].minorName == filterName) {
-                            searchViewModel.filterHashMap.remove(i)
-                            searchViewModel.subCategoryList[mainFilterPosition][subFilterPosition].check =
-                                false
-                            searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                        if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
+                            loop@ for (j in searchViewModel.subCategoryList.indices) {
+                                for (k in searchViewModel.subCategoryList[j].indices) {
+                                    if (searchViewModel.subCategoryList[j][k].minorName == ohneulenData.minorName) {
+                                        searchViewModel.subCategoryList[j][k].check = false
+                                        searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                                        break@loop
+                                    }
+                                }
+                            }
+                            binding.searchFilterSelect.removeViewAt(i)
                             break
                         }
                     }
 
+                    //tempCate child 삭제
+                    for (i in searchViewModel.tempCate.indices) {
+                        if (searchViewModel.tempCate[i].minorCode == ohneulenData.minorCode) {
+                            searchViewModel.tempCate.removeAt(i)
+                            break
+                        }
+                    }
 
                 }
-
-                //체크된거 클릭
+                //위에 체크된 뷰 클릭
                 if (searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].check) {
                     binding.searchFilterSelect.addView(selectView, 0)
                 } else {
-                    //체크된거 삭제
+                    Timber.e(binding.searchFilterSelect.childCount.toString())
                     for (i in 0 until binding.searchFilterSelect.childCount) {
-                        if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == filterName) {
-                            removeIndex = i
-                            binding.searchFilterSelect.removeViewAt(removeIndex)
+                        if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
+                            binding.searchFilterSelect.removeViewAt(i)
                             break
                         }
                     }
                 }
             }
+
         })
 
 
@@ -246,6 +250,19 @@ class SearchFilter : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
                     tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
                 }
+                if (gridLayout == binding.searchFilterConvenience) {
+                    var check = false
+                    for (i in searchViewModel.option.indices) {
+                        if (searchViewModel.option[i].toString() == mutableList[i].majorCode + mutableList[i].minorCode) {
+                            check = true
+                            searchViewModel.option.removeAt(i)
+                            break
+                        }
+                    }
+//                    if (!check) {
+//                        searchViewModel.option.add((mutableList[i].majorCode + mutableList[i].minorCode).toRequestBody())
+//                    }
+                }
 
             }
             gridLayout.addView(tb)
@@ -270,7 +287,7 @@ class SearchFilter : Fragment() {
         binding.searchFilterOptionsView.visibility = View.GONE
         binding.searchFilterResetBorder.visibility = View.GONE
         binding.searchFilterReset.setBackgroundColor(Color.parseColor("#f6f6f6"))
-        checkFood=true
+        checkFood = true
         binding.searchFilterFood.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -295,7 +312,7 @@ class SearchFilter : Fragment() {
         binding.searchFilterOptionsView.visibility = View.VISIBLE
         binding.searchFilterResetBorder.visibility = View.VISIBLE
         binding.searchFilterReset.setBackgroundColor(requireContext().getColor(R.color.white))
-        checkFood=true
+        checkFood = false
         binding.searchFilterOptions.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -372,16 +389,21 @@ class SearchFilter : Fragment() {
     fun resetClick(view: View) {
         //음식선택일때
         if (checkFood) {
-            if (searchViewModel.filterHashMap.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "음식을 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
+            if (searchViewModel.tempCate.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "음식의 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
                 return
             }
-            for (i in searchViewModel.filterHashMap.keys) {
-                val mainFilterPosition = i / 10
-                val subFilterPosition = i % 10
-                searchViewModel.subCategoryList[mainFilterPosition][subFilterPosition].check = false
+//            for (i in searchViewModel.tempCate.indices) {
+////                val mainFilterPosition = i / 10
+////                val subFilterPosition = i % 10
+//                searchViewModel.subCategoryList[mainFilterPosition][subFilterPosition].check = false
+//            }
+            for (i in searchViewModel.subCategoryList.indices) {
+                for (j in searchViewModel.subCategoryList[i].indices) {
+                    searchViewModel.subCategoryList[i][j].check = false
+                }
             }
-            searchViewModel.filterHashMap.clear()
+            searchViewModel.tempCate.clear()
             searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
         }
 
@@ -393,16 +415,25 @@ class SearchFilter : Fragment() {
     }
 
     fun submitClick(view: View) {
+
         //음식 선택일때
         if (checkFood) {
-            if (searchViewModel.filterHashMap.isNullOrEmpty()) {
+            if (searchViewModel.tempCate.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), "음식을 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
                 return
             }
         }
-        else{
+//        else {
+//            if (searchViewModel.openTime.size == 0 && searchViewModel.option.size == 0 && searchViewModel.sort.size == 0) {
+//                Toast.makeText(requireContext(), "옵션의 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
+//                return
+//            }
+//        }
+//        for (i in searchViewModel.tempCate.indices) {
+//            searchViewModel.cate.add((searchViewModel.tempCate[i].majorCode + searchViewModel.tempCate[i].minorCode).toRequestBody())
+//        }
 
-        }
+        searchViewModel.filterSubmit()
     }
 
 

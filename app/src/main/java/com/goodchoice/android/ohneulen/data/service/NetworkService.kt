@@ -41,6 +41,16 @@ interface NetworkService {
         @Part("store_seq") storeSeq: RequestBody
     ): GetStoreInfoResponse
 
+    //스토어 리스트 검색(필터)
+    @POST("store/searchList")
+    @Multipart
+    suspend fun requestStoreSearchList(
+        @Part("cate") cate:MutableList<String>,
+        @Part("option") option:MutableList<String>,
+        @Part("openTime") openTime:MutableList<String>,
+        @Part("sort") sort: MutableList<String>
+    ):GetStoreListResponse
+
     //카카오 위치 검색
     @GET
     suspend fun requestKakaoAddress(

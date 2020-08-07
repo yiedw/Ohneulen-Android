@@ -39,7 +39,7 @@ class SearchFilterSubAdapter() :
                         searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
 
                     if (!subCategory.check) {
-                        if (searchViewModel.filterHashMap.size > 4) {
+                        if (searchViewModel.tempCate.size > 4) {
                             Toast.makeText(root.context, "최대 5개까지 선택 가능합니다.", Toast.LENGTH_SHORT)
                                 .show()
                             return@setOnClickListener
@@ -49,12 +49,14 @@ class SearchFilterSubAdapter() :
                     subCategory.check = !subCategory.check
                     searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
                     if (subCategory.check) {
-                        searchViewModel.filterHashMap[searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition] =
-                            items.minorCode
+//                        searchViewModel.filterHashMap[searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition] =
+//                            items.minorCode
+                        searchViewModel.tempCate.add(items)
                     } else {
-                        searchViewModel.filterHashMap.remove(
-                            searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition
-                        )
+//                        searchViewModel.filterHashMap.remove(
+//                            searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition
+//                        )
+                        searchViewModel.tempCate.remove(items)
                     }
 
 

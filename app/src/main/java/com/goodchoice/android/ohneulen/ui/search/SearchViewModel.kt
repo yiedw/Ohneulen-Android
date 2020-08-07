@@ -5,10 +5,14 @@ import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.data.repository.InitData
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 
 class SearchViewModel(private val networkService: NetworkService, initData: InitData) :
     ViewModel() {
@@ -21,14 +25,15 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var searchStoreList = MutableLiveData<List<Store>>()
     val searchStoreAdapter = SearchStoreAdapter()
 
-    val filterHashMap=HashMap<Int,String>()
+    val filterHashMap = HashMap<Int, String>()
+
+    val tempCate = mutableListOf<OhneulenData>()
 
     //서버로 전송할 데이터
-    val cate= mutableListOf<String>()
-    val option= mutableListOf<String>()
-    val openTime= mutableListOf<String>()
-    val sort= mutableListOf<String>()
-
+    val cate = mutableListOf<String>()
+    val option = mutableListOf<String>()
+    val openTime = mutableListOf<String>()
+    val sort = mutableListOf<String>()
 
 
     //카테고리
@@ -37,15 +42,14 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 
     val mainCategory = initData.mainCategory
     val subCategoryList = initData.subCategory
-    var subCategory=MutableLiveData<List<OhneulenData>>(subCategoryList[0])
+    var subCategory = MutableLiveData<List<OhneulenData>>(subCategoryList[0])
 
     //옵션
-    var mainOptionKind=initData.mainOptionKind
-    var subOptionKind=initData.subOptionKind
+    var mainOptionKind = initData.mainOptionKind
+    var subOptionKind = initData.subOptionKind
 
     //요일
-    var timeDay=initData.timeDay
-
+    var timeDay = initData.timeDay
 
 
     fun getStoreList() {
@@ -79,6 +83,19 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
             }
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(y, x))
             return@launch
+        }
+    }
+
+    fun filterSubmit() {
+        CoroutineScope(Dispatchers.IO).launch {
+            Timber.e(sort.toString(),option.toString())
+            try {
+            val response = networkService.requestStoreSearchList(cate, option, openTime, sort)
+            Timber.e(response.toString())
+
+            }catch (e:Throwable){
+                Timber.e(e.toString())
+            }
         }
     }
 
