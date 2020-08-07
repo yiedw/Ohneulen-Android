@@ -1,6 +1,5 @@
 package com.goodchoice.android.ohneulen.ui.search
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,20 +10,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.model.Category
+import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
-import com.goodchoice.android.ohneulen.util.constant.ConstList
-import timber.log.Timber
 
 class SearchFilterSubAdapter() :
-    ListAdapter<Category, SearchFilterSubAdapter.SearchFilterViewHolder>(SearchFilterSubDiffUtil) {
+    ListAdapter<OhneulenData, SearchFilterSubAdapter.SearchFilterViewHolder>(SearchFilterSubDiffUtil) {
 
     lateinit var searchViewModel: SearchViewModel
 
     inner class SearchFilterViewHolder(private val binding: SearchFilterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun subFilterBind(items: Category) {
+        fun subFilterBind(items: OhneulenData) {
             binding.apply {
                 if (items.check) {
                     filterCheck.visibility = View.VISIBLE
@@ -82,12 +79,12 @@ class SearchFilterSubAdapter() :
     }
 }
 
-object SearchFilterSubDiffUtil : DiffUtil.ItemCallback<Category>() {
-    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+object SearchFilterSubDiffUtil : DiffUtil.ItemCallback<OhneulenData>() {
+    override fun areItemsTheSame(oldItem: OhneulenData, newItem: OhneulenData): Boolean {
         return oldItem.minorName == newItem.minorName
     }
 
-    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+    override fun areContentsTheSame(oldItem: OhneulenData, newItem: OhneulenData): Boolean {
         return oldItem == newItem
     }
 

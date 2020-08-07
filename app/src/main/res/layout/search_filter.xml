@@ -135,142 +135,146 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_filter_options_con"
+        <ScrollView
+            android:id="@+id/search_filter_options_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/white"
+            android:orientation="vertical"
             android:paddingHorizontal="20dp"
             android:paddingTop="15dp"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/search_filter_submit"
             app:layout_constraintTop_toBottomOf="@id/search_filter_choice">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/search_filter_options_con"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-
-                <TextView
-                    android:id="@+id/search_filter_options_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="정렬"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/main_contents" />
-
-                <View
-                    android:id="@+id/search_filter_options_contour1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@color/colorBorderLightGrey" />
-
-                <LinearLayout
-                    android:id="@+id/search_filter_options_linear1"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/search_filter_recent"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/background_rounding"
-                        android:gravity="center"
-                        android:onClick="@{fragment::sortButtonClick}"
-                        android:padding="0dp"
-                        android:text="최신순"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
-
-                    <Button
-                        android:id="@+id/search_filter_rating"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/background_rounding"
-                        android:gravity="center"
-                        android:onClick="@{fragment::sortButtonClick}"
-                        android:padding="0dp"
-                        android:text="평점순"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="편의"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/main_contents"
-                    app:layout_constraintLeft_toLeftOf="parent" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="6dp"
-                    android:background="#e5e5e5" />
-
-
-                <GridLayout
-                    android:id="@+id/search_filter_convenience"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:columnCount="3"
-                    android:orientation="horizontal"
-                    android:useDefaultMargins="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="영업일"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/main_contents"
-                    app:layout_constraintLeft_toLeftOf="parent" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="6dp"
-                    android:background="#e5e5e5" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/search_filter_options_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="정렬"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/main_contents" />
+
+                    <View
+                        android:id="@+id/search_filter_options_contour1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@color/colorBorderLightGrey" />
+
+                    <LinearLayout
+                        android:id="@+id/search_filter_options_linear1"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <Button
+                            android:id="@+id/search_filter_recent"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/background_rounding"
+                            android:gravity="center"
+                            android:onClick="@{fragment::sortButtonClick}"
+                            android:padding="0dp"
+                            android:text="최신순"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+
+                        <Button
+                            android:id="@+id/search_filter_rating"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/background_rounding"
+                            android:gravity="center"
+                            android:onClick="@{fragment::sortButtonClick}"
+                            android:padding="0dp"
+                            android:text="평점순"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="편의"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/main_contents"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="6dp"
+                        android:background="#e5e5e5" />
+
+
+                    <GridLayout
+                        android:id="@+id/search_filter_convenience"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:columnCount="3"
+                        android:orientation="horizontal"
+                        android:useDefaultMargins="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="영업일"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/main_contents"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="6dp"
+                        android:background="#e5e5e5" />
+
+
+                    <GridLayout
+                        android:id="@+id/search_filter_timeDay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:columnCount="3"
+                        android:orientation="horizontal"
+                        android:useDefaultMargins="true" />
+
 
                 </LinearLayout>
 
-                <GridLayout
-                    android:id="@+id/search_filter_open"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:columnCount="3"
-                    android:orientation="horizontal"
-                    android:useDefaultMargins="true"/>
 
-
-            </LinearLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorContour"
             app:layout_constraintBottom_toTopOf="@id/search_filter_reset" />
+
 
         <TextView
             android:id="@+id/search_filter_reset"
@@ -303,6 +307,17 @@
             android:textSize="@dimen/main_contents"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/search_filter_reset"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_filter_reset" />
+
+        <View
+            android:id="@+id/search_filter_reset_border"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="#e5e5e5"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/search_filter_reset"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/search_filter_reset" />
 

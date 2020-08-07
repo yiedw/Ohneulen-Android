@@ -21,7 +21,6 @@ import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")
@@ -40,7 +39,7 @@ fun setSearchStoreAdapter(
 @BindingAdapter("subCategory", "subCategoryViewModel")
 fun setFilterSubAdapter(
     recyclerView: RecyclerView,
-    items: List<Category>,
+    items: List<OhneulenData>,
     viewModel: SearchViewModel
 ) {
     recyclerView.adapter = SearchFilterSubAdapter().apply {

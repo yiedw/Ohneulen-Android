@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.net.Network
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -18,21 +17,19 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
-import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
-import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 import java.security.MessageDigest
@@ -187,10 +184,37 @@ fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
     dialog.show()
 }
 
-fun getOhneulenData(networkService:NetworkService,mainCode:String){
-    CoroutineScope(Dispatchers.IO).launch {
-        val mainCategoryResponse=
-            networkService.requestOhneulenData(mainCode.toRequestBody())
+suspend fun getOhneulenData(
+    networkService: NetworkService,
+    code: String
+): MutableList<OhneulenData> {
+    val list = mutableListOf<OhneulenData>()
+    withContext(Dispatchers.IO) {
+        val response =
+            networkService.requestOhneulenData(code.toRequestBody())
+        for (i in response.resultData.indices) {
+            val majorCode = response.resultData[i].majorCode
+            val minorCode = response.resultData[i].minorCode
+            val minorName = response.resultData[i].minorName
+            list.add(OhneulenData(majorCode, minorCode, minorName, false))
+        }
     }
+    return list
 }
+
+suspend fun getOhneulenSubData(
+    networkService: NetworkService,
+    mainList: MutableList<OhneulenData>
+): MutableList<List<OhneulenData>> {
+    val subList = mutableListOf<List<OhneulenData>>()
+    withContext(Dispatchers.IO) {
+        for (i in mainList.indices) {
+            val tempList = getOhneulenData(networkService, mainList[i].minorCode)
+            subList.add(tempList)
+        }
+    }
+    return subList
+}
+
+
 

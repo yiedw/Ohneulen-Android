@@ -6,7 +6,7 @@ package com.goodchoice.android.ohneulen.data.model
 //    val minorName: String,
 //    val subCategoryList: MutableList<Category> = mutableListOf()
 //)
-data class Category(
+data class OhneulenData(
     val majorCode: String,
     val minorCode: String,
     val minorName: String,

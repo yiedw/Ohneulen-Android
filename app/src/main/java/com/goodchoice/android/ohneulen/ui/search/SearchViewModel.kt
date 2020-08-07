@@ -1,12 +1,10 @@
 package com.goodchoice.android.ohneulen.ui.search
 
-import android.view.View
 import androidx.lifecycle.*
-import com.goodchoice.android.ohneulen.data.model.Category
+import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.data.repository.InitData
-import com.goodchoice.android.ohneulen.util.constant.ConstList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,26 +17,34 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var kakaoMapPoint = MutableLiveData<MapPoint>()
     var toastMessage = MutableLiveData<Boolean>(false)
 
-    //    var searchStoreList: LiveData<MutableList<Store>> = liveData(Dispatchers.IO) {
-//        loading.postValue(true)
-//        emit(getStore())
-//    }
+
     var searchStoreList = MutableLiveData<List<Store>>()
     val searchStoreAdapter = SearchStoreAdapter()
 
     val filterHashMap=HashMap<Int,String>()
 
+    //서버로 전송할 데이터
+    val cate= mutableListOf<String>()
+    val option= mutableListOf<String>()
+    val openTime= mutableListOf<String>()
+    val sort= mutableListOf<String>()
 
 
+
+    //카테고리
     var mainCategoryPosition = MutableLiveData<Int>(0)
     var subCategoryPosition = 0
-//    val categoryList = MutableLiveData(initData.mainCategoryList)
 
+    val mainCategory = initData.mainCategory
+    val subCategoryList = initData.subCategory
+    var subCategory=MutableLiveData<List<OhneulenData>>(subCategoryList[0])
 
+    //옵션
+    var mainOptionKind=initData.mainOptionKind
+    var subOptionKind=initData.subOptionKind
 
-    val mainCategory = initData.mainCategoryList
-    val subCategoryList = initData.subCategoryList
-    var subCategory=MutableLiveData<List<Category>>(subCategoryList[0])
+    //요일
+    var timeDay=initData.timeDay
 
 
 

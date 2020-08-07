@@ -17,10 +17,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.OhneulenData
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
+import kotlinx.android.synthetic.main.search_filter.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class SearchFilter : Fragment() {
@@ -30,17 +34,13 @@ class SearchFilter : Fragment() {
 
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var binding: SearchFilterBinding
-    var check = false
+    var checkFood = true
 
     var position = 0
     private var previousPosition = 0
 
-    var filterCheck = false
-
     private var checkRecent = false
     private var checkRating = false
-    private val checkConvenienceList = mutableListOf<Boolean>()
-    private val checkOpenList = mutableListOf<Boolean>()
 
 
     override fun onCreateView(
@@ -77,49 +77,18 @@ class SearchFilter : Fragment() {
 
         //음식 선택시 아래 뷰 생성
         foodFilterGenerate()
-
         //음식 메인카테고리 리스트 생성
         bottomViewGenerate()
 
 
-        //선택완료 클릭
-        binding.searchFilterSubmit.setOnClickListener {
-        }
-
         //뒤에 레이아웃 터치 안먹게 하기
         binding.searchFilter.setOnTouchListener { v, event -> true }
 
-        //options 편의바 생성
-        //sample
+        //convenience
+        convenienceGenerate()
 
-
-        val sampleConvenienceList = listOf<String>(
-            "영업중", "주차 가능", "예약 가능", "배달 가능", "포장 가능", "반려동물",
-            "비건 식당", "놀이방", "와이파이"
-        )
-        for (i in sampleConvenienceList.indices) {
-            checkConvenienceList.add(false)
-        }
-        //뷰 생성
-        for (i in sampleConvenienceList.iterator()) {
-            binding.searchFilterConvenience.addView(toggleButtonGenerate(i))
-        }
-
-        //영업일 생성
-        //sample
-        val sampleOpenList = listOf<String>(
-            "연중무휴", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"
-        )
-
-        for (i in sampleOpenList.indices) {
-            checkOpenList.add(false)
-        }
-
-        //뷰 생성
-        for (i in sampleOpenList.iterator()) {
-            binding.searchFilterOpen.addView(toggleButtonGenerate(i))
-        }
-
+        //timeDay
+        timeDayGenerate()
 
     }
 
@@ -245,47 +214,63 @@ class SearchFilter : Fragment() {
         }
     }
 
-    private fun toggleButtonGenerate(text: String): ToggleButton {
+    private fun toggleButtonGenerate(
+        gridLayout: GridLayout,
+        mutableList: MutableList<OhneulenData>
+    ) {
 
-        // convenience list를 가져와서 갯수만큼 뷰를 추가
+        // list를 가져와서 갯수만큼 뷰를 추가
+        for (i in mutableList.indices) {
+            val param = GridLayout.LayoutParams()
+            param.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            param.height = 32.dp()
+            val tb = ToggleButton(requireContext())
+            tb.layoutParams = param
+            tb.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+            tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+            tb.text = mutableList[i].minorName
+            tb.textOff = mutableList[i].minorName
+            tb.textOn = mutableList[i].minorName
+            tb.setPadding(0, 0, 0, 0)
+            tb.setOnCheckedChangeListener { buttonView, isChecked ->
+                mutableList[i].check = isChecked
+                if (isChecked) {
+                    tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    tb.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.background_rounding_ohneulen
+                    )
+                } else {
+                    tb.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+                    tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+                }
 
-        val param = GridLayout.LayoutParams()
-        param.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-        param.height = 32.dp()
-
-
-        val tb = ToggleButton(requireContext())
-        tb.layoutParams = param
-//        tb.gravity = Gravity.CENTER
-//        tb.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
-        tb.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
-        tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
-        tb.text = text
-        tb.textOff = text
-        tb.textOn = text
-        tb.setPadding(0, 0, 0, 0)
-        tb.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                tb.background = ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.background_rounding_ohneulen
-                )
-            } else {
-                tb.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
-                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
             }
-
+            gridLayout.addView(tb)
         }
 
-        return tb
+
 //        binding.searchFilterConvenience.addView()
+    }
+
+    private fun convenienceGenerate() {
+        val convenience = searchViewModel.mainOptionKind
+        toggleButtonGenerate(binding.searchFilterConvenience, convenience)
+    }
+
+    private fun timeDayGenerate() {
+        val timeDay = searchViewModel.timeDay
+        toggleButtonGenerate(binding.searchFilterTimeDay, timeDay)
     }
 
     fun onFoodClick(view: View) {
         binding.searchFilterFoodCon.visibility = View.VISIBLE
-        binding.searchFilterOptionsCon.visibility = View.GONE
+        binding.searchFilterOptionsView.visibility = View.GONE
+        binding.searchFilterResetBorder.visibility = View.GONE
+        binding.searchFilterReset.setBackgroundColor(Color.parseColor("#f6f6f6"))
+        checkFood=true
         binding.searchFilterFood.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -307,7 +292,10 @@ class SearchFilter : Fragment() {
 
     fun onOptionsClick(view: View) {
         binding.searchFilterFoodCon.visibility = View.GONE
-        binding.searchFilterOptionsCon.visibility = View.VISIBLE
+        binding.searchFilterOptionsView.visibility = View.VISIBLE
+        binding.searchFilterResetBorder.visibility = View.VISIBLE
+        binding.searchFilterReset.setBackgroundColor(requireContext().getColor(R.color.white))
+        checkFood=true
         binding.searchFilterOptions.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -329,6 +317,8 @@ class SearchFilter : Fragment() {
 
     fun sortButtonClick(view: View) {
         if (view == binding.searchFilterRecent) {
+            checkRecent = true
+            checkRating = false
             binding.apply {
                 searchFilterRecent.setTextColor(
                     ContextCompat.getColor(
@@ -351,6 +341,8 @@ class SearchFilter : Fragment() {
                 )
             }
         } else {
+            checkRecent = false
+            checkRating = true
             binding.apply {
                 searchFilterRating.setTextColor(
                     ContextCompat.getColor(
@@ -376,9 +368,10 @@ class SearchFilter : Fragment() {
         }
     }
 
+
     fun resetClick(view: View) {
         //음식선택일때
-        if (binding.searchFilterFoodCon.visibility == View.VISIBLE) {
+        if (checkFood) {
             if (searchViewModel.filterHashMap.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), "음식을 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
                 return
@@ -401,11 +394,14 @@ class SearchFilter : Fragment() {
 
     fun submitClick(view: View) {
         //음식 선택일때
-        if (binding.searchFilterFoodCon.visibility == View.VISIBLE) {
+        if (checkFood) {
             if (searchViewModel.filterHashMap.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), "음식을 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
                 return
             }
+        }
+        else{
+
         }
     }
 

@@ -1,13 +1,13 @@
 package com.goodchoice.android.ohneulen.data.repository
 
-import com.goodchoice.android.ohneulen.data.model.Category
+import androidx.lifecycle.MutableLiveData
+import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.constant.ConstList
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import com.goodchoice.android.ohneulen.util.getOhneulenData
+import com.goodchoice.android.ohneulen.util.getOhneulenSubData
+import kotlinx.coroutines.*
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 
@@ -15,12 +15,33 @@ class InitData(private val networkService: NetworkService) {
 
     private val memId = "aaa@aa.com"
     private val memPw = "qwer1234"
-    var mainCategoryList = mutableListOf<Category>()
-    var subCategoryList = mutableListOf<List<Category>>()
+
+    //카테고리
+    var mainCategory = mutableListOf<OhneulenData>()
+    var subCategory = mutableListOf<List<OhneulenData>>()
+
+    //옵션
+    var mainOptionKind = mutableListOf<OhneulenData>()
+    var subOptionKind = mutableListOf<List<OhneulenData>>()
+
+    //요일
+    var timeDay = mutableListOf<OhneulenData>()
+
+
+    //옵션
 
     init {
         tempLogin()
+
+        //옵션 가져오기
+        getOptionKind()
+        //카테고리 가져오기
         getCategory()
+        //요일 가져오기
+        CoroutineScope(Dispatchers.IO).launch {
+            timeDay = getOhneulenData(networkService, ConstList.TIME_DAY)
+        }
+
     }
 
     private fun tempLogin() {
@@ -29,93 +50,33 @@ class InitData(private val networkService: NetworkService) {
                 memId.toRequestBody(), memPw.toRequestBody()
             )
             LoginViewModel.isLogin.postValue(true)
+            Timber.e("asdf")
         }
     }
 
-    //카테고리
+
     private fun getCategory() {
         CoroutineScope(Dispatchers.IO).launch {
-            val mainCategoryResponse =
-                networkService.requestOhneulenData(ConstList.CATEGORY.toRequestBody())
-
-            for (i in mainCategoryResponse.resultData.indices) {
-                val tempSubCategoryList = mutableListOf<Category>()
-                CoroutineScope(Dispatchers.IO).async {
-                    val subCategoryResponse = networkService.requestOhneulenData(
-                        mainCategoryResponse.resultData[i].minorCode.toRequestBody()
-                    )
-                    for (j in subCategoryResponse.resultData.indices) {
-                        val subCategoryMajorCode = subCategoryResponse.resultData[j].majorCode
-                        val subCategoryMinorCode = subCategoryResponse.resultData[j].minorCode
-                        val subCategoryMinorName = subCategoryResponse.resultData[j].minorName
-                        tempSubCategoryList.add(
-                            Category(
-                                subCategoryMajorCode,
-                                subCategoryMinorCode,
-                                subCategoryMinorName,
-                                false
-                            )
-                        )
-                    }
-                }.await()
-                val mainMajorCode = mainCategoryResponse.resultData[i].majorCode
-                val mainMinorCode = mainCategoryResponse.resultData[i].minorCode
-                val mainMinorName = mainCategoryResponse.resultData[i].minorName
-                if (i == 0) {
-                    mainCategoryList.add(
-                        Category(mainMajorCode, mainMinorCode, mainMinorName, true)
-                    )
-                } else {
-                    mainCategoryList.add(
-                        Category(mainMajorCode, mainMinorCode, mainMinorName, false)
-                    )
-                }
-                subCategoryList.add(tempSubCategoryList)
+            mainCategory = getOhneulenData(networkService, ConstList.CATEGORY)
+            for (i in mainCategory.indices) {
+                val tempList = getOhneulenData(networkService, mainCategory[i].minorCode)
+                subCategory.add(tempList)
             }
-            Timber.e(mainCategoryList.toString())
+            subCategory = getOhneulenSubData(networkService, mainCategory)
+            Timber.e(subCategory.toString())
         }
     }
 
-    private fun getOptions() {
+    private fun getOptionKind() {
         CoroutineScope(Dispatchers.IO).launch {
-            val mainResponse =
-                networkService.requestOhneulenData(ConstList.OPTION_KIND.toRequestBody())
-
-            for (i in mainResponse.resultData.indices) {
-                val tempSubCategoryList = mutableListOf<Category>()
-                CoroutineScope(Dispatchers.IO).async {
-                    val subResponse = networkService.requestOhneulenData(
-                        mainResponse.resultData[i].minorCode.toRequestBody()
-                    )
-                    for (j in subResponse.resultData.indices) {
-                        val subMajorCode = subResponse.resultData[j].majorCode
-                        val subMinorCode = subResponse.resultData[j].minorCode
-                        val subMinorName = subResponse.resultData[j].minorName
-                        tempSubCategoryList.add(
-                            Category(
-                                subMajorCode,
-                                subMinorCode,
-                                subMinorName,
-                                false
-                            )
-                        )
-                    }
-                }.await()
-                val mainMajorCode = mainResponse.resultData[i].majorCode
-                val mainMinorCode = mainResponse.resultData[i].minorCode
-                val mainMinorName = mainResponse.resultData[i].minorName
-                if (i == 0) {
-                    mainCategoryList.add(
-                        Category(mainMajorCode, mainMinorCode, mainMinorName, true)
-                    )
-                } else {
-                    mainCategoryList.add(
-                        Category(mainMajorCode, mainMinorCode, mainMinorName, false)
-                    )
-                }
-                subCategoryList.add(tempSubCategoryList)
+            mainOptionKind = getOhneulenData(networkService, ConstList.OPTION_KIND)
+            for (i in mainOptionKind.indices) {
+                val tempList = getOhneulenData(networkService, mainOptionKind[i].minorCode)
+                subOptionKind.add(tempList)
             }
-            Timber.e(mainCategoryList.toString())
+            subOptionKind = getOhneulenSubData(networkService, mainOptionKind)
+//            Timber.e(subOptionKind.toString())
         }
     }
+
 }
