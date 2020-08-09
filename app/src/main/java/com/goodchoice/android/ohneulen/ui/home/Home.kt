@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.Spannable
@@ -11,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -20,11 +22,10 @@ import com.goodchoice.android.ohneulen.databinding.HomeBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
-import com.goodchoice.android.ohneulen.util.OnBackPressedListener
+import com.goodchoice.android.ohneulen.ui.search.SearchFilter
+import com.goodchoice.android.ohneulen.ui.search.SearchFilterAppbar
+import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
-import com.goodchoice.android.ohneulen.util.hideKeyboard
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home() : Fragment(), OnBackPressedListener {
@@ -112,9 +113,16 @@ class Home() : Fragment(), OnBackPressedListener {
     }
 
     fun currentLocationClick(view: View) {
-        mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
-        replaceAppbarFragment(SearchAppBar.newInstance())
-        replaceMainFragment(Search.newInstance())
+//        mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
+//        replaceAppbarFragment(SearchAppBar.newInstance())
+//        replaceMainFragment(Search.newInstance())
+
+        //임
+        val imm=requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken,0)
+        replaceAppbarFragment(SearchFilterAppbar.newInstance())
+        addMainFragment(SearchFilter.newInstance(), true)
+
     }
 
     override fun onBackPressed() {

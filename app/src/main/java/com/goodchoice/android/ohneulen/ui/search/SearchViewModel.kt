@@ -30,7 +30,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     val tempCate = mutableListOf<OhneulenData>()
 
     //서버로 전송할 데이터
-    val cate = mutableListOf<String>()
+    val cate = mutableListOf<RequestBody>()
     val option = mutableListOf<String>()
     val openTime = mutableListOf<String>()
     val sort = mutableListOf<String>()
@@ -82,18 +82,25 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
                 x = addressResponse.documents[0].x.toDouble()
             }
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(y, x))
-            return@launch
         }
     }
 
     fun filterSubmit() {
         CoroutineScope(Dispatchers.IO).launch {
-            Timber.e(sort.toString(),option.toString())
-            try {
-            val response = networkService.requestStoreSearchList(cate, option, openTime, sort)
-            Timber.e(response.toString())
+            val cate1= mutableListOf<String>().apply {
+                this.add("cate001001")
+                this.add("cate003001")
+            }
+//            val cate1 = HashMap<String,MutableList<String>>().apply {
+//                this["cate[]"]= mutableListOf()
+//                this["cate[]"]!!.add("cate002001")
+//            }
 
-            }catch (e:Throwable){
+            try {
+                val response = networkService.requestStoreSearchList(cate1)
+                Timber.e(response.resultData.size.toString())
+
+            } catch (e: Throwable) {
                 Timber.e(e.toString())
             }
         }

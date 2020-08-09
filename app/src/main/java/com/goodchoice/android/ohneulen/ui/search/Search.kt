@@ -49,20 +49,6 @@ class Search : Fragment() {
                 container,
                 false
             )
-        //mvm 을 이용해서 데이터 받아오기
-//        searchViewModel.searchEditText = mainViewModel.searchEditText
-//
-//        검색어기반
-//        if (searchViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
-//            binding.searchEditText.setText(mainViewModel.searchEditText)
-//            if (!binding.searchEditText.text.toString().isBlank()) {
-//                //검색어를 이용해서 지도정보 불러오기
-//                searchViewModel.searchMapData()
-//            } else {
-//                Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
 
         //바인딩
         binding.apply {
@@ -77,9 +63,9 @@ class Search : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //맵 (삭제, 추가)
-        val searchMapFragment = SearchMap.newInstance()
-        childFragmentManager.beginTransaction()
-            .replace(R.id.search_map, searchMapFragment).commit()
+//        val searchMapFragment = SearchMap.newInstance()
+//        childFragmentManager.beginTransaction()
+//            .replace(R.id.search_map, searchMapFragment).commit()
 
 
 

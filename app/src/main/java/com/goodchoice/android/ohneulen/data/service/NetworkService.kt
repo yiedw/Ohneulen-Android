@@ -42,14 +42,16 @@ interface NetworkService {
     ): GetStoreInfoResponse
 
     //스토어 리스트 검색(필터)
+//    @Multipart
     @POST("store/searchList")
-    @Multipart
+    @FormUrlEncoded
     suspend fun requestStoreSearchList(
-        @Part("cate") cate:MutableList<String>,
-        @Part("option") option:MutableList<String>,
-        @Part("openTime") openTime:MutableList<String>,
-        @Part("sort") sort: MutableList<String>
-    ):GetStoreListResponse
+        @Field("cate[]") cate:List<String>
+//        @Part("cate") cate:MutableList<String>
+//        @Part("option") option:MutableList<String>,
+//        @Part("openTime") openTime:MutableList<String>,
+//        @Part("sort") sort: MutableList<String>
+    ): GetStoreListResponse
 
     //카카오 위치 검색
     @GET
