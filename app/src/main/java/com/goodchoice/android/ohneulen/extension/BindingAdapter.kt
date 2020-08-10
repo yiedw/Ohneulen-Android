@@ -43,7 +43,7 @@ fun setSearchStoreAdapter(
         Handler().postDelayed({
             recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
 //                            recyclerView.layoutManager!!.scrollToPosition(0)
-        }, 100)
+        }, 200)
 
 //            recyclerView.post{
 //                recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
@@ -115,6 +115,16 @@ fun setOhneulenImageView(
 //    Timber.e(image.photoURL)
     Glide.with(imageView.context).load("${BaseUrl.Ohneulen}${image.photoURL}").centerCrop()
         .into(imageView)
+}
+
+@BindingAdapter("ohneulenImageURL")
+fun setOhneulenURLImageView(
+    imageView: ImageView,
+    imageUrl: String?
+) {
+    if (imageUrl != null)
+        Glide.with(imageView.context).load("${BaseUrl.Ohneulen}${imageUrl}").centerCrop()
+            .into(imageView)
 }
 
 @BindingAdapter("imageResID")

@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서비스 이용약관"
+                android:text="이용약관"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"

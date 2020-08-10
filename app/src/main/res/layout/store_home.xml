@@ -111,9 +111,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_three"
-                    android:textColor="@color/colorGrey88"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:textColor="@color/colorGrey88">
 
 
                 </LinearLayout>
@@ -136,6 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/store_home_three"
+                    android:orientation="horizontal"
                     android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
@@ -307,9 +307,9 @@
             android:textSize="@dimen/main_contents" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <TextView

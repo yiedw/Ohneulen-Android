@@ -97,6 +97,10 @@ class StoreFragment : Fragment() {
             }
             storeHeader(it)
             binding.storeNewScrollView.scrollTo(0, 0)
+
+            if(it.menuList.isNullOrEmpty()){
+                binding.storeTab.removeTabAt(2)
+            }
         })
 
         viewPagerSetting()
@@ -188,16 +192,13 @@ class StoreFragment : Fragment() {
                             position
                         )
                     view?.let {
-                        if (position != 1) {
-                            updatePagerHeightForChild(view, binding.storeViewPager2)
-                            binding.storeFragmentImageRv.visibility = View.VISIBLE
-                        }
-                        if (position == 3) {
-                            binding.storeFragmentImageRv.visibility = View.GONE
-
-                        } else {
+                        if (position == 1) {
                             mapSetting()
-                            binding.storeFragmentImageRv.visibility = View.VISIBLE
+//                            binding.storeFragmentImageRv.visibility = View.VISIBLE
+                        }
+                        else {
+                            updatePagerHeightForChild(view, binding.storeViewPager2)
+//                            binding.storeFragmentImageRv.visibility = View.VISIBLE
 
                         }
                     }

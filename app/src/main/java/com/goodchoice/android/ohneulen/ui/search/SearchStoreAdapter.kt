@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
@@ -32,11 +33,12 @@ class SearchStoreAdapter :
 
     inner class SearchStoreViewHolder(private val binding: StoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(item: Store) {
             binding.apply {
                 store = item
+                storeItemBusinessTime.text="${store!!.openTime.starttime} ~ ${store!!.openTime.endtime}"
                 storeItemLike.isSelected=item.likes
-
                 storeItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
                         loginDialog(root.context, SearchAppBar.newInstance())
@@ -49,12 +51,12 @@ class SearchStoreAdapter :
 
                 }
 
-                if (!item.image.isNullOrEmpty()) {
-                    Glide.with(root).load("${BaseUrl.Ohneulen}${item.image[0].photoURL}")
-                        .centerCrop().into(storeItemImage)
-                } else {
-                    storeItemImage.setImageResource(0)
-                }
+//                if (!item.image.isNullOrEmpty()) {
+//                    Glide.with(root).load("${BaseUrl.Ohneulen}${item.image[0].photoURL}")
+//                        .centerCrop().into(storeItemImage)
+//                } else {
+//                    storeItemImage.setImageResource(0)
+//                }
                 root.setOnClickListener {
 
                     StoreFragment.storeSeq = item.seq

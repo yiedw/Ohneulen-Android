@@ -72,7 +72,6 @@ class MyPageContactus : Fragment() {
             }
         }
         val text=SpannableString("개인정보 수집 및 이용")
-        text.setSpan(clickableSpan,0,text.length,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         text.setSpan(UnderlineSpan(),0,text.length,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         text.setSpan(StyleSpan(Typeface.BOLD),0,text.length,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val mText=TextUtils.concat("오늘은 ",text,"의 내용을 확인하였으며, 이에 동의합니다")

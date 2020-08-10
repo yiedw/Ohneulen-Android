@@ -99,6 +99,7 @@ class StoreHome : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun closeDayGenerate(storeDetail: StoreDetail) {
         //브레이크 타임 제외
         for (i in storeDetail.storeTime.close.indices) {
@@ -132,10 +133,7 @@ class StoreHome : Fragment() {
 //            5,
 //            7
 //        ) + "." + store.modifyDate.substring(8, 10)
-        val openDate = store.openDate.substring(0, 4) + "-" + store.openDate.substring(
-            4,
-            6
-        ) + "-" + store.openDate.substring(6)
+        val openDate = store.openDate
         val modifyDate = store.modifyDate.substring(0, 10)
         binding.storeHomeOpenTv2.text = "$openDate\n$modifyDate"
     }

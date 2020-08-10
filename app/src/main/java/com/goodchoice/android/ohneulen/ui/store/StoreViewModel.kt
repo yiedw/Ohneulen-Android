@@ -13,20 +13,19 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 
 class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
-    val storeMenuList: LiveData<MutableList<StoreMenu>> = liveData(Dispatchers.IO) {
-        loading.postValue(true)
-        emit(getStoreMenu())
-    }
+    val storeMenuList = MutableLiveData<List<StoreMenu>>()
 
-    var storeDetail=MutableLiveData<StoreDetail>()
+    var storeDetail = MutableLiveData<StoreDetail>()
+
     //storeDetail 가져오기
-    fun getStoreDetail(storeSeq:String) {
+    fun getStoreDetail(storeSeq: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val storeDetailResponse=networkService.requestGetStoreInfo(
+            val storeDetailResponse = networkService.requestGetStoreInfo(
                 storeSeq.toRequestBody()
             )
-            if(storeDetailResponse.resultCode=="000"){
+            if (storeDetailResponse.resultCode == "000") {
                 storeDetail.postValue(storeDetailResponse.resultData)
+                storeMenuList.postValue(storeDetailResponse.resultData.menuList)
             }
 
         }
@@ -58,9 +57,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 //    }
 
 
-
     var storeReviewAdapter = ReviewAdapter()
-
 
 
 }

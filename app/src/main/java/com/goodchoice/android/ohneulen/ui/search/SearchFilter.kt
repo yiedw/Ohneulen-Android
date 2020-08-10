@@ -42,15 +42,6 @@ class SearchFilter : Fragment() {
     var position = 0
     private var previousPosition = 0
 
-    private var checkRecent = false
-    private var checkRating = false
-
-    //바텀뷰 있나 체크
-    init {
-
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -398,8 +389,8 @@ class SearchFilter : Fragment() {
 
     fun sortButtonClick(view: View) {
         if (view == binding.searchFilterRecent) {
-            checkRecent = true
-            checkRating = false
+            searchViewModel.sort.add("date")
+            searchViewModel.sort.remove("point")
             binding.apply {
                 searchFilterRecent.setTextColor(
                     ContextCompat.getColor(
@@ -422,8 +413,8 @@ class SearchFilter : Fragment() {
                 )
             }
         } else {
-            checkRecent = false
-            checkRating = true
+            searchViewModel.sort.add("point")
+            searchViewModel.sort.remove("date")
             binding.apply {
                 searchFilterRating.setTextColor(
                     ContextCompat.getColor(

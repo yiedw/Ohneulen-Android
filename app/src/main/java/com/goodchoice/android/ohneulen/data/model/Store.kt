@@ -30,7 +30,9 @@ data class Store(
     val modifyID: String,
     val cate1Name: Cate1Name? = null,
     val likes: Boolean,
-    val image: List<Image>
+    val image: List<Image>,
+    val photoURL: String,
+    val openTime: OpenTime
 )
 
 data class Cate1Name(
