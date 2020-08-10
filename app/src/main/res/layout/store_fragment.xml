@@ -81,7 +81,8 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/store_fragment_rating" />
 
-                <LinearLayout
+                <com.nex3z.flowlayout.FlowLayout
+                    android:id="@+id/store_fragment_hashTag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -89,7 +90,7 @@
                     app:layout_constraintTop_toBottomOf="@id/store_fragment_detail">
                     <!-- 해시태그 들어갈위치-->
 
-                </LinearLayout>
+                </com.nex3z.flowlayout.FlowLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -171,10 +171,10 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/store_home_delivery"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
-                    android:text=""
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -192,6 +192,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/store_home_takeOut"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
@@ -213,6 +214,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/store_home_parking"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
@@ -234,6 +236,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/store_home_reservation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
@@ -255,6 +258,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/store_home_toilet"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_three"

@@ -7,6 +7,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -84,7 +85,22 @@ class StoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
-            if (it.storeInfo.image.size == 1) {
+
+            //해시태그 뷰 생성
+            for(i in it.hashTagList){
+                val tv=TextView(requireContext())
+                tv.text=i.keyword
+                tv.setTextColor(requireContext().getColor(R.color.colorOhneulen))
+                tv.background=requireContext().getDrawable(R.drawable.background_border_rounding_ohneulen)
+                binding.storeFragmentHashTag.addView(tv)
+            }
+
+
+            if (it.storeInfo.image.isEmpty()) {
+                binding.storeFragmentOneImage.visibility = View.VISIBLE
+                binding.storeFragmentImageRv.visibility = View.INVISIBLE
+            } else if (it.storeInfo.image.size == 1) {
+                //이미지가 한개일때
                 binding.storeFragmentOneImage.visibility = View.VISIBLE
                 binding.storeFragmentImageRv.visibility = View.INVISIBLE
                 Glide.with(requireContext())
@@ -92,15 +108,18 @@ class StoreFragment : Fragment() {
                     .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
                     .into(binding.storeFragmentOneImage)
             } else {
+                //여러개일때
                 binding.storeFragmentOneImage.visibility = View.GONE
                 binding.storeFragmentImageRv.visibility = View.VISIBLE
             }
             storeHeader(it)
             binding.storeNewScrollView.scrollTo(0, 0)
 
-            if(it.menuList.isNullOrEmpty()){
+            //메뉴 없으면 메뉴탭 삭제
+            if (it.menuList.isNullOrEmpty()) {
                 binding.storeTab.removeTabAt(2)
             }
+
         })
 
         viewPagerSetting()
@@ -195,8 +214,7 @@ class StoreFragment : Fragment() {
                         if (position == 1) {
                             mapSetting()
 //                            binding.storeFragmentImageRv.visibility = View.VISIBLE
-                        }
-                        else {
+                        } else {
                             updatePagerHeightForChild(view, binding.storeViewPager2)
 //                            binding.storeFragmentImageRv.visibility = View.VISIBLE
 
@@ -258,9 +276,11 @@ class StoreFragment : Fragment() {
         binding.storeViewPager2.layoutParams = layoutParams
     }
 
-    fun oneImageClick(view:View){
-        val dialog=StoreImageDetailDialog.newInstance(0)
-        dialog.show(MainActivity.supportFragmentManager,"")
+    fun oneImageClick(view: View) {
+        if (storeViewModel.storeDetail.value!!.storeInfo.image.isEmpty())
+            return
+        val dialog = StoreImageDetailDialog.newInstance(0)
+        dialog.show(MainActivity.supportFragmentManager, "")
     }
 
 

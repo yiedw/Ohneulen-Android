@@ -1,5 +1,4 @@
 package com.goodchoice.android.ohneulen.ui.search
-
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
