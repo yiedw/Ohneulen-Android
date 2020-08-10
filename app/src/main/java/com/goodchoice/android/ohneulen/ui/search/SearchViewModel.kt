@@ -95,8 +95,8 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
             } catch (e: Throwable) {
                 Timber.e(e.toString())
             }
-            Timber.e(option.toString())
-            Timber.e(openTime.toString())
+//            Timber.e(option.toString())
+//            Timber.e(openTime.toString())
             cate.clear()
             option.clear()
             openTime.clear()

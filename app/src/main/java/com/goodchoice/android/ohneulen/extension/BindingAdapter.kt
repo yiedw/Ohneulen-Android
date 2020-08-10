@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.extension
 
+import android.os.Handler
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.DialogFragment
@@ -22,6 +23,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")
@@ -37,11 +39,17 @@ fun setSearchStoreAdapter(
     }
     smoothScroller.targetPosition = 0
     recyclerView.adapter = adapter?.apply {
-        submitList(items).apply {
-            recyclerView.post {
-                recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
-            }
-        }
+        submitList(items)
+        Handler().postDelayed({
+            recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
+//                            recyclerView.layoutManager!!.scrollToPosition(0)
+        }, 100)
+
+//            recyclerView.post{
+//                recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
+//                recyclerView.layoutManager!!.scrollToPosition(0)
+//            }
+
     }
 
 }
