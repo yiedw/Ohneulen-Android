@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
+import timber.log.Timber
 
 class SearchFilterSubAdapter() :
     ListAdapter<OhneulenData, SearchFilterSubAdapter.SearchFilterViewHolder>(SearchFilterSubDiffUtil) {
@@ -44,19 +45,20 @@ class SearchFilterSubAdapter() :
                                 .show()
                             return@setOnClickListener
                         }
-
                     }
+
+
                     subCategory.check = !subCategory.check
                     searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                    val code = "${items.majorCode}${items.minorCode}"
                     if (subCategory.check) {
-//                        searchViewModel.filterHashMap[searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition] =
-//                            items.minorCode
+                        //아이템이 없을때 추가
                         searchViewModel.tempCate.add(items)
+                        searchViewModel.cate.add(code)
                     } else {
-//                        searchViewModel.filterHashMap.remove(
-//                            searchViewModel.mainCategoryPosition.value!! * 10 + searchViewModel.subCategoryPosition
-//                        )
+                        //아이템이 있으면 삭제
                         searchViewModel.tempCate.remove(items)
+                        searchViewModel.cate.remove(code)
                     }
 
 

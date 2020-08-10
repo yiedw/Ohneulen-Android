@@ -4,6 +4,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -29,8 +30,18 @@ fun setSearchStoreAdapter(
     adapter: SearchStoreAdapter?,
     items: List<Store>?
 ) {
+    val smoothScroller = object : LinearSmoothScroller(recyclerView.context) {
+        override fun getVerticalSnapPreference(): Int {
+            return SNAP_TO_START
+        }
+    }
+    smoothScroller.targetPosition = 0
     recyclerView.adapter = adapter?.apply {
-        submitList(items)
+        submitList(items).apply {
+            recyclerView.post {
+                recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
+            }
+        }
     }
 
 }
@@ -130,11 +141,11 @@ fun setInquire(recyclerView: RecyclerView, adapter: InquireAdapter, items: List<
     }
 }
 
-@BindingAdapter( "FAQ","mypageViewModelFAQ")
-fun setFAQ(recyclerView: RecyclerView, items: List<FAQ>?,viewModel:MyPageViewModel) {
+@BindingAdapter("FAQ", "mypageViewModelFAQ")
+fun setFAQ(recyclerView: RecyclerView, items: List<FAQ>?, viewModel: MyPageViewModel) {
     recyclerView.adapter = FAQAdapter().apply {
         if (items != null) {
-            myPageViewModel=viewModel
+            myPageViewModel = viewModel
             submitList(items)
         }
     }
@@ -152,8 +163,13 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
     }
 }
 
-@BindingAdapter("imageDetailList", "imageDetailIndex","imageDetailDialog")
-fun setImageDetail(recyclerView: RecyclerView, items: List<Image>?, index: Int,dialog:DialogFragment) {
+@BindingAdapter("imageDetailList", "imageDetailIndex", "imageDetailDialog")
+fun setImageDetail(
+    recyclerView: RecyclerView,
+    items: List<Image>?,
+    index: Int,
+    dialog: DialogFragment
+) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
@@ -166,7 +182,7 @@ fun setImageDetail(recyclerView: RecyclerView, items: List<Image>?, index: Int,d
     recyclerView.adapter = StoreImageDetailAdapter()
         .apply {
             imageList = items ?: emptyList()
-            dialogFragment=dialog
+            dialogFragment = dialog
             setOnNextClickListener(object : StoreImageDetailAdapter.OnNextClickListener {
                 override fun onNextClick(pos: Int) {
                     recyclerView.scrollToPosition(pos)

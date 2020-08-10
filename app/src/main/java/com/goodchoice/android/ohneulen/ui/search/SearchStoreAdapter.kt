@@ -49,7 +49,7 @@ class SearchStoreAdapter :
 
                 }
 
-                if (item.image.isNotEmpty()) {
+                if (!item.image.isNullOrEmpty()) {
                     Glide.with(root).load("${BaseUrl.Ohneulen}${item.image[0].photoURL}")
                         .centerCrop().into(storeItemImage)
                 } else {

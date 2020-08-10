@@ -30,7 +30,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     val tempCate = mutableListOf<OhneulenData>()
 
     //서버로 전송할 데이터
-    val cate = mutableListOf<RequestBody>()
+    val cate = mutableListOf<String>()
     val option = mutableListOf<String>()
     val openTime = mutableListOf<String>()
     val sort = mutableListOf<String>()
@@ -86,23 +86,22 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     }
 
     fun filterSubmit() {
+        Timber.e(cate.toString())
         CoroutineScope(Dispatchers.IO).launch {
-            val cate1= mutableListOf<String>().apply {
-                this.add("cate001001")
-                this.add("cate003001")
-            }
-//            val cate1 = HashMap<String,MutableList<String>>().apply {
-//                this["cate[]"]= mutableListOf()
-//                this["cate[]"]!!.add("cate002001")
-//            }
-
             try {
-                val response = networkService.requestStoreSearchList(cate1)
-                Timber.e(response.resultData.size.toString())
+                val response = networkService.requestStoreSearchList(cate, option, openTime, sort)
+                searchStoreList.postValue(response.resultData)
 
             } catch (e: Throwable) {
                 Timber.e(e.toString())
             }
+            Timber.e(option.toString())
+            Timber.e(openTime.toString())
+            cate.clear()
+            option.clear()
+            openTime.clear()
+            sort.clear()
+            mainCategoryPosition.postValue(0)
         }
     }
 

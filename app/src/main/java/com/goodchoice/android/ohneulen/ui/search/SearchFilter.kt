@@ -22,6 +22,7 @@ import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import kotlinx.android.synthetic.main.search_filter.view.*
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,6 +45,11 @@ class SearchFilter : Fragment() {
     private var checkRecent = false
     private var checkRating = false
 
+    //바텀뷰 있나 체크
+    init {
+
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +69,45 @@ class SearchFilter : Fragment() {
         }
 
         MainActivity.bottomNav.visibility = View.GONE
+//        //전에 체크된거 있나 검사 있으면 다시 뷰 생성
+//        if (searchViewModel.tempCate.size == 1) {
+//            binding.searchFilterTv1.visibility = View.VISIBLE
+//        } else if (searchViewModel.tempCate.size == 0) {
+//            binding.searchFilterTv1.visibility = View.GONE
+//            binding.searchFilterSelect.removeAllViews()
+//        }
+//
+//        for (i in searchViewModel.tempCate) {
+//            val selectView = layoutInflater.inflate(R.layout.filter_selector, null)
+//            selectView.findViewById<TextView>(R.id.filter_select_title).text =
+//                i.minorName
+//            val ohneulenData =
+//                searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
+//            selectView.setOnClickListener {
+//                //바텀뷰 삭제
+//                for (i in 0 until binding.searchFilterSelect.childCount) {
+//                    if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
+//                        loop@ for (j in searchViewModel.subCategoryList.indices) {
+//                            for (k in searchViewModel.subCategoryList[j].indices) {
+//                                if (searchViewModel.subCategoryList[j][k].minorName == ohneulenData.minorName) {
+//                                    searchViewModel.subCategoryList[j][k].check = false
+//                                    searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+//                                    break@loop
+//                                }
+//                            }
+//                        }
+//                        binding.searchFilterSelect.removeViewAt(i)
+//                        break
+//                    }
+//                }
+//
+//                //tempCate child 삭제
+//                searchViewModel.tempCate.remove(ohneulenData)
+//
+//            }
+//            binding.searchFilterSelect.addView(selectView, 0)
+//        }
+
         return binding.root
     }
 
@@ -141,19 +186,19 @@ class SearchFilter : Fragment() {
                     }
 
                     //tempCate child 삭제
-                    for (i in searchViewModel.tempCate.indices) {
-                        if (searchViewModel.tempCate[i].minorCode == ohneulenData.minorCode) {
-                            searchViewModel.tempCate.removeAt(i)
-                            break
-                        }
-                    }
+                    searchViewModel.tempCate.remove(ohneulenData)
+//                    for (i in searchViewModel.tempCate.indices) {
+//                        if (searchViewModel.tempCate[i].minorCode == ohneulenData.minorCode) {
+//                            searchViewModel.tempCate.removeAt(i)
+//                            break
+//                        }
+//                    }
 
                 }
                 //위에 체크된 뷰 클릭
                 if (searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].check) {
                     binding.searchFilterSelect.addView(selectView, 0)
                 } else {
-                    Timber.e(binding.searchFilterSelect.childCount.toString())
                     for (i in 0 until binding.searchFilterSelect.childCount) {
                         if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
                             binding.searchFilterSelect.removeViewAt(i)
@@ -245,24 +290,43 @@ class SearchFilter : Fragment() {
                         requireContext(),
                         R.drawable.background_rounding_ohneulen
                     )
+                    //옵션일때
+                    if (gridLayout == binding.searchFilterConvenience) {
+                        searchViewModel.option.add(mutableList[i].minorCode)
+                    }
+                    //휴무일 일때
+                    else if(gridLayout==binding.searchFilterTimeDay){
+                        searchViewModel.openTime.add(mutableList[i].minorCode)
+                    }
+
                 } else {
                     tb.background =
                         ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
                     tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
-                }
-                if (gridLayout == binding.searchFilterConvenience) {
-                    var check = false
-                    for (i in searchViewModel.option.indices) {
-                        if (searchViewModel.option[i].toString() == mutableList[i].majorCode + mutableList[i].minorCode) {
-                            check = true
-                            searchViewModel.option.removeAt(i)
-                            break
-                        }
+                    if (gridLayout == binding.searchFilterConvenience) {
+                        searchViewModel.option.remove(mutableList[i].minorCode)
                     }
-//                    if (!check) {
-//                        searchViewModel.option.add((mutableList[i].majorCode + mutableList[i].minorCode).toRequestBody())
-//                    }
+                    //휴무일 일때
+                    else if(gridLayout==binding.searchFilterTimeDay){
+                        searchViewModel.openTime.remove(mutableList[i].minorCode)
+                    }
+
                 }
+
+
+//                if (gridLayout == binding.searchFilterConvenience) {
+//                    var check = false
+//                    for (i in searchViewModel.option.indices) {
+//                        if (searchViewModel.option[i].toString() == mutableList[i].majorCode + mutableList[i].minorCode) {
+//                            check = true
+//                            searchViewModel.option.removeAt(i)
+//                            break
+//                        }
+//                    }
+////                    if (!check) {
+////                        searchViewModel.option.add((mutableList[i].majorCode + mutableList[i].minorCode).toRequestBody())
+////                    }
+//                }
 
             }
             gridLayout.addView(tb)
@@ -393,10 +457,6 @@ class SearchFilter : Fragment() {
                 Toast.makeText(requireContext(), "음식의 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
                 return
             }
-//            for (i in searchViewModel.tempCate.indices) {
-////                val mainFilterPosition = i / 10
-////                val subFilterPosition = i % 10
-//                searchViewModel.subCategoryList[mainFilterPosition][subFilterPosition].check = false
 //            }
             for (i in searchViewModel.subCategoryList.indices) {
                 for (j in searchViewModel.subCategoryList[i].indices) {
@@ -417,12 +477,12 @@ class SearchFilter : Fragment() {
     fun submitClick(view: View) {
 
         //음식 선택일때
-        if (checkFood) {
-            if (searchViewModel.tempCate.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "음식을 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
-                return
-            }
-        }
+//        if (checkFood) {
+//            if (searchViewModel.tempCate.isNullOrEmpty()) {
+//                Toast.makeText(requireContext(), "음식의 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
+//                return
+//            }
+//        }
 //        else {
 //            if (searchViewModel.openTime.size == 0 && searchViewModel.option.size == 0 && searchViewModel.sort.size == 0) {
 //                Toast.makeText(requireContext(), "옵션의 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
@@ -434,6 +494,14 @@ class SearchFilter : Fragment() {
 //        }
 
         searchViewModel.filterSubmit()
+        for (i in searchViewModel.subCategoryList.indices) {
+            for (j in searchViewModel.subCategoryList[i].indices) {
+                searchViewModel.subCategoryList[i][j].check = false
+            }
+        }
+        searchViewModel.tempCate.clear()
+        replaceAppbarFragment(SearchAppBar.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
 
