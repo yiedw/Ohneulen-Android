@@ -37,7 +37,6 @@ class SearchStoreAdapter :
         fun bind(item: Store) {
             binding.apply {
                 store = item
-                storeItemBusinessTime.text="${store!!.openTime.starttime} ~ ${store!!.openTime.endtime}"
                 storeItemLike.isSelected=item.likes
                 storeItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
@@ -50,6 +49,9 @@ class SearchStoreAdapter :
                         storeItemLike.isSelected = !storeItem.isSelected
 
                 }
+//                if(storeIt)
+//                    storeItemBusinessTime.text =
+//                        "${item.opentime.starttime} ~ ${item.opentime.endtime}"
 
 //                if (!item.image.isNullOrEmpty()) {
 //                    Glide.with(root).load("${BaseUrl.Ohneulen}${item.image[0].photoURL}")

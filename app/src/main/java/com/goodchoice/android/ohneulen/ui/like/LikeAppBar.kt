@@ -8,8 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LikeAppbarBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 
-class LikeAppBar : Fragment() {
+class LikeAppBar : Fragment() ,OnBackPressedListener{
 
     companion object{
         fun newInstance()=LikeAppBar()
@@ -28,5 +30,9 @@ class LikeAppBar : Fragment() {
             false
         )
         return binding.root
+    }
+
+    override fun onBackPressed() {
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
     }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -87,13 +88,13 @@ class StoreFragment : Fragment() {
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
 
             //해시태그 뷰 생성
-            for(i in it.hashTagList){
-                val tv=TextView(requireContext())
-                tv.text=i.keyword
-                tv.setTextColor(requireContext().getColor(R.color.colorOhneulen))
-                tv.background=requireContext().getDrawable(R.drawable.background_border_rounding_ohneulen)
-                binding.storeFragmentHashTag.addView(tv)
-            }
+//            for(i in it.hashTagList){
+//                val tv=TextView(requireContext())
+//                tv.text=i.keyword
+//                tv.setTextColor(requireContext().getColor(R.color.colorOhneulen))
+//                tv.background=requireContext().getDrawable(R.drawable.background_border_rounding_ohneulen)
+//                binding.storeFragmentHashTag.addView(tv)
+//            }
 
 
             if (it.storeInfo.image.isEmpty()) {
@@ -109,20 +110,21 @@ class StoreFragment : Fragment() {
                     .into(binding.storeFragmentOneImage)
             } else {
                 //여러개일때
-                binding.storeFragmentOneImage.visibility = View.GONE
+                binding.storeFragmentOneImage.visibility = View.INVISIBLE
                 binding.storeFragmentImageRv.visibility = View.VISIBLE
             }
             storeHeader(it)
             binding.storeNewScrollView.scrollTo(0, 0)
 
-            //메뉴 없으면 메뉴탭 삭제
+//            메뉴 없으면 메뉴탭 삭제
             if (it.menuList.isNullOrEmpty()) {
-                binding.storeTab.removeTabAt(2)
+                viewPagerSettingNullMenu()
+            } else {
+                viewPagerSetting()
             }
 
         })
 
-        viewPagerSetting()
         stickyHeader()
         binding.storeNewScrollView.scrollTo(0, 0)
     }
@@ -194,6 +196,77 @@ class StoreFragment : Fragment() {
         TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
         }.attach()
+//        Timber.e(binding.storeTab.tabCount.toString())
+        binding.storeNewScrollView.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.white
+            )
+        )
+        binding.storeViewPager2.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    state = position
+
+                    val view =
+                        (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
+                            position
+                        )
+                    view?.let {
+                        if (position == 1) {
+                            mapSetting()
+//                            binding.storeFragmentImageRv.visibility = View.VISIBLE
+                        } else {
+                            updatePagerHeightForChild(view, binding.storeViewPager2)
+//                            binding.storeFragmentImageRv.visibility = View.VISIBLE
+
+                        }
+                    }
+
+                    binding.storeNewScrollView.scrollTo(0, 0)
+//                    stickyHeader()
+//                    if (position == 1) {
+//                    }
+//                    binding.storeNewScrollView.invalidate()
+                }
+            }
+        )
+    }
+
+    private fun viewPagerSettingNullMenu() {
+        binding.storeViewPager2.adapter = StorePagerAdapter(
+            getFragmentListNullMenu(), childFragmentManager,
+            lifecycle
+        )
+        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
+
+        //애니메이션 삭제
+//        binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//                tab?.position?.let {
+//                    binding.storeViewPager2.setCurrentItem(it, true)
+//                }
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//            }
+//
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                tab?.position?.let {
+//                    binding.storeViewPager2.setCurrentItem(it, true)
+//                }
+//            }
+//
+//        })
+
+
+        //탭 연결
+        val tabLayoutTextList = mutableListOf("홈", "지도", "후기")
+        TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
+            tab.text = tabLayoutTextList[position]
+        }.attach()
+//        Timber.e(binding.storeTab.tabCount.toString())
         binding.storeNewScrollView.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -254,6 +327,14 @@ class StoreFragment : Fragment() {
             StoreHome.newInstance(),
             StoreMap.newInstance(),
             StoreMenu.newInstance(),
+            StoreReview.newInstance()
+        )
+    }
+
+    private fun getFragmentListNullMenu(): ArrayList<Fragment> {
+        return arrayListOf(
+            StoreHome.newInstance(),
+            StoreMap.newInstance(),
             StoreReview.newInstance()
         )
     }

@@ -50,7 +50,6 @@ class InitData(private val networkService: NetworkService) {
                 memId.toRequestBody(), memPw.toRequestBody()
             )
             LoginViewModel.isLogin.postValue(true)
-            Timber.e("asdf")
         }
     }
 

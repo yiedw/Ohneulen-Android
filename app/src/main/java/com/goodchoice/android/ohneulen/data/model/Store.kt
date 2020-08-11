@@ -32,7 +32,7 @@ data class Store(
     val likes: Boolean,
     val image: List<Image>,
     val photoURL: String,
-    val openTime: OpenTime
+    val opentime: List<OpenTime>
 )
 
 data class Cate1Name(

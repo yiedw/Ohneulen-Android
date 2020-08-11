@@ -9,7 +9,7 @@ data class Option(
     val optionKind: String,
     val optionText: String,
     val option_img: String,
-    val option_kind_name: Any,
+    val option_kind_name: String,
     val option_name: String,
     val seq: String,
     val store_seq: String

@@ -2,19 +2,26 @@ package com.goodchoice.android.ohneulen.ui.store.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.marginStart
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import com.goodchoice.android.ohneulen.util.constant.ConstList
+import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -52,12 +59,14 @@ class StoreHome : Fragment() {
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             //영업일 뷰 생성
             openDayGenerate(it)
-
             //휴무일 뷰 생성
             closeDayGenerate(it)
-
             //개업일 업데이트
             storeUpdate(it)
+            //옵션 뷰 생성
+            optionGenerate(it)
+            //키워드 뷰 생성
+            keywordsGenerate(it)
         })
 
     }
@@ -137,6 +146,88 @@ class StoreHome : Fragment() {
         val modifyDate = store.modifyDate.substring(0, 10)
         binding.storeHomeOpenTv2.text = "$openDate\n$modifyDate"
     }
+
+    private fun optionGenerate(storeDetail: StoreDetail) {
+        binding.storeHomeOptions.removeAllViews()
+        for (i in storeDetail.optionList) {
+            //옵션뷰 생성
+            //옵션 리니어레이아웃 생성
+            val linearLayout = LinearLayout(requireContext())
+            linearLayout.orientation = LinearLayout.HORIZONTAL
+            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 20.dp())
+            linearLayout.layoutParams = params
+
+            //옵션이름
+            val tv1 = TextView(requireContext())
+            val params1 = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            tv1.layoutParams = params1
+            tv1.text = i.option_name
+            tv1.setTextColor(requireContext().getColor(R.color.colorBlack))
+
+            //옵션 여부
+            val tv2 = TextView(requireContext())
+            val params2 = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            if (tv1.text.length == 2) {
+                params2.marginStart =
+                    binding.storeHomeAddress.marginStart
+            } else if (tv1.text.length == 3) {
+                params2.marginStart =
+                    binding.storeHomeOpenDay.marginStart
+            }
+            tv2.layoutParams = params2
+            tv2.text = i.option_kind_name
+            tv2.setTextColor(requireContext().getColor(R.color.colorGrey88))
+
+
+            linearLayout.addView(tv1)
+            linearLayout.addView(tv2)
+            binding.storeHomeOptions.addView(linearLayout)
+        }
+
+    }
+
+    //키워드 뷰 생성
+    private fun keywordsGenerate(storeDetail: StoreDetail) {
+        binding.storeHomeKeywords.removeAllViews()
+        for (i in storeDetail.keywordList) {
+            val linearLayout = LinearLayout(requireContext())
+            linearLayout.orientation = LinearLayout.HORIZONTAL
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            linearLayout.layoutParams = params
+
+            //이모티콘
+            val iv = ImageView(requireContext())
+            val params1 = LinearLayout.LayoutParams(26.dp(), 26.dp())
+            iv.layoutParams = params1
+            Glide.with(requireContext()).load("${BaseUrl.Ohneulen}${i.icon}").into(iv)
+
+            //설명
+            val tv = TextView(requireContext())
+            val params2 = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            params2.marginStart = binding.storeHomeAddress.marginStart
+            tv.gravity=Gravity.CENTER
+            tv.layoutParams = params2
+            tv.setTextColor(requireContext().getColor(R.color.colorGrey88))
+            tv.text = i.keyword
+
+            linearLayout.addView(iv)
+            linearLayout.addView(tv)
+            binding.storeHomeKeywords.addView(linearLayout)
+        }
+    }
+
 
     fun reportClick(view: View) {
 //        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout

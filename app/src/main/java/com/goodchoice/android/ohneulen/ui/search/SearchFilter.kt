@@ -18,16 +18,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
-import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import kotlinx.android.synthetic.main.search_filter.view.*
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-import java.lang.System.out
 
 
 class SearchFilter : Fragment() {
@@ -41,6 +36,9 @@ class SearchFilter : Fragment() {
 
     var position = 0
     private var previousPosition = 0
+
+    var checkSortRating = false
+    var checkSortRecent = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -286,7 +284,7 @@ class SearchFilter : Fragment() {
                         searchViewModel.option.add(mutableList[i].minorCode)
                     }
                     //휴무일 일때
-                    else if(gridLayout==binding.searchFilterTimeDay){
+                    else if (gridLayout == binding.searchFilterTimeDay) {
                         searchViewModel.openTime.add(mutableList[i].minorCode)
                     }
 
@@ -298,7 +296,7 @@ class SearchFilter : Fragment() {
                         searchViewModel.option.remove(mutableList[i].minorCode)
                     }
                     //휴무일 일때
-                    else if(gridLayout==binding.searchFilterTimeDay){
+                    else if (gridLayout == binding.searchFilterTimeDay) {
                         searchViewModel.openTime.remove(mutableList[i].minorCode)
                     }
 
@@ -389,8 +387,11 @@ class SearchFilter : Fragment() {
 
     fun sortButtonClick(view: View) {
         if (view == binding.searchFilterRecent) {
+            //최근순 클릭
             searchViewModel.sort.add("date")
             searchViewModel.sort.remove("point")
+            checkSortRecent = true
+            checkSortRating = false
             binding.apply {
                 searchFilterRecent.setTextColor(
                     ContextCompat.getColor(
@@ -413,8 +414,11 @@ class SearchFilter : Fragment() {
                 )
             }
         } else {
+            //평점순 클릭
             searchViewModel.sort.add("point")
             searchViewModel.sort.remove("date")
+            checkSortRecent = false
+            checkSortRating = true
             binding.apply {
                 searchFilterRating.setTextColor(
                     ContextCompat.getColor(
@@ -455,12 +459,42 @@ class SearchFilter : Fragment() {
                 }
             }
             searchViewModel.tempCate.clear()
+            searchViewModel.cate.clear()
             searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
         }
 
         //옵션선택일때
         else {
-//            if(!checkRating )
+            if (!checkSortRating && !checkSortRecent && searchViewModel.option.isEmpty()
+                && searchViewModel.openTime.isEmpty() && searchViewModel.sort.isEmpty()
+            ) {
+                Toast.makeText(requireContext(), "옵션을 선택해 주세요", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            binding.searchFilterRating.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )
+            )
+            binding.searchFilterRating.background = ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.background_rounding_ohneulen
+            )
+            binding.searchFilterRecent.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )
+            )
+            binding.searchFilterRecent.background = ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.background_rounding_ohneulen
+            )
+            searchViewModel.option.clear()
+            searchViewModel.openTime.clear()
+            searchViewModel.sort.clear()
         }
 
     }

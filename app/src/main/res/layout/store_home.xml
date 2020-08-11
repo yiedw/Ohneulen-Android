@@ -46,6 +46,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/store_home_address"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/store_home_normal"
@@ -150,122 +151,122 @@
             android:background="#f6f6f6" />
 
         <LinearLayout
+            android:id="@+id/store_home_options"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:orientation="horizontal">
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="배달"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:text="배달"-->
+            <!--                    android:textColor="@color/colorBlack"-->
+            <!--                    android:textSize="14sp" />-->
 
-                <TextView
-                    android:id="@+id/store_home_delivery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/store_home_normal"
-                    android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/store_home_delivery"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_marginStart="@dimen/store_home_normal"-->
+            <!--                    android:textColor="@color/colorGrey88"-->
+            <!--                    android:textSize="14sp" />-->
+            <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:orientation="horizontal">
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="포장"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:text="포장"-->
+            <!--                    android:textColor="@color/colorBlack"-->
+            <!--                    android:textSize="14sp" />-->
 
-                <TextView
-                    android:id="@+id/store_home_takeOut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/store_home_normal"
-                    android:text=""
-                    android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/store_home_takeOut"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_marginStart="@dimen/store_home_normal"-->
+            <!--                    android:text=""-->
+            <!--                    android:textColor="@color/colorGrey88"-->
+            <!--                    android:textSize="14sp" />-->
+            <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:orientation="horizontal">
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="주차"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:text="주차"-->
+            <!--                    android:textColor="@color/colorBlack"-->
+            <!--                    android:textSize="14sp" />-->
 
-                <TextView
-                    android:id="@+id/store_home_parking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/store_home_normal"
-                    android:text=""
-                    android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/store_home_parking"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_marginStart="@dimen/store_home_normal"-->
+            <!--                    android:text=""-->
+            <!--                    android:textColor="@color/colorGrey88"-->
+            <!--                    android:textSize="14sp" />-->
+            <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:orientation="horizontal">
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="예약"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:text="예약"-->
+            <!--                    android:textColor="@color/colorBlack"-->
+            <!--                    android:textSize="14sp" />-->
 
-                <TextView
-                    android:id="@+id/store_home_reservation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/store_home_normal"
-                    android:text=""
-                    android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/store_home_reservation"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_marginStart="@dimen/store_home_normal"-->
+            <!--                    android:text=""-->
+            <!--                    android:textColor="@color/colorGrey88"-->
+            <!--                    android:textSize="14sp" />-->
+            <!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:orientation="horizontal">
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="화장실"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:text="화장실"-->
+            <!--                    android:textColor="@color/colorBlack"-->
+            <!--                    android:textSize="14sp" />-->
 
-                <TextView
-                    android:id="@+id/store_home_toilet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/store_home_three"
-                    android:text=""
-                    android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/store_home_toilet"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_marginStart="@dimen/store_home_three"-->
+            <!--                    android:text=""-->
+            <!--                    android:textColor="@color/colorGrey88"-->
+            <!--                    android:textSize="14sp" />-->
+            <!--            </LinearLayout>-->
 
         </LinearLayout>
 
@@ -277,21 +278,35 @@
 
         <!--            키워드 아이콘-->
         <LinearLayout
-            android:id="@+id/store_home_options"
+            android:id="@+id/store_home_keywords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone" />
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="horizontal">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorGrey88"
-            android:textSize="14sp" />
+            <!--                <ImageView-->
+            <!--                    android:layout_width="26dp"-->
+            <!--                    android:layout_height="26dp"-->
+            <!--                    android:src="@drawable/wifi"/>-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:textColor="@color/colorGrey88"-->
+            <!--                    android:layout_marginStart="@dimen/store_home_normal"-->
+            <!--                    android:text="sadfasdf"-->
+            <!--                    />-->
+            <!--            </LinearLayout>-->
+
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"

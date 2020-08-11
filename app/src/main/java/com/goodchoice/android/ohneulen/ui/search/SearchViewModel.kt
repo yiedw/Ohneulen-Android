@@ -54,9 +54,12 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 
     fun getStoreList() {
         viewModelScope.launch(Dispatchers.IO) {
-            val storeListResponse = networkService.requestGetStoreList()
-            if (storeListResponse.resultCode == "000") {
-                searchStoreList.postValue(storeListResponse.resultData)
+            try {
+                val response = networkService.requestStoreSearchList(cate, option, openTime, sort)
+                searchStoreList.postValue(response.resultData)
+
+            } catch (e: Throwable) {
+                Timber.e(e.toString())
             }
         }
     }
@@ -86,7 +89,6 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     }
 
     fun filterSubmit() {
-        Timber.e(cate.toString())
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = networkService.requestStoreSearchList(cate, option, openTime, sort)
@@ -95,8 +97,6 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
             } catch (e: Throwable) {
                 Timber.e(e.toString())
             }
-//            Timber.e(option.toString())
-//            Timber.e(openTime.toString())
             cate.clear()
             option.clear()
             openTime.clear()

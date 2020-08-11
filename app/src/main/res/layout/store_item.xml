@@ -145,11 +145,11 @@
             android:layout_width="wrap_content"
             android:layout_height="19dp"
             android:layout_marginStart="9dp"
-            android:text="@{store.openTime.codeName}"
             android:textColor="@color/colorBlack"
             android:textSize="13sp"
             app:layout_constraintLeft_toRightOf="@id/store_item_image"
             app:layout_constraintTop_toBottomOf="@id/store_item_rating" />
+<!--            android:text="@{store.opentime.codeName}"-->
 
         <TextView
             android:id="@+id/store_item_businessTime"

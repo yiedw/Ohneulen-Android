@@ -15,4 +15,13 @@ object ConstList {
     const val STORE_STATUS="storeStatus"
     const val TIME_DAY="timeDay"
     const val TIME_KIND="timeKind"
+
+    //option
+    const val OPTION_PARKING="OT001"
+    const val OPTION_DELIVERY="OT002"
+    const val OPTION_TOILET="OT003"
+    const val OPTION_TAKE_OUT="OT004"
+    const val OPTION_REVERSION="OT005"
+    const val OPTION_SEAT_COUNT="OT006"
+    const val OPTION_HOLIDAY="OT007"
 }

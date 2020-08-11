@@ -11,38 +11,50 @@ import com.goodchoice.android.ohneulen.databinding.SearchFilterAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchFilterAppbar :Fragment(),OnBackPressedListener{
+class SearchFilterAppbar : Fragment(), OnBackPressedListener {
 
-    companion object{
-        fun newInstance()=SearchFilterAppbar()
+    companion object {
+        fun newInstance() = SearchFilterAppbar()
     }
-    private lateinit var binding:SearchFilterAppbarBinding
+
+    private lateinit var binding: SearchFilterAppbarBinding
+    private val searchViewModel: SearchViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.search_filter_appbar,
             container,
             false
         )
-        binding.fragment=this
+        binding.fragment = this
         return binding.root
     }
 
-    fun closeOnClick(view:View){
+    fun closeOnClick(view: View) {
 //        MainActivity.supportFragmentManager.popBackStack()
+        clear()
         replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
+        clear()
         replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    private fun clear() {
+        searchViewModel.cate.clear()
+        searchViewModel.option.clear()
+        searchViewModel.openTime.clear()
+        searchViewModel.sort.clear()
     }
 
 }

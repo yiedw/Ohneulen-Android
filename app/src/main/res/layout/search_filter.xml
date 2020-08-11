@@ -301,7 +301,7 @@
             android:focusable="true"
             android:gravity="center"
             android:onClick="@{fragment::submitClick}"
-            android:text="선택완료"
+            android:text="적용"
             android:textAlignment="center"
             android:textColor="@color/colorGreen"
             android:textSize="@dimen/main_contents"
