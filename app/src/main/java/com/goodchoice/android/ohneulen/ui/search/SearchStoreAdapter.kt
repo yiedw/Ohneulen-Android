@@ -37,6 +37,7 @@ class SearchStoreAdapter :
         fun bind(item: Store) {
             binding.apply {
                 store = item
+//                Timber.e(item.photoURL+"asdfsadf")
                 storeItemLike.isSelected=item.likes
                 storeItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
@@ -85,7 +86,6 @@ class SearchStoreAdapter :
     override fun onBindViewHolder(holder: SearchStoreViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 
 }
 

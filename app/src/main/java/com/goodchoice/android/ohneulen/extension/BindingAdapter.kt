@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
@@ -125,6 +126,9 @@ fun setOhneulenURLImageView(
     if (imageUrl != null)
         Glide.with(imageView.context).load("${BaseUrl.Ohneulen}${imageUrl}").centerCrop()
             .into(imageView)
+    else
+        Glide.with(imageView.context)
+            .clear(imageView)
 }
 
 @BindingAdapter("imageResID")

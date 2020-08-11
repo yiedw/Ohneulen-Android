@@ -472,29 +472,33 @@ class SearchFilter : Fragment() {
                 return
             }
 
+            binding.searchFilterRating.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
             binding.searchFilterRating.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.white
+                    R.color.colorBlack
                 )
             )
-            binding.searchFilterRating.background = ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.background_rounding_ohneulen
-            )
+            binding.searchFilterRecent.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
             binding.searchFilterRecent.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.white
+                    R.color.colorBlack
                 )
-            )
-            binding.searchFilterRecent.background = ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.background_rounding_ohneulen
             )
             searchViewModel.option.clear()
             searchViewModel.openTime.clear()
             searchViewModel.sort.clear()
+            //옵션
+            for(i in 0 until binding.searchFilterConvenience.childCount){
+                (binding.searchFilterConvenience.getChildAt(i) as ToggleButton).isChecked=false
+            }
+            //요일
+            for(i in 0 until binding.searchFilterTimeDay.childCount){
+                (binding.searchFilterTimeDay.getChildAt(i) as ToggleButton).isChecked=false
+            }
         }
 
     }
