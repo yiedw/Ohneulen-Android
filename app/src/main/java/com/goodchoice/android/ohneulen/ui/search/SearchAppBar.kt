@@ -7,22 +7,16 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchAppbarBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
-import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
-import com.goodchoice.android.ohneulen.ui.home.Home
-import com.goodchoice.android.ohneulen.util.OnBackPressedListener
-import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchAppBar : Fragment() {
@@ -76,7 +70,7 @@ class SearchAppBar : Fragment() {
             return@setOnEditorActionListener false
         }
 
-        binding.searchAppbarEt.addTextChangedListener(object:TextWatcher{
+        binding.searchAppbarEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (binding.searchAppbarEt.text.toString().isEmpty()) {
                     binding.searchAppbarClear.visibility = View.GONE
@@ -103,10 +97,19 @@ class SearchAppBar : Fragment() {
     }
 
     fun filterClick(view: View) {
-        val imm=requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken,0)
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        MainActivity.supportFragmentManager.beginTransaction().setCustomAnimations(
+            R.anim.enter_right_to_left,
+            R.anim.exit_left_to_right,
+            R.anim.exit_left_to_right,
+            R.anim.exit_left_to_right
+        ).add(MainActivity.mainFrameLayout.id, SearchFilter.newInstance())
+            .addToBackStack(null)
+            .commit()
         replaceAppbarFragment(SearchFilterAppbar.newInstance())
-        addMainFragment(SearchFilter.newInstance(), true)
+//        addMainFragment(SearchFilter.newInstance(), true)
     }
 
 }

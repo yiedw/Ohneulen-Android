@@ -17,13 +17,11 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
-import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
-import com.goodchoice.android.ohneulen.util.dp
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.textColor
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StoreHome : Fragment() {
@@ -217,7 +215,7 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
             params2.marginStart = binding.storeHomeAddress.marginStart
-            tv.gravity=Gravity.CENTER
+            tv.gravity = Gravity.CENTER
             tv.layoutParams = params2
             tv.setTextColor(requireContext().getColor(R.color.colorGrey88))
             tv.text = i.keyword
@@ -232,10 +230,11 @@ class StoreHome : Fragment() {
     fun reportClick(view: View) {
 //        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         replaceAppbarFragment(StoreHomeReportAppBar.newInstance())
-        addMainFragment(
-            StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.store.storeName),
-            true
-        )
+        popupFragment(StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.store.storeName))
+//        addMainFragment(
+//            StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.store.storeName),
+//            true
+//        )
     }
 
 }

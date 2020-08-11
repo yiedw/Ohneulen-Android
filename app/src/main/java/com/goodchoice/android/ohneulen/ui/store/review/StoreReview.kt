@@ -121,7 +121,8 @@ class StoreReview : Fragment() {
             loginDialog(requireContext(), StoreAppBar.newInstance())
         } else {
             replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
-            addMainFragment(StoreReviewWrite.newInstance(), true)
+            popupFragment(StoreReviewWrite.newInstance())
+//            addMainFragment(StoreReviewWrite.newInstance(), true)
 
         }
     }

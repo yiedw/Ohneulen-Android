@@ -72,6 +72,7 @@
                     android:id="@+id/mypage_info_ver"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:stateListAnimator="@null"
                     android:text="본인 인증"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -118,6 +119,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:onClick="@{fragment::withdrawalClick}"
+            android:stateListAnimator="@null"
             android:text="회원 탈퇴"
             app:layout_constraintBottom_toTopOf="@id/mypage_info_save"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -127,6 +129,7 @@
             android:id="@+id/mypage_info_save"
             android:layout_width="0dp"
             android:layout_height="60dp"
+            android:stateListAnimator="@null"
             android:text="변경사항 저장"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

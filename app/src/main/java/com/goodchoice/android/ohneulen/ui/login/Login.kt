@@ -74,7 +74,8 @@ class Login : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (!binding.loginPwEt.text.isNullOrEmpty() && !binding.loginEmailEt.text.isNullOrEmpty()) {
                     binding.loginSubmit.isEnabled = true
-                    binding.loginSubmit.setBackgroundColor(requireContext().getColor(R.color.colorGreen))
+                    binding.loginSubmit.background =
+                        requireContext().getDrawable(R.drawable.login_bt_true)
                 }
                 if (binding.loginEmailEt.text.isNotBlank()) {
                     binding.loginEmailClear.visibility = View.VISIBLE
@@ -93,13 +94,19 @@ class Login : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(binding.loginPwEt.text.length==1){
+                    binding.loginPwHidden.visibility=View.VISIBLE
+
+                }
                 if (!binding.loginPwEt.text.isNullOrEmpty() && !binding.loginEmailEt.text.isNullOrEmpty()) {
                     binding.loginSubmit.isEnabled = true
-                    binding.loginSubmit.setBackgroundColor(requireContext().getColor(R.color.colorGreen))
+                    binding.loginSubmit.background =
+                        requireContext().getDrawable(R.drawable.login_bt_true)
                 }
 
                 if (binding.loginPwEt.text.isNotBlank()) {
                     binding.loginPwClear.visibility = View.VISIBLE
+
                 } else {
                     binding.loginPwClear.visibility = View.GONE
 
@@ -145,7 +152,7 @@ class Login : Fragment() {
         //로그인 에러 수신
         loginViewModel.loginErrorToast.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled().let {
-                Toast.makeText(requireContext(),"아이디 혹은 비밀번호가 맞지 않습니다",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "아이디 혹은 비밀번호가 맞지 않습니다", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -179,7 +186,6 @@ class Login : Fragment() {
     }
 
     fun submitClick(view: View) {
-        Timber.e("Asdfsadf")
         loginViewModel.login(
             binding.loginEmailEt.text.toString(),
             binding.loginPwEt.text.toString(),

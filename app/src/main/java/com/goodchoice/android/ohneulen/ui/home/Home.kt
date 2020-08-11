@@ -113,15 +113,25 @@ class Home() : Fragment(), OnBackPressedListener {
     }
 
     fun currentLocationClick(view: View) {
-        mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
-        replaceAppbarFragment(SearchAppBar.newInstance())
-        replaceMainFragment(Search.newInstance())
+//        mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
+//        replaceAppbarFragment(SearchAppBar.newInstance())
+//        replaceMainFragment(Search.newInstance())
+
+
 
         //임시
-//        val imm=requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(view.windowToken,0)
-//        replaceAppbarFragment(SearchFilterAppbar.newInstance())
-//        addMainFragment(SearchFilter.newInstance(), true)
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        MainActivity.supportFragmentManager.beginTransaction().setCustomAnimations(
+            R.anim.enter_right_to_left,
+            R.anim.exit_left_to_right,
+            R.anim.exit_left_to_right,
+            R.anim.exit_left_to_right
+        ).add(MainActivity.mainFrameLayout.id, SearchFilter.newInstance())
+            .addToBackStack(null)
+            .commit()
+        replaceAppbarFragment(SearchFilterAppbar.newInstance())
 
     }
 

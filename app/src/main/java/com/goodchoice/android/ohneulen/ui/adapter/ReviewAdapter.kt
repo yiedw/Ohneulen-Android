@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReport
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReportAppBar
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
 class ReviewAdapter(val report: Boolean = true) :
@@ -32,7 +33,8 @@ class ReviewAdapter(val report: Boolean = true) :
                     reviewItemReport.visibility = View.GONE
                 reviewItemReport.setOnClickListener {
                     replaceAppbarFragment(StoreReviewReportAppBar.newInstance())
-                    addMainFragment(StoreReviewReport.newInstance(), true)
+                    popupFragment(StoreReviewReport.newInstance())
+//                    addMainFragment(StoreReviewReport.newInstance(), true)
                 }
 
                 //리뷰에 사진이 있을때

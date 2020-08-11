@@ -143,9 +143,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                android:visibility="gone"
                 android:onClick="@{fragment::pwHidden}"
                 android:src="@drawable/hidden"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/login_pw_clear"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -217,6 +217,7 @@
             android:background="@drawable/login_bt_false"
             android:enabled="false"
             android:onClick="@{fragment::submitClick}"
+            android:stateListAnimator="@null"
             android:text="로그인"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/login_auto" />

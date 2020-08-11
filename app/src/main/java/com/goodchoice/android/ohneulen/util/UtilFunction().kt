@@ -23,6 +23,7 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
+import com.goodchoice.android.ohneulen.ui.store.home.StoreHomeReport
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.iid.FirebaseInstanceId
@@ -105,6 +106,22 @@ fun addAppbarFragment(
     if (addToBackStack)
         fragmentTransaction.addToBackStack("")
     fragmentTransaction.add(R.id.appbar_frameLayout, fragment).commit()
+}
+
+fun popupFragment(fragment: Fragment){
+    MainActivity.supportFragmentManager.beginTransaction()
+        .setCustomAnimations(
+            R.anim.enter_bottom_to_top,
+            R.anim.exit_top_to_bottom,
+            R.anim.exit_top_to_bottom,
+            R.anim.exit_top_to_bottom
+        )
+        .addToBackStack(null)
+        .add(
+            MainActivity.mainFrameLayout.id,
+            fragment
+        )
+        .commit()
 }
 
 

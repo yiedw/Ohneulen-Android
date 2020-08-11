@@ -9,8 +9,6 @@
             type="com.goodchoice.android.ohneulen.ui.store.map.StoreMap" />
 
 
-
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,6 +63,7 @@
                 android:drawableStart="@drawable/find_road"
                 android:onClick="@{fragment::onNavClick}"
                 android:paddingStart="7dp"
+                android:stateListAnimator="@null"
                 android:text="길 찾기"
                 android:textColor="#666666"
                 android:textSize="12sp"

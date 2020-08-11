@@ -36,6 +36,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:onClick="@{fragment::reviewWriteClick}"
+                android:stateListAnimator="@null"
                 android:text="후기 작성하기"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
@@ -249,12 +250,12 @@
 
         <!--        후기가 없을때-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginBottom="30dp"
             android:id="@+id/store_review_empty"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/background_border_dotted"
             android:orientation="vertical"
             android:visibility="visible"
@@ -270,8 +271,8 @@
                 android:gravity="center"
                 android:text="더 많은 맛집이 있어요 \n 지금 찾으러 가보실래요?"
                 android:textAlignment="center"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
 

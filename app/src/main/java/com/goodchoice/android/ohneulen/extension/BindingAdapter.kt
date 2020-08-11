@@ -4,10 +4,7 @@ import android.os.Handler
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
@@ -33,6 +30,7 @@ fun setSearchStoreAdapter(
     adapter: SearchStoreAdapter?,
     items: List<Store>?
 ) {
+
     val smoothScroller = object : LinearSmoothScroller(recyclerView.context) {
         override fun getVerticalSnapPreference(): Int {
             return SNAP_TO_START
@@ -43,15 +41,10 @@ fun setSearchStoreAdapter(
         submitList(items)
         Handler().postDelayed({
             recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
-//                            recyclerView.layoutManager!!.scrollToPosition(0)
         }, 200)
 
-//            recyclerView.post{
-//                recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
-//                recyclerView.layoutManager!!.scrollToPosition(0)
-//            }
-
     }
+
 
 }
 
@@ -175,6 +168,9 @@ fun setFAQ(recyclerView: RecyclerView, items: List<FAQ>?, viewModel: MyPageViewM
 
 @BindingAdapter("storeImageList")
 fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
+    recyclerView.onFlingListener=null
+    val snapHelper = LinearSnapHelper()
+    snapHelper.attachToRecyclerView(recyclerView)
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     recyclerView.layoutManager = linearLayoutManager

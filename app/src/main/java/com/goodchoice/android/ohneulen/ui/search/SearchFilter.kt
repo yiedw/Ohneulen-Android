@@ -140,9 +140,11 @@ class SearchFilter : Fragment() {
 
             if (searchViewModel.tempCate.size == 1) {
                 binding.searchFilterTv1.visibility = View.VISIBLE
+                binding.searchFilterFlowLayout.visibility=View.VISIBLE
             } else if (searchViewModel.tempCate.size == 0) {
                 binding.searchFilterTv1.visibility = View.GONE
-                binding.searchFilterSelect.removeAllViews()
+                binding.searchFilterFlowLayout.visibility=View.GONE
+                binding.searchFilterFlowLayout.removeAllViews()
             }
 
 
@@ -158,8 +160,8 @@ class SearchFilter : Fragment() {
                 var removeIndex = 0
                 selectView.setOnClickListener {
                     //바텀뷰 삭제
-                    for (i in 0 until binding.searchFilterSelect.childCount) {
-                        if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
+                    for (i in 0 until binding.searchFilterFlowLayout.childCount) {
+                        if (binding.searchFilterFlowLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
                             loop@ for (j in searchViewModel.subCategoryList.indices) {
                                 for (k in searchViewModel.subCategoryList[j].indices) {
                                     if (searchViewModel.subCategoryList[j][k].minorName == ohneulenData.minorName) {
@@ -169,28 +171,24 @@ class SearchFilter : Fragment() {
                                     }
                                 }
                             }
-                            binding.searchFilterSelect.removeViewAt(i)
+                            binding.searchFilterFlowLayout.removeViewAt(i)
                             break
                         }
                     }
 
                     //tempCate child 삭제
                     searchViewModel.tempCate.remove(ohneulenData)
-//                    for (i in searchViewModel.tempCate.indices) {
-//                        if (searchViewModel.tempCate[i].minorCode == ohneulenData.minorCode) {
-//                            searchViewModel.tempCate.removeAt(i)
-//                            break
-//                        }
-//                    }
+
 
                 }
                 //위에 체크된 뷰 클릭
                 if (searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].check) {
-                    binding.searchFilterSelect.addView(selectView, 0)
+                    selectView.setPadding(5.dp(), 5.dp(), 5.dp(), 5.dp())
+                    binding.searchFilterFlowLayout.addView(selectView, 0)
                 } else {
-                    for (i in 0 until binding.searchFilterSelect.childCount) {
-                        if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
-                            binding.searchFilterSelect.removeViewAt(i)
+                    for (i in 0 until binding.searchFilterFlowLayout.childCount) {
+                        if (binding.searchFilterFlowLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
+                            binding.searchFilterFlowLayout.removeViewAt(i)
                             break
                         }
                     }
@@ -492,12 +490,12 @@ class SearchFilter : Fragment() {
             searchViewModel.openTime.clear()
             searchViewModel.sort.clear()
             //옵션
-            for(i in 0 until binding.searchFilterConvenience.childCount){
-                (binding.searchFilterConvenience.getChildAt(i) as ToggleButton).isChecked=false
+            for (i in 0 until binding.searchFilterConvenience.childCount) {
+                (binding.searchFilterConvenience.getChildAt(i) as ToggleButton).isChecked = false
             }
             //요일
-            for(i in 0 until binding.searchFilterTimeDay.childCount){
-                (binding.searchFilterTimeDay.getChildAt(i) as ToggleButton).isChecked=false
+            for (i in 0 until binding.searchFilterTimeDay.childCount) {
+                (binding.searchFilterTimeDay.getChildAt(i) as ToggleButton).isChecked = false
             }
         }
 

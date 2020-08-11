@@ -323,6 +323,7 @@
             android:onClick="@{fragment::reportClick}"
             android:text="매장 정보 신고"
             android:textColor="@color/white"
+            android:stateListAnimator="@null"
             android:textSize="@dimen/main_contents" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

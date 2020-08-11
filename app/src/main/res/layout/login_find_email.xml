@@ -15,6 +15,7 @@
         android:paddingHorizontal="20dp">
 
         <Button
+            android:stateListAnimator="@null"
             android:id="@+id/login_find_email_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -149,7 +150,8 @@ class MyPage : Fragment() {
 
     fun contactusClick(view: View) {
         replaceAppbarFragment(MyPageContactusAppBar.newInstance())
-        replaceMainFragment(MyPageContactus.newInstance())
+        popupFragment(MyPageContactus.newInstance())
+//        replaceMainFragment(MyPageContactus.newInstance())
     }
 
 

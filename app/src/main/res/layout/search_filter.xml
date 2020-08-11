@@ -73,16 +73,23 @@
             app:layout_constraintBottom_toTopOf="@id/search_filter_submit"
             app:layout_constraintTop_toBottomOf="@id/search_filter_choice">
 
-            <LinearLayout
-                android:id="@+id/search_filter_main"
+            <ScrollView
+                android:id="@+id/search_filter_scrollview_main"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="#f6f6f6"
-                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/search_filter_tv1"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/search_filter_subRv">
+                app:layout_constraintRight_toLeftOf="@id/search_filter_subRv"
+                app:layout_constraintTop_toTopOf="parent">
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/search_filter_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </ScrollView>
 
             <!--            화면 면적 잡아주기-->
             <!--            <View-->
@@ -98,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintLeft_toRightOf="@id/search_filter_main"
+                app:layout_constraintLeft_toRightOf="@id/search_filter_scrollview_main"
                 app:layout_constraintRight_toRightOf="parent"
                 bind:subCategory="@{viewModel.subCategory}"
                 bind:subCategoryViewModel="@{viewModel}" />
@@ -115,23 +122,32 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/search_filter_hs" />
+                app:layout_constraintBottom_toTopOf="@id/search_filter_gridLayout"
+                app:layout_constraintTop_toBottomOf="@id/search_filter_scrollview_main" />
 
-            <HorizontalScrollView
-                android:id="@+id/search_filter_hs"
+            <GridLayout
+                android:id="@+id/search_filter_gridLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#707070"
+                android:columnCount="3"
+                android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
+                android:paddingBottom="10dp"
+                android:useDefaultMargins="true"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_filter_tv1">
 
-                <LinearLayout
-                    android:id="@+id/search_filter_select"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="20dp" />
-            </HorizontalScrollView>
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/search_filter_select"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:paddingHorizontal="20dp" />-->
+            </GridLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -192,6 +208,7 @@
                             android:gravity="center"
                             android:onClick="@{fragment::sortButtonClick}"
                             android:padding="0dp"
+                            android:stateListAnimator="@null"
                             android:text="최신순"
                             android:textAlignment="center"
                             android:textColor="@color/colorBlack" />
@@ -206,6 +223,7 @@
                             android:gravity="center"
                             android:onClick="@{fragment::sortButtonClick}"
                             android:padding="0dp"
+                            android:stateListAnimator="@null"
                             android:text="평점순"
                             android:textAlignment="center"
                             android:textColor="@color/colorBlack" />
