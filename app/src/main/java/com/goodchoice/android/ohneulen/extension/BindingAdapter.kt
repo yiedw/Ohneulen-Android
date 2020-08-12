@@ -4,22 +4,24 @@ import android.os.Handler
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
+import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
-import com.goodchoice.android.ohneulen.data.model.*
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
-import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
-import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
-import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
-import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
-import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
+import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
+import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.ImageDetailAdapter
+import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
+import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
+import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")
@@ -166,7 +168,7 @@ fun setFAQ(recyclerView: RecyclerView, items: List<FAQ>?, viewModel: MyPageViewM
 
 @BindingAdapter("storeImageList")
 fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
-    recyclerView.onFlingListener=null
+    recyclerView.onFlingListener = null
     val snapHelper = LinearSnapHelper()
     snapHelper.attachToRecyclerView(recyclerView)
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
@@ -179,33 +181,46 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
     }
 }
 
-@BindingAdapter("imageDetailList", "imageDetailIndex", "imageDetailDialog")
+@BindingAdapter("imageDetailList", "imageDetailIndex", "imageDetailDialog", "imageDetailLoading")
 fun setImageDetail(
     recyclerView: RecyclerView,
     items: List<Image>?,
     index: Int,
-    dialog: DialogFragment
+    dialog: DialogFragment,
+    loading: MutableLiveData<Boolean>
 ) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
+
     recyclerView.layoutManager = linearLayoutManager
     recyclerView.onFlingListener = null;
     //viewpager 처럼 딱딱 끊어지게
     val snapHelper = PagerSnapHelper()
     snapHelper.attachToRecyclerView(recyclerView)
-
     recyclerView.adapter = ImageDetailAdapter()
         .apply {
             imageList = items ?: emptyList()
             dialogFragment = dialog
-            setOnNextClickListener(object : ImageDetailAdapter.OnNextClickListener {
-                override fun onNextClick(pos: Int) {
-                    recyclerView.scrollToPosition(pos)
-                }
+            imagePosition.postValue(index)
 
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        val centerView = snapHelper.findSnapView(recyclerView.layoutManager)
+                        val pos: Int? =
+                            centerView?.let { recyclerView.layoutManager!!.getPosition(it) }
+                        Timber.e(pos.toString())
+                        imagePosition.postValue(pos)
+
+                    }
+
+                }
             })
         }
+    loading.postValue(true)
+
 }
 
 

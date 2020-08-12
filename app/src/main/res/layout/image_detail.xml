@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.store.ImageDetailDialog" />
 
         <variable
             name="dialog"
@@ -21,6 +24,7 @@
         android:background="@color/colorTransparentBlack">
 
         <ImageView
+            android:onClick="@{fragment::onBackClick}"
             android:id="@+id/image_detail_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,9 +42,11 @@
             app:layout_constraintTop_toTopOf="parent"
             bind:imageDetailDialog="@{dialog}"
             bind:imageDetailIndex="@{viewModel.storeImageDetailIndex}"
-            bind:imageDetailList="@{viewModel.storeDetail.storeInfo.image}" />
+            bind:imageDetailList="@{viewModel.storeDetail.storeInfo.image}"
+            bind:imageDetailLoading="@{viewModel.storeImageDetailLoading}"/>
 
         <ImageView
+            android:onClick="@{fragment::onLeftClick}"
             android:id="@+id/image_detail_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,6 +57,7 @@
             app:layout_constraintTop_toTopOf="@id/image_detail_rv" />
 
         <ImageView
+            android:onClick="@{fragment::onRightClick}"
             android:id="@+id/image_detail_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

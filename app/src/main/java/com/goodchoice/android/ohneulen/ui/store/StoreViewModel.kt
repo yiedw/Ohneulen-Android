@@ -32,14 +32,12 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     //menuDetail 클릭했을때 클릭한 곳으로 이동
     var menuIndex = 0
 
-    val loading = MutableLiveData<Boolean>()
-
 
 //    var storeImageList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
 //        emit(getPhoto())
 //    }
 
-    var storeImageDetailAdapter=ImageDetailAdapter()
+    val storeImageDetailLoading = MutableLiveData<Boolean>()
     var storeImageDetailIndex = 0
 
 
