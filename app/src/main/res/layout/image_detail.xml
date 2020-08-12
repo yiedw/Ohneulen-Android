@@ -6,10 +6,12 @@
     <data>
 
         <variable
-            name="image"
-            type="com.goodchoice.android.ohneulen.data.model.Image" />
+            name="viewModel"
+            type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
 
-
+        <variable
+            name="dialog"
+            type="com.goodchoice.android.ohneulen.ui.store.ImageDetailDialog" />
 
     </data>
 
@@ -19,7 +21,7 @@
         android:background="@color/colorTransparentBlack">
 
         <ImageView
-            android:id="@+id/store_image_detail_back"
+            android:id="@+id/image_detail_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="39dp"
@@ -28,37 +30,36 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-
-            android:id="@+id/store_image_detail_image"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/image_detail_rv"
             android:layout_width="match_parent"
-            android:layout_height="269dp"
-            android:scaleType="fitXY"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:ohneulenImage="@{image}" />
+            bind:imageDetailDialog="@{dialog}"
+            bind:imageDetailIndex="@{viewModel.storeImageDetailIndex}"
+            bind:imageDetailList="@{viewModel.storeDetail.storeInfo.image}" />
 
         <ImageView
-            android:id="@+id/store_image_detail_left"
+            android:id="@+id/image_detail_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
             android:src="@drawable/before"
-            app:layout_constraintBottom_toBottomOf="@id/store_image_detail_image"
+            app:layout_constraintBottom_toBottomOf="@id/image_detail_rv"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/store_image_detail_image" />
+            app:layout_constraintTop_toTopOf="@id/image_detail_rv" />
 
         <ImageView
-            android:id="@+id/store_image_detail_right"
+            android:id="@+id/image_detail_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="20dp"
             android:src="@drawable/next"
-            app:layout_constraintBottom_toBottomOf="@id/store_image_detail_image"
+            app:layout_constraintBottom_toBottomOf="@id/image_detail_rv"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/store_image_detail_image" />
-
-
+            app:layout_constraintTop_toTopOf="@id/image_detail_rv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

@@ -6,7 +6,6 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
-import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
@@ -19,9 +18,8 @@ import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
-import com.goodchoice.android.ohneulen.ui.store.StoreImageDetailAdapter
+import com.goodchoice.android.ohneulen.ui.store.ImageDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")
@@ -197,11 +195,11 @@ fun setImageDetail(
     val snapHelper = PagerSnapHelper()
     snapHelper.attachToRecyclerView(recyclerView)
 
-    recyclerView.adapter = StoreImageDetailAdapter()
+    recyclerView.adapter = ImageDetailAdapter()
         .apply {
             imageList = items ?: emptyList()
             dialogFragment = dialog
-            setOnNextClickListener(object : StoreImageDetailAdapter.OnNextClickListener {
+            setOnNextClickListener(object : ImageDetailAdapter.OnNextClickListener {
                 override fun onNextClick(pos: Int) {
                     recyclerView.scrollToPosition(pos)
                 }

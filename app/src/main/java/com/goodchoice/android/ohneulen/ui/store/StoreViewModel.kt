@@ -1,16 +1,13 @@
 package com.goodchoice.android.ohneulen.ui.store
 
 import androidx.lifecycle.*
-import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.toRequestBody
-import timber.log.Timber
 
 class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     val storeMenuList = MutableLiveData<List<StoreMenu>>()
@@ -31,6 +28,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
         }
     }
 
+
     //menuDetail 클릭했을때 클릭한 곳으로 이동
     var menuIndex = 0
 
@@ -41,10 +39,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 //        emit(getPhoto())
 //    }
 
-
-    var storeImageDetailList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
-        emit(getPhotoDetail())
-    }
+    var storeImageDetailAdapter=ImageDetailAdapter()
     var storeImageDetailIndex = 0
 
 

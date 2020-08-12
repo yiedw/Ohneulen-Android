@@ -1,6 +1,5 @@
 package com.goodchoice.android.ohneulen.ui.store
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -31,7 +30,7 @@ class StoreImageAdapter :
                     .into(storeImageItem)
 
                 root.setOnClickListener {
-                    val dialog = StoreImageDetailDialog.newInstance(adapterPosition)
+                    val dialog = ImageDetailDialog.newInstance(adapterPosition)
                     dialog.show(MainActivity.supportFragmentManager, "")
                 }
             }

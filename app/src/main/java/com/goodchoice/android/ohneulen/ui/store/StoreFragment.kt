@@ -1,20 +1,13 @@
 package com.goodchoice.android.ohneulen.ui.store
 
-import android.animation.Animator
-import android.animation.TimeInterpolator
-import android.animation.ValueAnimator
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,7 +18,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
@@ -33,15 +25,9 @@ import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.textColor
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.main_activity.*
-import kotlinx.android.synthetic.main.store_home.view.*
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -404,7 +390,7 @@ class StoreFragment : Fragment() {
     fun oneImageClick(view: View) {
         if (storeViewModel.storeDetail.value!!.storeInfo.image.isEmpty())
             return
-        val dialog = StoreImageDetailDialog.newInstance(0)
+        val dialog = ImageDetailDialog.newInstance(0)
         dialog.show(MainActivity.supportFragmentManager, "")
     }
 
