@@ -1,5 +1,8 @@
 package com.goodchoice.android.ohneulen.ui.store
 
+import android.animation.Animator
+import android.animation.TimeInterpolator
+import android.animation.ValueAnimator
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.TextUtils
@@ -7,6 +10,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -162,6 +166,40 @@ class StoreFragment : Fragment() {
         }
     }
 
+//    fun ViewPager2.setCurrentItem(
+//        item: Int,
+//        duration: Long,
+//        interpolator: TimeInterpolator = AccelerateDecelerateInterpolator(),
+//        pagePxWidth: Int = width // Default value taken from getWidth() from ViewPager2 view
+//    ) {
+//        val pxToDrag: Int = pagePxWidth * (item - currentItem)
+//        val animator = ValueAnimator.ofInt(0, pxToDrag)
+//        var previousValue = 0
+//        animator.addUpdateListener { valueAnimator ->
+//            val currentValue = valueAnimator.animatedValue as Int
+//            val currentPxToDrag = (currentValue - previousValue).toFloat()
+//            fakeDragBy(-currentPxToDrag)
+//            previousValue = currentValue
+//        }
+//        animator.addListener(object : Animator.AnimatorListener {
+//            override fun onAnimationStart(animation: Animator?) {
+//                beginFakeDrag()
+//            }
+//
+//            override fun onAnimationEnd(animation: Animator?) {
+//                endFakeDrag()
+//            }
+//
+//            override fun onAnimationCancel(animation: Animator?) { /* Ignored */
+//            }
+//
+//            override fun onAnimationRepeat(animation: Animator?) { /* Ignored */
+//            }
+//        })
+//        animator.interpolator = interpolator
+//        animator.duration = duration
+//        animator.start()
+//    }
 
     //viewPager setting
     private fun viewPagerSetting() {
@@ -171,11 +209,13 @@ class StoreFragment : Fragment() {
         )
         binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
 
+
         //애니메이션 삭제
 //        binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 //            override fun onTabReselected(tab: TabLayout.Tab?) {
 //                tab?.position?.let {
 //                    binding.storeViewPager2.setCurrentItem(it, true)
+////                    binding.storeViewPager2.setCurrentItem(it, 200)
 //                }
 //            }
 //
@@ -184,7 +224,8 @@ class StoreFragment : Fragment() {
 //
 //            override fun onTabSelected(tab: TabLayout.Tab?) {
 //                tab?.position?.let {
-//                    binding.storeViewPager2.setCurrentItem(it, true)
+////                    binding.storeViewPager2.setCurrentItem(it, true)
+////                    binding.storeViewPager2.setCurrentItem(it, 200)
 //                }
 //            }
 //
@@ -207,6 +248,7 @@ class StoreFragment : Fragment() {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
+                    binding.storeViewPager2.setCurrentItem(position, true)
                     state = position
 
                     val view =
@@ -224,14 +266,16 @@ class StoreFragment : Fragment() {
                         }
                     }
 
-                    binding.storeNewScrollView.scrollTo(0, 0)
+//                    binding.storeNewScrollView.scrollTo(0, 0)
 //                    stickyHeader()
 //                    if (position == 1) {
 //                    }
 //                    binding.storeNewScrollView.invalidate()
                 }
+
             }
         )
+
     }
 
     private fun viewPagerSettingNullMenu() {

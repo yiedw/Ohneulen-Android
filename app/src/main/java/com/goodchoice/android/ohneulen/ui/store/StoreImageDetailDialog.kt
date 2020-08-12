@@ -27,7 +27,7 @@ class StoreImageDetailDialog(private val index: Int) : DialogFragment(), OnBackP
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.image_dialog)
+        setStyle(STYLE_NORMAL, R.style.image_dialog)
     }
 
     override fun onStart() {
