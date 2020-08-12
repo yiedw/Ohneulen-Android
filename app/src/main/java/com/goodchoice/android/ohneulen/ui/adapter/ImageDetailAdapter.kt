@@ -2,7 +2,6 @@ package com.goodchoice.android.ohneulen.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
@@ -12,44 +11,19 @@ import com.goodchoice.android.ohneulen.data.model.Image
 import com.goodchoice.android.ohneulen.data.model.Photo
 import com.goodchoice.android.ohneulen.databinding.ImageDetailItemBinding
 
-class ImageDetailAdapter {
-    inner class ImageDetailViewHolder(private val binding:ImageDetailItemBinding)
-        :RecyclerView.ViewHolder(binding.root){
-        fun bind(item:Photo){
-            binding.apply {
-            }
-        }
-    }
-}
 
 class ImageDetailAdapter :
-    RecyclerView.Adapter<ImageDetailAdapter.StoreImageDetailViewHolder>() {
+    RecyclerView.Adapter<ImageDetailAdapter.ImageDetailViewHolder>() {
 
-    var dialogFragment = DialogFragment()
     var imageList = listOf<Image>()
     var imagePosition= MutableLiveData<Int>(0)
 
-//    interface OnRightClickListener {
-//        fun onNextClick(pos: Int)
-//    }
-//    interface OnLeftClickListener {
-//        fun onLeftClick(pos: Int)
-//    }
-//
-//    private var mListener: OnRightClickListener? = null
-//
-//    fun setOnNextClickListener(listener: OnRightClickListener) {
-//        this.mListener = listener
-//    }
-
-    inner class StoreImageDetailViewHolder(
+    inner class ImageDetailViewHolder(
         private val binding: ImageDetailItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Image) {
             binding.apply {
                 image = item
-
-
             }
         }
     }
@@ -61,13 +35,13 @@ class ImageDetailAdapter :
             parent,
             false
         ).let {
-            StoreImageDetailViewHolder(it)
+            ImageDetailViewHolder(it)
         }
 
 
     override fun getItemCount() = imageList.size
 
-    override fun onBindViewHolder(holder: StoreImageDetailViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ImageDetailViewHolder, position: Int) {
 //        imagePosition.postValue(position)
         holder.bind(imageList[position])
     }

@@ -18,48 +18,14 @@ import timber.log.Timber
 class StoreMenuDetailAdapter() :
     RecyclerView.Adapter<StoreMenuDetailAdapter.StoreMenuDetailViewHolder>() {
 
-    lateinit var photoList: MutableList<Photo>
     var menuList = listOf<StoreMenu>()
-//    var liveIndex = MutableLiveData<Int>(0)
-    interface OnNextClickListener{
-        fun onNextClick(pos:Int)
-    }
-    private var mListener:OnNextClickListener?=null
-
-    fun setOnNextClickListener(listener:OnNextClickListener){
-        this.mListener=listener
-    }
+    var menuPosition=MutableLiveData<Int>(0)
 
     inner class StoreMenuDetailViewHolder(
         private val binding: StoreMenuDetailItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(menuItem: StoreMenu) {
             binding.apply {
-//                storeMenuDetailBack
-                if (menuList.size - 1 == adapterPosition) {
-                    storeMenuDetailRight.visibility = View.GONE
-                }
-                else{
-                    storeMenuDetailRight.visibility=View.VISIBLE
-                }
-                if (adapterPosition == 0) {
-                    storeMenuDetailLeft.visibility = View.GONE
-                }
-                else{
-                    storeMenuDetailLeft.visibility=View.VISIBLE
-                }
-                storeMenuDetailLeft.setOnClickListener {
-                    mListener!!.onNextClick(adapterPosition-1)
-                }
-                storeMenuDetailRight.setOnClickListener {
-                    mListener!!.onNextClick(adapterPosition+1)
-
-                }
-                storeMenuDetailBack.setOnClickListener {
-                    MainActivity.supportFragmentManager.popBackStack()
-                    MainActivity.appbarFrameLayout.visibility = View.VISIBLE
-                }
-//                photo = photoItem
                 menu = menuItem
             }
         }

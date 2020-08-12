@@ -71,8 +71,8 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
         }
 }
 
-@BindingAdapter("storeMenuDetail", "storeMenuDetailIndex")
-fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, index: Int) {
+@BindingAdapter("storeMenuDetail", "storeMenuDetailIndex","storeMenuDetailLoading")
+fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, index: Int,loading: MutableLiveData<Boolean>) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
@@ -85,14 +85,19 @@ fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, inde
     recyclerView.adapter = StoreMenuDetailAdapter()
         .apply {
             menuList = items ?: emptyList()
-            setOnNextClickListener(object : StoreMenuDetailAdapter.OnNextClickListener {
-                override fun onNextClick(pos: Int) {
-                    recyclerView.scrollToPosition(pos)
+            menuPosition.postValue(index)
+            recyclerView.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        val centerView=snapHelper.findSnapView(recyclerView.layoutManager)
+                        val pos:Int?=centerView?.let { recyclerView.layoutManager!!.getPosition(it) }
+                        menuPosition.postValue(pos)
+                    }
                 }
-
             })
-//        notifyDataSetChanged()
         }
+    loading.postValue(true)
 
 }
 
@@ -181,12 +186,11 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
     }
 }
 
-@BindingAdapter("imageDetailList", "imageDetailIndex", "imageDetailDialog", "imageDetailLoading")
+@BindingAdapter("imageDetailList", "imageDetailIndex", "imageDetailLoading")
 fun setImageDetail(
     recyclerView: RecyclerView,
     items: List<Image>?,
     index: Int,
-    dialog: DialogFragment,
     loading: MutableLiveData<Boolean>
 ) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
@@ -198,10 +202,10 @@ fun setImageDetail(
     //viewpager 처럼 딱딱 끊어지게
     val snapHelper = PagerSnapHelper()
     snapHelper.attachToRecyclerView(recyclerView)
+
     recyclerView.adapter = ImageDetailAdapter()
         .apply {
             imageList = items ?: emptyList()
-            dialogFragment = dialog
             imagePosition.postValue(index)
 
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -211,7 +215,6 @@ fun setImageDetail(
                         val centerView = snapHelper.findSnapView(recyclerView.layoutManager)
                         val pos: Int? =
                             centerView?.let { recyclerView.layoutManager!!.getPosition(it) }
-                        Timber.e(pos.toString())
                         imagePosition.postValue(pos)
 
                     }

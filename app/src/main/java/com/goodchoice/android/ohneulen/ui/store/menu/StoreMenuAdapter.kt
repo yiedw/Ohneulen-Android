@@ -11,7 +11,9 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMenuItemBinding
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailDialog
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.comma
 import timber.log.Timber
 
 class StoreMenuAdapter :
@@ -23,13 +25,11 @@ class StoreMenuAdapter :
         fun bind(item: StoreMenu) {
             binding.apply {
                 storeMenu = item
-                storeMenuItem.setOnClickListener {
-                    MainActivity.appbarFrameLayout.visibility = View.GONE
-                    addMainFragment(
-                        StoreMenuDetail.newInstance(
-                            adapterPosition
-                        ), true
-                    )
+                val price="${comma(item.price.toInt())} 원"
+                storeMenuItemPrice.text=price
+                root.setOnClickListener {
+                    val dialog = StoreMenuDetailDialog.newInstance(adapterPosition)
+                    dialog.show(MainActivity.supportFragmentManager, "")
                 }
             }
         }

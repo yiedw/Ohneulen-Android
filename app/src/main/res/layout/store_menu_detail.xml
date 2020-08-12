@@ -9,20 +9,62 @@
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
 
+        <variable
+            name="fragment"
+            type="com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailDialog" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorTransparentBlack">
+
+        <ImageView
+            android:id="@+id/store_menu_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="39dp"
+            android:layout_marginRight="21dp"
+            android:onClick="@{fragment::onBackClick}"
+            android:src="@drawable/image_detail_close"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/store_menu_detail_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            bind:storeMenuDetailIndex="@{viewModel.menuIndex}"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_menu_detail_back"
             bind:storeMenuDetail="@{viewModel.storeMenuList}"
+            bind:storeMenuDetailIndex="@{viewModel.menuIndex}"
+            bind:storeMenuDetailLoading="@{viewModel.loading}"
             />
+
+        <ImageView
+            android:id="@+id/store_menu_detail_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{fragment::onLeftClick}"
+            android:paddingStart="20dp"
+            android:src="@drawable/before"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/store_menu_detail_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{fragment::onRightClick}"
+            android:paddingEnd="20dp"
+            android:src="@drawable/next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

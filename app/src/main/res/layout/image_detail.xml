@@ -28,7 +28,7 @@
             android:id="@+id/image_detail_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="21dp"
             android:src="@drawable/image_detail_close"
             app:layout_constraintRight_toRightOf="parent"
@@ -40,10 +40,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:imageDetailDialog="@{dialog}"
             bind:imageDetailIndex="@{viewModel.storeImageDetailIndex}"
             bind:imageDetailList="@{viewModel.storeDetail.storeInfo.image}"
-            bind:imageDetailLoading="@{viewModel.storeImageDetailLoading}"/>
+            bind:imageDetailLoading="@{viewModel.loading}"/>
 
         <ImageView
             android:onClick="@{fragment::onLeftClick}"

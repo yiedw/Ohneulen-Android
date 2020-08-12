@@ -34,6 +34,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 import java.security.MessageDigest
+import java.text.DecimalFormat
 
 //카카오 지도 불러오는데 사용
 @SuppressLint("PackageManagerGetSignatures")
@@ -231,6 +232,11 @@ suspend fun getOhneulenSubData(
         }
     }
     return subList
+}
+
+fun comma(number:Int):String{
+    val formatter=DecimalFormat("###,###")
+    return formatter.format(number)
 }
 
 

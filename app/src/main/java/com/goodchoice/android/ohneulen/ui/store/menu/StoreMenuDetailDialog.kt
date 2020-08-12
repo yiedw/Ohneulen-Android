@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.dialog
+package com.goodchoice.android.ohneulen.ui.store.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,21 +8,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.ImageDetailBinding
-import com.goodchoice.android.ohneulen.ui.adapter.ImageDetailAdapter
+import com.goodchoice.android.ohneulen.databinding.StoreMenuDetailBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
-class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPressedListener {
+class StoreMenuDetailDialog(private var inputIndex: Int) : DialogFragment(), OnBackPressedListener {
+
     companion object {
         fun newInstance(index: Int) =
-            ImageDetailDialog(index)
+            StoreMenuDetailDialog(
+                index
+            )
     }
 
-    private lateinit var binding: ImageDetailBinding
+    private lateinit var binding: StoreMenuDetailBinding
     private val storeViewModel: StoreViewModel by viewModel()
-    private var imagePosition=0
+    private var menuPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,18 +46,16 @@ class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPresse
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        storeViewModel.menuIndex = this.inputIndex
         binding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
-            R.layout.image_detail,
+            inflater,
+            R.layout.store_menu_detail,
             null,
             false
         )
-
-        binding.lifecycleOwner = binding.lifecycleOwner
         binding.viewModel = storeViewModel
-        binding.dialog = this
-
-        storeViewModel.storeImageDetailIndex = index
+        //this로 하면 무한로딩에 걸림
+        binding.lifecycleOwner = binding.lifecycleOwner
         binding.fragment = this
         return binding.root
     }
@@ -63,22 +64,22 @@ class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPresse
         super.onViewCreated(view, savedInstanceState)
         storeViewModel.loading.observe(viewLifecycleOwner, Observer {
             if (it) {
-                (binding.imageDetailRv.adapter as ImageDetailAdapter).imagePosition.observe(
+                (binding.storeMenuDetailRv.adapter as StoreMenuDetailAdapter).menuPosition.observe(
                     viewLifecycleOwner,
                     Observer { pos ->
-                        imagePosition=pos
+                        menuPosition = pos
                         if (pos == 0) {
-                            binding.imageDetailLeft.visibility = View.GONE
+                            binding.storeMenuDetailLeft.visibility = View.GONE
                         } else {
-                            binding.imageDetailLeft.visibility = View.VISIBLE
+                            binding.storeMenuDetailLeft.visibility = View.VISIBLE
                         }
-                        if (pos == storeViewModel.storeDetail.value!!.storeInfo.image.size - 1) {
-                            binding.imageDetailRight.visibility = View.GONE
+                        if (pos == storeViewModel.storeMenuList.size - 1) {
+                            binding.storeMenuDetailRight.visibility = View.GONE
                         } else {
-                            binding.imageDetailRight.visibility = View.VISIBLE
+                            binding.storeMenuDetailRight.visibility = View.VISIBLE
                         }
-//                        view.invalidate()
-                    })
+                    }
+                )
             }
         })
 
@@ -88,11 +89,13 @@ class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPresse
         super.onDestroy()
         storeViewModel.loading.postValue(false)
     }
-    fun onLeftClick(view:View){
-        binding.imageDetailRv.smoothScrollToPosition(imagePosition-1)
+
+    fun onLeftClick(view: View) {
+        binding.storeMenuDetailRv.smoothScrollToPosition(menuPosition - 1)
     }
-    fun onRightClick(view:View){
-        binding.imageDetailRv.smoothScrollToPosition(imagePosition+1)
+
+    fun onRightClick(view: View) {
+        binding.storeMenuDetailRv.smoothScrollToPosition(menuPosition + 1)
     }
 
     fun onBackClick(view: View) {

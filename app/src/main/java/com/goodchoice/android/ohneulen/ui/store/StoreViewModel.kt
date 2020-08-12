@@ -8,9 +8,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 
 class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
-    val storeMenuList = MutableLiveData<List<StoreMenu>>()
+    var storeMenuList = listOf<StoreMenu>()
 
     var storeDetail = MutableLiveData<StoreDetail>()
 
@@ -22,7 +23,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
             )
             if (storeDetailResponse.resultCode == "000") {
                 storeDetail.postValue(storeDetailResponse.resultData)
-                storeMenuList.postValue(storeDetailResponse.resultData.menuList)
+                storeMenuList=storeDetailResponse.resultData.menuList
             }
 
         }
@@ -33,11 +34,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     var menuIndex = 0
 
 
-//    var storeImageList: LiveData<MutableList<Photo>> = liveData(Dispatchers.IO) {
-//        emit(getPhoto())
-//    }
-
-    val storeImageDetailLoading = MutableLiveData<Boolean>()
+    //storeimage
     var storeImageDetailIndex = 0
 
 
@@ -51,6 +48,9 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
 
     var storeReviewAdapter = ReviewAdapter()
+
+
+    val loading = MutableLiveData<Boolean>()
 
 
 }
