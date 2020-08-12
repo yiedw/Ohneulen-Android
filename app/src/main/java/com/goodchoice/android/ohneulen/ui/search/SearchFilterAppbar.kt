@@ -39,22 +39,14 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
 
     fun closeOnClick(view: View) {
 //        MainActivity.supportFragmentManager.popBackStack()
-        clear()
         replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
-        clear()
         replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
     }
 
-    private fun clear() {
-        searchViewModel.cate.clear()
-        searchViewModel.option.clear()
-        searchViewModel.openTime.clear()
-        searchViewModel.sort.clear()
-    }
 
 }

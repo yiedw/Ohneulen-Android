@@ -44,6 +44,10 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     val subCategoryList = initData.subCategory
     var subCategory = MutableLiveData<List<OhneulenData>>(subCategoryList[0])
 
+    //정렬
+    var checkSortRating = false
+    var checkSortRecent = false
+
     //옵션
     var mainOptionKind = initData.mainOptionKind
     var subOptionKind = initData.subOptionKind

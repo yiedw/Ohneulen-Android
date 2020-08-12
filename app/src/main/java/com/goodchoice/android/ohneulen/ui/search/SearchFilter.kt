@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.core.view.get
 import androidx.core.view.marginStart
 import androidx.databinding.DataBindingUtil
@@ -35,13 +36,12 @@ class SearchFilter : Fragment() {
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var binding: SearchFilterBinding
     var checkFood = true
-    var checkClick=false
+    var checkClick = false
+
+    var first = true
 
     var position = 0
     private var previousPosition = 0
-
-    var checkSortRating = false
-    var checkSortRecent = true
 
 
     override fun onCreateView(
@@ -70,6 +70,51 @@ class SearchFilter : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //정렬
+        //최근순
+        if (searchViewModel.checkSortRecent) {
+            binding.searchFilterRecent.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )
+            )
+            binding.searchFilterRecent.background = ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.background_rounding_ohneulen
+            )
+        } else {
+            binding.searchFilterRecent.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+            binding.searchFilterRecent.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorBlack
+                )
+            )
+        }
+        //평점순
+        if (searchViewModel.checkSortRating) {
+            binding.searchFilterRating.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )
+            )
+            binding.searchFilterRating.background = ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.background_rounding_ohneulen
+            )
+        } else {
+            binding.searchFilterRating.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+            binding.searchFilterRating.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorBlack
+                )
+            )
+        }
 
         //메인카테고리 클릭시 서브 카테고리 변경
         searchViewModel.mainCategoryPosition.observe(viewLifecycleOwner, Observer {
@@ -105,6 +150,7 @@ class SearchFilter : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         MainActivity.bottomNav.visibility = View.VISIBLE
+        searchViewModel.mainCategoryPosition.postValue(0)
     }
 
 
@@ -119,7 +165,7 @@ class SearchFilter : Fragment() {
             binding.searchFilterGridLayout.removeAllViews()
         }
 
-        //처음시작시 체크해둔 뷰 생성
+//        처음시작시 체크해둔 뷰 생성
         for (i in searchViewModel.tempCate) {
             val ohneulenData = i
             val layoutInflater = this.layoutInflater
@@ -201,7 +247,7 @@ class SearchFilter : Fragment() {
                 selectView.layoutParams = param
                 //클릭할시 뷰 삭제
                 selectView.setOnClickListener {
-                    checkClick=true
+                    checkClick = true
                     //바텀뷰 삭제
                     for (i in 0 until binding.searchFilterGridLayout.childCount) {
                         if (binding.searchFilterGridLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName.replace(
@@ -215,7 +261,7 @@ class SearchFilter : Fragment() {
                                         searchViewModel.subCategoryList[j][k].check = false
                                         searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
 //                                        searchViewModel.subCategory.value=searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!]
-                                        checkClick=true
+                                        checkClick = true
                                         break@loop
                                     }
                                 }
@@ -228,16 +274,24 @@ class SearchFilter : Fragment() {
                     //tempCate child 삭제
                     searchViewModel.tempCate.remove(ohneulenData)
                 }
-                Timber.e(checkClick.toString())
-                if(checkClick){
-                    checkClick=false
+                if (checkClick) {
+                    checkClick = false
                     return@Observer
                 }
 
                 //위에 체크된 뷰 클릭
                 if (searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].check) {
 //                    selectView.setPadding(5.dp(), 5.dp(), 5.dp(), 5.dp())
-                    binding.searchFilterGridLayout.addView(selectView)
+                    var check = false
+                    //중복체크해서 없으면 추가
+                    for (i in binding.searchFilterGridLayout.children) {
+                        if (i.findViewById<TextView>(R.id.filter_select_title).text
+                            == selectView.findViewById<TextView>(R.id.filter_select_title).text
+                        )
+                            check = true
+                    }
+                    if (!check)
+                        binding.searchFilterGridLayout.addView(selectView)
                 } else {
                     for (i in 0 until binding.searchFilterGridLayout.childCount) {
                         if (binding.searchFilterGridLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName.replace(
@@ -319,9 +373,19 @@ class SearchFilter : Fragment() {
             param.height = 32.dp()
             val tb = ToggleButton(requireContext())
             tb.layoutParams = param
-            tb.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
-            tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+            tb.isChecked = mutableList[i].check
+            //체크표시돼있을때
+            if (mutableList[i].check) {
+                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                tb.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.background_rounding_ohneulen
+                )
+            } else {
+                tb.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
+                tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+            }
             tb.text = mutableList[i].minorName
             tb.textOff = mutableList[i].minorName
             tb.textOn = mutableList[i].minorName
@@ -337,10 +401,12 @@ class SearchFilter : Fragment() {
                     //옵션일때
                     if (gridLayout == binding.searchFilterConvenience) {
                         searchViewModel.option.add(mutableList[i].minorCode)
+                        searchViewModel.mainOptionKind[i].check = isChecked
                     }
                     //휴무일 일때
                     else if (gridLayout == binding.searchFilterTimeDay) {
                         searchViewModel.openTime.add(mutableList[i].minorCode)
+                        searchViewModel.timeDay[i].check = isChecked
                     }
 
                 } else {
@@ -349,10 +415,12 @@ class SearchFilter : Fragment() {
                     tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
                     if (gridLayout == binding.searchFilterConvenience) {
                         searchViewModel.option.remove(mutableList[i].minorCode)
+                        searchViewModel.mainOptionKind[i].check = isChecked
                     }
                     //휴무일 일때
                     else if (gridLayout == binding.searchFilterTimeDay) {
                         searchViewModel.openTime.remove(mutableList[i].minorCode)
+                        searchViewModel.timeDay[i].check = isChecked
                     }
 
                 }
@@ -430,8 +498,8 @@ class SearchFilter : Fragment() {
             //최근순 클릭
             searchViewModel.sort.add("date")
             searchViewModel.sort.remove("point")
-            checkSortRecent = true
-            checkSortRating = false
+            searchViewModel.checkSortRecent = true
+            searchViewModel.checkSortRating = false
             binding.apply {
                 searchFilterRecent.setTextColor(
                     ContextCompat.getColor(
@@ -457,8 +525,8 @@ class SearchFilter : Fragment() {
             //평점순 클릭
             searchViewModel.sort.add("point")
             searchViewModel.sort.remove("date")
-            checkSortRecent = false
-            checkSortRating = true
+            searchViewModel.checkSortRecent = false
+            searchViewModel.checkSortRating = true
             binding.apply {
                 searchFilterRating.setTextColor(
                     ContextCompat.getColor(
@@ -484,7 +552,6 @@ class SearchFilter : Fragment() {
         }
     }
 
-
     fun resetClick(view: View) {
         //음식선택일때
         if (checkFood) {
@@ -505,7 +572,7 @@ class SearchFilter : Fragment() {
 
         //옵션선택일때
         else {
-            if (!checkSortRating && !checkSortRecent && searchViewModel.option.isEmpty()
+            if (!searchViewModel.checkSortRating && !searchViewModel.checkSortRecent && searchViewModel.option.isEmpty()
                 && searchViewModel.openTime.isEmpty() && searchViewModel.sort.isEmpty()
             ) {
                 Toast.makeText(requireContext(), "옵션을 선택해 주세요", Toast.LENGTH_SHORT).show()
