@@ -3,16 +3,16 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Point
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.GridLayout
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
+import androidx.core.view.marginStart
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,8 +21,10 @@ import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
+import com.goodchoice.android.ohneulen.util.px
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class SearchFilter : Fragment() {
@@ -33,12 +35,14 @@ class SearchFilter : Fragment() {
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var binding: SearchFilterBinding
     var checkFood = true
+    var checkClick=false
 
     var position = 0
     private var previousPosition = 0
 
     var checkSortRating = false
     var checkSortRecent = true
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,45 +61,7 @@ class SearchFilter : Fragment() {
             viewModel = searchViewModel
         }
 
-        MainActivity.bottomNav.visibility = View.GONE
-//        //전에 체크된거 있나 검사 있으면 다시 뷰 생성
-//        if (searchViewModel.tempCate.size == 1) {
-//            binding.searchFilterTv1.visibility = View.VISIBLE
-//        } else if (searchViewModel.tempCate.size == 0) {
-//            binding.searchFilterTv1.visibility = View.GONE
-//            binding.searchFilterSelect.removeAllViews()
-//        }
-//
-//        for (i in searchViewModel.tempCate) {
-//            val selectView = layoutInflater.inflate(R.layout.filter_selector, null)
-//            selectView.findViewById<TextView>(R.id.filter_select_title).text =
-//                i.minorName
-//            val ohneulenData =
-//                searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
-//            selectView.setOnClickListener {
-//                //바텀뷰 삭제
-//                for (i in 0 until binding.searchFilterSelect.childCount) {
-//                    if (binding.searchFilterSelect[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
-//                        loop@ for (j in searchViewModel.subCategoryList.indices) {
-//                            for (k in searchViewModel.subCategoryList[j].indices) {
-//                                if (searchViewModel.subCategoryList[j][k].minorName == ohneulenData.minorName) {
-//                                    searchViewModel.subCategoryList[j][k].check = false
-//                                    searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
-//                                    break@loop
-//                                }
-//                            }
-//                        }
-//                        binding.searchFilterSelect.removeViewAt(i)
-//                        break
-//                    }
-//                }
-//
-//                //tempCate child 삭제
-//                searchViewModel.tempCate.remove(ohneulenData)
-//
-//            }
-//            binding.searchFilterSelect.addView(selectView, 0)
-//        }
+
 
         return binding.root
     }
@@ -111,14 +77,15 @@ class SearchFilter : Fragment() {
             searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[it])
         })
 
-        //음식 선택시 아래 뷰 생성
-        foodFilterGenerate()
         //음식 메인카테고리 리스트 생성
-        bottomViewGenerate()
+        foodFilterGenerate()
 
 
         //뒤에 레이아웃 터치 안먹게 하기
         binding.searchFilter.setOnTouchListener { v, event -> true }
+
+        //음식 선택시 아래 뷰 생성
+        bottomViewGenerate()
 
         //convenience
         convenienceGenerate()
@@ -128,6 +95,13 @@ class SearchFilter : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.GONE
+
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         MainActivity.bottomNav.visibility = View.VISIBLE
@@ -136,59 +110,142 @@ class SearchFilter : Fragment() {
 
     //아래 체크뷰 생성
     private fun bottomViewGenerate() {
-        searchViewModel.subCategory.observe(viewLifecycleOwner, Observer {
+        if (searchViewModel.tempCate.size > 0) {
+            binding.searchFilterTv1.visibility = View.VISIBLE
+            binding.searchFilterGridLayout.visibility = View.VISIBLE
+        } else if (searchViewModel.tempCate.size == 0) {
+            binding.searchFilterTv1.visibility = View.GONE
+            binding.searchFilterGridLayout.visibility = View.GONE
+            binding.searchFilterGridLayout.removeAllViews()
+        }
 
-            if (searchViewModel.tempCate.size == 1) {
-                binding.searchFilterTv1.visibility = View.VISIBLE
-                binding.searchFilterFlowLayout.visibility=View.VISIBLE
-            } else if (searchViewModel.tempCate.size == 0) {
-                binding.searchFilterTv1.visibility = View.GONE
-                binding.searchFilterFlowLayout.visibility=View.GONE
-                binding.searchFilterFlowLayout.removeAllViews()
+        //처음시작시 체크해둔 뷰 생성
+        for (i in searchViewModel.tempCate) {
+            val ohneulenData = i
+            val layoutInflater = this.layoutInflater
+            val param = GridLayout.LayoutParams()
+//                param.setMargins(5.dp(),5.dp(),5.dp(),5.dp())
+            //searchFilterGridLayout.width 길이를 가져올수 없어서 전체 길이를 가져옴
+            val display = requireActivity().windowManager.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val width = size.x
+            param.width =
+                (width - binding.searchFilterGridLayout.paddingStart - binding.searchFilterGridLayout.paddingEnd) / 3
+            val selectView = layoutInflater.inflate(R.layout.filter_selector, null)
+//                selectView.background =
+//                    requireContext().getDrawable(R.drawable.background_border_white)
+            selectView.findViewById<TextView>(R.id.filter_select_title).text =
+                ohneulenData.minorName.replace(" ", "")
+            selectView.layoutParams = param
+            //클릭할시 뷰 삭제
+            selectView.setOnClickListener {
+                //바텀뷰 삭제
+                for (i in 0 until binding.searchFilterGridLayout.childCount) {
+                    if (binding.searchFilterGridLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName.replace(
+                            " ",
+                            ""
+                        )
+                    ) {
+                        loop@ for (j in searchViewModel.subCategoryList.indices) {
+                            for (k in searchViewModel.subCategoryList[j].indices) {
+                                if (searchViewModel.subCategoryList[j][k].minorName == ohneulenData.minorName) {
+                                    searchViewModel.subCategoryList[j][k].check = false
+                                    searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                                    break@loop
+                                }
+                            }
+                        }
+                        binding.searchFilterGridLayout.removeViewAt(i)
+                        break
+                    }
+                }
+                //tempCate child 삭제
+                searchViewModel.tempCate.remove(ohneulenData)
             }
 
+//            binding.searchFilterGridLayout.addView(selectView, 0)
+            binding.searchFilterGridLayout.addView(selectView)
+        }
 
-            if (!searchViewModel.tempCate.isNullOrEmpty() && !searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!].isNullOrEmpty()) {
+
+        //체크 검사해서 바뀔때마다 확인
+        searchViewModel.subCategory.observe(viewLifecycleOwner, Observer {
+            if (searchViewModel.tempCate.size > 0) {
+                binding.searchFilterTv1.visibility = View.VISIBLE
+                binding.searchFilterGridLayout.visibility = View.VISIBLE
+            } else if (searchViewModel.tempCate.size == 0) {
+                binding.searchFilterTv1.visibility = View.GONE
+                binding.searchFilterGridLayout.visibility = View.GONE
+                binding.searchFilterGridLayout.removeAllViews()
+            }
+
+            if (!searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!].isNullOrEmpty()) {
                 val ohneulenData =
                     searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
                 val layoutInflater = this.layoutInflater
+                val param = GridLayout.LayoutParams()
+//                param.setMargins(5.dp(),5.dp(),5.dp(),5.dp())
+                //searchFilterGridLayout.width 길이를 가져올수 없어서 전체 길이를 가져옴
+                val display = requireActivity().windowManager.defaultDisplay
+                val size = Point()
+                display.getSize(size)
+                val width = size.x
+                param.width =
+                    (width - binding.searchFilterGridLayout.paddingStart - binding.searchFilterGridLayout.paddingEnd) / 3
                 val selectView = layoutInflater.inflate(R.layout.filter_selector, null)
+//                selectView.background =
+//                    requireContext().getDrawable(R.drawable.background_border_white)
                 selectView.findViewById<TextView>(R.id.filter_select_title).text =
-                    ohneulenData.minorName
-
+                    ohneulenData.minorName.replace(" ", "")
+                selectView.layoutParams = param
                 //클릭할시 뷰 삭제
-                var removeIndex = 0
                 selectView.setOnClickListener {
+                    checkClick=true
                     //바텀뷰 삭제
-                    for (i in 0 until binding.searchFilterFlowLayout.childCount) {
-                        if (binding.searchFilterFlowLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
+                    for (i in 0 until binding.searchFilterGridLayout.childCount) {
+                        if (binding.searchFilterGridLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName.replace(
+                                " ",
+                                ""
+                            )
+                        ) {
                             loop@ for (j in searchViewModel.subCategoryList.indices) {
                                 for (k in searchViewModel.subCategoryList[j].indices) {
                                     if (searchViewModel.subCategoryList[j][k].minorName == ohneulenData.minorName) {
                                         searchViewModel.subCategoryList[j][k].check = false
                                         searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+//                                        searchViewModel.subCategory.value=searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!]
+                                        checkClick=true
                                         break@loop
                                     }
                                 }
                             }
-                            binding.searchFilterFlowLayout.removeViewAt(i)
+                            binding.searchFilterGridLayout.removeViewAt(i)
                             break
                         }
                     }
 
                     //tempCate child 삭제
                     searchViewModel.tempCate.remove(ohneulenData)
-
-
                 }
+                Timber.e(checkClick.toString())
+                if(checkClick){
+                    checkClick=false
+                    return@Observer
+                }
+
                 //위에 체크된 뷰 클릭
                 if (searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].check) {
-                    selectView.setPadding(5.dp(), 5.dp(), 5.dp(), 5.dp())
-                    binding.searchFilterFlowLayout.addView(selectView, 0)
+//                    selectView.setPadding(5.dp(), 5.dp(), 5.dp(), 5.dp())
+                    binding.searchFilterGridLayout.addView(selectView)
                 } else {
-                    for (i in 0 until binding.searchFilterFlowLayout.childCount) {
-                        if (binding.searchFilterFlowLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName) {
-                            binding.searchFilterFlowLayout.removeViewAt(i)
+                    for (i in 0 until binding.searchFilterGridLayout.childCount) {
+                        if (binding.searchFilterGridLayout[i].findViewById<TextView>(R.id.filter_select_title).text == ohneulenData.minorName.replace(
+                                " ",
+                                ""
+                            )
+                        ) {
+                            binding.searchFilterGridLayout.removeViewAt(i)
                             break
                         }
                     }
@@ -299,21 +356,6 @@ class SearchFilter : Fragment() {
                     }
 
                 }
-
-
-//                if (gridLayout == binding.searchFilterConvenience) {
-//                    var check = false
-//                    for (i in searchViewModel.option.indices) {
-//                        if (searchViewModel.option[i].toString() == mutableList[i].majorCode + mutableList[i].minorCode) {
-//                            check = true
-//                            searchViewModel.option.removeAt(i)
-//                            break
-//                        }
-//                    }
-////                    if (!check) {
-////                        searchViewModel.option.add((mutableList[i].majorCode + mutableList[i].minorCode).toRequestBody())
-////                    }
-//                }
 
             }
             gridLayout.addView(tb)
@@ -503,30 +545,7 @@ class SearchFilter : Fragment() {
 
     fun submitClick(view: View) {
 
-        //음식 선택일때
-//        if (checkFood) {
-//            if (searchViewModel.tempCate.isNullOrEmpty()) {
-//                Toast.makeText(requireContext(), "음식의 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
-//                return
-//            }
-//        }
-//        else {
-//            if (searchViewModel.openTime.size == 0 && searchViewModel.option.size == 0 && searchViewModel.sort.size == 0) {
-//                Toast.makeText(requireContext(), "옵션의 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
-//                return
-//            }
-//        }
-//        for (i in searchViewModel.tempCate.indices) {
-//            searchViewModel.cate.add((searchViewModel.tempCate[i].majorCode + searchViewModel.tempCate[i].minorCode).toRequestBody())
-//        }
-
         searchViewModel.filterSubmit()
-        for (i in searchViewModel.subCategoryList.indices) {
-            for (j in searchViewModel.subCategoryList[i].indices) {
-                searchViewModel.subCategoryList[i][j].check = false
-            }
-        }
-        searchViewModel.tempCate.clear()
         replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
     }

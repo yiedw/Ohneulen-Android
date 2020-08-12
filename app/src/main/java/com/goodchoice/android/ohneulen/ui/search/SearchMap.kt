@@ -1,4 +1,5 @@
 package com.goodchoice.android.ohneulen.ui.search
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -16,11 +17,15 @@ import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.search.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
+import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
-class SearchMap : Fragment() {
+class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
 
     companion object {
         fun newInstance() = SearchMap()
@@ -60,6 +65,8 @@ class SearchMap : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mapView.setOnTouchListener { _, _ -> true }
 
+        mapView.setCurrentLocationEventListener(this)
+
         //맵 포인트가 바뀌면 바로 반영
         searchViewModel.kakaoMapPoint.observe(
             viewLifecycleOwner, Observer { t ->
@@ -68,13 +75,15 @@ class SearchMap : Fragment() {
                         Manifest.permission.ACCESS_FINE_LOCATION
                     )
                 ) {
-                    mapView.currentLocationTrackingMode =
-                        MapView.CurrentLocationTrackingMode.TrackingModeOff
+//                    mapView.currentLocationTrackingMode =
+//                        MapView.CurrentLocationTrackingMode.TrackingModeOff
                 }
                 mapView.setMapCenterPoint(t, false)
+
                 searchViewModel.getStoreList()
             }
         )
+
 
         //현재위치기반
         if (mainViewModel.searchEditText == ConstList.CURRENT_LOCATION) {
@@ -84,6 +93,9 @@ class SearchMap : Fragment() {
                 override fun onPermissionGranted() {
                     mapView.currentLocationTrackingMode =
                         MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
+                    Timber.e("ASdfsdafsadf321")
+//                    val mapPoint:MapPoint=mapView.mapCenterPoint
+//                    searchViewModel.kakaoMapPoint.postValue(mapPoint)
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
@@ -121,4 +133,20 @@ class SearchMap : Fragment() {
     private fun addMapView() {
         binding.searchMapMapView.addView(mapView)
     }
+
+    override fun onCurrentLocationUpdateFailed(p0: MapView?) {
+    }
+
+    override fun onCurrentLocationUpdate(p0: MapView?, p1: MapPoint?, p2: Float) {
+        val mapPoint: MapPoint? = p1
+        searchViewModel.kakaoMapPoint.postValue(mapPoint)
+    }
+
+    override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
+    }
+
+    override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
+    }
+
+
 }
