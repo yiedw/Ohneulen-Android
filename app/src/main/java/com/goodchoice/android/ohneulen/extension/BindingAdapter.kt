@@ -16,7 +16,7 @@ import com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
-import com.goodchoice.android.ohneulen.ui.store.ImageDetailAdapter
+import com.goodchoice.android.ohneulen.ui.adapter.ImageDetailAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter

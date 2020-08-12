@@ -1,4 +1,4 @@
-package com.goodchoice.android.ohneulen.ui.store
+package com.goodchoice.android.ohneulen.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,15 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.ImageDetailBinding
+import com.goodchoice.android.ohneulen.ui.adapter.ImageDetailAdapter
+import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPressedListener {
     companion object {
-        fun newInstance(index: Int) = ImageDetailDialog(index)
+        fun newInstance(index: Int) =
+            ImageDetailDialog(index)
     }
 
     private lateinit var binding: ImageDetailBinding

@@ -10,11 +10,11 @@
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
         <variable
             name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.store.ImageDetailDialog" />
+            type="com.goodchoice.android.ohneulen.ui.dialog.ImageDetailDialog" />
 
         <variable
             name="dialog"
-            type="com.goodchoice.android.ohneulen.ui.store.ImageDetailDialog" />
+            type="com.goodchoice.android.ohneulen.ui.dialog.ImageDetailDialog" />
 
     </data>
 

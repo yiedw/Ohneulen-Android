@@ -20,6 +20,7 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
+import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailDialog
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
