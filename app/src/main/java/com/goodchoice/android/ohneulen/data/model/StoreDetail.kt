@@ -5,7 +5,7 @@ data class StoreDetail(
     val optionList: List<Option>,
     val storeTime: StoreTime,
     val menuList: List<StoreMenu>,
-    val hashTagList: List<Keyword>,
+    val hashtagList: List<Keyword>,
     val keywordList: List<Keyword>,
     val reviewCnt: Int,
     val reviewList: List<Review>

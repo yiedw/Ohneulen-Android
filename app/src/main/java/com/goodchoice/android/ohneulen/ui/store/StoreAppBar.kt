@@ -63,7 +63,6 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         super.onViewCreated(view, savedInstanceState)
         val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
             //웹으로 봤을때 페이지
-
             link =
                 Uri.parse("https://www.ohneulen.com/" + ConstList.SEGMENT_STORE + "?" + ConstList.SEQ + "=" + StoreFragment.storeSeq)
             domainUriPrefix = "https://ohneulen.page.link"
@@ -95,11 +94,11 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 
     fun backClick(view: View) {
         replaceAppbarFragment(SearchAppBar.newInstance())
-        if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
-            replaceMainFragment(Search.newInstance())
-        } else {
-            MainActivity.supportFragmentManager.popBackStack()
-        }
+        MainActivity.supportFragmentManager.popBackStack()
+//        if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
+//            replaceMainFragment(Search.newInstance())
+//        } else {
+//        }
     }
 
     fun likeClick(view: View) {

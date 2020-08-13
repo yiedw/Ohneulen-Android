@@ -3,9 +3,11 @@ package com.goodchoice.android.ohneulen.ui.store
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -26,9 +28,11 @@ import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -76,36 +80,11 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+            storeImage(it)
+            hashTagGenerate(it)
 
-            //해시태그 뷰 생성
-//            for(i in it.hashTagList){
-//                val tv=TextView(requireContext())
-//                tv.text=i.keyword
-//                tv.setTextColor(requireContext().getColor(R.color.colorOhneulen))
-//                tv.background=requireContext().getDrawable(R.drawable.background_border_rounding_ohneulen)
-//                binding.storeFragmentHashTag.addView(tv)
-//            }
-
-
-            if (it.storeInfo.image.isEmpty()) {
-                binding.storeFragmentOneImage.visibility = View.VISIBLE
-                binding.storeFragmentImageRv.visibility = View.INVISIBLE
-            } else if (it.storeInfo.image.size == 1) {
-                //이미지가 한개일때
-                binding.storeFragmentOneImage.visibility = View.VISIBLE
-                binding.storeFragmentImageRv.visibility = View.INVISIBLE
-                Glide.with(requireContext())
-                    .load("${BaseUrl.Ohneulen}${it.storeInfo.image[0].photoURL}")
-                    .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
-                    .into(binding.storeFragmentOneImage)
-            } else {
-                //여러개일때
-                binding.storeFragmentOneImage.visibility = View.INVISIBLE
-                binding.storeFragmentImageRv.visibility = View.VISIBLE
-            }
-            storeHeader(it)
-            binding.storeNewScrollView.scrollTo(0, 0)
 
 //            메뉴 없으면 메뉴탭 삭제
             if (it.menuList.isNullOrEmpty()) {
@@ -123,6 +102,28 @@ class StoreFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         MainActivity.bottomNav.visibility = View.VISIBLE
+    }
+
+    //이미지 세팅(1장 or 여러장)
+    private fun storeImage(storeDetail: StoreDetail){
+        if (storeDetail.storeInfo.image.isEmpty()) {
+            binding.storeFragmentOneImage.visibility = View.VISIBLE
+            binding.storeFragmentImageRv.visibility = View.INVISIBLE
+        } else if (storeDetail.storeInfo.image.size == 1) {
+            //이미지가 한개일때
+            binding.storeFragmentOneImage.visibility = View.VISIBLE
+            binding.storeFragmentImageRv.visibility = View.INVISIBLE
+            Glide.with(requireContext())
+                .load("${BaseUrl.Ohneulen}${storeDetail.storeInfo.image[0].photoURL}")
+                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
+                .into(binding.storeFragmentOneImage)
+        } else {
+            //여러개일때
+            binding.storeFragmentOneImage.visibility = View.INVISIBLE
+            binding.storeFragmentImageRv.visibility = View.VISIBLE
+        }
+        storeHeader(storeDetail)
+        binding.storeNewScrollView.scrollTo(0, 0)
     }
 
 
@@ -272,25 +273,6 @@ class StoreFragment : Fragment() {
         )
         binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
 
-        //애니메이션 삭제
-//        binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                tab?.position?.let {
-//                    binding.storeViewPager2.setCurrentItem(it, true)
-//                }
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//            }
-//
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                tab?.position?.let {
-//                    binding.storeViewPager2.setCurrentItem(it, true)
-//                }
-//            }
-//
-//        })
-
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "후기")
@@ -386,6 +368,21 @@ class StoreFragment : Fragment() {
         layoutParams.topToBottom = R.id.store_tab
 //        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
         binding.storeViewPager2.layoutParams = layoutParams
+    }
+
+    private fun hashTagGenerate(storeDetail: StoreDetail) {
+
+        for (i in storeDetail.hashtagList) {
+            val tv = TextView(requireContext())
+            tv.height=25.dp()
+            tv.text = i.keyword
+            tv.gravity=Gravity.CENTER
+            tv.setPadding(13.dp(),0,13.dp(),0)
+            tv.setTextColor(requireContext().getColor(R.color.colorOhneulen))
+            tv.background =
+                requireContext().getDrawable(R.drawable.background_border_rounding_ohneulen)
+            binding.storeFragmentHashTag.addView(tv)
+        }
     }
 
     fun oneImageClick(view: View) {

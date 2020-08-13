@@ -26,11 +26,8 @@ import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
-import com.goodchoice.android.ohneulen.util.OnBackPressedListener
-import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
@@ -83,10 +80,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         ConstList.SEGMENT_STORE -> {
                             val seq = deepLink.getQueryParameter(ConstList.SEQ)
                             StoreFragment.storeSeq = seq!!
-                            replaceAppbarFragment(
-                                StoreAppBar.newInstance(),
-                                tag = "storeAppBar"
-                            )
+//                            replaceAppbarFragment(
+//                                StoreAppBar.newInstance(),
+//                                tag = "storeAppBar"
+//                            )
+//                            appbarFrameLayout.setBackgroundColor(getColor(R.color.colorHeader))
+                            addAppbarFragment(StoreAppBar.newInstance())
                             addMainFragment(StoreFragment.newInstance())
 
                         }
