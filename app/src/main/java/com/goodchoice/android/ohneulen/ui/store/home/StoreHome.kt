@@ -158,7 +158,7 @@ class StoreHome : Fragment() {
             //옵션이름
             val tv1 = TextView(requireContext())
             val params1 = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                50.dp(),
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
             tv1.layoutParams = params1
@@ -171,13 +171,6 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
-            if (tv1.text.length == 2) {
-                params2.marginStart =
-                    binding.storeHomeAddress.marginStart
-            } else if (tv1.text.length == 3) {
-                params2.marginStart =
-                    binding.storeHomeOpenDay.marginStart
-            }
             tv2.layoutParams = params2
             tv2.text = i.option_kind_name
             tv2.setTextColor(requireContext().getColor(R.color.colorGrey88))
@@ -205,8 +198,11 @@ class StoreHome : Fragment() {
             //이모티콘
             val iv = ImageView(requireContext())
             val params1 = LinearLayout.LayoutParams(26.dp(), 26.dp())
+//            iv.setPadding(0,0,15.dp(),0)
             iv.layoutParams = params1
+            iv.scaleType=ImageView.ScaleType.FIT_CENTER
             Glide.with(requireContext()).load("${BaseUrl.Ohneulen}${i.icon}").into(iv)
+
 
             //설명
             val tv = TextView(requireContext())
@@ -214,7 +210,7 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
-            params2.marginStart = binding.storeHomeAddress.marginStart
+            params2.marginStart=24.dp()
             tv.gravity = Gravity.CENTER
             tv.layoutParams = params2
             tv.setTextColor(requireContext().getColor(R.color.colorGrey88))
