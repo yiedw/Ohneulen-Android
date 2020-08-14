@@ -1,9 +1,11 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -34,8 +36,17 @@ class MyPageInquireNew : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //뒤에 터치 안먹게하기
+        binding.mypageInquireNew.setOnTouchListener(object :View.OnTouchListener{
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                return true
+            }
+
+        })
+
         val spinner = binding.mypageInquireNewSpinner
         ArrayAdapter.createFromResource(
             requireContext(),

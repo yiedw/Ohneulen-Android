@@ -8,6 +8,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mypage_contactus"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorHeader"
@@ -194,8 +195,8 @@
                         android:text="0"
                         android:textColor="@color/colorCGrey"
                         android:textSize="13sp"
-                        app:layout_constraintTop_toTopOf="@id/mypage_contactus_contents_max"
-                        app:layout_constraintRight_toLeftOf="@id/mypage_contactus_contents_max" />
+                        app:layout_constraintRight_toLeftOf="@id/mypage_contactus_contents_max"
+                        app:layout_constraintTop_toTopOf="@id/mypage_contactus_contents_max" />
 
                     <TextView
                         android:id="@+id/mypage_contactus_contents_max"

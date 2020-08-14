@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.*
@@ -9,6 +10,7 @@ import android.text.style.StyleSpan
 import android.text.style.TypefaceSpan
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -43,8 +45,15 @@ class MyPageContactus : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.mypageContactus.setOnTouchListener(object :View.OnTouchListener{
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                return true
+            }
+
+        })
 
 
         binding.mypageContactusTitle.addTextChangedListener(object : TextWatcher {
