@@ -48,14 +48,12 @@ class LoginAppBar(private val backStack: Boolean, private val fragment: Fragment
             replaceMainFragment(MyPage.newInstance())
             return
         }
-//        MainActivity.supportFragmentManager.popBackStack()
         MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
         replaceAppbarFragment(fragment)
         if (!backStack) {
-//            replaceAppbarFragment(MyPageAppBar.newInstance())
             replaceMainFragment(MyPage.newInstance())
             return
         }

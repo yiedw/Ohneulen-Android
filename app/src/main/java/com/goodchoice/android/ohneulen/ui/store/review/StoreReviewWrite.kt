@@ -70,10 +70,7 @@ class StoreReviewWrite : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val temp = binding.storeReviewWriteEt.text.toString().length
-                val format=DecimalFormat("###,###")
-                val length=format.format(temp)
-                binding.storeReviewWriteEtLength.text =length
+                binding.storeReviewWriteEtLength.text =binding.storeReviewWriteEt.text.toString().length.toString()
             }
 
         })

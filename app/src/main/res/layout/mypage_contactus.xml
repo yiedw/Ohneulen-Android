@@ -37,8 +37,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="제목  "
-                        android:textColor="@color/colorTextBlack" />
+                        android:layout_marginEnd="5dp"
+                        android:text="제목"
+                        android:textColor="@color/colorTextBlack"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/mypage_contactus_title_length"
@@ -67,7 +69,7 @@
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/colorTextBlack"
+                    android:textColor="@color/colorCGrey"
                     android:textSize="13sp" />
 
                 <TextView
@@ -75,7 +77,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="이름"
-                    android:textColor="@color/colorTextBlack" />
+                    android:textColor="@color/colorTextBlack"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/mypage_contactus_name"
@@ -88,7 +91,7 @@
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/colorTextBlack"
+                    android:textColor="@color/colorCGrey"
                     android:textSize="13sp" />
 
                 <TextView
@@ -96,7 +99,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="이메일"
-                    android:textColor="@color/colorTextBlack" />
+                    android:textColor="@color/colorTextBlack"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/mypage_contactus_email"
@@ -109,7 +113,7 @@
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/colorTextBlack"
+                    android:textColor="@color/colorCGrey"
                     android:textSize="13sp" />
 
                 <TextView
@@ -117,7 +121,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="연락처"
-                    android:textColor="@color/colorTextBlack" />
+                    android:textColor="@color/colorTextBlack"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/mypage_contactus_tel"
@@ -130,18 +135,40 @@
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/colorTextBlack"
+                    android:textColor="@color/colorCGrey"
                     android:textSize="13sp" />
 
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="내용"
-                    android:textColor="@color/colorTextBlack" />
+                    android:orientation="horizontal">
 
-                <LinearLayout
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="내용"
+                        android:textColor="@color/colorTextBlack"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/mypage_contactus_contents_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/colorCGrey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/1000"
+                        android:textColor="@color/colorCGrey" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="215dp"
                     android:layout_marginTop="5dp"
@@ -149,7 +176,7 @@
                     android:background="@color/colorCGrey">
 
                     <EditText
-                        android:id="@+id/mypage_inquire_new_et2"
+                        android:id="@+id/mypage_contactus_contents"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#f6f6f6"
@@ -157,9 +184,32 @@
                         android:gravity="top"
                         android:hint="보내 주신 문의 내용을 정확히 확인하고 빠르게 처리하기 위해 연락을 드릴 수 있습니다."
                         android:padding="15dp"
-                        android:textColor="@color/colorTextBlack"
+                        android:textColor="@color/colorCGrey"
                         android:textSize="13sp" />
-                </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/mypage_contactus_contents_length2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/colorCGrey"
+                        android:textSize="13sp"
+                        app:layout_constraintTop_toTopOf="@id/mypage_contactus_contents_max"
+                        app:layout_constraintRight_toLeftOf="@id/mypage_contactus_contents_max" />
+
+                    <TextView
+                        android:id="@+id/mypage_contactus_contents_max"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="12dp"
+                        android:text=" /1000"
+                        android:textColor="@color/colorCGrey"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/mypage_contactus_footer"
@@ -167,20 +217,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
                     android:textColor="#141414"
-                    android:textColorLink="#141414"
-                    />
+                    android:textColorLink="#141414" />
             </LinearLayout>
 
         </ScrollView>
 
         <Button
-            android:stateListAnimator="@null"
             android:id="@+id/mypage_contactus_submit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorGreen"
+            android:stateListAnimator="@null"
             android:text="작성 완료"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

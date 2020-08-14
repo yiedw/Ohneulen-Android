@@ -9,6 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
 class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     var storeMenuList = listOf<StoreMenu>()
@@ -36,18 +39,12 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
     //storeimage
     var storeImageDetailIndex = 0
-
-
-//    var storeReviewList: LiveData<List<Review>> = liveData(Dispatchers.IO) {
-//        emit(getReview())
-//    }
-//    var storeReviewList=MutableLiveData<List<Review>>()
-//    private fun getStoreReviewList(){
-//
-//    }
-
-
     var storeReviewAdapter = ReviewAdapter()
+
+
+    //후기 신고할때
+    val date=Calendar.getInstance().time
+    val today=SimpleDateFormat("yyyy.MM.dd",Locale.KOREA).format(date)
 
 
     val loading = MutableLiveData<Boolean>()

@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/logout_dialog_tv1" />
 
     <Button
-
+        android:textStyle="bold"
         android:id="@+id/logout_dialog_cancel"
         android:layout_width="0dp"
         android:layout_height="35dp"
@@ -39,6 +39,7 @@
         app:layout_constraintTop_toBottomOf="@id/logout_dialog_tv2" />
 
     <Button
+        android:textStyle="bold"
         android:id="@+id/logout_dialog_ok"
         android:layout_width="0dp"
         android:layout_height="0dp"

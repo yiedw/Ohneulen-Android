@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,10 @@ class SearchFilterSubAdapter() :
 
         fun subFilterBind(items: OhneulenData) {
             binding.apply {
+
                 if (items.check) {
                     filterCheck.visibility = View.VISIBLE
+                    binding.filterCategory.setTypeface(null,Typeface.BOLD)
                 }
                 filterCategory.text = items.minorName
                 filterCategory.setTextColor(

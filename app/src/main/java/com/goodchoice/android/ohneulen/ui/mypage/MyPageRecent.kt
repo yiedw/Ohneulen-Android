@@ -1,6 +1,9 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,8 +47,10 @@ class MyPageRecent : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //색 삽입
         val text = binding.mypageRecentEmptyTv.text.toString()
+        val textColor=textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+        textColor.setSpan(StyleSpan(Typeface.BOLD),5,7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.mypageRecentEmptyTv.text =
-            textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+            textColor
     }
 
     fun moveSearch(view: View) {

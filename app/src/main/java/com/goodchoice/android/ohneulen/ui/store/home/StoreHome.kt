@@ -193,6 +193,7 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
+            params.setMargins(0,0,0,5.dp())
             linearLayout.layoutParams = params
 
             //이모티콘

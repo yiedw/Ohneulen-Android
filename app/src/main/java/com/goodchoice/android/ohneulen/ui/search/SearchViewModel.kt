@@ -57,9 +57,10 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 
 
     fun getStoreList() {
+        cate.clear()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = networkService.requestStoreSearchList(cate, option, openTime, sort)
+                val response = networkService.requestTempStoreSearchList(cate)
                 searchStoreList.postValue(response.resultData)
 
             } catch (e: Throwable) {

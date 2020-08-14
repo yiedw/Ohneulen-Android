@@ -3,16 +3,22 @@ package com.goodchoice.android.ohneulen.ui.store.review
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.TextUtils
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -75,32 +81,56 @@ class StoreReview : Fragment() {
                 reviewNotEmpty()
             }
         })
+
+        //정렬 bold 주기
+        for (i in binding.storeReviewRadioGroup.children) {
+            radioButtonBold(i as RadioButton)
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun reviewCnt(storeDetail: StoreDetail) {
-        binding.storeReviewTv1.text = "${storeDetail.reviewCnt}개의 후기가 있습니다"
+        val spannable = SpannableString("${storeDetail.reviewCnt}개")
+        spannable.setSpan(
+            StyleSpan(Typeface.BOLD),
+            0,
+            spannable.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.storeReviewTv1.text = TextUtils.concat(spannable, "의 후기가 있습니다")
     }
 
     private fun reviewEmpty() {
         binding.storeReviewEmpty.visibility = View.VISIBLE
-        binding.storeReviewRatingbar.visibility = View.GONE
-        binding.storeReviewRatingScore.visibility = View.GONE
-        binding.storeReviewTv1.visibility = View.GONE
-        binding.storeReviewChart.visibility = View.GONE
-        binding.storeReviewRv.visibility = View.GONE
+        binding.storeReviewNotEmptyCon.visibility = View.GONE
+
+        val textReview =
+            textColor("맛집", 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+        val textWrite = textColor(
+            "후기 작성하기",
+            0,
+            7,
+            ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
+        )
+        textReview.setSpan(
+            StyleSpan(Typeface.BOLD),
+            0,
+            textReview.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        textWrite.setSpan(
+            StyleSpan(Typeface.BOLD),
+            0,
+            textWrite.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         val text = TextUtils.concat(
             "아직 작성된 후기가 없어요\n",
             "지금 나만의 ",
-            textColor("맛집", 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen)),
+            textReview,
             "을 공유하시려면\n",
             "상단의 ",
-            textColor(
-                "후기 작성하기",
-                0,
-                7,
-                ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
-            ),
+            textWrite,
             "버튼을 클릭해 주세요!"
         )
         binding.storeReviewEmptyTv.text = text
@@ -108,13 +138,20 @@ class StoreReview : Fragment() {
 
     private fun reviewNotEmpty() {
         binding.storeReviewEmpty.visibility = View.GONE
-        binding.storeReviewRatingbar.visibility = View.VISIBLE
-        binding.storeReviewRatingScore.visibility = View.VISIBLE
-        binding.storeReviewTv1.visibility = View.VISIBLE
-        binding.storeReviewChart.visibility = View.VISIBLE
+        binding.storeReviewNotEmptyCon.visibility = View.VISIBLE
         binding.storeReviewRv.visibility = View.VISIBLE
     }
 
+    private fun radioButtonBold(radioButton: RadioButton) {
+        radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                radioButton.setTypeface(null, Typeface.BOLD)
+            } else {
+                radioButton.setTypeface(null, Typeface.NORMAL)
+            }
+        }
+
+    }
 
     fun reviewWriteClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
@@ -126,5 +163,6 @@ class StoreReview : Fragment() {
 
         }
     }
+
 
 }

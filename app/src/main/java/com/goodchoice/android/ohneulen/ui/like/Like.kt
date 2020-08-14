@@ -1,6 +1,10 @@
 package com.goodchoice.android.ohneulen.ui.like
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.StyleSpan
+import android.text.style.TypefaceSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,8 +46,11 @@ class Like : Fragment() {
             false
         )
         val text = binding.likeEmptyTv.text.toString()
+        val textColor=textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+        textColor.setSpan(StyleSpan(Typeface.BOLD),5,7,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.likeEmptyTv.text =
-            textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+            textColor
+
         binding.fragment=this
         return binding.root
     }

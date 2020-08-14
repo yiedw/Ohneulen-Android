@@ -218,6 +218,7 @@
             android:enabled="false"
             android:onClick="@{fragment::submitClick}"
             android:stateListAnimator="@null"
+            android:textStyle="bold"
             android:text="로그인"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/login_auto" />

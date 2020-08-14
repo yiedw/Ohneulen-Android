@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.*
 import android.widget.GridLayout
@@ -330,6 +331,8 @@ class SearchFilter : Fragment() {
                         R.color.colorOhneulen
                     )
                 )
+                childView.findViewById<TextView>(R.id.filter_category)
+                    .setTypeface(null, Typeface.BOLD)
             }
             //클릭했을때
             childView.setOnClickListener {
@@ -345,6 +348,8 @@ class SearchFilter : Fragment() {
                 previousView.setBackgroundColor(
                     Color.parseColor("#f6f6f6")
                 )
+                previousView.findViewById<TextView>(R.id.filter_category)
+                    .setTypeface(null, Typeface.NORMAL)
                 childView.findViewById<TextView>(R.id.filter_category).setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.white)
                 )
@@ -354,6 +359,8 @@ class SearchFilter : Fragment() {
                         R.color.colorOhneulen
                     )
                 )
+                childView.findViewById<TextView>(R.id.filter_category)
+                    .setTypeface(null, Typeface.BOLD)
                 searchViewModel.mainCategoryPosition.postValue(position)
 
             }
@@ -374,6 +381,7 @@ class SearchFilter : Fragment() {
             val tb = ToggleButton(requireContext())
             tb.layoutParams = param
             tb.isChecked = mutableList[i].check
+            tb.stateListAnimator=null
             //체크표시돼있을때
             if (mutableList[i].check) {
                 tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -449,6 +457,7 @@ class SearchFilter : Fragment() {
         binding.searchFilterResetBorder.visibility = View.GONE
         binding.searchFilterReset.setBackgroundColor(Color.parseColor("#f6f6f6"))
         checkFood = true
+        binding.searchFilterFood.setTypeface(null, Typeface.BOLD)
         binding.searchFilterFood.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -459,6 +468,7 @@ class SearchFilter : Fragment() {
             requireContext(),
             R.drawable.background_rounding_filter_select
         )
+        binding.searchFilterOptions.setTypeface(null, Typeface.NORMAL)
         binding.searchFilterOptions.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -474,6 +484,7 @@ class SearchFilter : Fragment() {
         binding.searchFilterResetBorder.visibility = View.VISIBLE
         binding.searchFilterReset.setBackgroundColor(requireContext().getColor(R.color.white))
         checkFood = false
+        binding.searchFilterOptions.setTypeface(null, Typeface.BOLD)
         binding.searchFilterOptions.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -484,6 +495,7 @@ class SearchFilter : Fragment() {
             requireContext(),
             R.drawable.background_rounding_filter_select
         )
+        binding.searchFilterFood.setTypeface(null, Typeface.NORMAL)
         binding.searchFilterFood.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -611,7 +623,7 @@ class SearchFilter : Fragment() {
     }
 
     fun submitClick(view: View) {
-
+        Toast.makeText(requireContext(), "적용되었습니다", Toast.LENGTH_SHORT).show()
         searchViewModel.filterSubmit()
         replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()

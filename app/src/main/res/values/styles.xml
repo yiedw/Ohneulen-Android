@@ -35,5 +35,11 @@
         <item name="android:windowIsFloating">false</item>
     </style>
 
+    <style name="tablayout_textapperance" parent="Widget.Design.TabLayout">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorCGrey</item>
+    </style>
+
 
 </resources>

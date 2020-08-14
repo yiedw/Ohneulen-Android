@@ -12,10 +12,13 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Review
 import com.goodchoice.android.ohneulen.databinding.ReviewItemBinding
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReport
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReportAppBar
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
@@ -29,11 +32,19 @@ class ReviewAdapter(val report: Boolean = true) :
         fun bind(reviewItem: Review) {
             binding.apply {
                 review = reviewItem
+//                val rating: Double =
+//                    (reviewItem.point_1.toDouble() + reviewItem.point_2.toDouble() +
+//                            reviewItem.point_3.toDouble() + reviewItem.point_4.toDouble() + reviewItem.point_5.toDouble()) / 5
+//                reviewItemRatingbar.rating = rating.toFloat()
                 if (!report)
                     reviewItemReport.visibility = View.GONE
                 reviewItemReport.setOnClickListener {
+//                    if(!LoginViewModel.isLogin.value!!){
+//                        loginDialog(root.context, StoreAppBar.newInstance())
+//                        return@setOnClickListener
+//                    }
                     replaceAppbarFragment(StoreReviewReportAppBar.newInstance())
-                    popupFragment(StoreReviewReport.newInstance())
+                    popupFragment(StoreReviewReport.newInstance(reviewItem))
 //                    addMainFragment(StoreReviewReport.newInstance(), true)
                 }
 
@@ -45,7 +56,11 @@ class ReviewAdapter(val report: Boolean = true) :
                 }
 
                 //날짜 넣어주기(형식 약간 변경)
-                reviewItemDate.text="${reviewItem.modifyDate.substring(0,4)}.${reviewItem.modifyDate.substring(5,7)}.${reviewItem.modifyDate.substring(8,10)}"
+                reviewItemDate.text =
+                    "${reviewItem.modifyDate.substring(0, 4)}.${reviewItem.modifyDate.substring(
+                        5,
+                        7
+                    )}.${reviewItem.modifyDate.substring(8, 10)}"
             }
         }
     }

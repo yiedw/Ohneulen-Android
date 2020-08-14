@@ -25,15 +25,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        >
+        android:layout_marginTop="15dp">
 
         <ImageView
-            android:src="@drawable/default_profile"
             android:id="@+id/review_item_profile"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/circle_transparent"
+            android:src="@drawable/default_profile"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{member.nickName}"
+            android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="@id/review_item_ratingbar"
             app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 
@@ -69,7 +69,8 @@
             android:id="@+id/review_item_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" 신고"
+            android:layout_marginStart="5dp"
+            android:text="신고"
             app:layout_constraintLeft_toRightOf="@id/review_item_date"
             app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 
@@ -90,7 +91,7 @@
             android:id="@+id/review_item_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/cafe_sample1"
+            android:src="@drawable/search_no_img"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/review_item_content" />
 

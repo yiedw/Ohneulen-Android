@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
@@ -52,7 +53,7 @@ class MyPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        loginViewModel.test()
-        loginViewModel.loginTest()
+//        loginViewModel.loginTest()
 
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             //로그인 상태일때
@@ -81,7 +82,8 @@ class MyPage : Fragment() {
             replaceMainFragment(MyPageInfo.newInstance())
         } else {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            replaceMainFragment(Login.newInstance())
+            addMainFragment(Login.newInstance(),true)
+            return
         }
 
     }
@@ -89,7 +91,7 @@ class MyPage : Fragment() {
     fun likeClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            replaceMainFragment(Login.newInstance())
+            addMainFragment(Login.newInstance(),true)
             return
         }
 //        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
@@ -101,7 +103,7 @@ class MyPage : Fragment() {
     fun recentClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            replaceMainFragment(Login.newInstance())
+            addMainFragment(Login.newInstance(),true)
             return
         }
         replaceAppbarFragment(MyPageRecentAppBar.newInstance())
@@ -111,7 +113,7 @@ class MyPage : Fragment() {
     fun reviewClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            replaceMainFragment(Login.newInstance())
+            addMainFragment(Login.newInstance(),true)
             return
         }
         replaceAppbarFragment(MyPageReviewAppBar.newInstance())
@@ -121,7 +123,7 @@ class MyPage : Fragment() {
     fun inquireClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            replaceMainFragment(Login.newInstance())
+            addMainFragment(Login.newInstance(),true)
             return
         }
         replaceAppbarFragment(MyPageInquireAppBar.newInstance())

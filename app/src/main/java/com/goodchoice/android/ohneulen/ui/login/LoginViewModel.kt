@@ -23,8 +23,6 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
     }
 
     var emailClick = true
-
-
     var memberEmail = "이메일"
 
     val loginErrorToast = MutableLiveData<Event<Boolean>>()
@@ -37,10 +35,10 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
                     memEmail.toRequestBody(), memPw.toRequestBody()
                 )
                 if (loginResponse.resultCode == "000" || loginResponse.resultCode == "021") {
-                    memberEmail = memEmail
                     isLogin.postValue(true)
-                    replaceMainFragment(MyPage.newInstance())
-                    replaceAppbarFragment(MyPageAppBar.newInstance())
+                    memberEmail = memEmail
+//                    replaceMainFragment(MyPage.newInstance())
+//                    replaceAppbarFragment(MyPageAppBar.newInstance())
                     if (check) {
                         //토큰 저장
                     }
@@ -60,6 +58,7 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
     fun loginTest() {
         CoroutineScope(Dispatchers.IO).launch {
             val response = networkService.requestLoginTest()
+
             if (response.resultCode == "100") {
                 isLogin.postValue(true)
             } else {

@@ -13,32 +13,37 @@ import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
-class StoreReviewReportAppBar :Fragment(),OnBackPressedListener {
-    companion object{
-        fun newInstance()=StoreReviewReportAppBar()
+class StoreReviewReportAppBar : Fragment(), OnBackPressedListener {
+    companion object {
+        fun newInstance() = StoreReviewReportAppBar()
     }
 
-    private lateinit var binding:ReviewReportAppbarBinding
+    private lateinit var binding: ReviewReportAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.review_report_appbar,
             container,
             false
         )
-        binding.fragment=this
+        binding.fragment = this
         return binding.root
     }
 
-    fun onCloseClick(view:View){
-        replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
-        MainActivity.supportFragmentManager.popBackStack()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.reviewReportAppbarClose.setOnClickListener {
+            replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
+            MainActivity.supportFragmentManager.popBackStack()
+
+        }
     }
+
 
     override fun onBackPressed() {
         replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")

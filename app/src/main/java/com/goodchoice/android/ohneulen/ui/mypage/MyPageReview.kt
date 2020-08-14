@@ -1,7 +1,10 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
 import android.text.TextUtils
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +15,7 @@ import com.goodchoice.android.ohneulen.databinding.MypageReviewBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
+import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.goodchoice.android.ohneulen.util.textColor
@@ -50,6 +54,7 @@ class MyPageReview : Fragment() {
 
     private fun reviewEmptyText() {
         val textColor = textColor("맛집", 0, 2, requireContext().getColor(R.color.colorOhneulen))
+        textColor.setSpan(StyleSpan(Typeface.BOLD),0,textColor.length,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val text = TextUtils.concat("아직 작성한 후기가 없어요\n지금 나만의 ", textColor,"을 공유하시겠어요?")
         binding.mypageReviewEmptyTv.text = text
     }

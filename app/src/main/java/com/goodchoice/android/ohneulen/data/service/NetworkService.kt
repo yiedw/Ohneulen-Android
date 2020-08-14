@@ -30,9 +30,6 @@ interface NetworkService {
         @Part("majorCode") majorCode: RequestBody
     ): OhneulenResponse
 
-    //스토어 리스트 받아오기
-    @POST("api/getstorelist")
-    suspend fun requestGetStoreList(): GetStoreListResponse
 
     //스토어 디테일 받아오기
     @POST("api/getstoreinfo")
@@ -41,8 +38,8 @@ interface NetworkService {
         @Part("store_seq") storeSeq: RequestBody
     ): GetStoreInfoResponse
 
-    //스토어 리스트 검색(필터)
-//    @Multipart
+    //스토어 리스트 검색
+    //    @Multipart
     @POST("store/searchList")
     @FormUrlEncoded
     suspend fun requestStoreSearchList(
@@ -50,6 +47,13 @@ interface NetworkService {
         @Field("option[]") option:List<String>,
         @Field("openTime[]") openTime:List<String>,
         @Field("sort[]") sort:List<String>
+    ): GetStoreListResponse
+
+    //스토어 리스트 검색(임시)
+    @POST("store/searchList")
+    @FormUrlEncoded
+    suspend fun requestTempStoreSearchList(
+        @Field("cate[]") cate:List<String>
     ): GetStoreListResponse
 
     //카카오 위치 검색

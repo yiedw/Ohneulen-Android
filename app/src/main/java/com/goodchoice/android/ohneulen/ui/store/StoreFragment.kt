@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
@@ -18,10 +19,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailDialog
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
@@ -30,9 +31,10 @@ import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.textColor
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -53,10 +55,7 @@ class StoreFragment : Fragment() {
     private lateinit var binding: StoreFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
 
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav.visibility = View.GONE
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,23 +79,42 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        //데이터가 바뀔때마다
+//        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+//            storeImage(it)
+//            hashTagGenerate(it)
+////            메뉴 없으면 메뉴탭 삭제
+//            if (it.menuList.isNullOrEmpty()) {
+//                viewPagerSettingNullMenu()
+//            } else {
+//                viewPagerSetting()
+//            }
+//
+//        })
+//
+//        stickyHeader()
+//        binding.storeNewScrollView.scrollTo(0, 0)
+    }
+
+    override fun onResume() {
+        super.onResume()
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
-            storeImage(it)
-            hashTagGenerate(it)
-
-
 //            메뉴 없으면 메뉴탭 삭제
             if (it.menuList.isNullOrEmpty()) {
                 viewPagerSettingNullMenu()
             } else {
                 viewPagerSetting()
             }
+            hashTagGenerate(it)
+            storeImage(it)
 
         })
 
         stickyHeader()
         binding.storeNewScrollView.scrollTo(0, 0)
+
+        MainActivity.bottomNav.visibility = View.GONE
     }
 
     override fun onDestroy() {
@@ -191,6 +209,7 @@ class StoreFragment : Fragment() {
 
     //viewPager setting
     private fun viewPagerSetting() {
+
         binding.storeViewPager2.adapter = StorePagerAdapter(
             getFragmentList(), childFragmentManager,
             lifecycle
@@ -224,6 +243,8 @@ class StoreFragment : Fragment() {
         val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
         TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
+
+
         }.attach()
 //        Timber.e(binding.storeTab.tabCount.toString())
         binding.storeNewScrollView.setBackgroundColor(
@@ -286,12 +307,31 @@ class StoreFragment : Fragment() {
                 R.color.white
             )
         )
+//        binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//            }
+//
+//            override fun onTabSelected(tab: TabLayout.Tab) {
+//                val tabLayout: LinearLayout =
+//                    (binding.storeTab.getChildAt(0) as ViewGroup).getChildAt(tab.position) as LinearLayout
+//                val tabTextView = tabLayout.getChildAt(1) as TextView
+//                tabTextView.setTypeface(tabTextView.typeface, Typeface.BOLD)
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab) {
+//                val tabLayout: LinearLayout =
+//                    (binding.storeTab.getChildAt(0) as ViewGroup).getChildAt(tab.position) as LinearLayout
+//                val tabTextView = tabLayout.getChildAt(1) as TextView
+//                tabTextView.setTypeface(tabTextView.typeface, Typeface.NORMAL)
+//            }
+//
+//        })
+
         binding.storeViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     state = position
-
                     val view =
                         (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
@@ -308,11 +348,13 @@ class StoreFragment : Fragment() {
                     }
 
                     binding.storeNewScrollView.scrollTo(0, 0)
+//                    binding.storeTab.getTabAt(position).text
 //                    stickyHeader()
 //                    if (position == 1) {
 //                    }
 //                    binding.storeNewScrollView.invalidate()
                 }
+
             }
         )
     }
@@ -371,7 +413,7 @@ class StoreFragment : Fragment() {
     }
 
     private fun hashTagGenerate(storeDetail: StoreDetail) {
-
+        binding.storeFragmentHashTag.removeAllViews()
         for (i in storeDetail.hashtagList) {
             val tv = TextView(requireContext())
             tv.height=25.dp()

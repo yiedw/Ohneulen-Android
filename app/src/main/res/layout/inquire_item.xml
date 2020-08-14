@@ -24,6 +24,7 @@
             android:text="@{inquire.title}"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/main_contents"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,6 +62,7 @@
             android:id="@+id/inquire_item_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="@{inquire.status}"
             android:textColor="@color/colorHeader"
             android:textSize="14sp"
@@ -80,8 +82,8 @@
             android:id="@+id/inquire_item_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_contour">
 
@@ -91,7 +93,9 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@{inquire.content}"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/inquire_item_answer"
@@ -101,7 +105,8 @@
                 android:background="@color/colorGreyFA"
                 android:padding="10dp"
                 android:text="@{inquire.answer}"
-                android:textColor="@color/colorTextGrey" />
+                android:textColor="@color/colorTextGrey"
+                android:textSize="14sp" />
 
         </LinearLayout>
 

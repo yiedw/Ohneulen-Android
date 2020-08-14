@@ -18,16 +18,17 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.util.hideKeyboard
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class Login : Fragment() {
+class Login(private val fragment: Fragment) : Fragment() {
 
     companion object {
-        fun newInstance() = Login()
+        fun newInstance(fragment: Fragment = MyPageAppBar.newInstance()) = Login(fragment)
     }
 
     private lateinit var binding: LoginBinding
@@ -94,8 +95,8 @@ class Login : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(binding.loginPwEt.text.length==1){
-                    binding.loginPwHidden.visibility=View.VISIBLE
+                if (binding.loginPwEt.text.length == 1) {
+                    binding.loginPwHidden.visibility = View.VISIBLE
 
                 }
                 if (!binding.loginPwEt.text.isNullOrEmpty() && !binding.loginEmailEt.text.isNullOrEmpty()) {
@@ -148,6 +149,14 @@ class Login : Fragment() {
             }
             return@setOnKeyListener false
         }
+
+        //로그인 성공
+        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                replaceAppbarFragment(fragment)
+                MainActivity.supportFragmentManager.popBackStack()
+            }
+        })
 
         //로그인 에러 수신
         loginViewModel.loginErrorToast.observe(viewLifecycleOwner, Observer {

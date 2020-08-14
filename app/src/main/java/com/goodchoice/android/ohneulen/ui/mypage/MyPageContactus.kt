@@ -61,6 +61,23 @@ class MyPageContactus : Fragment() {
 
         })
 
+        binding.mypageContactusContents.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.apply {
+                    mypageContactusContentsLength.text=binding.mypageContactusContents.text.length.toString()
+                    mypageContactusContentsLength2.text=binding.mypageContactusContents.text.length.toString()
+                }
+            }
+
+        })
+
         moveTerm2()
     }
 

@@ -43,6 +43,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/mypage_nickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,6 +104,7 @@
                 app:layout_constraintTop_toBottomOf="@id/mypage_contour">
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/mypage_good"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
@@ -122,6 +124,7 @@
                     android:background="@color/colorContour" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/mypage_recentList"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
@@ -140,6 +143,7 @@
                     android:background="@color/colorContour" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/mypage_review"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
@@ -159,6 +163,7 @@
                     android:background="@color/colorContour" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/mypage_questions"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"

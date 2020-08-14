@@ -23,6 +23,7 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHomeReport
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -196,7 +197,7 @@ fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
 
     dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
         replaceAppbarFragment(LoginAppBar.newInstance(true, backFragmentAppBar))
-        addMainFragment(Login.newInstance(), true)
+        addMainFragment(Login.newInstance(backFragmentAppBar), true)
         dialog.dismiss()
     }
     dialog.show()

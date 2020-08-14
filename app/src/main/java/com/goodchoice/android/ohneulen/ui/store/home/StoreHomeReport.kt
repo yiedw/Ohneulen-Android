@@ -1,9 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.store.home
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
+import android.text.Spannable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,19 +67,16 @@ class StoreHomeReport(private val storeName: String) : Fragment() {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MainActivity.bottomNav.visibility = View.VISIBLE
-    }
-
     private fun reportTitle() {
+        val textColor = textColor(
+            storeName,
+            0,
+            storeName.length,
+            ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
+        )
+        textColor.setSpan(StyleSpan(Typeface.BOLD),0,storeName.length,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val mStoreName = TextUtils.concat(
-            textColor(
-                storeName,
-                0,
-                storeName.length,
-                ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
-            ), "에서 \n정정해야 할 내용이 있나요?"
+            textColor, "에서 \n정정해야 할 내용이 있나요?"
         )
         binding.storeHomeReportTitle.text = mStoreName
 

@@ -36,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
+                    android:textStyle="bold"
                     android:text="@{viewModel.storeDetail.storeInfo.store.storeName}"
                     android:textAlignment="center"
                     android:textColor="@color/colorTextBlack"
@@ -72,7 +73,7 @@
                     style="@style/starRatingBarL"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:rating="5"
+                    android:rating="0"
                     android:stepSize="1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -83,6 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
+                    android:textStyle="bold"
                     android:text="맛"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp"
@@ -173,6 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:textStyle="bold"
                     android:text="가격"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp"
@@ -263,6 +266,7 @@
                     android:layout_marginTop="15dp"
                     android:text="직원 친절도"
                     android:textColor="@color/colorTextBlack"
+                    android:textStyle="bold"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/store_review_rg2" />
@@ -351,6 +355,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="분위기"
+                    android:textStyle="bold"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -442,6 +447,7 @@
                     android:textColor="@color/colorTextBlack"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/store_review_rg4" />
 
                 <RadioGroup
@@ -612,6 +618,7 @@
                 android:text="작성완료"
                 android:textColor="@color/white"
                 android:textSize="@dimen/main_contents"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/store_review_write" />
         </androidx.constraintlayout.widget.ConstraintLayout>

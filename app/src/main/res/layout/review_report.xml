@@ -4,80 +4,188 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
+        <variable
+            name="review"
+            type="com.goodchoice.android.ohneulen.data.model.Review" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorHeader">
 
-        <LinearLayout
-            android:id="@+id/review_report_linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/review_report_nameDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이름 2020.05.12" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="내용" />
-        </LinearLayout>
-
-        <RadioGroup
-            android:id="@+id/review_report_rg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/review_report_linearLayout">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="내용1" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="내용1" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="내용1" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="내용1" />
-        </RadioGroup>
-
-        <EditText
-            android:hint="내용"
-            android:id="@+id/review_report_detail"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@drawable/background_new"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="30dp"
             app:layout_constraintBottom_toTopOf="@id/review_report_submit"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/review_report_rg" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/review_report_con"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#f6f6f6"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/review_report_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#777777"
+                    android:text="이름"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/review_report_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textColor="#777777"
+                    android:text="@{viewModel.today}"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/review_report_name"
+                    app:layout_constraintLeft_toRightOf="@id/review_report_name" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@{review.content}"
+                    android:textColor="#777777"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/review_report_name" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/review_report_tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:text="신고 사유를 알려주세요"
+                android:textColor="@color/colorTextBlack"
+                app:layout_constraintTop_toBottomOf="@id/review_report_con" />
+
+            <RadioGroup
+                android:id="@+id/review_report_rg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/review_report_tv1">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textColor="#777777"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
+                    android:text="원치 않는 광고 또는 스팸" />
+
+                <RadioButton
+                    android:textColor="#777777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
+                    android:text="음란물" />
+
+                <RadioButton
+                    android:textColor="#777777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
+                    android:text="언어적 폭력 또는 증오 표현" />
+
+                <RadioButton
+                    android:textColor="#777777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
+                    android:text="성희롱 등의 괴롭힘" />
+
+                <RadioButton
+                    android:textColor="#777777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
+                    android:text="기타" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/review_report_detail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:background="#f6f6f6"
+                android:gravity="top"
+                android:hint="회원님의 이야기는 많은 분들께 도움이 됩니다."
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"
+                android:textColor="@color/colorCGrey"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/review_report_rg" />
+
+            <TextView
+                android:id="@+id/review_report_detail_et_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/colorCGrey"
+                android:textSize="13sp"
+                app:layout_constraintRight_toLeftOf="@id/review_report_detail_max_et"
+                app:layout_constraintTop_toTopOf="@id/review_report_detail_max_et" />
+
+            <TextView
+                android:id="@+id/review_report_detail_max_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:paddingBottom="12dp"
+                android:text=" /1000"
+                android:textColor="@color/colorCGrey"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/review_report_detail"
+                app:layout_constraintRight_toRightOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:stateListAnimator="@null"
             android:id="@+id/review_report_submit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/colorGreen"
+            android:textStyle="bold"
+            android:stateListAnimator="@null"
             android:text="작성 완료"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

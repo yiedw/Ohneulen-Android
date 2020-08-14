@@ -1,12 +1,14 @@
 package com.goodchoice.android.ohneulen.ui.home
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -70,6 +72,7 @@ class Home() : Fragment(), OnBackPressedListener {
             3,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+        spanBuilder.setSpan(StyleSpan(Typeface.BOLD),0,3,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.homeTitle.append(spanBuilder)
 
 

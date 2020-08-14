@@ -65,24 +65,36 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
                     android:text="매장 정보 오기입"
                     android:textColor="#777777" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
                     android:text="폐업"
                     android:textColor="#777777" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
                     android:text="업종 변경"
                     android:textColor="#777777" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/radio_btn_selector"
+                    android:paddingLeft="10dp"
                     android:text="기타"
                     android:textColor="#777777" />
             </RadioGroup>
@@ -139,6 +151,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
+            android:textStyle="bold"
             android:id="@+id/store_home_report_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

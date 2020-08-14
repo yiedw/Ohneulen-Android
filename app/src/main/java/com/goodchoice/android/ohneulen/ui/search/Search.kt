@@ -33,10 +33,7 @@ class Search : Fragment() {
     private val searchViewModel: SearchViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
 
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav.visibility=View.VISIBLE
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,6 +60,11 @@ class Search : Fragment() {
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         //맵 (삭제, 추가)
         val searchMapFragment = SearchMap.newInstance()
         childFragmentManager.beginTransaction()
@@ -79,8 +81,9 @@ class Search : Fragment() {
         )
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
-            binding.searchStoreAmount.text="매장 ${it.size}"
+            binding.searchStoreAmount.text = "매장 ${it.size}"
         })
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
 
