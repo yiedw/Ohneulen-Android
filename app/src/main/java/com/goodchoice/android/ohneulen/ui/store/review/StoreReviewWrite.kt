@@ -7,7 +7,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -25,7 +27,6 @@ import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.text.DecimalFormat
 
 class StoreReviewWrite : Fragment() {
 
@@ -45,6 +46,10 @@ class StoreReviewWrite : Fragment() {
         MainActivity.bottomNav.visibility = View.GONE
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,15 +63,25 @@ class StoreReviewWrite : Fragment() {
         )
         binding.fragment = this
         binding.viewModel = storeViewMode
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //storeReviewWriteEt 누르면 화면 맨 위로올리기
+//        storeReviewWriteEt 누르면 화면 맨 위로올리기
+        binding.storeReviewWriteEt.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                binding.storeReviewWriteKeyboard.visibility = View.GONE
+            }
+        }
         keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
             onShowKeyboard = { keyboardHeight ->
+                val param=ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,keyboardHeight.dp())
+                param.topToBottom=binding.storeReviewWriteBorder.id
+                binding.storeReviewWriteKeyboard.layoutParams=param
+                binding.storeReviewWriteKeyboard.visibility = View.VISIBLE
                 binding.storeReviewWriteScroll.run {
                     smoothScrollBy(scrollX, scrollY + keyboardHeight)
                 }
