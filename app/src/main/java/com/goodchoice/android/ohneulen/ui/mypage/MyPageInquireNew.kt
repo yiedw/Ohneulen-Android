@@ -40,12 +40,7 @@ class MyPageInquireNew : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //뒤에 터치 안먹게하기
-        binding.mypageInquireNew.setOnTouchListener(object :View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                return true
-            }
-
-        })
+        binding.mypageInquireNew.setOnTouchListener { v, event -> true }
 
         val spinner = binding.mypageInquireNewSpinner
         ArrayAdapter.createFromResource(
