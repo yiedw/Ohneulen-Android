@@ -18,6 +18,7 @@ import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteBinding
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteImageItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
+import com.goodchoice.android.ohneulen.util.KeyboardVisibilityUtils
 import com.goodchoice.android.ohneulen.util.dp
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -36,6 +37,8 @@ class StoreReviewWrite : Fragment() {
     private lateinit var binding: StoreReviewWriteBinding
     private var selectedUriList: MutableList<Uri>? = null
     private val storeViewMode: StoreViewModel by viewModel()
+
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onResume() {
         super.onResume()
@@ -61,6 +64,15 @@ class StoreReviewWrite : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //storeReviewWriteEt 누르면 화면 맨 위로올리기
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
+            onShowKeyboard = { keyboardHeight ->
+                binding.storeReviewWriteScroll.run {
+                    smoothScrollBy(scrollX, scrollY + keyboardHeight)
+                }
+            })
+
+
         binding.storeReviewWriteEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -70,7 +82,8 @@ class StoreReviewWrite : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.storeReviewWriteEtLength.text =binding.storeReviewWriteEt.text.toString().length.toString()
+                binding.storeReviewWriteEtLength.text =
+                    binding.storeReviewWriteEt.text.toString().length.toString()
             }
 
         })
@@ -79,6 +92,7 @@ class StoreReviewWrite : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         MainActivity.bottomNav.visibility = View.VISIBLE
+        keyboardVisibilityUtils.detachKeyboardListeners()
     }
 
     fun imageAdd(view: View) {

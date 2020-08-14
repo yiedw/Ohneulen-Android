@@ -1,14 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.login
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -60,8 +58,11 @@ class Login(private val fragment: Fragment) : Fragment() {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //뒤에 클릭못하게
+        binding.login.setOnTouchListener { v, event -> true }
 
         //클리어 표시
         binding.loginEmailEt.addTextChangedListener(object : TextWatcher {
