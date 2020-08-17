@@ -611,12 +611,12 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="30dp"
                     app:layout_constraintTop_toBottomOf="@id/store_review_write_image" />
-                <View
-                    android:id="@+id/store_review_write_keyboard"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:background="@color/colorTextBlack"
-                    app:layout_constraintTop_toBottomOf="@id/store_review_write_border"/>
+<!--                <View-->
+<!--                    android:id="@+id/store_review_write_keyboard"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="400dp"-->
+<!--                    android:background="@color/colorTextBlack"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/store_review_write_border"/>-->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,9 +46,9 @@ class MyPageInquireNew : Fragment() {
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.inquire_spinner_item,
-            android.R.layout.simple_spinner_item
+            R.layout.mypage_inquire_new_spinner
         ).also { it ->
-            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            it.setDropDownViewResource(R.layout.mypage_inquire_new_spinner_array)
             spinner.adapter = it
         }
 

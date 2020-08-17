@@ -71,21 +71,21 @@ class StoreReviewWrite : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        storeReviewWriteEt 누르면 화면 맨 위로올리기
-        binding.storeReviewWriteEt.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                binding.storeReviewWriteKeyboard.visibility = View.GONE
-            }
-        }
-        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
-            onShowKeyboard = { keyboardHeight ->
-                val param=ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,keyboardHeight.dp())
-                param.topToBottom=binding.storeReviewWriteBorder.id
-                binding.storeReviewWriteKeyboard.layoutParams=param
-                binding.storeReviewWriteKeyboard.visibility = View.VISIBLE
-                binding.storeReviewWriteScroll.run {
-                    smoothScrollBy(scrollX, scrollY + keyboardHeight)
-                }
-            })
+//        binding.storeReviewWriteEt.setOnFocusChangeListener { v, hasFocus ->
+//            if (!hasFocus) {
+//                binding.storeReviewWriteKeyboard.visibility = View.GONE
+//            }
+//        }
+//        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
+//            onShowKeyboard = { keyboardHeight ->
+//                val param=ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,keyboardHeight.dp())
+//                param.topToBottom=binding.storeReviewWriteBorder.id
+//                binding.storeReviewWriteKeyboard.layoutParams=param
+//                binding.storeReviewWriteKeyboard.visibility = View.VISIBLE
+//                binding.storeReviewWriteScroll.run {
+//                    smoothScrollBy(scrollX, scrollY + keyboardHeight)
+//                }
+//            })
 
 
         binding.storeReviewWriteEt.addTextChangedListener(object : TextWatcher {

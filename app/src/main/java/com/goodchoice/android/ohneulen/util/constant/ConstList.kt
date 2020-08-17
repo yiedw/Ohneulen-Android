@@ -24,4 +24,8 @@ object ConstList {
     const val OPTION_REVERSION="OT005"
     const val OPTION_SEAT_COUNT="OT006"
     const val OPTION_HOLIDAY="OT007"
+
+    //sub_option
+    //OT001
+    const val FREE="001"
 }

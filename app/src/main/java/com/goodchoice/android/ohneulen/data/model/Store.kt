@@ -32,30 +32,11 @@ data class Store(
     val likes: Boolean,
     val image: List<Image>,
     val photoURL: String,
-    val openTime: List<OpenTime>
+    val openTime: List<OpenTime>,
+    val opentime:String
 )
 
 data class Cate1Name(
     val majorName: String,
     val minorName: String
 )
-
-//fun getStore(): MutableList<Store> {
-//    val samplePartnerList = mutableListOf<Store>()
-////    for (i in 0..100) {
-////        samplePartnerList.add(
-////            Store(
-////                i.toString(), "한식",
-////                "백반",
-////                "한식$i",
-////                "백반집$i",
-////                "사업자번호",
-////                "사업장 전화",
-////                "주소", "도로명", 37.499417, 127.0250764, "open", "설명 쌸라쌸라",
-////                "2010.04.30",
-////                "2020.06.30"
-////            )
-////        )
-////    }
-//    return samplePartnerList
-//}

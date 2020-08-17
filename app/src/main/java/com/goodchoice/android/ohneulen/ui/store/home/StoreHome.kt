@@ -23,6 +23,7 @@ import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreHome : Fragment() {
     companion object {
@@ -57,14 +58,15 @@ class StoreHome : Fragment() {
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             //영업일 뷰 생성
             openDayGenerate(it)
-            //휴무일 뷰 생성
-            closeDayGenerate(it)
+            //휴무일 뷰 생성 ( 옵션에서 같이해결)
+//            closeDayGenerate(it)
             //개업일 업데이트
             storeUpdate(it)
             //옵션 뷰 생성
             optionGenerate(it)
             //키워드 뷰 생성
             keywordsGenerate(it)
+
         })
 
     }
@@ -148,11 +150,17 @@ class StoreHome : Fragment() {
     private fun optionGenerate(storeDetail: StoreDetail) {
         binding.storeHomeOptions.removeAllViews()
         for (i in storeDetail.optionList) {
+            //좌석수 0이면 생성x
+            if (i.option_kind_name.isNullOrEmpty() && i.optionText.isNullOrEmpty()) {
+                continue
+            }
+
             //옵션뷰 생성
             //옵션 리니어레이아웃 생성
             val linearLayout = LinearLayout(requireContext())
             linearLayout.orientation = LinearLayout.HORIZONTAL
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 20.dp())
+            params.setMargins(0, 5.dp(), 0, 0)
             linearLayout.layoutParams = params
 
             //옵션이름
@@ -169,13 +177,26 @@ class StoreHome : Fragment() {
             val tv2 = TextView(requireContext())
             val params2 = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
+                LinearLayout.LayoutParams.WRAP_CONTENT
             )
             tv2.layoutParams = params2
-            tv2.text = i.option_kind_name
+            if (i.kind == ConstList.OPTION_HOLIDAY) {
+                tv2.text = i.optionText
+            } else if (i.kind == ConstList.OPTION_SEAT_COUNT) {
+                tv2.text = "${i.optionText} 석"
+            } else {
+
+                tv2.text = i.option_kind_name
+            }
             tv2.setTextColor(requireContext().getColor(R.color.colorGrey88))
 
 
+            if (i.kind == ConstList.OPTION_HOLIDAY) {
+                tv2.text = i.optionText
+//                binding.storeHomeCloseDay.removeAllViews()
+                binding.storeHomeCloseDay.addView(tv2)
+                continue
+            }
             linearLayout.addView(tv1)
             linearLayout.addView(tv2)
             binding.storeHomeOptions.addView(linearLayout)
@@ -193,7 +214,7 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            params.setMargins(0,0,0,5.dp())
+            params.setMargins(0, 0, 0, 5.dp())
             linearLayout.layoutParams = params
 
             //이모티콘
@@ -201,7 +222,7 @@ class StoreHome : Fragment() {
             val params1 = LinearLayout.LayoutParams(26.dp(), 26.dp())
 //            iv.setPadding(0,0,15.dp(),0)
             iv.layoutParams = params1
-            iv.scaleType=ImageView.ScaleType.FIT_CENTER
+            iv.scaleType = ImageView.ScaleType.FIT_CENTER
             Glide.with(requireContext()).load("${BaseUrl.Ohneulen}${i.icon}").into(iv)
 
 
@@ -211,7 +232,7 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
-            params2.marginStart=24.dp()
+            params2.marginStart = 24.dp()
             tv.gravity = Gravity.CENTER
             tv.layoutParams = params2
             tv.setTextColor(requireContext().getColor(R.color.colorGrey88))

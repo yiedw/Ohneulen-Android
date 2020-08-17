@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.like.Like
-import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -141,8 +138,8 @@ class MyPage : Fragment() {
     }
 
     fun term2Click(view: View) {
-        replaceAppbarFragment(MyPageTerm2AppBar.newInstance())
-        replaceMainFragment(MyPageTerm2.newInstance())
+        replaceAppbarFragment(MyPageTerms2AppBar.newInstance())
+        replaceMainFragment(MyPageTerms2.newInstance())
     }
 
     fun companyClick(view: View) {

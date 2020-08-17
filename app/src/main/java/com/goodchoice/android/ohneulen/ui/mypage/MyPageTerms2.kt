@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageTerm2Binding
+import com.goodchoice.android.ohneulen.databinding.MypageTerms2Binding
 
-class MyPageTerm2 : Fragment() {
+class MyPageTerms2 : Fragment() {
     companion object {
-        fun newInstance() = MyPageTerm2()
+        fun newInstance() = MyPageTerms2()
     }
 
-    private lateinit var binding: MypageTerm2Binding
+    private lateinit var binding: MypageTerms2Binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +23,7 @@ class MyPageTerm2 : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_term2,
+            R.layout.mypage_terms2,
             container,
             false
         )
