@@ -34,6 +34,8 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     val option = mutableListOf<String>()
     val openTime = mutableListOf<String>()
     val sort = mutableListOf<String>()
+    val addrx = mutableListOf<String>()
+    val addry = mutableListOf<String>()
 
 
     //카테고리
@@ -69,6 +71,29 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
         }
     }
 
+    fun getStoreSearchList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = networkService.requestStoreSearchList(
+                    addry,
+                    addrx,
+                    cate,
+                    option,
+                    openTime,
+                    sort
+                )
+                Timber.e(addry.toString()+",y")
+                Timber.e(addrx.toString()+",x")
+                Timber.e(response.toString())
+                Timber.e(response.resultData.toString())
+                searchStoreList.postValue(response.resultData)
+
+            } catch (e: Throwable) {
+                Timber.e(e.toString())
+            }
+        }
+    }
+
 
     fun searchMapData() {
         GlobalScope.launch(Dispatchers.IO) {
@@ -96,7 +121,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     fun filterSubmit() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = networkService.requestStoreSearchList(cate, option, openTime, sort)
+                val response = networkService.requestStoreSearchList(addry,addrx,cate, option, openTime, sort)
                 searchStoreList.postValue(response.resultData)
 
             } catch (e: Throwable) {

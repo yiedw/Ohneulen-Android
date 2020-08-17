@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.search
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +12,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.SearchMapBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.search.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.withContext
-import net.daum.mf.map.api.MapPoint
-import net.daum.mf.map.api.MapView
+import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -55,7 +53,7 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
         mapViewContainer = binding.searchMapMapView
         addMapView()
 //        mapViewContainer.addView(mapView)
-
+//        Timber.e(mapView.clipBounds.toString())
         return binding.root
 
     }
@@ -79,10 +77,15 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
 //                        MapView.CurrentLocationTrackingMode.TrackingModeOff
                 }
                 mapView.setMapCenterPoint(t, false)
-
+                circleSearch()
                 searchViewModel.getStoreList()
             }
         )
+        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+            for (i in it) {
+                addMarker(i)
+            }
+        })
 
 
         //현재위치기반
@@ -132,6 +135,41 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
 
     private fun addMapView() {
         binding.searchMapMapView.addView(mapView)
+
+    }
+
+    private fun addMarker(store: Store) {
+        val marker = MapPOIItem()
+        marker.itemName = "Default Marker"
+        marker.tag = 1
+        marker.mapPoint =
+            MapPoint.mapPointWithGeoCoord(store.addrY.toDouble(), store.addrX.toDouble())
+        marker.markerType = MapPOIItem.MarkerType.CustomImage
+        marker.customImageResourceId = R.drawable.store_map_location
+        marker.isCustomImageAutoscale = false
+        marker.setCustomImageAnchor(0.5f, 1.0f)
+
+
+
+//        mapView.addCircle(mapCircle)
+
+        mapView.addPOIItem(marker)
+    }
+
+    private fun circleSearch(){
+        searchViewModel.addry.clear()
+        searchViewModel.addrx.clear()
+        val mapCircle = MapCircle(
+            mapView.mapCenterPoint,
+            300,
+            Color.argb(128, 255, 0, 0),
+            Color.argb(128, 255, 255, 0)
+        )
+        val mapPointBounds=mapCircle.bound
+        searchViewModel.addry.add(mapPointBounds.bottomLeft.mapPointGeoCoord.latitude.toString())
+        searchViewModel.addry.add(mapPointBounds.topRight.mapPointGeoCoord.latitude.toString())
+        searchViewModel.addrx.add(mapPointBounds.bottomLeft.mapPointGeoCoord.longitude.toString())
+        searchViewModel.addrx.add(mapPointBounds.topRight.mapPointGeoCoord.longitude.toString())
     }
 
     override fun onCurrentLocationUpdateFailed(p0: MapView?) {
