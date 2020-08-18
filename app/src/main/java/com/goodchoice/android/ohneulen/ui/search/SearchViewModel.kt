@@ -104,6 +104,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
                 if (keywordResponse.documents.isNotEmpty()) {
                     y = keywordResponse.documents[0].y.toDouble()
                     x = keywordResponse.documents[0].x.toDouble()
+//                    Timber.e("${y} , ${x}")
                 } else {
                     toastMessage.postValue(true)
                     return@launch
@@ -119,7 +120,14 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     fun filterSubmit() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = networkService.requestStoreSearchList(addry,addrx,cate, option, openTime, sort)
+                val response = networkService.requestStoreSearchList(
+                    addry,
+                    addrx,
+                    cate,
+                    option,
+                    openTime,
+                    sort
+                )
                 searchStoreList.postValue(response.resultData)
 
             } catch (e: Throwable) {

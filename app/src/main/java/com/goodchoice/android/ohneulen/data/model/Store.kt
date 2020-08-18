@@ -1,8 +1,9 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import com.google.maps.android.clustering.ClusterItem
 import javax.sql.DataSource
 
-data class Store(
+data class Store (
     val seq: String,
     val kind: String,
     val cate1: String,

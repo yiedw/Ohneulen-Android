@@ -2,12 +2,13 @@ package com.goodchoice.android.ohneulen.ui.search
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,27 +18,39 @@ import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.SearchMapBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.util.constant.ConstList
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.clustering.Cluster
+import com.google.maps.android.clustering.ClusterItem
+import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.clustering.view.DefaultClusterRenderer
+import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import net.daum.mf.map.api.*
+import net.daum.mf.map.api.MapCircle
+import net.daum.mf.map.api.MapPoint
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
+class SearchMap : Fragment(), OnMapReadyCallback {
 
     companion object {
         fun newInstance() = SearchMap()
     }
 
-    private val mapView by lazy {
-        MapView(requireContext())
-    }
-    private lateinit var mapViewContainer: ViewGroup
     private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
 
     private lateinit var binding: SearchMapBinding
+    private lateinit var mapView: MapView
+    private lateinit var currentLatLng: LatLng
+    private lateinit var clusterManager: ClusterManager<ClusterItem>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,11 +63,9 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
             container,
             false
         )
-        mapView.setZoomLevel(3, false)
-        mapViewContainer = binding.searchMapMapView
-        addMapView()
-//        mapViewContainer.addView(mapView)
-//        Timber.e(mapView.clipBounds.toString())
+        mapView = binding.searchMapMapView
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync(this)
         return binding.root
 
     }
@@ -62,32 +73,9 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mapView.setOnTouchListener { _, _ -> true }
+//        mapView.setOnTouchListener { _, _ -> true }
 
-        mapView.setCurrentLocationEventListener(this)
-
-
-        //맵 포인트가 바뀌면 바로 반영
-        searchViewModel.kakaoMapPoint.observe(
-            viewLifecycleOwner, Observer { it ->
-                if (TedPermission.isGranted(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                ) {
-//                    mapView.currentLocationTrackingMode =
-//                        MapView.CurrentLocationTrackingMode.TrackingModeOff
-                }
-                mapView.setMapCenterPoint(it, false)
-                circleSearch(it)
-            }
-        )
-        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
-            for (i in it) {
-                addMarker(i)
-            }
-
-        })
+//        mapView.setCurrentLocationEventListener(this)
 
 
         //현재위치기반
@@ -96,8 +84,8 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
             val permissionListener = object : PermissionListener {
                 //승인
                 override fun onPermissionGranted() {
-                    mapView.currentLocationTrackingMode =
-                        MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
+//                    mapView.currentLocationTrackingMode =
+//                        MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
                     Timber.e("ASdfsdafsadf321")
 //                    val mapPoint:MapPoint=mapView.mapCenterPoint
 //                    searchViewModel.kakaoMapPoint.postValue(mapPoint)
@@ -122,43 +110,67 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
                     Manifest.permission.ACCESS_FINE_LOCATION
                 )
             ) {
-                mapView.currentLocationTrackingMode =
-                    MapView.CurrentLocationTrackingMode.TrackingModeOff
+//                mapView.currentLocationTrackingMode =
+//                    MapView.CurrentLocationTrackingMode.TrackingModeOff
             }
         }
 
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        binding.searchMapMapView.removeAllViews()
-//    }
-
-
-    private fun addMapView() {
-        binding.searchMapMapView.addView(mapView)
-
+    override fun onStart() {
+        super.onStart()
+        mapView.onStart()
     }
 
-    private fun addMarker(store: Store) {
-        val marker = MapPOIItem()
-        marker.itemName = "Default Marker"
-        marker.tag = 1
-        marker.mapPoint =
-            MapPoint.mapPointWithGeoCoord(store.addrY.toDouble(), store.addrX.toDouble())
-        marker.markerType = MapPOIItem.MarkerType.CustomImage
-        marker.customImageResourceId = R.drawable.store_map_location
-        marker.isCustomImageAutoscale = false
-        marker.setCustomImageAnchor(0.5f, 1.0f)
-
-
-
-//        mapView.addCircle(mapCircle)
-
-        mapView.addPOIItem(marker)
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
     }
 
-    private fun circleSearch(mapPoint:MapPoint){
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+
+    private fun addCluster(storeList: List<Store>, googleMap: GoogleMap) {
+        clusterManager.clearItems()
+        for (i in storeList.indices) {
+            val clusterItem = object : ClusterItem {
+                override fun getSnippet(): String? {
+                    return null
+                }
+
+                override fun getTitle(): String? {
+                    return null
+                }
+
+                override fun getPosition(): LatLng {
+                    return LatLng(storeList[i].addrY.toDouble(), storeList[i].addrX.toDouble())
+                }
+            }
+            clusterManager.addItem(clusterItem)
+        }
+
+        clusterManager.cluster()
+    }
+
+    private fun circleSearch(mapPoint: MapPoint) {
         searchViewModel.addry.clear()
         searchViewModel.addrx.clear()
         val mapCircle = MapCircle(
@@ -167,7 +179,7 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
             Color.argb(128, 255, 0, 0),
             Color.argb(128, 255, 255, 0)
         )
-        val mapPointBounds=mapCircle.bound
+        val mapPointBounds = mapCircle.bound
         searchViewModel.addry.add(mapPointBounds.bottomLeft.mapPointGeoCoord.latitude)
         searchViewModel.addry.add(mapPointBounds.topRight.mapPointGeoCoord.latitude)
         searchViewModel.addrx.add(mapPointBounds.bottomLeft.mapPointGeoCoord.longitude)
@@ -175,18 +187,66 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
         searchViewModel.getStoreSearchList()
     }
 
-    override fun onCurrentLocationUpdateFailed(p0: MapView?) {
-    }
+    override fun onMapReady(googleMap: GoogleMap?) {
 
-    override fun onCurrentLocationUpdate(p0: MapView?, p1: MapPoint?, p2: Float) {
-        val mapPoint: MapPoint? = p1
-        searchViewModel.kakaoMapPoint.postValue(mapPoint)
-    }
+        //clusterManager setting
+        clusterManager = ClusterManager(requireContext(), googleMap)
+        val clusterRenderer=object :DefaultClusterRenderer<ClusterItem>(requireContext(),googleMap,clusterManager){
+            val clusterIconGenerator=IconGenerator(requireContext())
+            override fun onBeforeClusterItemRendered(
+                item: ClusterItem,
+                markerOptions: MarkerOptions
+            ) {
+                val layoutInflater:LayoutInflater=requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                val markerView=layoutInflater.inflate(R.layout.search_marker,null)
+                markerView.findViewById<TextView>(R.id.search_marker_text).text="1"
+                clusterIconGenerator.setContentView(markerView)
+                clusterIconGenerator.setBackground(null)
 
-    override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
-    }
+                val icon=clusterIconGenerator.makeIcon()
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+            }
 
-    override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
+            override fun onBeforeClusterRendered(
+                cluster: Cluster<ClusterItem>,
+                markerOptions: MarkerOptions
+            ) {
+                val layoutInflater:LayoutInflater=requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                val markerView=layoutInflater.inflate(R.layout.search_marker,null)
+                markerView.findViewById<TextView>(R.id.search_marker_text).text=cluster.size.toString()
+                clusterIconGenerator.setContentView(markerView)
+                clusterIconGenerator.setBackground(null)
+
+                val icon=clusterIconGenerator.makeIcon()
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+            }
+
+        }
+        clusterManager.renderer=clusterRenderer
+
+        val myLocation = LatLng(37.4980854357918, 127.028000275071)
+        googleMap!!.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        //맵 포인트가 바뀌면 바로 반영
+        searchViewModel.kakaoMapPoint.observe(
+            viewLifecycleOwner, Observer { it ->
+                currentLatLng = LatLng(it.mapPointGeoCoord.latitude, it.mapPointGeoCoord.longitude)
+                if (TedPermission.isGranted(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
+                ) {
+//                    mapView.currentLocationTrackingMode =
+//                        MapView.CurrentLocationTrackingMode.TrackingModeOff
+                }
+                val location = LatLng(it.mapPointGeoCoord.latitude, it.mapPointGeoCoord.longitude)
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+                circleSearch(it)
+            }
+        )
+        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+            addCluster(it, googleMap)
+        })
     }
 
 

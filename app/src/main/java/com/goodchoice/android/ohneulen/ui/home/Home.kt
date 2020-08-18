@@ -116,9 +116,9 @@ class Home() : Fragment(), OnBackPressedListener {
     }
 
     fun currentLocationClick(view: View) {
-        mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
-        replaceAppbarFragment(SearchAppBar.newInstance())
-        replaceMainFragment(Search.newInstance())
+//        mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
+//        replaceAppbarFragment(SearchAppBar.newInstance())
+//        replaceMainFragment(Search.newInstance())
 
 
 
