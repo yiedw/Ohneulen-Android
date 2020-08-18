@@ -15,12 +15,13 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class SearchAppBar : Fragment() {
+class SearchAppBar : Fragment() ,OnBackPressedListener{
 
     companion object {
         fun newInstance() = SearchAppBar()
@@ -111,6 +112,10 @@ class SearchAppBar : Fragment() {
             .commit()
         replaceAppbarFragment(SearchFilterAppbar.newInstance())
 //        addMainFragment(SearchFilter.newInstance(), true)
+    }
+
+    override fun onBackPressed() {
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
     }
 
 }

@@ -3,6 +3,7 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,7 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
             container,
             false
         )
-        mapView.setZoomLevel(2, false)
+        mapView.setZoomLevel(3, false)
         mapViewContainer = binding.searchMapMapView
         addMapView()
 //        mapViewContainer.addView(mapView)
@@ -65,9 +66,10 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
 
         mapView.setCurrentLocationEventListener(this)
 
+
         //맵 포인트가 바뀌면 바로 반영
         searchViewModel.kakaoMapPoint.observe(
-            viewLifecycleOwner, Observer { t ->
+            viewLifecycleOwner, Observer { it ->
                 if (TedPermission.isGranted(
                         requireContext(),
                         Manifest.permission.ACCESS_FINE_LOCATION
@@ -76,15 +78,15 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
 //                    mapView.currentLocationTrackingMode =
 //                        MapView.CurrentLocationTrackingMode.TrackingModeOff
                 }
-                mapView.setMapCenterPoint(t, false)
-                circleSearch()
-                searchViewModel.getStoreList()
+                mapView.setMapCenterPoint(it, false)
+                circleSearch(it)
             }
         )
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
             for (i in it) {
                 addMarker(i)
             }
+
         })
 
 
@@ -156,20 +158,21 @@ class SearchMap : Fragment(), MapView.CurrentLocationEventListener {
         mapView.addPOIItem(marker)
     }
 
-    private fun circleSearch(){
+    private fun circleSearch(mapPoint:MapPoint){
         searchViewModel.addry.clear()
         searchViewModel.addrx.clear()
         val mapCircle = MapCircle(
-            mapView.mapCenterPoint,
+            mapPoint,
             300,
             Color.argb(128, 255, 0, 0),
             Color.argb(128, 255, 255, 0)
         )
         val mapPointBounds=mapCircle.bound
-        searchViewModel.addry.add(mapPointBounds.bottomLeft.mapPointGeoCoord.latitude.toString())
-        searchViewModel.addry.add(mapPointBounds.topRight.mapPointGeoCoord.latitude.toString())
-        searchViewModel.addrx.add(mapPointBounds.bottomLeft.mapPointGeoCoord.longitude.toString())
-        searchViewModel.addrx.add(mapPointBounds.topRight.mapPointGeoCoord.longitude.toString())
+        searchViewModel.addry.add(mapPointBounds.bottomLeft.mapPointGeoCoord.latitude)
+        searchViewModel.addry.add(mapPointBounds.topRight.mapPointGeoCoord.latitude)
+        searchViewModel.addrx.add(mapPointBounds.bottomLeft.mapPointGeoCoord.longitude)
+        searchViewModel.addrx.add(mapPointBounds.topRight.mapPointGeoCoord.longitude)
+        searchViewModel.getStoreSearchList()
     }
 
     override fun onCurrentLocationUpdateFailed(p0: MapView?) {

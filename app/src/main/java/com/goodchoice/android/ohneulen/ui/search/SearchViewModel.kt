@@ -34,8 +34,8 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     val option = mutableListOf<String>()
     val openTime = mutableListOf<String>()
     val sort = mutableListOf<String>()
-    val addrx = mutableListOf<String>()
-    val addry = mutableListOf<String>()
+    val addrx = mutableListOf<Double>()
+    val addry = mutableListOf<Double>()
 
 
     //카테고리
@@ -82,10 +82,8 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
                     openTime,
                     sort
                 )
-                Timber.e(addry.toString()+",y")
-                Timber.e(addrx.toString()+",x")
-                Timber.e(response.toString())
-                Timber.e(response.resultData.toString())
+//                Timber.e(addry.toString()+",y")
+//                Timber.e(addrx.toString()+",x")
                 searchStoreList.postValue(response.resultData)
 
             } catch (e: Throwable) {

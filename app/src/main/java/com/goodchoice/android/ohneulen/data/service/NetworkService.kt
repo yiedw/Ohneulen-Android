@@ -43,8 +43,8 @@ interface NetworkService {
     @POST("store/searchList")
     @FormUrlEncoded
     suspend fun requestStoreSearchList(
-        @Field("addry[]") addry:List<String>,
-        @Field("addrx[]") addrx:List<String>,
+        @Field("addry[]") addry:List<Double>,
+        @Field("addrx[]") addrx:List<Double>,
         @Field("cate[]") cate:List<String>,
         @Field("option[]") option:List<String>,
         @Field("openTime[]") openTime:List<String>,
