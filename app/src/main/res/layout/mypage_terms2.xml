@@ -20,6 +20,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
                 android:text="(주)굿초이스 (이하 &quot;회사&quot;)이 제공하는 오늘은 서비스(이하 &quot;서비스&quot;)는 이용자의 개인정보를 중요시하며 정보통신망 이용촉진 및 정보보호 등에 관한 법률(이하 ‘정보통신망법'), 개인정보보호법 등 개인정보 보호 법령을 준수하고 있습니다. 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적을 다음과 같이 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다."
                 android:textColor="#777777" />
 
@@ -36,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="1. 이용자는 회원가입을 하지 않아도 매장 검색 등 서비스에 자유롭게 접근할 수 있습니다. 이용자가 예약, 결제 등과 같이 개인화 혹은 회원제 서비스를 이용하기 위해 회원가입을 할 경우, 회사는 서비스 이용을 위해 필요한 최소한의 개인정보를 수집합니다.
 \n
 \n2. 회원가입 시점에 회사가 이용자로부터 수집하는 개인정보는 아래와 같습니다.
@@ -70,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="회사는 수집한 개인정보를 아래의 목적으로만 이용합니다. 이용자가 제공한 모든 정보는 하기 목적에 필요한 용도 이외로는 사용되지 않으며 이용 목적이 변경될 시에는 사전 동의를 구할 것입니다.
 \n
 \n① 회원 가입 의사의 확인, 연령 확인, 이용자 식별, 회원탈퇴 의사의 확인 등 회원관리를 위하여 개인정보를 이용합니다.
@@ -95,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="n① 회사는 원칙적으로 이용자 동의 없이 개인정보를 제3자에게 제공하지 않습니다.
 \n② 단, 이용자가 외부 제휴사의 서비스를 이용하기 위하여 개인정보 제공에 직접 동의를 한 경우, 그리고 관련 법령에 의거해 회사에 개인정보 제출 의무가 발생한 경우, 이용자의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공하고 있습니다.
 \n③ 회사는 서비스 제공을 위하여 필요한 업무 중 일부를 외부 업체에 위탁하고 있으며, 위탁 받은 업체가 정보통신망법에 따라 개인정보를 안전하게 처리하도록 필요한 사항을 규정하고 관리/감독을 하고 있습니다.
@@ -205,6 +209,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="1. 회사는 원칙적으로 이용자의 개인정보를 회원 탈퇴시 지체 없이 파기합니다. 단, 이용자에게 개인정보 보관기간에 대해 별도의 동의를 얻은 경우, 또는 법령에서 일정 기간 정보보관 의무를 부과하는 경우에는 해당 기간 동안 개인정보를 안전하게 보관합니다.
 \n
 \n2. 이용자에게 개인정보 보관기간에 대해 별도의 동의를 얻은 경우에 대해서는 아래의 이유로 명시한 기간 동안 보존합니다.
@@ -241,6 +246,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="1. 이용자는 언제든지 오늘은 서비스 > 마이 페이지 에서 자신의 개인정보를 조회하거나 수정할 수 있습니다.
 \n
 \n2. 이용자는 언제든지 회원탈퇴 등을 통해 개인정보의 수집 및 이용 동의를 철회할 수 있습니다.
@@ -261,6 +267,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="1. 쿠키란 ?
 \n① 회사는 개인화되고 맞춤화된 서비스를 제공하기 위해서 이용자의 정보를 저장하고 수시로 불러오는 '쿠키(cookie)'를 사용합니다.
 \n② 쿠키는 웹사이트를 운영하는데 이용되는 서버가 이용자의 브라우저에 보내는 아주 작은 텍스트 파일로서 이용자 컴퓨터의 하드디스크에 저장됩니다. 이용자가 웹 사이트에 방문할 경우 웹 사이트 서버는 이용자의 하드 디스크에 저장되어 있는 쿠키의 내용을 읽어 이용자의 환경설정을 유지하고 맞춤화된 서비스를 제공하기 위해 이용됩니다.
@@ -275,6 +282,7 @@
 \n③ 설정 방법
 \n- 예(인터넷 익스플로어의 경우): 웹 브라우저 상단의 [도구] > [인터넷 옵션] > [개인정보] > [개인정보취급 수준] 설정"
                 android:textColor="#777777" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -288,6 +296,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="회사는 이용자의 개인정보를 취급함에 있어 개인정보가 분실, 도난, 누출, 변조 또는 훼손되지 않도록 안전성 확보를 위하여 다음과 같은 기술적, 관리적 대책을 강구하고 있습니다.
 \n
 \n1. 개인정보 암호화
@@ -302,6 +311,7 @@
 \n4. 개인정보 취급 직원의 최소화 및 교육
 \n① 개인정보관련 취급 직원은 담당자에 한정시켜 최소화 하고 새로운 보안기술의 습득 및 개인정보보호 의무에 관해 정기적인 교육을 실시하며 별도의 비밀번호를 부여하여 접근 권한을 관리하는 등 관리적 대책을 시행하고 있습니다."
                 android:textColor="#777777" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -315,6 +325,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="1. 회사는 이용자의 개인정보를 보호하고 개인정보와 관련한 불만을 처리하기 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.
 \n- 성명 : 배성렬
 \n- 소속 및 직위 : Develop department / CTO
@@ -326,6 +337,7 @@
 \n- 대검찰청 사이버수사과 (www.spo.go.kr / 국번없이 1301)
 \n- 경찰청 사이버안전국 (www.ctrc.go.kr / 국번없이 182)"
                 android:textColor="#777777" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -339,9 +351,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="1. 본 개인정보처리방침은 오늘은 서비스의 웹사이트 및 어플리케이션에 적용되며, 다른 브랜드로 제공되는 서비스에 대해서는 별개의 개인정보취급방침이 적용될 수 있습니다.
 \n2. 오늘은 서비스에 링크되어 있는 다른 회사의 웹사이트에서 개인정보를 수집하는 경우, 이용자 동의 하에 개인정보가 제공된 이후에는 본 개인정보처리방침이 적용되지 않습니다."
                 android:textColor="#777777" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -355,6 +369,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:justificationMode="inter_word"
                 android:text="본 개인정보취급방침의 추가, 삭제 및 수정이 있을 경우 개정 최소 7일 전에 공지사항을 통하여 사전 고지할 것 입니다. 다만, 수집하는 개인정보의 항목, 이용목적의 변경 등과 같이 이용자 권리의 중대한 변경이 발생할 때에는 최소 30일 전에 공지하며, 필요 시 이용자 동의를 다시 받을 수도 있습니다.
 \n
 \n▶ 공고일자: 2020년 9월 1일
