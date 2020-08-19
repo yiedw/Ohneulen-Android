@@ -108,7 +108,7 @@
                     android:drawableRight="@drawable/more_point"
                     android:gravity="fill"
                     android:onClick="@{fragment::likeClick}"
-                    android:text="@string/good"
+                    android:text="@string/favorite"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="@dimen/main_contents"
                     android:textStyle="bold" />

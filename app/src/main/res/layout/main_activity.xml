@@ -40,7 +40,7 @@
         android:layout_height="55dp"
         android:background="?android:attr/windowBackground"
         android:textAlignment="center"
-        app:itemIconSize="23dp"
+        app:itemIconSize="24dp"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_bottom_nav" />

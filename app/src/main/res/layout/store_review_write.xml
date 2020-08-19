@@ -206,7 +206,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="맛있어요"
+                        android:text="저렴해요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -219,7 +219,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="괜찮아요"
+                        android:text="합리적"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -245,7 +245,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="별로에요"
+                        android:text="비합리적"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -258,7 +258,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="맛없어요"
+                        android:text="비싸요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -295,7 +295,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="맛있어요"
+                        android:text="친절해요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -347,7 +347,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="맛없어요"
+                        android:text="불쾌해요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -385,7 +385,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="맛있어요"
+                        android:text="좋아요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -437,7 +437,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="맛없어요"
+                        android:text="나빠요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -476,7 +476,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="맛있어요"
+                        android:text="상쾌해요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -489,7 +489,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="괜찮아요"
+                        android:text="깨끗해요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -515,7 +515,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="별로에요"
+                        android:text="더러워ㅓ요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -528,7 +528,7 @@
                         android:layout_weight="2"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
-                        android:text="맛없어요"
+                        android:text="불쾌해요"
                         android:textAlignment="center"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12sp" />
@@ -554,7 +554,7 @@
                         android:gravity="top"
                         android:hint="후기를 작성해 주세요."
                         android:maxLength="1000"
-                        android:textColor="@color/colorCGrey"
+                        android:textColor="@color/colorBlack"
                         android:textSize="13sp" />
 
                     <TextView

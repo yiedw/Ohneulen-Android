@@ -145,7 +145,7 @@
                 android:hint="회원님의 이야기는 많은 분들께 도움이 됩니다."
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
-                android:textColor="@color/colorCGrey"
+                android:textColor="@color/colorBlack"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
