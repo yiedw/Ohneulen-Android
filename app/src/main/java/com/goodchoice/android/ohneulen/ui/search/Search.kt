@@ -60,11 +60,6 @@ class Search : Fragment() {
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-    }
-
-    override fun onResume() {
-        super.onResume()
         //맵 (삭제, 추가)
         val searchMapFragment = SearchMap.newInstance()
         childFragmentManager.beginTransaction()
@@ -84,6 +79,11 @@ class Search : Fragment() {
             binding.searchStoreAmount.text = "매장 ${it.size}"
         })
         MainActivity.bottomNav.visibility = View.VISIBLE
+
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
 

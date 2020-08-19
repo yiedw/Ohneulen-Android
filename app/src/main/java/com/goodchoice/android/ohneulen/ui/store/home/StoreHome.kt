@@ -72,16 +72,6 @@ class StoreHome : Fragment() {
 
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        val view = requireParentFragment().requireView()
-//            .findViewById<StoreScrollView>(R.id.store_newScrollView)
-//        view.scrollY=0
-//        view.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-//            Timber.e(scrollY.toString())
-//        }
-//
-//    }
 
     private fun openDayGenerate(storeDetail: StoreDetail) {
         for (i in storeDetail.storeTime.open.indices) {

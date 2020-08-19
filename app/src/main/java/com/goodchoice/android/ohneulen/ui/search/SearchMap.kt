@@ -86,8 +86,10 @@ class SearchMap : Fragment(), OnMapReadyCallback {
         googleMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
         //길찾기 아이콘 안보이게하기
         googleMap.uiSettings.isMapToolbarEnabled = false
+        googleMap.uiSettings.isZoomGesturesEnabled=true
+        googleMap.uiSettings.isZoomControlsEnabled=true
         //모든 제스쳐 삭제
-        googleMap.uiSettings.setAllGesturesEnabled(false)
+//        googleMap.uiSettings.setAllGesturesEnabled(false)
 
         //현재위치기반
         getCurrentLocationCheck()
