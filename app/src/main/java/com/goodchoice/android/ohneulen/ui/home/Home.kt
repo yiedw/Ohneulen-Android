@@ -111,14 +111,14 @@ class Home() : Fragment(), OnBackPressedListener {
             return
         }
         mainViewModel.searchEditText = binding.homeEditText.text.toString()
+        mainViewModel.currentLocationSearch=false
         hideKeyboard(view, requireContext())
         MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
     }
 
     fun currentLocationClick(view: View) {
-//        mainViewModel.searchEditText = ConstList.CURRENT_LOCATION
-//        replaceAppbarFragment(SearchAppBar.newInstance())
-//        replaceMainFragment(Search.newInstance())
+        mainViewModel.currentLocationSearch=true
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
 
 
 

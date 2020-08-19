@@ -43,13 +43,13 @@ class SearchAppBar : Fragment() ,OnBackPressedListener{
             container,
             false
         )
-        if (mainViewModel.searchEditText != ConstList.CURRENT_LOCATION) {
-            if (mainViewModel.searchEditText.isBlank())
-                mainViewModel.searchEditText = "강남역"
-
+        if (!mainViewModel.currentLocationSearch) {
+            if(mainViewModel.searchEditText.isEmpty()){
+                mainViewModel.searchEditText="강남역"
+            }
             searchViewModel.searchEditText = mainViewModel.searchEditText
-            searchViewModel.searchMapData()
             binding.searchAppbarEt.setText(mainViewModel.searchEditText)
+            searchViewModel.searchMapData()
         }
         binding.fragment = this
         return binding.root

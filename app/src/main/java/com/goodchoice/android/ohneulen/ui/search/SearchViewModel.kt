@@ -72,7 +72,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     }
 
     fun getStoreSearchList() {
-        viewModelScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = networkService.requestStoreSearchList(
                     addry,
@@ -94,7 +94,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 
 
     fun searchMapData() {
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             val y: Double
             val x: Double
             val addressResponse = networkService.requestKakaoAddress(address = searchEditText)
@@ -114,6 +114,12 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
                 x = addressResponse.documents[0].x.toDouble()
             }
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(y, x))
+        }
+    }
+
+    fun currentLocationData(latitude: Double, longitude: Double) {
+        CoroutineScope(Dispatchers.IO).launch {
+            kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(latitude, longitude))
         }
     }
 

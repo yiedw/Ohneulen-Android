@@ -1,7 +1,7 @@
 package com.goodchoice.android.ohneulen.util.constant
 
 object ConstList {
-    const val CURRENT_LOCATION="-1"
+    const val CURRENT_LOCATION="@!#@!#%$"
 
     const val SEGMENT_STORE ="store"
     const val SEQ="code"

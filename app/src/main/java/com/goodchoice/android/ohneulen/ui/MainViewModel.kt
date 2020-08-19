@@ -15,6 +15,6 @@ class MainViewModel() : ViewModel() {
 
     // home -> search 로 data 이동
     var searchEditText = ""
-
+    var currentLocationSearch=false
 
 }

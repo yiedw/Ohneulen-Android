@@ -3,7 +3,11 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.LOCATION_SERVICE
 import android.graphics.Color
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +21,11 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.SearchMapBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
-import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -51,7 +55,9 @@ class SearchMap : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var currentLatLng: LatLng
     private lateinit var clusterManager: ClusterManager<ClusterItem>
+    private lateinit var locationManager: LocationManager
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,48 +79,39 @@ class SearchMap : Fragment(), OnMapReadyCallback {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        mapView.setOnTouchListener { _, _ -> true }
 
-//        mapView.setCurrentLocationEventListener(this)
 
+    }
+
+    override fun onMapReady(googleMap: GoogleMap?) {
+        googleMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        //길찾기 아이콘 안보이게하기
+        googleMap.uiSettings.isMapToolbarEnabled = false
+        //모든 제스쳐 삭제
+        googleMap.uiSettings.setAllGesturesEnabled(false)
 
         //현재위치기반
-        if (mainViewModel.searchEditText == ConstList.CURRENT_LOCATION) {
-            //퍼미션 리스너 생성
-            val permissionListener = object : PermissionListener {
-                //승인
-                override fun onPermissionGranted() {
-//                    mapView.currentLocationTrackingMode =
-//                        MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
-                    Timber.e("ASdfsdafsadf321")
-//                    val mapPoint:MapPoint=mapView.mapCenterPoint
-//                    searchViewModel.kakaoMapPoint.postValue(mapPoint)
-                }
+        getCurrentLocationCheck()
 
-                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    //거절
-                    Toast.makeText(requireContext(), "위치 정보를 확인할수 없습니다", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-            //권한확인
-            TedPermission.with(requireContext())
-                .setPermissionListener(permissionListener)
-                .setRationaleMessage("위치정보를 확인하기 위해서는 권한이 필요합니다")
-                .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
-                .check()
-        } else {
-            //트래킹모드 종료
-            if (TedPermission.isGranted(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            ) {
-//                mapView.currentLocationTrackingMode =
-//                    MapView.CurrentLocationTrackingMode.TrackingModeOff
-            }
-        }
+        clusterManagerSetting(googleMap)
 
+        //초기세팅 강남역
+//        val myLocation = LatLng(37.4980854357918, 127.028000275071)
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
+        //맵 포인트가 바뀌면 바로 반영
+        searchViewModel.kakaoMapPoint.observe(
+            viewLifecycleOwner, Observer { it ->
+                currentLatLng =
+                    LatLng(it.mapPointGeoCoord.latitude, it.mapPointGeoCoord.longitude)
+                val location =
+                    LatLng(it.mapPointGeoCoord.latitude, it.mapPointGeoCoord.longitude)
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+                circleSearch(it)
+            }
+        )
+        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+            addCluster(it, googleMap)
+        })
     }
 
     override fun onStart() {
@@ -187,67 +184,187 @@ class SearchMap : Fragment(), OnMapReadyCallback {
         searchViewModel.getStoreSearchList()
     }
 
-    override fun onMapReady(googleMap: GoogleMap?) {
-
+    private fun clusterManagerSetting(googleMap: GoogleMap) {
         //clusterManager setting
+
         clusterManager = ClusterManager(requireContext(), googleMap)
-        val clusterRenderer=object :DefaultClusterRenderer<ClusterItem>(requireContext(),googleMap,clusterManager){
-            val clusterIconGenerator=IconGenerator(requireContext())
+        val clusterRenderer = object :
+            DefaultClusterRenderer<ClusterItem>(requireContext(), googleMap, clusterManager) {
+            val clusterIconGenerator = IconGenerator(requireContext())
+
+            //마커 렌더링링
             override fun onBeforeClusterItemRendered(
                 item: ClusterItem,
                 markerOptions: MarkerOptions
             ) {
-                val layoutInflater:LayoutInflater=requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-                val markerView=layoutInflater.inflate(R.layout.search_marker,null)
-                markerView.findViewById<TextView>(R.id.search_marker_text).text="1"
+                val layoutInflater: LayoutInflater =
+                    requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
+                markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text = "1"
                 clusterIconGenerator.setContentView(markerView)
                 clusterIconGenerator.setBackground(null)
 
-                val icon=clusterIconGenerator.makeIcon()
-                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+                val icon = unSelectedBitmapIcon()
+                markerOptions.icon(icon)
             }
 
+            //클러스터 렌더링
             override fun onBeforeClusterRendered(
                 cluster: Cluster<ClusterItem>,
                 markerOptions: MarkerOptions
             ) {
-                val layoutInflater:LayoutInflater=requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-                val markerView=layoutInflater.inflate(R.layout.search_marker,null)
-                markerView.findViewById<TextView>(R.id.search_marker_text).text=cluster.size.toString()
-                clusterIconGenerator.setContentView(markerView)
-                clusterIconGenerator.setBackground(null)
-
-                val icon=clusterIconGenerator.makeIcon()
-                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+                val icon = unSelectedBitmapIcon(cluster)
+                markerOptions.icon(icon)
             }
 
         }
-        clusterManager.renderer=clusterRenderer
-
-        val myLocation = LatLng(37.4980854357918, 127.028000275071)
-        googleMap!!.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
-        //맵 포인트가 바뀌면 바로 반영
-        searchViewModel.kakaoMapPoint.observe(
-            viewLifecycleOwner, Observer { it ->
-                currentLatLng = LatLng(it.mapPointGeoCoord.latitude, it.mapPointGeoCoord.longitude)
-                if (TedPermission.isGranted(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                ) {
-//                    mapView.currentLocationTrackingMode =
-//                        MapView.CurrentLocationTrackingMode.TrackingModeOff
-                }
-                val location = LatLng(it.mapPointGeoCoord.latitude, it.mapPointGeoCoord.longitude)
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
-                circleSearch(it)
+        var selectedCluster: Cluster<ClusterItem>? = null
+        var selectedItem: ClusterItem? = null
+        //1개짜리클릭시
+        clusterManager.setOnClusterItemClickListener {
+            if (selectedItem != null) {
+                val lastMarker = clusterRenderer.getMarker(selectedItem)
+                lastMarker.setIcon(unSelectedBitmapIcon())
             }
-        )
-        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
-            addCluster(it, googleMap)
-        })
+            if (selectedCluster != null) {
+                val lastCluster = clusterRenderer.getMarker(selectedCluster)
+                lastCluster.setIcon(unSelectedBitmapIcon(selectedCluster))
+
+            }
+            selectedItem = it
+            val newMarker = clusterRenderer.getMarker(it)
+            newMarker.setIcon(selectedBitmapIcon())
+            true
+        }
+
+        //클러스터클릭시
+        clusterManager.setOnClusterClickListener {
+            if (selectedCluster != null) {
+                val lastCluster = clusterRenderer.getMarker(selectedCluster)
+                lastCluster.setIcon(unSelectedBitmapIcon(selectedCluster))
+
+            }
+            if (selectedItem != null) {
+                val lastMarker = clusterRenderer.getMarker(selectedItem)
+                lastMarker.setIcon(unSelectedBitmapIcon())
+            }
+            selectedCluster = it
+            val newCluster = clusterRenderer.getMarker(it)
+            newCluster.setIcon(selectedBitmapIcon(selectedCluster))
+            true
+        }
+
+        clusterManager.renderer = clusterRenderer
     }
 
+    private fun unSelectedBitmapIcon(cluster: Cluster<ClusterItem>? = null): BitmapDescriptor {
+        val clusterIconGenerator = IconGenerator(requireContext())
+        val layoutInflater: LayoutInflater =
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
+        if (cluster == null) {
+            markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text = "1"
+        } else {
+            markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text =
+                cluster.size.toString()
+        }
+        clusterIconGenerator.setContentView(markerView)
+        clusterIconGenerator.setBackground(null)
+        val icon = clusterIconGenerator.makeIcon()
+        return BitmapDescriptorFactory.fromBitmap(icon)
+    }
 
+    private fun selectedBitmapIcon(cluster: Cluster<ClusterItem>? = null): BitmapDescriptor {
+        val clusterIconGenerator = IconGenerator(requireContext())
+        val layoutInflater: LayoutInflater =
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val markerView = layoutInflater.inflate(R.layout.cluster_icon_selected, null)
+        if (cluster == null) {
+            markerView.findViewById<TextView>(R.id.cluster_icon_selected).text = "1"
+        } else {
+            markerView.findViewById<TextView>(R.id.cluster_icon_selected).text =
+                cluster.size.toString()
+        }
+        clusterIconGenerator.setContentView(markerView)
+        clusterIconGenerator.setBackground(null)
+        val icon = clusterIconGenerator.makeIcon()
+        return BitmapDescriptorFactory.fromBitmap(icon)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocationCheck() {
+        if (!mainViewModel.currentLocationSearch)
+            return
+        mainViewModel.currentLocationSearch = false
+        locationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
+        val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        if (!isGpsEnabled && !isNetworkEnabled) {
+            return
+        }
+        //퍼미션 리스너 생성
+        val permissionListener = object : PermissionListener {
+            //승인
+            override fun onPermissionGranted() {
+
+
+            }
+
+            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                //거절
+                Toast.makeText(requireContext(), "위치 정보를 확인할수 없습니다", Toast.LENGTH_SHORT)
+                    .show()
+                return
+            }
+        }
+        //권한확인
+        TedPermission.with(requireContext())
+            .setPermissionListener(permissionListener)
+            .setRationaleMessage("위치정보를 확인하기 위해서는 권한이 필요합니다")
+            .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
+            .check()
+        val MIN_DISTANCE_CHANGE_FOR_UPDATES = 10f;
+        val MIN_TIME_BW_UPDATES: Long = 1000 * 60 * 1;
+        val locationListener = object : LocationListener {
+            override fun onLocationChanged(location: Location?) {
+            }
+
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+            }
+
+            override fun onProviderEnabled(provider: String?) {
+            }
+
+            override fun onProviderDisabled(provider: String?) {
+            }
+        }
+
+        if (isNetworkEnabled) {
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                MIN_TIME_BW_UPDATES,
+                MIN_DISTANCE_CHANGE_FOR_UPDATES,
+                locationListener
+            )
+            val location =
+                locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            if (location != null) {
+                searchViewModel.currentLocationData(location.latitude, location.longitude)
+            }
+        } else if (isGpsEnabled) {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MIN_TIME_BW_UPDATES,
+                MIN_DISTANCE_CHANGE_FOR_UPDATES,
+                locationListener
+            )
+            val location =
+                locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            if (location != null) {
+                searchViewModel.currentLocationData(location.latitude, location.longitude)
+            }
+        }
+
+
+    }
 }
