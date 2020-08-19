@@ -46,6 +46,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/background_home_search"
                 android:hint="강남역 고기"
+                android:text="건대입구역"
                 android:textColorHint="#d7d7d7"
                 android:imeOptions="actionSearch"
                 android:inputType="text"

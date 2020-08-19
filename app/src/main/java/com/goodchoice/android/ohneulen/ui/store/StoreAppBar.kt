@@ -94,11 +94,12 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 
     fun backClick(view: View) {
         replaceAppbarFragment(SearchAppBar.newInstance())
-        MainActivity.supportFragmentManager.popBackStack()
-//        if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
-//            replaceMainFragment(Search.newInstance())
-//        } else {
-//        }
+        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
+        if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
+            replaceMainFragment(Search.newInstance())
+        } else {
+            MainActivity.supportFragmentManager.popBackStack()
+        }
     }
 
     fun likeClick(view: View) {

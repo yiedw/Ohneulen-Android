@@ -61,7 +61,6 @@ class SearchStoreAdapter :
 //                    storeItemImage.setImageResource(0)
 //                }
                 root.setOnClickListener {
-
                     StoreFragment.storeSeq = item.seq
                     replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
                     addMainFragment(StoreFragment.newInstance(), true)

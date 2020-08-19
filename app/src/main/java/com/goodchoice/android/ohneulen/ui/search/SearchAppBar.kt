@@ -21,7 +21,7 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class SearchAppBar : Fragment() ,OnBackPressedListener{
+class SearchAppBar : Fragment(), OnBackPressedListener {
 
     companion object {
         fun newInstance() = SearchAppBar()
@@ -44,8 +44,8 @@ class SearchAppBar : Fragment() ,OnBackPressedListener{
             false
         )
         if (!mainViewModel.currentLocationSearch) {
-            if(mainViewModel.searchEditText.isEmpty()){
-                mainViewModel.searchEditText="강남역"
+            if (mainViewModel.searchEditText.isEmpty()) {
+                mainViewModel.searchEditText = "강남역"
             }
             searchViewModel.searchEditText = mainViewModel.searchEditText
             binding.searchAppbarEt.setText(mainViewModel.searchEditText)
@@ -90,6 +90,7 @@ class SearchAppBar : Fragment() ,OnBackPressedListener{
     }
 
     fun submitClick(view: View) {
+        mainViewModel.searchEditText = binding.searchAppbarEt.text.toString()
         searchViewModel.searchEditText = binding.searchAppbarEt.text.toString()
         searchViewModel.searchMapData()
     }

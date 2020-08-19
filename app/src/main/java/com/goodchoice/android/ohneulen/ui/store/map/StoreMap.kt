@@ -15,19 +15,25 @@ import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMapBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
-import com.goodchoice.android.ohneulen.util.dp
-import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.CameraUpdate
-import com.naver.maps.map.NaverMap
-import com.naver.maps.map.OnMapReadyCallback
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.ui.IconGenerator
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class StoreMap : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: StoreMapBinding
-    private val storeViewModel: StoreViewModel by viewModel()
-    private lateinit var mapView: com.naver.maps.map.MapView
+    private val storeViewModel: StoreViewModel by inject()
+    private lateinit var mapView: MapView
+    private lateinit var currentLatLng: LatLng
 
 
     companion object {
@@ -47,7 +53,6 @@ class StoreMap : Fragment(), OnMapReadyCallback {
             false
         )
         mapView = binding.storeMapView
-
         val layoutParams = ConstraintLayout.LayoutParams(
             0,
             0
@@ -59,21 +64,45 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
 
         mapView.layoutParams = layoutParams
-//        mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync(this)
         binding.fragment = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+//        if (viewLifecycleOwnerLiveData.value != null) {
+        val it=storeViewModel.storeDetail.value!!
+//        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+            currentLatLng =
+                LatLng(it.storeInfo.store.addrY.toDouble(), it.storeInfo.store.addrX.toDouble())
             binding.storeMapAddressRoad.text = it.storeInfo.store.addrRoad1
             val addrOld =
                 "${it.storeInfo.store.addrDepth1} ${it.storeInfo.store.addrDepth2} ${it.storeInfo.store.addrDepth3}"
             binding.storeMapAddressOld.text = addrOld
-            mapView.getMapAsync(this)
-        })
+//        })
+//        }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap?) {
+        googleMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        googleMap.uiSettings.setAllGesturesEnabled(false)
+        //마커추가
+        addMarker(googleMap, currentLatLng)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng))
+    }
+
+    private fun addMarker(googleMap: GoogleMap, latLng: LatLng) {
+        val iconGenerator = IconGenerator(requireContext())
+        val markerView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.store_map_marker, null)
+        iconGenerator.setContentView(markerView)
+        iconGenerator.setBackground(null)
+        val markerOptions = MarkerOptions()
+        markerOptions.position(latLng)
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon()))
+        googleMap.addMarker(markerOptions)
     }
 
 
@@ -109,11 +138,6 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         mapView.onPause()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
-    }
-
     override fun onStop() {
         super.onStop()
         mapView.onStop()
@@ -129,12 +153,5 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         mapView.onLowMemory()
     }
 
-    override fun onMapReady(naverMap: NaverMap) {
-        val x = storeViewModel.storeDetail.value!!.storeInfo.store.addrX.toDouble()
-        val y = storeViewModel.storeDetail.value!!.storeInfo.store.addrY.toDouble()
-        val cameraUpdate = CameraUpdate.scrollTo(LatLng(y, x))
-        naverMap.moveCamera(CameraUpdate.zoomTo(17.0))
-        naverMap.moveCamera(cameraUpdate)
-    }
 
 }

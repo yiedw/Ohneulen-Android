@@ -40,7 +40,6 @@ import net.daum.mf.map.api.MapCircle
 import net.daum.mf.map.api.MapPoint
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class SearchMap : Fragment(), OnMapReadyCallback {
 
@@ -258,7 +257,7 @@ class SearchMap : Fragment(), OnMapReadyCallback {
     }
 
     private fun unSelectedBitmapIcon(cluster: Cluster<ClusterItem>? = null): BitmapDescriptor {
-        val clusterIconGenerator = IconGenerator(requireContext())
+        val iconGenerator = IconGenerator(requireContext())
         val layoutInflater: LayoutInflater =
             requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
@@ -268,14 +267,14 @@ class SearchMap : Fragment(), OnMapReadyCallback {
             markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text =
                 cluster.size.toString()
         }
-        clusterIconGenerator.setContentView(markerView)
-        clusterIconGenerator.setBackground(null)
-        val icon = clusterIconGenerator.makeIcon()
+        iconGenerator.setContentView(markerView)
+        iconGenerator.setBackground(null)
+        val icon = iconGenerator.makeIcon()
         return BitmapDescriptorFactory.fromBitmap(icon)
     }
 
     private fun selectedBitmapIcon(cluster: Cluster<ClusterItem>? = null): BitmapDescriptor {
-        val clusterIconGenerator = IconGenerator(requireContext())
+        val iconGenerator = IconGenerator(requireContext())
         val layoutInflater: LayoutInflater =
             requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val markerView = layoutInflater.inflate(R.layout.cluster_icon_selected, null)
@@ -285,9 +284,9 @@ class SearchMap : Fragment(), OnMapReadyCallback {
             markerView.findViewById<TextView>(R.id.cluster_icon_selected).text =
                 cluster.size.toString()
         }
-        clusterIconGenerator.setContentView(markerView)
-        clusterIconGenerator.setBackground(null)
-        val icon = clusterIconGenerator.makeIcon()
+        iconGenerator.setContentView(markerView)
+        iconGenerator.setBackground(null)
+        val icon = iconGenerator.makeIcon()
         return BitmapDescriptorFactory.fromBitmap(icon)
     }
 

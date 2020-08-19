@@ -79,21 +79,6 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        //데이터가 바뀔때마다
-//        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
-//            storeImage(it)
-//            hashTagGenerate(it)
-////            메뉴 없으면 메뉴탭 삭제
-//            if (it.menuList.isNullOrEmpty()) {
-//                viewPagerSettingNullMenu()
-//            } else {
-//                viewPagerSetting()
-//            }
-//
-//        })
-//
-//        stickyHeader()
-//        binding.storeNewScrollView.scrollTo(0, 0)
     }
 
     override fun onResume() {
