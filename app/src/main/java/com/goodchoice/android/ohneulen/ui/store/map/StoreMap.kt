@@ -72,17 +72,14 @@ class StoreMap : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        if (viewLifecycleOwnerLiveData.value != null) {
-        val it=storeViewModel.storeDetail.value!!
-//        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             currentLatLng =
                 LatLng(it.storeInfo.store.addrY.toDouble(), it.storeInfo.store.addrX.toDouble())
             binding.storeMapAddressRoad.text = it.storeInfo.store.addrRoad1
             val addrOld =
                 "${it.storeInfo.store.addrDepth1} ${it.storeInfo.store.addrDepth2} ${it.storeInfo.store.addrDepth3}"
             binding.storeMapAddressOld.text = addrOld
-//        })
-//        }
+        })
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {

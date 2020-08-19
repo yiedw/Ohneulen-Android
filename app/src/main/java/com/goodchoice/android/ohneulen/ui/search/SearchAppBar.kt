@@ -64,6 +64,7 @@ class SearchAppBar : Fragment(), OnBackPressedListener {
                     requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.searchAppbarEt.windowToken, 0)
                 mainViewModel.searchEditText = binding.searchAppbarEt.text.toString()
+                searchViewModel.searchEditText = binding.searchAppbarEt.text.toString()
                 searchViewModel.searchMapData()
             } else {
                 Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)

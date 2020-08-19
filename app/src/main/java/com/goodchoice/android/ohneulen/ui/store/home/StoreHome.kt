@@ -9,15 +9,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.get
 import androidx.core.view.marginStart
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.store.StoreScrollView
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
@@ -53,8 +56,6 @@ class StoreHome : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             //영업일 뷰 생성
             openDayGenerate(it)
@@ -66,10 +67,21 @@ class StoreHome : Fragment() {
             optionGenerate(it)
             //키워드 뷰 생성
             keywordsGenerate(it)
-
         })
 
+
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        val view = requireParentFragment().requireView()
+//            .findViewById<StoreScrollView>(R.id.store_newScrollView)
+//        view.scrollY=0
+//        view.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+//            Timber.e(scrollY.toString())
+//        }
+//
+//    }
 
     private fun openDayGenerate(storeDetail: StoreDetail) {
         for (i in storeDetail.storeTime.open.indices) {
@@ -242,17 +254,15 @@ class StoreHome : Fragment() {
             linearLayout.addView(tv)
             binding.storeHomeKeywords.addView(linearLayout)
         }
+
+
+
     }
 
 
     fun reportClick(view: View) {
-//        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         replaceAppbarFragment(StoreHomeReportAppBar.newInstance())
         popupFragment(StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.store.storeName))
-//        addMainFragment(
-//            StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.store.storeName),
-//            true
-//        )
     }
 
 }

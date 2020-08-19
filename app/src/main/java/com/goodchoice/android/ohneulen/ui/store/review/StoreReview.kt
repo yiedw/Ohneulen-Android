@@ -88,6 +88,10 @@ class StoreReview : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     @SuppressLint("SetTextI18n")
     private fun reviewCnt(storeDetail: StoreDetail) {
         val spannable = SpannableString("${storeDetail.reviewCnt}개")

@@ -35,6 +35,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -54,7 +55,6 @@ class StoreFragment : Fragment() {
 
     private lateinit var binding: StoreFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
-
 
 
     override fun onCreateView(
@@ -78,11 +78,7 @@ class StoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-    }
-
-    override fun onResume() {
-        super.onResume()
+        MainActivity.bottomNav.visibility = View.GONE
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
 //            메뉴 없으면 메뉴탭 삭제
@@ -93,13 +89,14 @@ class StoreFragment : Fragment() {
             }
             hashTagGenerate(it)
             storeImage(it)
-
         })
-
         stickyHeader()
-        binding.storeNewScrollView.scrollTo(0, 0)
 
-        MainActivity.bottomNav.visibility = View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
     override fun onDestroy() {
@@ -108,15 +105,15 @@ class StoreFragment : Fragment() {
     }
 
     //이미지 세팅(1장 or 여러장)
-    private fun storeImage(storeDetail: StoreDetail){
+    private fun storeImage(storeDetail: StoreDetail) {
         if (storeDetail.storeInfo.image.isEmpty()) {
             binding.storeFragmentOneImage.visibility = View.VISIBLE
-            binding.storeFragmentImageRv.visibility = View.INVISIBLE
+            binding.storeFragmentImageRv.visibility = View.GONE
         } else if (storeDetail.storeInfo.image.size == 1) {
             //이미지가 한개일때
             binding.storeFragmentOneImage.visibility = View.VISIBLE
-            binding.storeFragmentImageRv.visibility = View.INVISIBLE
-            Glide.with(requireContext())
+            binding.storeFragmentImageRv.visibility = View.GONE
+            Glide.with(binding.storeFragmentOneImage.context)
                 .load("${BaseUrl.Ohneulen}${storeDetail.storeInfo.image[0].photoURL}")
                 .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
                 .into(binding.storeFragmentOneImage)
@@ -126,7 +123,7 @@ class StoreFragment : Fragment() {
             binding.storeFragmentImageRv.visibility = View.VISIBLE
         }
         storeHeader(storeDetail)
-        binding.storeNewScrollView.scrollTo(0, 0)
+
     }
 
 
@@ -157,40 +154,6 @@ class StoreFragment : Fragment() {
         }
     }
 
-//    fun ViewPager2.setCurrentItem(
-//        item: Int,
-//        duration: Long,
-//        interpolator: TimeInterpolator = AccelerateDecelerateInterpolator(),
-//        pagePxWidth: Int = width // Default value taken from getWidth() from ViewPager2 view
-//    ) {
-//        val pxToDrag: Int = pagePxWidth * (item - currentItem)
-//        val animator = ValueAnimator.ofInt(0, pxToDrag)
-//        var previousValue = 0
-//        animator.addUpdateListener { valueAnimator ->
-//            val currentValue = valueAnimator.animatedValue as Int
-//            val currentPxToDrag = (currentValue - previousValue).toFloat()
-//            fakeDragBy(-currentPxToDrag)
-//            previousValue = currentValue
-//        }
-//        animator.addListener(object : Animator.AnimatorListener {
-//            override fun onAnimationStart(animation: Animator?) {
-//                beginFakeDrag()
-//            }
-//
-//            override fun onAnimationEnd(animation: Animator?) {
-//                endFakeDrag()
-//            }
-//
-//            override fun onAnimationCancel(animation: Animator?) { /* Ignored */
-//            }
-//
-//            override fun onAnimationRepeat(animation: Animator?) { /* Ignored */
-//            }
-//        })
-//        animator.interpolator = interpolator
-//        animator.duration = duration
-//        animator.start()
-//    }
 
     //viewPager setting
     private fun viewPagerSetting() {
@@ -199,36 +162,13 @@ class StoreFragment : Fragment() {
             getFragmentList(), childFragmentManager,
             lifecycle
         )
-        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
-
-
-        //애니메이션 삭제
-//        binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                tab?.position?.let {
-//                    binding.storeViewPager2.setCurrentItem(it, true)
-////                    binding.storeViewPager2.setCurrentItem(it, 200)
-//                }
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//            }
-//
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                tab?.position?.let {
-////                    binding.storeViewPager2.setCurrentItem(it, true)
-////                    binding.storeViewPager2.setCurrentItem(it, 200)
-//                }
-//            }
-//
-//        })
-
+        binding.storeViewPager2.offscreenPageLimit = 1
+//        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
         TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
-
 
         }.attach()
 //        Timber.e(binding.storeTab.tabCount.toString())
@@ -252,10 +192,8 @@ class StoreFragment : Fragment() {
                     view?.let {
                         if (position == 1) {
                             mapSetting()
-//                            binding.storeFragmentImageRv.visibility = View.VISIBLE
                         } else {
                             updatePagerHeightForChild(view, binding.storeViewPager2)
-//                            binding.storeFragmentImageRv.visibility = View.VISIBLE
 
                         }
                     }
@@ -277,7 +215,8 @@ class StoreFragment : Fragment() {
             getFragmentListNullMenu(), childFragmentManager,
             lifecycle
         )
-        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
+        binding.storeViewPager2.offscreenPageLimit = 1
+//        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
 
 
         //탭 연결
@@ -292,25 +231,6 @@ class StoreFragment : Fragment() {
                 R.color.white
             )
         )
-//        binding.storeTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//            }
-//
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//                val tabLayout: LinearLayout =
-//                    (binding.storeTab.getChildAt(0) as ViewGroup).getChildAt(tab.position) as LinearLayout
-//                val tabTextView = tabLayout.getChildAt(1) as TextView
-//                tabTextView.setTypeface(tabTextView.typeface, Typeface.BOLD)
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab) {
-//                val tabLayout: LinearLayout =
-//                    (binding.storeTab.getChildAt(0) as ViewGroup).getChildAt(tab.position) as LinearLayout
-//                val tabTextView = tabLayout.getChildAt(1) as TextView
-//                tabTextView.setTypeface(tabTextView.typeface, Typeface.NORMAL)
-//            }
-//
-//        })
 
         binding.storeViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
@@ -324,20 +244,10 @@ class StoreFragment : Fragment() {
                     view?.let {
                         if (position == 1) {
                             mapSetting()
-//                            binding.storeFragmentImageRv.visibility = View.VISIBLE
                         } else {
                             updatePagerHeightForChild(view, binding.storeViewPager2)
-//                            binding.storeFragmentImageRv.visibility = View.VISIBLE
-
                         }
                     }
-
-                    binding.storeNewScrollView.scrollTo(0, 0)
-//                    binding.storeTab.getTabAt(position).text
-//                    stickyHeader()
-//                    if (position == 1) {
-//                    }
-//                    binding.storeNewScrollView.invalidate()
                 }
 
             }
@@ -401,10 +311,10 @@ class StoreFragment : Fragment() {
         binding.storeFragmentHashTag.removeAllViews()
         for (i in storeDetail.hashtagList) {
             val tv = TextView(requireContext())
-            tv.height=25.dp()
+            tv.height = 25.dp()
             tv.text = i.keyword
-            tv.gravity=Gravity.CENTER
-            tv.setPadding(13.dp(),0,13.dp(),0)
+            tv.gravity = Gravity.CENTER
+            tv.setPadding(13.dp(), 0, 13.dp(), 0)
             tv.setTextColor(requireContext().getColor(R.color.colorOhneulen))
             tv.background =
                 requireContext().getDrawable(R.drawable.background_border_rounding_ohneulen)

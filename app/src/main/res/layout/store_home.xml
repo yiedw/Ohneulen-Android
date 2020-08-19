@@ -195,6 +195,7 @@
 
 
         <TextView
+            android:id="@+id/store_home_contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
