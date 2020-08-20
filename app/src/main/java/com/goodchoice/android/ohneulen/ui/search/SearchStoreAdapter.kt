@@ -31,13 +31,14 @@ class SearchStoreAdapter :
     ListAdapter<Store, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
 
+    lateinit var parentView:RecyclerView
+
     inner class SearchStoreViewHolder(private val binding: StoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: Store) {
             binding.apply {
                 store = item
-//                Timber.e(item.photoURL+"asdfsadf")
                 storeItemLike.isSelected=item.likes
                 storeItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
@@ -50,17 +51,10 @@ class SearchStoreAdapter :
                         storeItemLike.isSelected = !storeItem.isSelected
 
                 }
-//                if(storeIt)
-//                    storeItemBusinessTime.text =
-//                        "${item.opentime.starttime} ~ ${item.opentime.endtime}"
 
-//                if (!item.image.isNullOrEmpty()) {
-//                    Glide.with(root).load("${BaseUrl.Ohneulen}${item.image[0].photoURL}")
-//                        .centerCrop().into(storeItemImage)
-//                } else {
-//                    storeItemImage.setImageResource(0)
-//                }
                 root.setOnClickListener {
+                    parentView.isEnabled=false
+//                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
                     replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
                     addMainFragment(StoreFragment.newInstance(), true)
