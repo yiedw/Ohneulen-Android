@@ -13,6 +13,7 @@ import net.daum.mf.map.api.MapPoint
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
+import kotlin.system.measureNanoTime
 
 class SearchViewModel(private val networkService: NetworkService, initData: InitData) :
     ViewModel() {
@@ -58,19 +59,6 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var timeDay = initData.timeDay
 
 
-    fun getStoreList() {
-        cate.clear()
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response = networkService.requestTempStoreSearchList(cate)
-                searchStoreList.postValue(response.resultData)
-
-            } catch (e: Throwable) {
-                Timber.e(e.toString())
-            }
-        }
-    }
-
     fun getStoreSearchList() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -82,9 +70,8 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
                     openTime,
                     sort
                 )
-//                Timber.e(addry.toString()+",y")
-//                Timber.e(addrx.toString()+",x")
                 searchStoreList.postValue(response.resultData)
+
 
             } catch (e: Throwable) {
                 Timber.e(e.toString())
@@ -114,12 +101,14 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
                 x = addressResponse.documents[0].x.toDouble()
             }
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(y, x))
+//            kakaoMapPoint = MutableLiveData<MapPoint>()
         }
     }
 
     fun currentLocationData(latitude: Double, longitude: Double) {
         CoroutineScope(Dispatchers.IO).launch {
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(latitude, longitude))
+//            kakaoMapPoint = MutableLiveData<MapPoint>()
         }
     }
 

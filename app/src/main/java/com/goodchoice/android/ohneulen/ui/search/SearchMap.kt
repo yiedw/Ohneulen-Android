@@ -21,42 +21,34 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.SearchMapBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.maps.android.clustering.Cluster
-import com.google.maps.android.clustering.ClusterItem
-import com.google.maps.android.clustering.ClusterManager
-import com.google.maps.android.clustering.view.DefaultClusterRenderer
-import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import net.daum.mf.map.api.CameraUpdateFactory
 import net.daum.mf.map.api.MapCircle
 import net.daum.mf.map.api.MapPoint
+import net.daum.mf.map.api.MapView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import kotlin.system.measureNanoTime
+import kotlin.time.TimedValue
 
-class SearchMap : Fragment(), OnMapReadyCallback {
+class SearchMap : Fragment() {
 
     companion object {
         fun newInstance() = SearchMap()
     }
 
+    private val mapView by lazy {
+        MapView(requireContext())
+    }
+    private lateinit var mapViewContainer: ViewGroup
     private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
 
-    private lateinit var binding: SearchMapBinding
-    private lateinit var mapView: MapView
-    private lateinit var currentLatLng: LatLng
-    private lateinit var clusterManager: ClusterManager<ClusterItem>
     private lateinit var locationManager: LocationManager
+    private lateinit var binding: SearchMapBinding
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -68,105 +60,82 @@ class SearchMap : Fragment(), OnMapReadyCallback {
             container,
             false
         )
-        mapView = binding.searchMapMapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)
+        mapView.setZoomLevel(2, false)
+        mapViewContainer = binding.searchMapMapContainer
+        mapViewContainer.addView(mapView)
+        getCurrentLocationCheck()
         return binding.root
 
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
-    override fun onMapReady(googleMap: GoogleMap?) {
-        googleMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
-        //길찾기 아이콘 안보이게하기
-        googleMap.uiSettings.isMapToolbarEnabled = false
-        googleMap.uiSettings.isZoomGesturesEnabled=true
-        googleMap.uiSettings.isZoomControlsEnabled=true
-        //모든 제스쳐 삭제
-//        googleMap.uiSettings.setAllGesturesEnabled(false)
-
-        //현재위치기반
-        getCurrentLocationCheck()
-
-        clusterManagerSetting(googleMap)
-
         //초기세팅 강남역
 //        val myLocation = LatLng(37.4980854357918, 127.028000275071)
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
-        //맵 포인트가 바뀌면 바로 반영
-        searchViewModel.kakaoMapPoint.observe(
-            viewLifecycleOwner, Observer { it ->
-                currentLatLng =
-                    LatLng(it.mapPointGeoCoord.latitude, it.mapPointGeoCoord.longitude)
-                val location =
-                    LatLng(it.mapPointGeoCoord.latitude, it.mapPointGeoCoord.longitude)
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
-                circleSearch(it)
-            }
-        )
-        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
-            addCluster(it, googleMap)
-        })
+
     }
+
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        //맵 포인트가 바뀌면 바로 반영
+        searchViewModel.kakaoMapPoint.observe(
+            viewLifecycleOwner, Observer { it ->
+                Timber.e(it.mapPointGeoCoord.latitude.toString())
+                mapView.moveCamera(CameraUpdateFactory.newMapPoint(it))
+                circleSearch(it)
+            }
+        )
+        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+            Timber.e(it.size.toString())
+//            addCluster(it, googleMap)
+        })
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+//        mapView.onPause()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
     }
 
 
-    private fun addCluster(storeList: List<Store>, googleMap: GoogleMap) {
-        clusterManager.clearItems()
-        for (i in storeList.indices) {
-            val clusterItem = object : ClusterItem {
-                override fun getSnippet(): String? {
-                    return null
-                }
-
-                override fun getTitle(): String? {
-                    return null
-                }
-
-                override fun getPosition(): LatLng {
-                    return LatLng(storeList[i].addrY.toDouble(), storeList[i].addrX.toDouble())
-                }
-            }
-            clusterManager.addItem(clusterItem)
-        }
-
-        clusterManager.cluster()
-    }
+//    private fun addCluster(storeList: List<Store>, googleMap: GoogleMap) {
+//        clusterManager.clearItems()
+//        for (i in storeList.indices) {
+//            val clusterItem = object : ClusterItem {
+//                override fun getSnippet(): String? {
+//                    return null
+//                }
+//
+//                override fun getTitle(): String? {
+//                    return null
+//                }
+//
+//                override fun getPosition(): LatLng {
+//                    return LatLng(storeList[i].addrY.toDouble(), storeList[i].addrX.toDouble())
+//                }
+//            }
+//            clusterManager.addItem(clusterItem)
+//        }
+//
+//        clusterManager.cluster()
+//    }
 
     private fun circleSearch(mapPoint: MapPoint) {
         searchViewModel.addry.clear()
@@ -185,112 +154,112 @@ class SearchMap : Fragment(), OnMapReadyCallback {
         searchViewModel.getStoreSearchList()
     }
 
-    private fun clusterManagerSetting(googleMap: GoogleMap) {
-        //clusterManager setting
+//    private fun clusterManagerSetting(googleMap: GoogleMap) {
+//        //clusterManager setting
+//
+//        clusterManager = ClusterManager(requireContext(), googleMap)
+//        val clusterRenderer = object :
+//            DefaultClusterRenderer<ClusterItem>(requireContext(), googleMap, clusterManager) {
+//            val clusterIconGenerator = IconGenerator(requireContext())
+//
+//            //마커 렌더링링
+//            override fun onBeforeClusterItemRendered(
+//                item: ClusterItem,
+//                markerOptions: MarkerOptions
+//            ) {
+//                val layoutInflater: LayoutInflater =
+//                    requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//                val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
+//                markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text = "1"
+//                clusterIconGenerator.setContentView(markerView)
+//                clusterIconGenerator.setBackground(null)
+//
+//                val icon = unSelectedBitmapIcon()
+//                markerOptions.icon(icon)
+//            }
+//
+//            //클러스터 렌더링
+//            override fun onBeforeClusterRendered(
+//                cluster: Cluster<ClusterItem>,
+//                markerOptions: MarkerOptions
+//            ) {
+//                val icon = unSelectedBitmapIcon(cluster)
+//                markerOptions.icon(icon)
+//            }
+//
+//        }
+//        var selectedCluster: Cluster<ClusterItem>? = null
+//        var selectedItem: ClusterItem? = null
+//        //1개짜리클릭시
+//        clusterManager.setOnClusterItemClickListener {
+//            if (selectedItem != null) {
+//                val lastMarker = clusterRenderer.getMarker(selectedItem)
+//                lastMarker.setIcon(unSelectedBitmapIcon())
+//            }
+//            if (selectedCluster != null) {
+//                val lastCluster = clusterRenderer.getMarker(selectedCluster)
+//                lastCluster.setIcon(unSelectedBitmapIcon(selectedCluster))
+//
+//            }
+//            selectedItem = it
+//            val newMarker = clusterRenderer.getMarker(it)
+//            newMarker.setIcon(selectedBitmapIcon())
+//            true
+//        }
+//
+//        //클러스터클릭시
+//        clusterManager.setOnClusterClickListener {
+//            if (selectedCluster != null) {
+//                val lastCluster = clusterRenderer.getMarker(selectedCluster)
+//                lastCluster.setIcon(unSelectedBitmapIcon(selectedCluster))
+//
+//            }
+//            if (selectedItem != null) {
+//                val lastMarker = clusterRenderer.getMarker(selectedItem)
+//                lastMarker.setIcon(unSelectedBitmapIcon())
+//            }
+//            selectedCluster = it
+//            val newCluster = clusterRenderer.getMarker(it)
+//            newCluster.setIcon(selectedBitmapIcon(selectedCluster))
+//            true
+//        }
+//
+//        clusterManager.renderer = clusterRenderer
+//    }
 
-        clusterManager = ClusterManager(requireContext(), googleMap)
-        val clusterRenderer = object :
-            DefaultClusterRenderer<ClusterItem>(requireContext(), googleMap, clusterManager) {
-            val clusterIconGenerator = IconGenerator(requireContext())
-
-            //마커 렌더링링
-            override fun onBeforeClusterItemRendered(
-                item: ClusterItem,
-                markerOptions: MarkerOptions
-            ) {
-                val layoutInflater: LayoutInflater =
-                    requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-                val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
-                markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text = "1"
-                clusterIconGenerator.setContentView(markerView)
-                clusterIconGenerator.setBackground(null)
-
-                val icon = unSelectedBitmapIcon()
-                markerOptions.icon(icon)
-            }
-
-            //클러스터 렌더링
-            override fun onBeforeClusterRendered(
-                cluster: Cluster<ClusterItem>,
-                markerOptions: MarkerOptions
-            ) {
-                val icon = unSelectedBitmapIcon(cluster)
-                markerOptions.icon(icon)
-            }
-
-        }
-        var selectedCluster: Cluster<ClusterItem>? = null
-        var selectedItem: ClusterItem? = null
-        //1개짜리클릭시
-        clusterManager.setOnClusterItemClickListener {
-            if (selectedItem != null) {
-                val lastMarker = clusterRenderer.getMarker(selectedItem)
-                lastMarker.setIcon(unSelectedBitmapIcon())
-            }
-            if (selectedCluster != null) {
-                val lastCluster = clusterRenderer.getMarker(selectedCluster)
-                lastCluster.setIcon(unSelectedBitmapIcon(selectedCluster))
-
-            }
-            selectedItem = it
-            val newMarker = clusterRenderer.getMarker(it)
-            newMarker.setIcon(selectedBitmapIcon())
-            true
-        }
-
-        //클러스터클릭시
-        clusterManager.setOnClusterClickListener {
-            if (selectedCluster != null) {
-                val lastCluster = clusterRenderer.getMarker(selectedCluster)
-                lastCluster.setIcon(unSelectedBitmapIcon(selectedCluster))
-
-            }
-            if (selectedItem != null) {
-                val lastMarker = clusterRenderer.getMarker(selectedItem)
-                lastMarker.setIcon(unSelectedBitmapIcon())
-            }
-            selectedCluster = it
-            val newCluster = clusterRenderer.getMarker(it)
-            newCluster.setIcon(selectedBitmapIcon(selectedCluster))
-            true
-        }
-
-        clusterManager.renderer = clusterRenderer
-    }
-
-    private fun unSelectedBitmapIcon(cluster: Cluster<ClusterItem>? = null): BitmapDescriptor {
-        val iconGenerator = IconGenerator(requireContext())
-        val layoutInflater: LayoutInflater =
-            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
-        if (cluster == null) {
-            markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text = "1"
-        } else {
-            markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text =
-                cluster.size.toString()
-        }
-        iconGenerator.setContentView(markerView)
-        iconGenerator.setBackground(null)
-        val icon = iconGenerator.makeIcon()
-        return BitmapDescriptorFactory.fromBitmap(icon)
-    }
-
-    private fun selectedBitmapIcon(cluster: Cluster<ClusterItem>? = null): BitmapDescriptor {
-        val iconGenerator = IconGenerator(requireContext())
-        val layoutInflater: LayoutInflater =
-            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val markerView = layoutInflater.inflate(R.layout.cluster_icon_selected, null)
-        if (cluster == null) {
-            markerView.findViewById<TextView>(R.id.cluster_icon_selected).text = "1"
-        } else {
-            markerView.findViewById<TextView>(R.id.cluster_icon_selected).text =
-                cluster.size.toString()
-        }
-        iconGenerator.setContentView(markerView)
-        iconGenerator.setBackground(null)
-        val icon = iconGenerator.makeIcon()
-        return BitmapDescriptorFactory.fromBitmap(icon)
-    }
+//    private fun unSelectedBitmapIcon(cluster: Cluster<ClusterItem>? = null): BitmapDescriptor {
+//        val iconGenerator = IconGenerator(requireContext())
+//        val layoutInflater: LayoutInflater =
+//            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//        val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
+//        if (cluster == null) {
+//            markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text = "1"
+//        } else {
+//            markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text =
+//                cluster.size.toString()
+//        }
+//        iconGenerator.setContentView(markerView)
+//        iconGenerator.setBackground(null)
+//        val icon = iconGenerator.makeIcon()
+//        return BitmapDescriptorFactory.fromBitmap(icon)
+//    }
+//
+//    private fun selectedBitmapIcon(cluster: Cluster<ClusterItem>? = null): BitmapDescriptor {
+//        val iconGenerator = IconGenerator(requireContext())
+//        val layoutInflater: LayoutInflater =
+//            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//        val markerView = layoutInflater.inflate(R.layout.cluster_icon_selected, null)
+//        if (cluster == null) {
+//            markerView.findViewById<TextView>(R.id.cluster_icon_selected).text = "1"
+//        } else {
+//            markerView.findViewById<TextView>(R.id.cluster_icon_selected).text =
+//                cluster.size.toString()
+//        }
+//        iconGenerator.setContentView(markerView)
+//        iconGenerator.setBackground(null)
+//        val icon = iconGenerator.makeIcon()
+//        return BitmapDescriptorFactory.fromBitmap(icon)
+//    }
 
     @SuppressLint("MissingPermission")
     private fun getCurrentLocationCheck() {
@@ -307,7 +276,47 @@ class SearchMap : Fragment(), OnMapReadyCallback {
         val permissionListener = object : PermissionListener {
             //승인
             override fun onPermissionGranted() {
+                val MIN_DISTANCE_CHANGE_FOR_UPDATES = 10f;
+                val MIN_TIME_BW_UPDATES: Long = 1000 * 60 * 1;
+                val locationListener = object : LocationListener {
+                    override fun onLocationChanged(location: Location?) {
+                    }
 
+                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+                    }
+
+                    override fun onProviderEnabled(provider: String?) {
+                    }
+
+                    override fun onProviderDisabled(provider: String?) {
+                    }
+                }
+
+                if (isNetworkEnabled) {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.NETWORK_PROVIDER,
+                        MIN_TIME_BW_UPDATES,
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES,
+                        locationListener
+                    )
+                    val location =
+                        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    if (location != null) {
+                        searchViewModel.currentLocationData(location.latitude, location.longitude)
+                    }
+                } else if (isGpsEnabled) {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        MIN_TIME_BW_UPDATES,
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES,
+                        locationListener
+                    )
+                    val location =
+                        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    if (location != null) {
+                        searchViewModel.currentLocationData(location.latitude, location.longitude)
+                    }
+                }
 
             }
 
@@ -324,47 +333,6 @@ class SearchMap : Fragment(), OnMapReadyCallback {
             .setRationaleMessage("위치정보를 확인하기 위해서는 권한이 필요합니다")
             .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
             .check()
-        val MIN_DISTANCE_CHANGE_FOR_UPDATES = 10f;
-        val MIN_TIME_BW_UPDATES: Long = 1000 * 60 * 1;
-        val locationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location?) {
-            }
-
-            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            }
-
-            override fun onProviderEnabled(provider: String?) {
-            }
-
-            override fun onProviderDisabled(provider: String?) {
-            }
-        }
-
-        if (isNetworkEnabled) {
-            locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER,
-                MIN_TIME_BW_UPDATES,
-                MIN_DISTANCE_CHANGE_FOR_UPDATES,
-                locationListener
-            )
-            val location =
-                locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            if (location != null) {
-                searchViewModel.currentLocationData(location.latitude, location.longitude)
-            }
-        } else if (isGpsEnabled) {
-            locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                MIN_TIME_BW_UPDATES,
-                MIN_DISTANCE_CHANGE_FOR_UPDATES,
-                locationListener
-            )
-            val location =
-                locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            if (location != null) {
-                searchViewModel.currentLocationData(location.latitude, location.longitude)
-            }
-        }
 
 
     }

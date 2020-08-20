@@ -1,7 +1,12 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -20,7 +26,16 @@ import com.goodchoice.android.ohneulen.databinding.SearchBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
+import net.daum.mf.map.api.CameraUpdateFactory
+import net.daum.mf.map.api.MapCircle
+import net.daum.mf.map.api.MapPoint
+import net.daum.mf.map.api.MapView
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.java.KoinJavaComponent.inject
+import timber.log.Timber
 
 class Search : Fragment() {
 
@@ -30,8 +45,14 @@ class Search : Fragment() {
 
     private var switchOn = false
     private lateinit var binding: SearchBinding
-    private val searchViewModel: SearchViewModel by viewModel()
+    private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
+
+    private val mapView by lazy{
+        MapView(requireContext())
+    }
+    private lateinit var mapViewContainer: ViewGroup
+    private lateinit var locationManager:LocationManager
 
 
     override fun onCreateView(
@@ -49,21 +70,21 @@ class Search : Fragment() {
 
         //바인딩
         binding.apply {
-            lifecycleOwner = this@Search
+            lifecycleOwner = viewLifecycleOwner
             binding.fragment = this@Search
             viewModel = searchViewModel
         }
-        binding
+        mapViewContainer=binding.searchMap
+        mapView.setZoomLevel(2, false)
+        mapViewContainer.addView(mapView)
+        getCurrentLocationCheck()
         return binding.root
     }
 
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //맵 (삭제, 추가)
-        val searchMapFragment = SearchMap.newInstance()
-        childFragmentManager.beginTransaction()
-            .replace(R.id.search_map, searchMapFragment).commit()
+
 
         //검색어 없을시 토스트 띄우기
         searchViewModel.toastMessage.observe(
@@ -74,9 +95,18 @@ class Search : Fragment() {
                 }
             }
         )
+        searchViewModel.kakaoMapPoint.observe(
+            viewLifecycleOwner, Observer { it ->
+                mapView.moveCamera(CameraUpdateFactory.newMapPoint(it))
+                circleSearch(it)
+            }
+        )
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
             binding.searchStoreAmount.text = "매장 ${it.size}"
+            if(it.isEmpty()){
+                Toast.makeText(requireContext(),"검색결과가 없습니다",Toast.LENGTH_SHORT).show()
+            }
         })
         MainActivity.bottomNav.visibility = View.VISIBLE
 
@@ -96,6 +126,98 @@ class Search : Fragment() {
             Glide.with(requireContext()).load(R.drawable.close).into(binding.searchSwitch)
         }
         switchOn = !switchOn
+    }
+    private fun circleSearch(mapPoint: MapPoint) {
+        searchViewModel.addry.clear()
+        searchViewModel.addrx.clear()
+        val mapCircle = MapCircle(
+            mapPoint,
+            300,
+            Color.argb(128, 255, 0, 0),
+            Color.argb(128, 255, 255, 0)
+        )
+        val mapPointBounds = mapCircle.bound
+        searchViewModel.addry.add(mapPointBounds.bottomLeft.mapPointGeoCoord.latitude)
+        searchViewModel.addry.add(mapPointBounds.topRight.mapPointGeoCoord.latitude)
+        searchViewModel.addrx.add(mapPointBounds.bottomLeft.mapPointGeoCoord.longitude)
+        searchViewModel.addrx.add(mapPointBounds.topRight.mapPointGeoCoord.longitude)
+        searchViewModel.getStoreSearchList()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocationCheck() {
+        if (!mainViewModel.currentLocationSearch)
+            return
+        mainViewModel.currentLocationSearch = false
+        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        if (!isGpsEnabled && !isNetworkEnabled) {
+            return
+        }
+        //퍼미션 리스너 생성
+        val permissionListener = object : PermissionListener {
+            //승인
+            override fun onPermissionGranted() {
+                val MIN_DISTANCE_CHANGE_FOR_UPDATES = 10f;
+                val MIN_TIME_BW_UPDATES: Long = 1000 * 60 * 1;
+                val locationListener = object : LocationListener {
+                    override fun onLocationChanged(location: Location?) {
+                    }
+
+                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+                    }
+
+                    override fun onProviderEnabled(provider: String?) {
+                    }
+
+                    override fun onProviderDisabled(provider: String?) {
+                    }
+                }
+
+                if (isNetworkEnabled) {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.NETWORK_PROVIDER,
+                        MIN_TIME_BW_UPDATES,
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES,
+                        locationListener
+                    )
+                    val location =
+                        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    if (location != null) {
+                        searchViewModel.currentLocationData(location.latitude, location.longitude)
+                    }
+                } else if (isGpsEnabled) {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        MIN_TIME_BW_UPDATES,
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES,
+                        locationListener
+                    )
+                    val location =
+                        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    if (location != null) {
+                        searchViewModel.currentLocationData(location.latitude, location.longitude)
+                    }
+                }
+
+            }
+
+            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                //거절
+                Toast.makeText(requireContext(), "위치 정보를 확인할수 없습니다", Toast.LENGTH_SHORT)
+                    .show()
+                return
+            }
+        }
+        //권한확인
+        TedPermission.with(requireContext())
+            .setPermissionListener(permissionListener)
+            .setRationaleMessage("위치정보를 확인하기 위해서는 권한이 필요합니다")
+            .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
+            .check()
+
+
     }
 
 

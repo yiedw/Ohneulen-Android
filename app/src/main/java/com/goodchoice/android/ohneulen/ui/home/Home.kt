@@ -15,17 +15,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.databinding.HomeBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
-import com.goodchoice.android.ohneulen.ui.search.Search
-import com.goodchoice.android.ohneulen.ui.search.SearchFilter
-import com.goodchoice.android.ohneulen.ui.search.SearchFilterAppbar
+import com.goodchoice.android.ohneulen.ui.search.*
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,6 +36,7 @@ class Home() : Fragment(), OnBackPressedListener {
     }
 
     private val mainViewModel: MainViewModel by viewModel()
+    private val searchViewModel:SearchViewModel by viewModel()
     private lateinit var binding: HomeBinding
 
     private val FINISH_TIME: Long = 3000
@@ -57,6 +57,8 @@ class Home() : Fragment(), OnBackPressedListener {
             false
         )
         binding.fragment = this
+        searchViewModel.kakaoMapPoint= MutableLiveData()
+        searchViewModel.searchStoreList=MutableLiveData()
 //        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
         return binding.root
     }
