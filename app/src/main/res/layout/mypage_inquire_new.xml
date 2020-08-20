@@ -8,10 +8,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mypage_inquire_new"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorHeader"
-        android:id="@+id/mypage_inquire_new">
+        android:background="@color/colorHeader">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,13 +25,13 @@
             tools:layout_editor_absoluteX="16dp">
 
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/mypage_inquire_new_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="분류"
                 android:textColor="@color/colorTextBlack"
                 android:textSize="@dimen/main_contents"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,13 +56,14 @@
                 app:layout_constraintTop_toTopOf="@id/mypage_inquire_new_spinner" />
 
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/mypage_inquire_new_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="제목"
                 android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_spinner" />
 
@@ -105,13 +106,14 @@
                 app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_title" />
 
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/mypage_inquire_new_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="내용"
                 android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_et1" />
 
@@ -173,9 +175,9 @@
             android:background="@color/colorGreen"
             android:stateListAnimator="@null"
             android:text="작성완료"
-            android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="@dimen/main_contents"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 

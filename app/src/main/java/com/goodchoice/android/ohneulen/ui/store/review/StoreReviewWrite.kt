@@ -39,7 +39,7 @@ class StoreReviewWrite : Fragment() {
     private var selectedUriList: MutableList<Uri>? = null
     private val storeViewMode: StoreViewModel by viewModel()
 
-    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
+//    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onResume() {
         super.onResume()
@@ -107,7 +107,7 @@ class StoreReviewWrite : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         MainActivity.bottomNav.visibility = View.VISIBLE
-        keyboardVisibilityUtils.detachKeyboardListeners()
+//        keyboardVisibilityUtils.detachKeyboardListeners()
     }
 
     fun imageAdd(view: View) {

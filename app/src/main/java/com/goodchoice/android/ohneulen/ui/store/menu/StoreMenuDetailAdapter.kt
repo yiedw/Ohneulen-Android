@@ -13,6 +13,7 @@ import com.goodchoice.android.ohneulen.data.model.Photo
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.databinding.StoreMenuDetailItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.comma
 import timber.log.Timber
 
 class StoreMenuDetailAdapter() :
@@ -26,6 +27,8 @@ class StoreMenuDetailAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(menuItem: StoreMenu) {
             binding.apply {
+                val price="${comma(menuItem.price.toInt())} 원"
+                binding.storeMenuDetailPrice.text=price
                 menu = menuItem
             }
         }

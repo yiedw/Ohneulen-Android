@@ -116,7 +116,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#f6f6f6"/>
+                    android:background="#e5e5e5"/>
 
 
                 <TextView
@@ -164,6 +164,11 @@
                     android:textColor="@color/colorTextBlack"
                     android:textSize="@dimen/main_contents"
                     android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e5e5e5"/>
 
 
                 <TextView
