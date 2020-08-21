@@ -68,8 +68,10 @@ class StoreHome : Fragment() {
             //키워드 뷰 생성
             keywordsGenerate(it)
         })
+    }
 
-
+    override fun onResume() {
+        super.onResume()
     }
 
 

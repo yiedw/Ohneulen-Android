@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -32,14 +33,15 @@ import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
     companion object {
         fun newInstance() = StoreFragment()
         var storeSeq: String = ""
-//        lateinit var store: Store
 
+        //        lateinit var store: Store
         // 각 fragment
         // 0 -> home
         // 1 -> map
@@ -48,6 +50,8 @@ class StoreFragment : Fragment() {
         var state = 0
 
     }
+
+    private var first = false
 
     private lateinit var binding: StoreFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
@@ -88,10 +92,23 @@ class StoreFragment : Fragment() {
         })
         stickyHeader()
 
+        binding.storeNewScrollView.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            Timber.e("newScrollView")
+            Timber.e(scrollY.toString()+"asdf")
+            Timber.e(binding.storeViewPager2[0].scrollY.toString())
+            Timber.e(binding.storeViewPager2.scrollY.toString())
+            Timber.e(first.toString())
+            if (!first) {
+                first = !first
+                binding.storeNewScrollView.smoothScrollTo(0, 0)
+            }
+        }
+
     }
 
     override fun onResume() {
         super.onResume()
+
 
     }
 
@@ -158,7 +175,7 @@ class StoreFragment : Fragment() {
             getFragmentList(), childFragmentManager,
             lifecycle
         )
-        binding.storeViewPager2.offscreenPageLimit = 1
+        binding.storeViewPager2.offscreenPageLimit = 2
 //        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
 
         //탭 연결
@@ -189,6 +206,7 @@ class StoreFragment : Fragment() {
                         if (position == 1) {
                             mapSetting()
                         } else {
+                            //viewPager 크기조절
                             updatePagerHeightForChild(view, binding.storeViewPager2)
 
                         }
@@ -211,8 +229,8 @@ class StoreFragment : Fragment() {
             getFragmentListNullMenu(), childFragmentManager,
             lifecycle
         )
-        binding.storeViewPager2.offscreenPageLimit = 1
-//        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
+//        binding.storeViewPager2.offscreenPageLimit = 1
+        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
 
 
         //탭 연결
@@ -241,7 +259,9 @@ class StoreFragment : Fragment() {
                         if (position == 1) {
                             mapSetting()
                         } else {
+                            //viewPager 크기조절
                             updatePagerHeightForChild(view, binding.storeViewPager2)
+//                            (binding.storeViewPager2.adapter as StorePagerAdapter).notifyDataSetChanged()
                         }
                     }
                 }
@@ -251,6 +271,7 @@ class StoreFragment : Fragment() {
     }
 
     //viewPager2 크기조절
+    //탭 스크롤마다 크기 다르게 주기
     private fun updatePagerHeightForChild(view: View, pager: ViewPager2) {
         view.post {
             val wMeasureSpec =

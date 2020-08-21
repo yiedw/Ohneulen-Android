@@ -15,6 +15,7 @@ class StorePagerAdapter(
     override fun getItemCount() = arrayList.size
 
     override fun createFragment(position: Int): Fragment {
+
         return arrayList[position]
     }
 
