@@ -381,7 +381,7 @@ class SearchFilter : Fragment() {
             val tb = ToggleButton(requireContext())
             tb.layoutParams = param
             tb.isChecked = mutableList[i].check
-            tb.stateListAnimator=null
+            tb.stateListAnimator = null
             //체크표시돼있을때
             if (mutableList[i].check) {
                 tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -451,59 +451,73 @@ class SearchFilter : Fragment() {
         toggleButtonGenerate(binding.searchFilterTimeDay, timeDay)
     }
 
-    fun onFoodClick(view: View) {
-        binding.searchFilterFoodCon.visibility = View.VISIBLE
-        binding.searchFilterOptionsView.visibility = View.GONE
-        binding.searchFilterResetBorder.visibility = View.GONE
-        binding.searchFilterReset.setBackgroundColor(Color.parseColor("#f6f6f6"))
-        checkFood = true
-        binding.searchFilterFood.setTypeface(null, Typeface.BOLD)
-        binding.searchFilterFood.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.colorOhneulen
-            )
-        )
-        binding.searchFilterFood.background = ContextCompat.getDrawable(
-            requireContext(),
-            R.drawable.background_rounding_filter_select
-        )
-        binding.searchFilterOptions.setTypeface(null, Typeface.NORMAL)
-        binding.searchFilterOptions.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.colorCGrey
-            )
-        )
-        binding.searchFilterOptions.background = null
+    fun filterClick(view: View) {
+        if (view == binding.searchFilterFood) {
+            binding.searchFilterFoodCon.visibility = View.VISIBLE
+            binding.searchFilterOptionsView.visibility = View.GONE
+            binding.searchFilterResetBorder.visibility = View.GONE
+            checkFood = true
+        } else {
+            binding.searchFilterFoodCon.visibility = View.GONE
+            binding.searchFilterOptionsView.visibility = View.VISIBLE
+            binding.searchFilterResetBorder.visibility = View.VISIBLE
+            checkFood = false
+        }
     }
 
-    fun onOptionsClick(view: View) {
-        binding.searchFilterFoodCon.visibility = View.GONE
-        binding.searchFilterOptionsView.visibility = View.VISIBLE
-        binding.searchFilterResetBorder.visibility = View.VISIBLE
-        binding.searchFilterReset.setBackgroundColor(requireContext().getColor(R.color.white))
-        checkFood = false
-        binding.searchFilterOptions.setTypeface(null, Typeface.BOLD)
-        binding.searchFilterOptions.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.colorOhneulen
-            )
-        )
-        binding.searchFilterOptions.background = ContextCompat.getDrawable(
-            requireContext(),
-            R.drawable.background_rounding_filter_select
-        )
-        binding.searchFilterFood.setTypeface(null, Typeface.NORMAL)
-        binding.searchFilterFood.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.colorCGrey
-            )
-        )
-        binding.searchFilterFood.background = null
-    }
+//    fun onFoodClick(view: View) {
+//        binding.searchFilterFoodCon.visibility = View.VISIBLE
+//        binding.searchFilterOptionsView.visibility = View.GONE
+//        binding.searchFilterResetBorder.visibility = View.GONE
+//        binding.searchFilterReset.setBackgroundColor(Color.parseColor("#f6f6f6"))
+//        checkFood = true
+//        binding.searchFilterFood.setTypeface(null, Typeface.BOLD)
+//        binding.searchFilterFood.setTextColor(
+//            ContextCompat.getColor(
+//                requireContext(),
+//                R.color.colorOhneulen
+//            )
+//        )
+//        binding.searchFilterFood.background = ContextCompat.getDrawable(
+//            requireContext(),
+//            R.drawable.background_rounding_filter_select
+//        )
+//        binding.searchFilterOptions.setTypeface(null, Typeface.NORMAL)
+//        binding.searchFilterOptions.setTextColor(
+//            ContextCompat.getColor(
+//                requireContext(),
+//                R.color.colorCGrey
+//            )
+//        )
+//        binding.searchFilterOptions.background = null
+//    }
+//
+//    fun onOptionsClick(view: View) {
+//        binding.searchFilterFoodCon.visibility = View.GONE
+//        binding.searchFilterOptionsView.visibility = View.VISIBLE
+//        binding.searchFilterResetBorder.visibility = View.VISIBLE
+//        checkFood = false
+//        binding.searchFilterReset.setBackgroundColor(requireContext().getColor(R.color.white))
+//        binding.searchFilterOptions.setTypeface(null, Typeface.BOLD)
+//        binding.searchFilterOptions.setTextColor(
+//            ContextCompat.getColor(
+//                requireContext(),
+//                R.color.colorOhneulen
+//            )
+//        )
+//        binding.searchFilterOptions.background = ContextCompat.getDrawable(
+//            requireContext(),
+//            R.drawable.background_rounding_filter_select
+//        )
+//        binding.searchFilterFood.setTypeface(null, Typeface.NORMAL)
+//        binding.searchFilterFood.setTextColor(
+//            ContextCompat.getColor(
+//                requireContext(),
+//                R.color.colorCGrey
+//            )
+//        )
+//        binding.searchFilterFood.background = null
+//    }
 
     fun sortButtonClick(view: View) {
         if (view == binding.searchFilterRecent) {

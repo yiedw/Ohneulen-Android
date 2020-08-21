@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -29,11 +30,14 @@ import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
+import java.lang.RuntimeException
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
 
         Companion.supportFragmentManager = supportFragmentManager
         appbarFrameLayout = appbar_frameLayout
@@ -95,8 +100,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     bottomNav.selectedItemId = R.id.menu_bottom_nav_home
                 }
             }
-
-
     }
 
     //다른곳 터치시 키보드 내리기
