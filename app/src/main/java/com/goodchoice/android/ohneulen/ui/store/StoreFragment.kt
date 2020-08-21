@@ -93,14 +93,15 @@ class StoreFragment : Fragment() {
         stickyHeader()
 
         binding.storeNewScrollView.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            Timber.e("newScrollView")
-            Timber.e(scrollY.toString()+"asdf")
-            Timber.e(binding.storeViewPager2[0].scrollY.toString())
-            Timber.e(binding.storeViewPager2.scrollY.toString())
-            Timber.e(first.toString())
+//            Timber.e("newScrollView")
+//            Timber.e(scrollY.toString()+"asdf")
+//            Timber.e(binding.storeViewPager2[0].scrollY.toString())
+//            Timber.e(binding.storeViewPager2.scrollY.toString())
+//            Timber.e(first.toString())
             if (!first) {
                 first = !first
                 binding.storeNewScrollView.smoothScrollTo(0, 0)
+                return@setOnScrollChangeListener
             }
         }
 
@@ -119,9 +120,12 @@ class StoreFragment : Fragment() {
 
     //이미지 세팅(1장 or 여러장)
     private fun storeImage(storeDetail: StoreDetail) {
+        //노 이미지일대
         if (storeDetail.storeInfo.image.isEmpty()) {
             binding.storeFragmentOneImage.visibility = View.VISIBLE
             binding.storeFragmentImageRv.visibility = View.GONE
+            Glide.with(requireContext()).load(R.drawable.store_home_no_img)
+                .into(binding.storeFragmentOneImage)
         } else if (storeDetail.storeInfo.image.size == 1) {
             //이미지가 한개일때
             binding.storeFragmentOneImage.visibility = View.VISIBLE

@@ -114,7 +114,7 @@ fun setOhneulenImageView(
     image: Image
 ) {
 //    Timber.e(image.photoURL)
-    Glide.with(imageView.context).load("${BaseUrl.Ohneulen}${image.photoURL}").centerCrop()
+    Glide.with(imageView.context).load("${BaseUrl.Ohneulen}${image.photoURL}")
         .into(imageView)
 }
 

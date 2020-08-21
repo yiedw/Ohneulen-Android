@@ -71,11 +71,18 @@ class StoreReviewWrite : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        storeReviewWriteEt 누르면 화면 맨 위로올리기
-//        binding.storeReviewWriteEt.setOnFocusChangeListener { v, hasFocus ->
-//            if (!hasFocus) {
-//                binding.storeReviewWriteKeyboard.visibility = View.GONE
+//        binding.storeReviewWriteEt.setOnClickListener {
+//            binding.storeReviewWriteScroll.post {
+//                binding.storeReviewWriteScroll.fullScroll(View.FOCUS_DOWN)
 //            }
 //        }
+        binding.storeReviewWriteEt.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.storeReviewPointLinearLayout.visibility = View.GONE
+            } else {
+                binding.storeReviewPointLinearLayout.visibility = View.VISIBLE
+            }
+        }
 //        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
 //            onShowKeyboard = { keyboardHeight ->
 //                val param=ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,keyboardHeight.dp())

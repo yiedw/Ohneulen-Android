@@ -24,7 +24,6 @@ class ImageDetailAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Image) {
             binding.apply {
-                Timber.e(item.photoURL)
                 image = item
 
             }
