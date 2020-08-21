@@ -57,8 +57,11 @@ class Home() : Fragment(), OnBackPressedListener {
             false
         )
         binding.fragment = this
+        //초기화 (두번씩 observe 되는것 방지)
         searchViewModel.kakaoMapPoint= MutableLiveData()
         searchViewModel.searchStoreList=MutableLiveData()
+        //currentLocationSearch 초기화
+        mainViewModel.currentLocationSearch=false
 //        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
         return binding.root
     }

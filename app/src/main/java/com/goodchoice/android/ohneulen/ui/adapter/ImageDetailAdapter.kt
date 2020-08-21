@@ -10,6 +10,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Image
 import com.goodchoice.android.ohneulen.data.model.Photo
 import com.goodchoice.android.ohneulen.databinding.ImageDetailItemBinding
+import timber.log.Timber
 
 
 class ImageDetailAdapter :
@@ -23,7 +24,9 @@ class ImageDetailAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Image) {
             binding.apply {
+                Timber.e(item.photoURL)
                 image = item
+
             }
         }
     }

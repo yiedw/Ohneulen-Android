@@ -8,19 +8,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.ImageDetailBinding
+import com.goodchoice.android.ohneulen.databinding.ImageDetailStoreBinding
 import com.goodchoice.android.ohneulen.ui.adapter.ImageDetailAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPressedListener {
+class ImageDetailStoreDialog(private val index: Int) : DialogFragment(), OnBackPressedListener {
     companion object {
         fun newInstance(index: Int) =
-            ImageDetailDialog(index)
+            ImageDetailStoreDialog(index)
     }
 
-    private lateinit var binding: ImageDetailBinding
+    private lateinit var binding: ImageDetailStoreBinding
     private val storeViewModel: StoreViewModel by viewModel()
     private var imagePosition=0
 
@@ -45,7 +45,7 @@ class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPresse
     ): View? {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.image_detail,
+            R.layout.image_detail_store,
             null,
             false
         )
@@ -63,19 +63,19 @@ class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPresse
         super.onViewCreated(view, savedInstanceState)
         storeViewModel.loading.observe(viewLifecycleOwner, Observer {
             if (it) {
-                (binding.imageDetailRv.adapter as ImageDetailAdapter).imagePosition.observe(
+                (binding.imageDetailStoreRv.adapter as ImageDetailAdapter).imagePosition.observe(
                     viewLifecycleOwner,
                     Observer { pos ->
                         imagePosition=pos
                         if (pos == 0) {
-                            binding.imageDetailLeft.visibility = View.GONE
+                            binding.imageDetailStoreLeft.visibility = View.GONE
                         } else {
-                            binding.imageDetailLeft.visibility = View.VISIBLE
+                            binding.imageDetailStoreLeft.visibility = View.VISIBLE
                         }
                         if (pos == storeViewModel.storeDetail.value!!.storeInfo.image.size - 1) {
-                            binding.imageDetailRight.visibility = View.GONE
+                            binding.imageDetailStoreRight.visibility = View.GONE
                         } else {
-                            binding.imageDetailRight.visibility = View.VISIBLE
+                            binding.imageDetailStoreRight.visibility = View.VISIBLE
                         }
 //                        view.invalidate()
                     })
@@ -89,10 +89,10 @@ class ImageDetailDialog(private val index: Int) : DialogFragment(), OnBackPresse
         storeViewModel.loading.postValue(false)
     }
     fun onLeftClick(view:View){
-        binding.imageDetailRv.smoothScrollToPosition(imagePosition-1)
+        binding.imageDetailStoreRv.smoothScrollToPosition(imagePosition-1)
     }
     fun onRightClick(view:View){
-        binding.imageDetailRv.smoothScrollToPosition(imagePosition+1)
+        binding.imageDetailStoreRv.smoothScrollToPosition(imagePosition+1)
     }
 
     fun onBackClick(view: View) {

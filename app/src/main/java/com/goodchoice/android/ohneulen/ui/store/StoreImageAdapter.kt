@@ -14,7 +14,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Image
 import com.goodchoice.android.ohneulen.databinding.StoreImageItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailDialog
+import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailStoreDialog
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 
 class StoreImageAdapter :
@@ -31,7 +31,7 @@ class StoreImageAdapter :
                     .into(storeImageItem)
 
                 root.setOnClickListener {
-                    val dialog = ImageDetailDialog.newInstance(adapterPosition)
+                    val dialog = ImageDetailStoreDialog.newInstance(adapterPosition)
                     dialog.show(MainActivity.supportFragmentManager, "")
                 }
             }

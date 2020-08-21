@@ -1,6 +1,5 @@
 package com.goodchoice.android.ohneulen.ui.store
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
@@ -23,7 +22,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailDialog
+import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailStoreDialog
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
@@ -31,11 +30,8 @@ import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.textColor
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -325,7 +321,7 @@ class StoreFragment : Fragment() {
     fun oneImageClick(view: View) {
         if (storeViewModel.storeDetail.value!!.storeInfo.image.isEmpty())
             return
-        val dialog = ImageDetailDialog.newInstance(0)
+        val dialog = ImageDetailStoreDialog.newInstance(0)
         dialog.show(MainActivity.supportFragmentManager, "")
     }
 

@@ -189,10 +189,10 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
 }
 
 @BindingAdapter("imageDetailList", "imageDetailIndex", "imageDetailLoading")
-fun setImageDetail(
+fun setImageDetailStore(
     recyclerView: RecyclerView,
     items: List<Image>?,
-    index: Int,
+    index: Int=0,
     loading: MutableLiveData<Boolean>
 ) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)

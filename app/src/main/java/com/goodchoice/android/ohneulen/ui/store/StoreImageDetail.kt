@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.ImageDetailBinding
+import com.goodchoice.android.ohneulen.databinding.ImageDetailStoreBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StoreImageDetail(private val index: Int) : Fragment() {
@@ -16,7 +16,7 @@ class StoreImageDetail(private val index: Int) : Fragment() {
         fun newInstance(index: Int) = StoreImageDetail(index)
     }
 
-    private lateinit var binding: ImageDetailBinding
+    private lateinit var binding: ImageDetailStoreBinding
     private val storeViewModel: StoreViewModel by viewModel()
 
     override fun onAttach(context: Context) {
@@ -30,7 +30,7 @@ class StoreImageDetail(private val index: Int) : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.image_detail,
+            R.layout.image_detail_store,
             container,
             false
         )

@@ -12,13 +12,12 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Review
 import com.goodchoice.android.ohneulen.databinding.ReviewItemBinding
-import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailReviewDialog
+import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailStoreDialog
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReport
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReportAppBar
-import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
@@ -39,13 +38,13 @@ class ReviewAdapter(val report: Boolean = true) :
                 if (!report)
                     reviewItemReport.visibility = View.GONE
                 reviewItemReport.setOnClickListener {
-//                    if(!LoginViewModel.isLogin.value!!){
-//                        loginDialog(root.context, StoreAppBar.newInstance())
-//                        return@setOnClickListener
-//                    }
                     replaceAppbarFragment(StoreReviewReportAppBar.newInstance())
                     popupFragment(StoreReviewReport.newInstance(reviewItem))
-//                    addMainFragment(StoreReviewReport.newInstance(), true)
+                }
+
+                reviewItemImage.setOnClickListener {
+                    val dialog= ImageDetailReviewDialog.newInstance(adapterPosition)
+                    dialog.show(MainActivity.supportFragmentManager,"")
                 }
 
                 //리뷰에 사진이 있을때

@@ -1,7 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store.menu
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -11,10 +10,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMenuItemBinding
 import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailDialog
-import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.comma
-import timber.log.Timber
 
 class StoreMenuAdapter :
     ListAdapter<StoreMenu, StoreMenuAdapter.StoreMenuViewHolder>(StoreMenuDiffUtil) {

@@ -23,10 +23,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import kotlin.system.measureNanoTime
 
-class SearchAppBar : Fragment(), OnBackPressedListener {
+class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListener {
 
     companion object {
-        fun newInstance() = SearchAppBar()
+        fun newInstance(back: Boolean = false) = SearchAppBar(back)
     }
 
     private lateinit var binding: SearchAppbarBinding
@@ -45,13 +45,15 @@ class SearchAppBar : Fragment(), OnBackPressedListener {
             container,
             false
         )
+
         if (!mainViewModel.currentLocationSearch) {
             if (mainViewModel.searchEditText.isEmpty()) {
                 mainViewModel.searchEditText = "강남역"
             }
             searchViewModel.searchEditText = mainViewModel.searchEditText
             binding.searchAppbarEt.setText(mainViewModel.searchEditText)
-            searchViewModel.searchMapData()
+            if (!back)
+                searchViewModel.searchMapData()
         }
         binding.fragment = this
         return binding.root

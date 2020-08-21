@@ -48,11 +48,11 @@ class Search : Fragment() {
     private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
 
-    private val mapView by lazy{
+    private val mapView by lazy {
         MapView(requireContext())
     }
     private lateinit var mapViewContainer: ViewGroup
-    private lateinit var locationManager:LocationManager
+    private lateinit var locationManager: LocationManager
 
 
     override fun onCreateView(
@@ -74,7 +74,7 @@ class Search : Fragment() {
             binding.fragment = this@Search
             viewModel = searchViewModel
         }
-        mapViewContainer=binding.searchMap
+        mapViewContainer = binding.searchMap
         mapView.setZoomLevel(2, false)
         mapViewContainer.addView(mapView)
         getCurrentLocationCheck()
@@ -104,9 +104,9 @@ class Search : Fragment() {
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
             binding.searchStoreAmount.text = "매장 ${it.size}"
-            if(it.isEmpty()){
-                Toast.makeText(requireContext(),"검색결과가 없습니다",Toast.LENGTH_SHORT).show()
-            }
+//            if(it.isEmpty()){
+//                Toast.makeText(requireContext(),"검색결과가 없습니다",Toast.LENGTH_SHORT).show()
+//            }
         })
         MainActivity.bottomNav.visibility = View.VISIBLE
 
@@ -127,6 +127,7 @@ class Search : Fragment() {
         }
         switchOn = !switchOn
     }
+
     private fun circleSearch(mapPoint: MapPoint) {
         searchViewModel.addry.clear()
         searchViewModel.addrx.clear()
@@ -148,8 +149,9 @@ class Search : Fragment() {
     private fun getCurrentLocationCheck() {
         if (!mainViewModel.currentLocationSearch)
             return
-        mainViewModel.currentLocationSearch = false
-        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        mainViewModel.currentLocationSearch = false
+        locationManager =
+            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         if (!isGpsEnabled && !isNetworkEnabled) {

@@ -46,6 +46,8 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     val date=Calendar.getInstance().time
     val today=SimpleDateFormat("yyyy.MM.dd",Locale.KOREA).format(date)
 
+    //storeReviewImage
+
 
     val loading = MutableLiveData<Boolean>()
 

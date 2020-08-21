@@ -92,15 +92,6 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 //        binding.storeAppbarShare.setTextColor(Color.WHITE)
 //    }
 
-    fun backClick(view: View) {
-        replaceAppbarFragment(SearchAppBar.newInstance())
-        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
-        if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
-            replaceMainFragment(Search.newInstance())
-        } else {
-            MainActivity.supportFragmentManager.popBackStack()
-        }
-    }
 
     fun likeClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
@@ -119,12 +110,24 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         startActivity(sharing)
     }
 
-    override fun onBackPressed() {
-        replaceAppbarFragment(SearchAppBar.newInstance())
+    fun backClick(view: View) {
         MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
+            replaceAppbarFragment(SearchAppBar.newInstance())
             replaceMainFragment(Search.newInstance())
         } else {
+            replaceAppbarFragment(SearchAppBar.newInstance(true))
+            MainActivity.supportFragmentManager.popBackStack()
+        }
+    }
+
+    override fun onBackPressed() {
+        MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
+        if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
+            replaceAppbarFragment(SearchAppBar.newInstance())
+            replaceMainFragment(Search.newInstance())
+        } else {
+            replaceAppbarFragment(SearchAppBar.newInstance(true))
             MainActivity.supportFragmentManager.popBackStack()
         }
     }
