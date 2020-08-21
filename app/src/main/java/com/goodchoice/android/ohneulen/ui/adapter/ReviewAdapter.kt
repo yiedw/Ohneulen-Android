@@ -43,8 +43,8 @@ class ReviewAdapter(val report: Boolean = true) :
                 }
 
                 reviewItemImage.setOnClickListener {
-                    val dialog= ImageDetailReviewDialog.newInstance(adapterPosition)
-                    dialog.show(MainActivity.supportFragmentManager,"")
+                    val dialog = ImageDetailReviewDialog.newInstance(adapterPosition)
+                    dialog.show(MainActivity.supportFragmentManager, "")
                 }
 
                 //리뷰에 사진이 있을때
@@ -52,6 +52,13 @@ class ReviewAdapter(val report: Boolean = true) :
                     Glide.with(root).load(BaseUrl.Ohneulen + reviewItem.imgList[0].photoURL)
                         .centerCrop()
                         .into(reviewItemImage)
+
+                    //사진이 여러개 있을때
+                    if (reviewItem.imgList.size > 1) {
+                        reviewItemAmount.text = "+${reviewItem.imgList.size}"
+                        reviewItemAmount.visibility = View.VISIBLE
+                    } else
+                        reviewItemAmount.visibility = View.INVISIBLE
                 }
 
                 //날짜 넣어주기(형식 약간 변경)
