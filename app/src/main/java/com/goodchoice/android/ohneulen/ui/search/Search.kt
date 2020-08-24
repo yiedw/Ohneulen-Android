@@ -11,33 +11,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.SearchBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.util.*
-import com.goodchoice.android.ohneulen.util.constant.ConstList
+import com.goodchoice.android.ohneulen.ui.MainViewModel
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
+import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import net.daum.mf.map.api.CameraUpdateFactory
-import net.daum.mf.map.api.MapCircle
-import net.daum.mf.map.api.MapPoint
-import net.daum.mf.map.api.MapView
+import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.java.KoinJavaComponent.inject
-import timber.log.Timber
 
-class Search : Fragment() {
+class Search : Fragment(), MapView.POIItemEventListener {
 
     companion object {
         fun newInstance() = Search()
@@ -75,7 +70,7 @@ class Search : Fragment() {
             viewModel = searchViewModel
         }
         mapViewContainer = binding.searchMap
-        mapView.setZoomLevel(2, false)
+        mapView.setZoomLevel(3, false)
         mapViewContainer.addView(mapView)
         getCurrentLocationCheck()
         return binding.root
@@ -84,6 +79,34 @@ class Search : Fragment() {
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //터치막기
+        mapView.setOnDragListener { v, event -> true }
+//        mapView.setOnTouchListener { _, _ -> true }
+
+        //marker 이벤트
+//        val mapViewPOIItemListener = object : MapView.POIItemEventListener {
+//            override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
+//                StoreFragment.storeSeq = p1!!.tag.toString()
+//                replaceAppbarFragment(StoreAppBar.newInstance())
+//                addMainFragment(StoreFragment.newInstance(), true)
+//
+//            }
+//
+//            override fun onCalloutBalloonOfPOIItemTouched(
+//                p0: MapView?,
+//                p1: MapPOIItem?,
+//                p2: MapPOIItem.CalloutBalloonButtonType?
+//            ) {
+//            }
+//
+//            override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
+//            }
+//
+//            override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+//            }
+//        }
+        mapView.setPOIItemEventListener(this)
 
 
         //검색어 없을시 토스트 띄우기
@@ -104,6 +127,10 @@ class Search : Fragment() {
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
             binding.searchStoreAmount.text = "매장 ${it.size}"
+            //마커추가
+            for (i in it) {
+                addMarker(i)
+            }
 //            if(it.isEmpty()){
 //                Toast.makeText(requireContext(),"검색결과가 없습니다",Toast.LENGTH_SHORT).show()
 //            }
@@ -220,6 +247,38 @@ class Search : Fragment() {
             .check()
 
 
+    }
+
+    private fun addMarker(store: Store) {
+        val marker = MapPOIItem()
+        marker.itemName = store.storeName
+        marker.tag = store.seq.toInt()
+        val mapPoint = MapPoint.mapPointWithGeoCoord(store.addrY.toDouble(), store.addrX.toDouble())
+        marker.mapPoint = mapPoint
+        marker.markerType = MapPOIItem.MarkerType.CustomImage
+        marker.customImageResourceId = R.drawable.store_map_location
+        marker.isCustomImageAutoscale = false
+        marker.setCustomImageAnchor(0.5f, 0.5f)
+        mapView.addPOIItem(marker)
+    }
+
+    override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
+    }
+
+    override fun onCalloutBalloonOfPOIItemTouched(
+        p0: MapView?,
+        p1: MapPOIItem?,
+        p2: MapPOIItem.CalloutBalloonButtonType?
+    ) {
+        StoreFragment.storeSeq = p1!!.tag.toString()
+        replaceAppbarFragment(StoreAppBar.newInstance())
+        addMainFragment(StoreFragment.newInstance(), true)
+    }
+
+    override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
+    }
+
+    override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
     }
 
 

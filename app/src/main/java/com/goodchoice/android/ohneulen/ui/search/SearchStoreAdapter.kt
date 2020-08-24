@@ -56,7 +56,7 @@ class SearchStoreAdapter :
                     parentView.isEnabled=false
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
-                    replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
+                    replaceAppbarFragment(StoreAppBar.newInstance())
                     addMainFragment(StoreFragment.newInstance(), true)
                 }
             }

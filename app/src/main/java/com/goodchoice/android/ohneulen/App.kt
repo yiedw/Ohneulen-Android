@@ -9,7 +9,6 @@ import com.goodchoice.android.ohneulen.di.initModule
 import com.goodchoice.android.ohneulen.di.viewModelModule
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.fcmToken
-import com.goodchoice.android.ohneulen.util.getAppKeyHash
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -36,9 +35,6 @@ class App : Application() {
 
         //Timber 초기화
         Timber.plant(Timber.DebugTree())
-
-        //kakao
-        getAppKeyHash(this)
 
         //koin start
         startKoin {

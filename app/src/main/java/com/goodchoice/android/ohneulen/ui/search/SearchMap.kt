@@ -68,8 +68,10 @@ class SearchMap : Fragment() {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mapView.setOnTouchListener { _, _ -> true }
         //초기세팅 강남역
 //        val myLocation = LatLng(37.4980854357918, 127.028000275071)
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation))

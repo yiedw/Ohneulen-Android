@@ -44,14 +44,6 @@ class InitData(private val networkService: NetworkService) {
 
     }
 
-    private fun tempLogin() {
-        CoroutineScope(Dispatchers.IO).launch {
-            networkService.requestLogin(
-                memId.toRequestBody(), memPw.toRequestBody()
-            )
-            LoginViewModel.isLogin.postValue(true)
-        }
-    }
 
 
     private fun getCategory() {
