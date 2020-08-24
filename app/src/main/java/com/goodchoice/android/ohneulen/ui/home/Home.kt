@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.databinding.HomeBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
@@ -36,7 +37,6 @@ class Home() : Fragment(), OnBackPressedListener {
     }
 
     private val mainViewModel: MainViewModel by viewModel()
-    private val searchViewModel:SearchViewModel by viewModel()
     private lateinit var binding: HomeBinding
 
     private val FINISH_TIME: Long = 3000
@@ -58,8 +58,9 @@ class Home() : Fragment(), OnBackPressedListener {
         )
         binding.fragment = this
         //초기화 (두번씩 observe 되는것 방지)
-        searchViewModel.kakaoMapPoint= MutableLiveData()
-        searchViewModel.searchStoreList=MutableLiveData()
+//        searchViewModel.kakaoMapPoint= MutableLiveData()
+//        searchViewModel.searchStoreList=MutableLiveData()
+
         //currentLocationSearch 초기화
         mainViewModel.currentLocationSearch=false
 //        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home

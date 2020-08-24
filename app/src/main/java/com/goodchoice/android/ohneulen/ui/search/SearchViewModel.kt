@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.koin.java.KoinJavaComponent.inject
 import timber.log.Timber
 import kotlin.system.measureNanoTime
 

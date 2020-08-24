@@ -36,6 +36,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.lang.Exception
 import java.lang.RuntimeException
 
@@ -53,6 +54,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private val mainViewModel: MainViewModel by viewModel()
 
 
+//    init {
+//        initData
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -66,8 +71,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         initMainFrameLayout = mainFrameLayout.layoutParams
         bottomNav = main_bottom_nav
 
-        //초기 데이터 받아오기
-        initData
 
         //네비게이션 연결
         main_bottom_nav.setOnNavigationItemSelectedListener(this)

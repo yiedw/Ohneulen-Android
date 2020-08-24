@@ -13,8 +13,6 @@ import timber.log.Timber
 
 class InitData(private val networkService: NetworkService) {
 
-    private val memId = "aaa@aa.com"
-    private val memPw = "qwer1234"
 
     //카테고리
     var mainCategory = mutableListOf<OhneulenData>()
@@ -31,6 +29,7 @@ class InitData(private val networkService: NetworkService) {
     //옵션
 
     init {
+        Timber.e("asdfsadf")
 //        tempLogin()
 
         //옵션 가져오기
@@ -43,7 +42,6 @@ class InitData(private val networkService: NetworkService) {
         }
 
     }
-
 
 
     private fun getCategory() {
@@ -66,7 +64,6 @@ class InitData(private val networkService: NetworkService) {
                 subOptionKind.add(tempList)
             }
             subOptionKind = getOhneulenSubData(networkService, mainOptionKind)
-//            Timber.e(subOptionKind.toString())
         }
     }
 

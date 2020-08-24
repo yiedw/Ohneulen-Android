@@ -4,7 +4,7 @@ import com.goodchoice.android.ohneulen.data.repository.InitData
 import org.koin.dsl.module
 
 val initModule =module{
-    single{
+    single(createdAtStart = true){
         InitData(get())
     }
 }

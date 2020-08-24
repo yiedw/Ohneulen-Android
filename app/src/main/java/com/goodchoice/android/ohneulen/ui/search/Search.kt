@@ -50,6 +50,13 @@ class Search : Fragment(), MapView.POIItemEventListener {
     private lateinit var locationManager: LocationManager
 
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        //초기화 (두번씩 observe 되는것 방지)
+        searchViewModel.kakaoMapPoint = MutableLiveData()
+        searchViewModel.searchStoreList = MutableLiveData()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
