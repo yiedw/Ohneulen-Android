@@ -522,7 +522,7 @@
                             android:layout_weight="2"
                             android:background="@drawable/review_write_radio_selector"
                             android:button="@null"
-                            android:text="더러워ㅓ요"
+                            android:text="더러워요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
                             android:textSize="12sp" />
