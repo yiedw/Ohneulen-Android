@@ -60,7 +60,8 @@ class LoginSignUp : Fragment() ,OnBackPressedListener{
         val setting=binding.loginSignUpWebView.settings
         setting.javaScriptEnabled=true
         setting.setSupportMultipleWindows(true)
-//        setting.userAgentString="Android"
+        Timber.e(setting.userAgentString)
+        setting.userAgentString="Android"
         binding.loginSignUpWebView.loadUrl(BaseUrl.OHNEULEN_SIGN_UP)
 
 //        binding.loginSignUpWebView.addJavascriptInterface(object :Object(){

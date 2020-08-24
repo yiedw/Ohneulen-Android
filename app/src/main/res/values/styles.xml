@@ -5,7 +5,8 @@
         <!-- Customize your theme here. -->fragment replace scroll
         <item name="colorPrimary">@color/colorOhneulen</item>
         <item name="colorPrimaryDark">@color/colorWhite</item>
-        <item name="colorAccent">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorCursor</item>
+<!--        <item name="android:textCursorDrawable">@color/colorCursor</item>-->
 
         <!-- No Title Bar -->
         <item name="windowActionBar">false</item>
