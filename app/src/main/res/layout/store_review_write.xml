@@ -21,6 +21,7 @@
 
 
         <ScrollView
+            android:fillViewport="true"
             android:id="@+id/store_review_write_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
