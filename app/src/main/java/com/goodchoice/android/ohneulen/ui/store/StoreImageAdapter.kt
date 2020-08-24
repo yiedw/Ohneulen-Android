@@ -26,7 +26,7 @@ class StoreImageAdapter :
         fun bind(item: Image) {
             binding.apply {
                 Glide.with(root)
-                    .load("${BaseUrl.Ohneulen}${item.photoURL}")
+                    .load("${BaseUrl.OHNEULEN}${item.photoURL}")
                     .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
                     .into(storeImageItem)
 

@@ -31,7 +31,7 @@ class SearchStoreAdapter :
     ListAdapter<Store, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
 
-    lateinit var parentView:RecyclerView
+    lateinit var parentView: RecyclerView
 
     inner class SearchStoreViewHolder(private val binding: StoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,21 +39,22 @@ class SearchStoreAdapter :
         fun bind(item: Store) {
             binding.apply {
                 store = item
-                storeItemLike.isSelected=item.likes
+                storeItemLike.isSelected = item.likes
                 storeItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
                         loginDialog(root.context, SearchAppBar.newInstance())
                         return@setOnClickListener
                     }
+                    storeItemLike.isSelected = !storeItemLike.isSelected
                     if (storeItemLike.isSelected) {
-                        storeItemLike.isSelected = false
-                    } else
-                        storeItemLike.isSelected = !storeItem.isSelected
+//                        storeItemLike.isSelected = false
+                        Toast.makeText(root.context, "찜 목록에 저장되었습니다", Toast.LENGTH_SHORT).show()
+                    }
 
                 }
 
                 root.setOnClickListener {
-                    parentView.isEnabled=false
+                    parentView.isEnabled = false
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
                     replaceAppbarFragment(StoreAppBar.newInstance())

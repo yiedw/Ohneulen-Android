@@ -2,7 +2,6 @@ package com.goodchoice.android.ohneulen
 
 import android.app.Application
 import android.content.res.Resources
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.goodchoice.android.ohneulen.di.networkModule
 import com.goodchoice.android.ohneulen.di.initModule
@@ -13,9 +12,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
-import java.lang.Exception
-import java.util.logging.Handler
-import kotlin.system.exitProcess
 
 class App : Application() {
 
@@ -39,7 +35,7 @@ class App : Application() {
         //koin start
         startKoin {
             androidContext(this@App)
-            modules(networkModule(BaseUrl.Ohneulen))
+            modules(networkModule(BaseUrl.OHNEULEN))
             modules(initModule)
             modules(viewModelModule)
         }

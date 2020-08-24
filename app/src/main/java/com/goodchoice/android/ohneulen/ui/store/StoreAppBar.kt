@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -82,16 +83,6 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         }
     }
 
-//    fun changeBlack() {
-//        binding.storeAppbarBack.setTextColor(Color.BLACK)
-//        binding.storeAppbarShare.setTextColor(Color.BLACK)
-//    }
-//
-//    fun changeWhite() {
-//        binding.storeAppbarBack.setTextColor(Color.WHITE)
-//        binding.storeAppbarShare.setTextColor(Color.WHITE)
-//    }
-
 
     fun likeClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
@@ -100,6 +91,9 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             return
         }
         binding.storeAppbarLike.isSelected = !binding.storeAppbarLike.isSelected
+        if (binding.storeAppbarLike.isSelected) {
+            Toast.makeText(requireContext(), "찜 목록에 저장되었습니다", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun shareClick(view: View) {

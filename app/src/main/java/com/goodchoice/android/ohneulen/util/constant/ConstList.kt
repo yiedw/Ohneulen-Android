@@ -28,4 +28,7 @@ object ConstList {
     //sub_option
     //OT001
     const val FREE="001"
+
+    //webview android
+    const val WEBVIEW_ANDROID="WEBVIEW_ANDROID"
 }

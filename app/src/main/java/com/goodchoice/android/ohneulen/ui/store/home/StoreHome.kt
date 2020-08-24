@@ -9,24 +9,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.get
-import androidx.core.view.marginStart
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
-import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.store.StoreScrollView
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreHome : Fragment() {
     companion object {
@@ -227,7 +221,7 @@ class StoreHome : Fragment() {
 //            iv.setPadding(0,0,15.dp(),0)
             iv.layoutParams = params1
             iv.scaleType = ImageView.ScaleType.FIT_CENTER
-            Glide.with(requireContext()).load("${BaseUrl.Ohneulen}${i.icon}").into(iv)
+            Glide.with(requireContext()).load("${BaseUrl.OHNEULEN}${i.icon}").into(iv)
 
 
             //설명

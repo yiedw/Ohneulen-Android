@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -33,7 +32,6 @@ import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -131,7 +129,7 @@ class StoreFragment : Fragment() {
             binding.storeFragmentOneImage.visibility = View.VISIBLE
             binding.storeFragmentImageRv.visibility = View.GONE
             Glide.with(binding.storeFragmentOneImage.context)
-                .load("${BaseUrl.Ohneulen}${storeDetail.storeInfo.image[0].photoURL}")
+                .load("${BaseUrl.OHNEULEN}${storeDetail.storeInfo.image[0].photoURL}")
                 .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
                 .into(binding.storeFragmentOneImage)
         } else {

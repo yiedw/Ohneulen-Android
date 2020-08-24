@@ -216,7 +216,7 @@ class Login(private val fragment: Fragment) : Fragment() {
     }
 
     fun signUpClick(view: View) {
-        replaceAppbarFragment(LoginSignUpAppBar.newInstance())
+//        replaceAppbarFragment(LoginSignUpAppBar.newInstance())
         replaceMainFragment(LoginSignUp.newInstance())
     }
 

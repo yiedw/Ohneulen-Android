@@ -138,7 +138,7 @@ class StoreReviewWrite : Fragment() {
             .setPermissionListener(permissionListener)
             .setRationaleMessage("사진을 가져오기 위해서는 갤러리 접근 권한이 필요합니다")
             .setDeniedMessage("권한이 없으면 사진을 가져올 수 없습니다")
-            .setPermissions(android.Manifest.permission.READ_CONTACTS)
+            .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
             .check()
     }
 

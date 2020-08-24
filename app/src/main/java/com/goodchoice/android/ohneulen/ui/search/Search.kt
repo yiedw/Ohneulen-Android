@@ -135,6 +135,7 @@ class Search : Fragment(), MapView.POIItemEventListener {
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
             binding.searchStoreAmount.text = "매장 ${it.size}"
             //마커추가
+            mapView.removeAllPOIItems()
             for (i in it) {
                 addMarker(i)
             }

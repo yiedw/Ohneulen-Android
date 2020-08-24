@@ -3,7 +3,6 @@ package com.goodchoice.android.ohneulen.extension
 import android.os.Handler
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
@@ -21,7 +20,6 @@ import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore")
@@ -114,7 +112,7 @@ fun setOhneulenImageView(
     image: Image
 ) {
 //    Timber.e(image.photoURL)
-    Glide.with(imageView.context).load("${BaseUrl.Ohneulen}${image.photoURL}")
+    Glide.with(imageView.context).load("${BaseUrl.OHNEULEN}${image.photoURL}")
         .into(imageView)
 }
 
@@ -124,7 +122,7 @@ fun setOhneulenURLImageView(
     imageUrl: String?
 ) {
     if (imageUrl != null)
-        Glide.with(imageView.context).load("${BaseUrl.Ohneulen}${imageUrl}").centerCrop()
+        Glide.with(imageView.context).load("${BaseUrl.OHNEULEN}${imageUrl}").centerCrop()
             .into(imageView)
     else
         Glide.with(imageView.context)

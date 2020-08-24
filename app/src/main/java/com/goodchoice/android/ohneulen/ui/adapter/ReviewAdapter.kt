@@ -14,7 +14,6 @@ import com.goodchoice.android.ohneulen.data.model.Review
 import com.goodchoice.android.ohneulen.databinding.ReviewItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailReviewDialog
-import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailStoreDialog
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReport
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReportAppBar
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
@@ -49,7 +48,7 @@ class ReviewAdapter(val report: Boolean = true) :
 
                 //리뷰에 사진이 있을때
                 if (!reviewItem.imgList.isNullOrEmpty()) {
-                    Glide.with(root).load(BaseUrl.Ohneulen + reviewItem.imgList[0].photoURL)
+                    Glide.with(root).load(BaseUrl.OHNEULEN + reviewItem.imgList[0].photoURL)
                         .centerCrop()
                         .into(reviewItemImage)
 

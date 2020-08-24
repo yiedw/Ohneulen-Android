@@ -29,7 +29,6 @@ class InitData(private val networkService: NetworkService) {
     //옵션
 
     init {
-        Timber.e("asdfsadf")
 //        tempLogin()
 
         //옵션 가져오기
