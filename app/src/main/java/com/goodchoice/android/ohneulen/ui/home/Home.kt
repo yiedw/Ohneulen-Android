@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
+import com.goodchoice.android.ohneulen.BuildConfig
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.ui.MainViewModel
@@ -69,6 +70,9 @@ class Home() : Fragment(), OnBackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(BuildConfig.DEBUG){
+            Toast.makeText(requireContext(),"개발용",Toast.LENGTH_LONG).show()
+        }
         //문자열 색 입히기
         val title = resources.getString(R.string.home_title)
         val spanBuilder = SpannableStringBuilder(title)

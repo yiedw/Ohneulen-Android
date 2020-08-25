@@ -15,7 +15,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget=JavaVersion.VERSION_1_8
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 
     defaultConfig {
@@ -29,25 +29,24 @@ android {
 
     buildTypes {
         release {
+            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String","Ohneulen","\"https://www.ohneulen.com/\""
+            buildConfigField "String","OhneulenSignUp","\"https://m.ohneulen.com/member/regist\""
+            resValue("string","app_name","오늘은")
+        }
+        debug{
+            debuggable true
+            buildConfigField "String","Ohneulen","\"https://develop.ohneulen.com/\""
+            buildConfigField "String","OhneulenSignUp","\"https://devm.ohneulen.com/member/regist\""
+            resValue("string","app_name","개발용")
         }
     }
 
     dataBinding {
         enabled = true
     }
-//    splits {
-//        abi {
-//            enable true
-//            reset()
-//            include 'x86', 'x86_64', 'armeabi-v7a', 'armeabi'
-//            universalApk false
-//        }
-//    }
-
-    //review_chart 쓸때 필요
-//    configurations { implementation.exclude group: 'org.jetbrains', module: 'annotations' }
 
 
 }

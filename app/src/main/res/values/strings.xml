@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Ohneulen</string>
     <!-- Strings related to login -->
     <string name="prompt_email">이메일을 입력하세요</string>
     <string name="prompt_password">비밀번호를 입력하세요</string>
