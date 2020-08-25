@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.extension
 
 import android.os.Handler
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
@@ -37,7 +38,7 @@ fun setSearchStoreAdapter(
     smoothScroller.targetPosition = 0
     recyclerView.setHasFixedSize(true)
     recyclerView.adapter = adapter?.apply {
-        parentView=recyclerView
+        parentView = recyclerView
         submitList(items)
         Handler().postDelayed({
             recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
@@ -71,8 +72,13 @@ fun setStoreMenu(recyclerView: RecyclerView, items: List<StoreMenu>?) {
         }
 }
 
-@BindingAdapter("storeMenuDetail", "storeMenuDetailIndex","storeMenuDetailLoading")
-fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, index: Int,loading: MutableLiveData<Boolean>) {
+@BindingAdapter("storeMenuDetail", "storeMenuDetailIndex", "storeMenuDetailLoading")
+fun setStoreMenuDetail(
+    recyclerView: RecyclerView,
+    items: List<StoreMenu>?,
+    index: Int,
+    loading: MutableLiveData<Boolean>
+) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
@@ -86,12 +92,13 @@ fun setStoreMenuDetail(recyclerView: RecyclerView, items: List<StoreMenu>?, inde
         .apply {
             menuList = items ?: emptyList()
             menuPosition.postValue(index)
-            recyclerView.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        val centerView=snapHelper.findSnapView(recyclerView.layoutManager)
-                        val pos:Int?=centerView?.let { recyclerView.layoutManager!!.getPosition(it) }
+                        val centerView = snapHelper.findSnapView(recyclerView.layoutManager)
+                        val pos: Int? =
+                            centerView?.let { recyclerView.layoutManager!!.getPosition(it) }
                         menuPosition.postValue(pos)
                     }
                 }
@@ -190,7 +197,7 @@ fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
 fun setImageDetailStore(
     recyclerView: RecyclerView,
     items: List<Image>?,
-    index: Int=0,
+    index: Int = 0,
     loading: MutableLiveData<Boolean>
 ) {
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)

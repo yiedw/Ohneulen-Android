@@ -23,9 +23,10 @@ class MyPageViewModel : ViewModel() {
 
     //문의
     var mypageInquireAdapter = InquireAdapter()
-    var mypageInquireList: LiveData<List<Inquire>> = liveData(Dispatchers.IO) {
-        emit(getInquire())
-    }
+    var mypageInquireList=MutableLiveData<List<Inquire>>()
+//    var mypageInquireList: LiveData<List<Inquire>> = liveData(Dispatchers.IO) {
+//        emit(getInquire())
+//    }
 
     //자주 찾는 질문
 //    var mypageFAQAdapter= FAQAdapter()

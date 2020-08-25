@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInquireBinding
+import com.goodchoice.android.ohneulen.util.popupFragment
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyPageInquire : Fragment(){
@@ -35,6 +38,25 @@ class MyPageInquire : Fragment(){
         binding.lifecycleOwner=this
         binding.viewModel=mypageViewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mypageViewModel.mypageInquireList.observe(viewLifecycleOwner, Observer {
+            if(it.isNullOrEmpty()){
+                binding.mypageInquireRv.visibility=View.GONE
+                binding.mypageInquireEmpty.visibility=View.VISIBLE
+            }
+            else{
+                binding.mypageInquireRv.visibility=View.VISIBLE
+                binding.mypageInquireEmpty.visibility=View.GONE
+            }
+        })
+    }
+    fun newClick(view:View){
+        replaceAppbarFragment(MyPageInquireNewAppBar.newInstance())
+        popupFragment(MyPageInquireNew.newInstance())
+//        replaceMainFragment(MyPageInquireNew.newInstance())
     }
 
 }
