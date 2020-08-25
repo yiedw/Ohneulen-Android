@@ -137,11 +137,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     //바텀 네비게이션 설정
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        backStackClear()
         bottomNav.visibility = View.VISIBLE
         when (item.itemId) {
             R.id.menu_bottom_nav_home -> {
                 replaceAppbarFragment(HomeAppBar.newInstance())
                 replaceMainFragment(Home.newInstance())
+
                 return true
             }
             R.id.menu_bottom_nav_map -> {
@@ -164,6 +166,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
         return false
+    }
+
+    private fun backStackClear(){
+        for(i in 0 until supportFragmentManager.backStackEntryCount){
+            supportFragmentManager.popBackStack()
+        }
     }
 
 

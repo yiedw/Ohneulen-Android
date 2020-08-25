@@ -12,15 +12,20 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
+import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import timber.log.Timber
 
-class LoginAppBar(private val backStack: Boolean, private val fragment: Fragment) :
+class LoginAppBar( private val fragment: Fragment) :
     Fragment(), OnBackPressedListener {
     companion object {
-        fun newInstance(backStack: Boolean = false, fragment: Fragment = MyPageAppBar()) =
-            LoginAppBar(backStack, fragment)
+        fun newInstance(fragment: Fragment = MyPageAppBar.newInstance()): LoginAppBar {
+                backFragmentAppBar=fragment
+            return LoginAppBar( fragment)
+        }
+
+        var backFragmentAppBar=Fragment()
     }
 
     private lateinit var binding: LoginAppbarBinding
@@ -43,21 +48,11 @@ class LoginAppBar(private val backStack: Boolean, private val fragment: Fragment
 
     fun backClick(view: View) {
         replaceAppbarFragment(fragment)
-        if (!backStack) {
-//            replaceAppbarFragment(MyPageAppBar.newInstance())
-            replaceMainFragment(MyPage.newInstance())
-            return
-        }
         MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
         replaceAppbarFragment(fragment)
-        if (!backStack) {
-            replaceMainFragment(MyPage.newInstance())
-            return
-        }
-//        MainActivity.supportFragmentManager.popBackStack()
         MainActivity.supportFragmentManager.popBackStack()
     }
 }

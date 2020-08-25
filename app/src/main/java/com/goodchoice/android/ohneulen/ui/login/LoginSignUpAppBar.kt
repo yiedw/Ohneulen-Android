@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,38 +9,47 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginSignUpAppbarBinding
-import com.goodchoice.android.ohneulen.util.OnBackPressedListener
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.mypage.MyPage
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
+import com.goodchoice.android.ohneulen.util.*
 
-class LoginSignUpAppBar:Fragment(),OnBackPressedListener {
-    companion object{
-        fun newInstance()=LoginSignUpAppBar()
+class LoginSignUpAppBar(private val fragment: Fragment) : Fragment(), OnBackPressedListener {
+    companion object {
+        fun newInstance(fragment: Fragment=MyPageAppBar.newInstance()) = LoginSignUpAppBar(fragment)
     }
 
-    private lateinit var binding:LoginSignUpAppbarBinding
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        MainActivity.appbarFrameLayout.visibility = View.GONE
+    }
+
+    private lateinit var binding: LoginSignUpAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.login_sign_up_appbar,
             container,
             false
         )
-        binding.fragment=this
+        binding.fragment = this
         return binding.root
     }
-    fun backClick(view: View){
-        replaceAppbarFragment(LoginAppBar.newInstance())
-        replaceMainFragment(Login.newInstance())
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivity.appbarFrameLayout.visibility = View.VISIBLE
+
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(LoginAppBar.newInstance())
-        replaceMainFragment(Login.newInstance())
+        replaceAppbarFragment(LoginAppBar.newInstance( fragment))
+        MainActivity.supportFragmentManager.popBackStack()
+
     }
 }

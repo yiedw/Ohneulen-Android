@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:gravity="center"
-            android:onClick="@{fragment::backClick}"
             android:text="뒤로"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

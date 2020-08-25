@@ -18,6 +18,7 @@ import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MyPage : Fragment() {
 
@@ -27,10 +28,7 @@ class MyPage : Fragment() {
 
     private lateinit var binding: MypageBinding
     private val loginViewModel: LoginViewModel by viewModel()
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav.visibility = View.VISIBLE
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +47,6 @@ class MyPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        loginViewModel.test()
-//        loginViewModel.loginTest()
 
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             //로그인 상태일때
@@ -66,6 +62,11 @@ class MyPage : Fragment() {
             }
         })
     }
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.VISIBLE
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -91,9 +92,6 @@ class MyPage : Fragment() {
             addMainFragment(Login.newInstance(),true)
             return
         }
-//        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
-//        replaceAppbarFragment(LikeAppBar.newInstance())
-//        replaceMainFragment(Like.newInstance())
         MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
     }
 

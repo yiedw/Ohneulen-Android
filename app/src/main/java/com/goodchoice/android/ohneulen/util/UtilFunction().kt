@@ -196,7 +196,7 @@ fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
     }
 
     dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
-        replaceAppbarFragment(LoginAppBar.newInstance(true, backFragmentAppBar))
+        replaceAppbarFragment(LoginAppBar.newInstance( backFragmentAppBar))
         addMainFragment(Login.newInstance(backFragmentAppBar), true)
         dialog.dismiss()
     }

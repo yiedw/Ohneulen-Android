@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.login
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.icu.util.ValueIterator
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -16,10 +17,9 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
-import com.goodchoice.android.ohneulen.util.hideKeyboard
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import com.goodchoice.android.ohneulen.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -154,6 +154,9 @@ class Login(private val fragment: Fragment) : Fragment() {
         //로그인 성공
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
+                if (fragment is MyPageAppBar) {
+                    MainActivity.bottomNav.visibility = View.VISIBLE
+                }
                 replaceAppbarFragment(fragment)
                 MainActivity.supportFragmentManager.popBackStack()
             }
@@ -161,15 +164,18 @@ class Login(private val fragment: Fragment) : Fragment() {
 
         //로그인 에러 수신
         loginViewModel.loginErrorToast.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled().let {
-                Toast.makeText(requireContext(), "아이디 혹은 비밀번호가 맞지 않습니다", Toast.LENGTH_SHORT).show()
+            it.getContentIfNotHandled().let { it ->
+                if (it!!) {
+                    Toast.makeText(requireContext(), "아이디 혹은 비밀번호가 맞지 않습니다", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         })
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        MainActivity.bottomNav.visibility = View.VISIBLE
+        loginViewModel.loginErrorToast.postValue(Event(false))
     }
 
 
@@ -216,8 +222,8 @@ class Login(private val fragment: Fragment) : Fragment() {
     }
 
     fun signUpClick(view: View) {
-//        replaceAppbarFragment(LoginSignUpAppBar.newInstance())
-        replaceMainFragment(LoginSignUp.newInstance())
+        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+        addMainFragment(LoginSignUp.newInstance(), true)
     }
 
     fun autoTvClick(view: View) {

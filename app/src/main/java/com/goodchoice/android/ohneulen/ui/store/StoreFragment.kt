@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store
 
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
@@ -32,6 +33,7 @@ import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -55,6 +57,7 @@ class StoreFragment : Fragment() {
     private val storeViewModel: StoreViewModel by viewModel()
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,6 +77,10 @@ class StoreFragment : Fragment() {
         return binding.root
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         MainActivity.bottomNav.visibility = View.GONE
@@ -91,19 +98,14 @@ class StoreFragment : Fragment() {
         stickyHeader()
 
         binding.storeNewScrollView.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-//            Timber.e("newScrollView")
-//            Timber.e(scrollY.toString()+"asdf")
-//            Timber.e(binding.storeViewPager2[0].scrollY.toString())
-//            Timber.e(binding.storeViewPager2.scrollY.toString())
-//            Timber.e(first.toString())
             if (!first) {
                 first = !first
                 binding.storeNewScrollView.smoothScrollTo(0, 0)
                 return@setOnScrollChangeListener
             }
         }
-
     }
+
 
     override fun onResume() {
         super.onResume()

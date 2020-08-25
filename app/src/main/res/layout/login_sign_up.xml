@@ -4,14 +4,8 @@
 
     <data>
 
-        <variable
-            name="fragment"
-            type="com.goodchoice.android.ohneulen.ui.login.LoginSignUp" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <WebView
             android:id="@+id/login_sign_up_webView"
@@ -19,5 +13,4 @@
             android:layout_height="match_parent"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

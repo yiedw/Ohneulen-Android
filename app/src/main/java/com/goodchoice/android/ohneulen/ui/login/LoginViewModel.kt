@@ -55,17 +55,6 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
         }
     }
 
-    fun loginTest() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = networkService.requestLoginTest()
-
-            if (response.resultCode == "100") {
-                isLogin.postValue(true)
-            } else {
-                isLogin.postValue(false)
-            }
-        }
-    }
 
     fun logout() {
         CoroutineScope(Dispatchers.IO).launch {
