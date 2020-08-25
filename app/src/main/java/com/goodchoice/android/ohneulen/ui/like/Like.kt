@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LikeBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.goodchoice.android.ohneulen.util.textColor
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Like : Fragment() {
@@ -28,6 +30,7 @@ class Like : Fragment() {
         fun newInstance()=Like()
     }
     private lateinit var binding: LikeBinding
+    private val mainViewModel:MainViewModel by inject()
 
     override fun onResume() {
         super.onResume()
@@ -56,6 +59,7 @@ class Like : Fragment() {
     }
 
     fun moveSearch(view: View) {
+        mainViewModel.searchEditText="강남역"
         MainActivity.bottomNav.selectedItemId=R.id.menu_bottom_nav_map
     }
 }
