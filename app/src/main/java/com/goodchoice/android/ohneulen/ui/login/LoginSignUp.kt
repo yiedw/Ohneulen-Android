@@ -76,6 +76,11 @@ class LoginSignUp : Fragment() {
                 if (stat == 0) {
                     replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                     MainActivity.supportFragmentManager.popBackStack()
+                    Toast.makeText(
+                        MainActivity.mainFrameLayout.context,
+                        "회원가입이 완료되었습니다",
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
                     Handler().post {
                         Toast.makeText(
@@ -89,14 +94,13 @@ class LoginSignUp : Fragment() {
 
             @JavascriptInterface
             fun onBackClick() {
+//                Toast.makeText(MainActivity.mainFrameLayout.context,"회원가입이 완료되었습니다",Toast.LENGTH_SHORT).show()
                 replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-//                MainActivity.supportFragmentManager.popBackStack()
+                MainActivity.supportFragmentManager.popBackStack()
             }
         }, "android")
 
     }
-
-
 
 
 }
