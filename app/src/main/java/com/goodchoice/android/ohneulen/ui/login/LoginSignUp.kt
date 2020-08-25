@@ -74,11 +74,7 @@ class LoginSignUp : Fragment() {
             fun signUpSubmit(stat: Int) {
                 //0 success 1 fail
                 if (stat == 0) {
-                    replaceAppbarFragment(
-                        LoginAppBar.newInstance(
-                            LoginAppBar.backFragmentAppBar
-                        )
-                    )
+                    replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                     MainActivity.supportFragmentManager.popBackStack()
                 } else {
                     Handler().post {
@@ -91,18 +87,16 @@ class LoginSignUp : Fragment() {
                 }
             }
 
+            @JavascriptInterface
             fun onBackClick() {
-                replaceAppbarFragment(LoginAppBar.newInstance( LoginAppBar.backFragmentAppBar))
-                MainActivity.supportFragmentManager.popBackStack()
+                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+//                MainActivity.supportFragmentManager.popBackStack()
             }
         }, "android")
 
     }
 
 
-//    override fun onBackPressed() {
-//        replaceAppbarFragment(LoginAppBar.newInstance())
-//        replaceMainFragment(Login.newInstance())
-//    }
+
 
 }

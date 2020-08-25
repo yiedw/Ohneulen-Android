@@ -17,15 +17,15 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import timber.log.Timber
 
-class LoginAppBar( private val fragment: Fragment) :
+class LoginAppBar(private val fragment: Fragment) :
     Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance(fragment: Fragment = MyPageAppBar.newInstance()): LoginAppBar {
-                backFragmentAppBar=fragment
-            return LoginAppBar( fragment)
+            backFragmentAppBar = fragment
+            return LoginAppBar(fragment)
         }
 
-        var backFragmentAppBar=Fragment()
+        var backFragmentAppBar = Fragment()
     }
 
     private lateinit var binding: LoginAppbarBinding
@@ -47,11 +47,17 @@ class LoginAppBar( private val fragment: Fragment) :
     }
 
     fun backClick(view: View) {
+        if (fragment is MyPageAppBar) {
+            MainActivity.bottomNav.visibility = View.VISIBLE
+        }
         replaceAppbarFragment(fragment)
         MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
+        if (fragment is MyPageAppBar) {
+            MainActivity.bottomNav.visibility = View.VISIBLE
+        }
         replaceAppbarFragment(fragment)
         MainActivity.supportFragmentManager.popBackStack()
     }
