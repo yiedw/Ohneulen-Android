@@ -48,7 +48,7 @@ class LoginSignUp : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        WebView.setWebContentsDebuggingEnabled(true)
+        WebView.setWebContentsDebuggingEnabled(false)
         val setting = binding.loginSignUpWebView.settings
         setting.javaScriptEnabled = true
         setting.setSupportMultipleWindows(true)
