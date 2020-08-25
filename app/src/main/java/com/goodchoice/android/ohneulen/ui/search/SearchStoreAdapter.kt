@@ -18,6 +18,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -61,7 +62,8 @@ class SearchStoreAdapter :
 
                 root.setOnClickListener {
                     parentView.isEnabled = false
-                    Timber.e(System.nanoTime().toString())
+                    val dialog=LoadingDialog.newInstance("매장 들어가는 중...")
+                    dialog.show(MainActivity.supportFragmentManager,"loading")
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
 //                    replaceAppbarFragment(StoreAppBar.newInstance())

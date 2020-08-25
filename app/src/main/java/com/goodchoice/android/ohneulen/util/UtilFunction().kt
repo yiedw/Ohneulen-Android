@@ -203,6 +203,7 @@ fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
     dialog.show()
 }
 
+
 suspend fun getOhneulenData(
     networkService: NetworkService,
     code: String

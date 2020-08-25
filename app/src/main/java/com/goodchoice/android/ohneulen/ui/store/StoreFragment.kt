@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
@@ -49,10 +50,10 @@ class StoreFragment : Fragment() {
         // 2 -> menu
         // 3 -> review
         var state = 0
-
     }
 
     private var first = false
+    private var check = false
 
     private lateinit var binding: StoreFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
@@ -82,6 +83,7 @@ class StoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+
 //            메뉴 없으면 메뉴탭 삭제
             if (it.menuList.isNullOrEmpty()) {
                 viewPagerSettingNullMenu()
@@ -93,17 +95,28 @@ class StoreFragment : Fragment() {
             binding.storeNewScrollView.visibility = View.VISIBLE
             MainActivity.bottomNav.visibility = View.GONE
             replaceAppbarFragment(StoreAppBar.newInstance())
-            Timber.e(System.nanoTime().toString())
+            if (first) {
+                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
+                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
+                }
+            }
+
         })
         stickyHeader()
 
         binding.storeNewScrollView.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+
             if (!first) {
                 first = !first
                 binding.storeNewScrollView.scrollTo(0, 1)
                 binding.storeNewScrollView.smoothScrollTo(0, 0)
-                return@setOnScrollChangeListener
+                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
+                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
+                }
             }
+//
+//
+            return@setOnScrollChangeListener
         }
     }
 
@@ -178,8 +191,7 @@ class StoreFragment : Fragment() {
             getFragmentList(), childFragmentManager,
             lifecycle
         )
-        binding.storeViewPager2.offscreenPageLimit = 2
-//        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
+        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
