@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -30,7 +31,7 @@ import timber.log.Timber
 class SearchStoreAdapter :
     ListAdapter<Store, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
-
+    var first = false
     lateinit var parentView: RecyclerView
 
     inner class SearchStoreViewHolder(private val binding: StoreItemBinding) :
@@ -38,6 +39,11 @@ class SearchStoreAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(item: Store) {
             binding.apply {
+//                if (!first) {
+//                    first = true
+//                    MainActivity.supportFragmentManager.beginTransaction().addToBackStack(null)
+//                        .add(R.id.main_frameLayout,StoreFragment.newInstance())
+//                }
                 store = item
                 storeItemLike.isSelected = item.likes
                 storeItemLike.setOnClickListener {
@@ -55,9 +61,10 @@ class SearchStoreAdapter :
 
                 root.setOnClickListener {
                     parentView.isEnabled = false
+                    Timber.e(System.nanoTime().toString())
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
-                    replaceAppbarFragment(StoreAppBar.newInstance())
+//                    replaceAppbarFragment(StoreAppBar.newInstance())
                     addMainFragment(StoreFragment.newInstance(), true)
                 }
             }

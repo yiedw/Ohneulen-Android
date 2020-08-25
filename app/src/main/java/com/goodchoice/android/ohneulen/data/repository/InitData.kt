@@ -26,6 +26,7 @@ class InitData(private val networkService: NetworkService) {
     var timeDay = mutableListOf<OhneulenData>()
 
 
+
     //옵션
 
     init {

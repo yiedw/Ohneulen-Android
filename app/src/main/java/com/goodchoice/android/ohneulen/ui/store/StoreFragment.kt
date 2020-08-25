@@ -30,6 +30,7 @@ import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.dp
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -57,7 +58,6 @@ class StoreFragment : Fragment() {
     private val storeViewModel: StoreViewModel by viewModel()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,13 +77,9 @@ class StoreFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainActivity.bottomNav.visibility = View.GONE
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
 //            메뉴 없으면 메뉴탭 삭제
@@ -94,12 +90,17 @@ class StoreFragment : Fragment() {
             }
             hashTagGenerate(it)
             storeImage(it)
+            binding.storeNewScrollView.visibility = View.VISIBLE
+            MainActivity.bottomNav.visibility = View.GONE
+            replaceAppbarFragment(StoreAppBar.newInstance())
+            Timber.e(System.nanoTime().toString())
         })
         stickyHeader()
 
         binding.storeNewScrollView.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
             if (!first) {
                 first = !first
+                binding.storeNewScrollView.scrollTo(0, 1)
                 binding.storeNewScrollView.smoothScrollTo(0, 0)
                 return@setOnScrollChangeListener
             }
@@ -109,8 +110,6 @@ class StoreFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-
     }
 
     override fun onDestroy() {

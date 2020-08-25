@@ -143,7 +143,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.menu_bottom_nav_home -> {
                 replaceAppbarFragment(HomeAppBar.newInstance())
                 replaceMainFragment(Home.newInstance())
-
                 return true
             }
             R.id.menu_bottom_nav_map -> {

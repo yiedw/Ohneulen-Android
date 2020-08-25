@@ -76,8 +76,8 @@ class MyPage : Fragment() {
 
     fun infoClick(view: View) {
         if (LoginViewModel.isLogin.value!!) {
-            replaceAppbarFragment(MyPageInfoAppBar.newInstance())
-            replaceMainFragment(MyPageInfo.newInstance())
+//            replaceAppbarFragment(MyPageInfoAppBar.newInstance())
+//            replaceMainFragment(MyPageInfo.newInstance())
         } else {
             replaceAppbarFragment(LoginAppBar.newInstance())
             addMainFragment(Login.newInstance(),true)
