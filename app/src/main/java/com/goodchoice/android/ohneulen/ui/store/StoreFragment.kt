@@ -1,6 +1,5 @@
 package com.goodchoice.android.ohneulen.ui.store
 
-import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
@@ -36,7 +35,6 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -164,7 +162,7 @@ class StoreFragment : Fragment() {
 
     //카테고리 좋아요 후기 갯수
     private fun storeHeader(storeDetail: StoreDetail) {
-        val store = storeDetail.storeInfo.store
+        val store = storeDetail.storeInfo.storeFull
         val likeCnt =
             textColor("51", 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
         val reviewCnt = textColor(

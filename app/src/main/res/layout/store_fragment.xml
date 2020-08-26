@@ -44,7 +44,7 @@
                     android:id="@+id/store_fragment_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.storeDetail.storeInfo.store.storeName}"
+                    android:text="@{viewModel.storeDetail.storeInfo.storeFull.storeName}"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/header_center"
                     android:textStyle="bold"

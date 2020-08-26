@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.google.maps.android.clustering.ClusterItem
 import javax.sql.DataSource
 
-data class Store (
+data class StoreFull (
     val seq: String,
     val kind: String,
     val cate1: String,
@@ -30,7 +30,7 @@ data class Store (
     val insertID: String,
     val modifyDate: String,
     val modifyID: String,
-    val cate1Name: String,
+    val cate1Name: Cate1Name?=null,
     val likes: Boolean,
     val image: List<Image>,
     val photoURL: String,
@@ -38,3 +38,7 @@ data class Store (
     val opentime:String
 )
 
+data class Cate1Name(
+    val majorName: String?,
+    val minorName: String?
+)

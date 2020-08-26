@@ -47,7 +47,7 @@
                     android:id="@+id/store_home_address"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@{viewModel.storeDetail.storeInfo.store.addrRoad1}"
+                    android:text="@{viewModel.storeDetail.storeInfo.storeFull.addrRoad1}"
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    android:text="@{viewModel.storeDetail.storeInfo.store.bizTel}"
+                    android:text="@{viewModel.storeDetail.storeInfo.storeFull.bizTel}"
                     android:textColor="@color/colorGrey88"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -202,7 +202,7 @@
             android:background="@color/white"
             android:paddingHorizontal="20dp"
             android:paddingVertical="16dp"
-            android:text="@{viewModel.storeDetail.storeInfo.store.contents}"
+            android:text="@{viewModel.storeDetail.storeInfo.storeFull.contents}"
             android:textColor="@color/colorGrey88"
             android:textSize="14sp" />
 

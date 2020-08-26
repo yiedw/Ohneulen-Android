@@ -55,6 +55,8 @@ class Search : Fragment(), MapView.POIItemEventListener {
         //초기화 (두번씩 observe 되는것 방지)
         searchViewModel.kakaoMapPoint = MutableLiveData()
         searchViewModel.searchStoreList = MutableLiveData()
+
+
     }
 
     override fun onCreateView(

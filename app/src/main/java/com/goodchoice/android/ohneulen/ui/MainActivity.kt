@@ -23,6 +23,8 @@ import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.like.Like
 import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
+import com.goodchoice.android.ohneulen.ui.login.Login
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
@@ -151,6 +153,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
 
             R.id.menu_bottom_nav_like -> {
+                if(!LoginViewModel.isLogin.value!!){
+                    loginDialog(this,supportFragmentManager.findFragmentById(R.id.appbar_frameLayout)!!,true)
+                    return false
+                }
                 replaceAppbarFragment(LikeAppBar.newInstance())
                 replaceMainFragment(Like.newInstance())
                 return true

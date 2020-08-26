@@ -1,6 +1,9 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class StoreInfo(
     val image: List<Image>,
-    val store: Store
+    @SerializedName("store")
+    val storeFull: StoreFull
 )

@@ -185,7 +185,7 @@ fun hideKeyboard(view: View, context: Context) {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
+fun loginDialog(context: Context, backFragmentAppBar: Fragment, bottomNavVisibility: Boolean) {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.logout_dialog)
@@ -198,7 +198,7 @@ fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
 
     dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
         replaceAppbarFragment(LoginAppBar.newInstance(backFragmentAppBar))
-        addMainFragment(Login.newInstance(backFragmentAppBar), true)
+        addMainFragment(Login.newInstance(backFragmentAppBar,bottomNavVisibility), true)
         dialog.dismiss()
     }
     dialog.show()

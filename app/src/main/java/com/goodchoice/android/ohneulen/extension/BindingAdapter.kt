@@ -12,7 +12,6 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageGoodAdapter
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
@@ -22,9 +21,10 @@ import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import timber.log.Timber
 
 //searchStore
-@BindingAdapter("searchStoreAdapter", "searchStore","searchStoreNetworkService")
+@BindingAdapter("searchStoreAdapter", "searchStore", "searchStoreNetworkService")
 fun setSearchStoreAdapter(
     recyclerView: RecyclerView,
     adapter: SearchStoreAdapter?,
@@ -37,19 +37,18 @@ fun setSearchStoreAdapter(
             return SNAP_TO_START
         }
     }
+
     smoothScroller.targetPosition = 0
     recyclerView.setHasFixedSize(true)
     recyclerView.adapter = adapter?.apply {
         parentView = recyclerView
-        mNetworkService=networkService
+        mNetworkService = networkService
         submitList(items)
         Handler().postDelayed({
             recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
         }, 200)
 
     }
-
-
 }
 
 //filter
@@ -82,6 +81,7 @@ fun setStoreMenuDetail(
     index: Int,
     loading: MutableLiveData<Boolean>
 ) {
+    recyclerView.setHasFixedSize(true)
     val linearLayoutManager = LinearLayoutManager(recyclerView.context)
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
@@ -147,13 +147,14 @@ fun setImageViewResID(imageView: ImageView, resID: Int) {
         .into(imageView)
 }
 
-@BindingAdapter("mypageGoodAdapter")
-fun setMyPageGoodAdapter(recyclerView: RecyclerView, adapter: MyPageGoodAdapter) {
-    recyclerView.adapter = adapter
-}
+//@BindingAdapter("mypageGoodAdapter")
+//fun setMyPageGoodAdapter(recyclerView: RecyclerView, adapter: MyPageGoodAdapter) {
+//    recyclerView.adapter = adapter
+//}
 
 @BindingAdapter("reviewAdapter", "review")
 fun setReview(recyclerView: RecyclerView, adapter: ReviewAdapter, items: List<Review>?) {
+    recyclerView.setHasFixedSize(true)
     recyclerView.adapter = adapter.apply {
         if (items != null) {
             submitList(items)
@@ -183,6 +184,7 @@ fun setFAQ(recyclerView: RecyclerView, items: List<FAQ>?, viewModel: MyPageViewM
 
 @BindingAdapter("storeImageList")
 fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
+    recyclerView.setHasFixedSize(true)
     recyclerView.onFlingListener = null
     val snapHelper = LinearSnapHelper()
     snapHelper.attachToRecyclerView(recyclerView)
@@ -207,6 +209,7 @@ fun setImageDetailStore(
     linearLayoutManager.orientation = RecyclerView.HORIZONTAL
     linearLayoutManager.scrollToPosition(index)
 
+    recyclerView.setHasFixedSize(true)
     recyclerView.layoutManager = linearLayoutManager
     recyclerView.onFlingListener = null;
     //viewpager 처럼 딱딱 끊어지게
@@ -235,5 +238,31 @@ fun setImageDetailStore(
     loading.postValue(true)
 
 }
+////LikeStore
+//@BindingAdapter("likeStoreAdapter", "likeStore","likeNetworkService")
+//fun setLikeStoreAdapter(
+//    recyclerView: RecyclerView,
+//    adapter: SearchStoreAdapter?,
+//    items: List<Store>?,
+//    networkService: NetworkService
+//) {
+//
+//    val smoothScroller = object : LinearSmoothScroller(recyclerView.context) {
+//        override fun getVerticalSnapPreference(): Int {
+//            return SNAP_TO_START
+//        }
+//    }
+//    smoothScroller.targetPosition = 0
+//    recyclerView.setHasFixedSize(true)
+//    recyclerView.adapter = adapter?.apply {
+//        parentView = recyclerView
+//        mNetworkService=networkService
+//        submitList(items)
+//        Handler().postDelayed({
+//            recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
+//        }, 200)
+//
+//    }
+//}
 
 

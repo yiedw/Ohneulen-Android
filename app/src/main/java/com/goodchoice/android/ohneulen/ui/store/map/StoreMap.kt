@@ -19,14 +19,11 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.ui.IconGenerator
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreMap : Fragment(), OnMapReadyCallback {
 
@@ -74,10 +71,10 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             currentLatLng =
-                LatLng(it.storeInfo.store.addrY.toDouble(), it.storeInfo.store.addrX.toDouble())
-            binding.storeMapAddressRoad.text = it.storeInfo.store.addrRoad1
+                LatLng(it.storeInfo.storeFull.addrY.toDouble(), it.storeInfo.storeFull.addrX.toDouble())
+            binding.storeMapAddressRoad.text = it.storeInfo.storeFull.addrRoad1
             val addrOld =
-                "${it.storeInfo.store.addrDepth1} ${it.storeInfo.store.addrDepth2} ${it.storeInfo.store.addrDepth3}"
+                "${it.storeInfo.storeFull.addrDepth1} ${it.storeInfo.storeFull.addrDepth2} ${it.storeInfo.storeFull.addrDepth3}"
             binding.storeMapAddressOld.text = addrOld
         })
     }

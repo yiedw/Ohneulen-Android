@@ -80,7 +80,7 @@ class MyPage : Fragment() {
 //            replaceMainFragment(MyPageInfo.newInstance())
         } else {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
             return
         }
 
@@ -89,7 +89,7 @@ class MyPage : Fragment() {
     fun likeClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
             return
         }
         MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
@@ -98,7 +98,7 @@ class MyPage : Fragment() {
     fun recentClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
             return
         }
         replaceAppbarFragment(MyPageRecentAppBar.newInstance())
@@ -108,7 +108,7 @@ class MyPage : Fragment() {
     fun reviewClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
             return
         }
         replaceAppbarFragment(MyPageReviewAppBar.newInstance())
@@ -118,7 +118,7 @@ class MyPage : Fragment() {
     fun inquireClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
             return
         }
         replaceAppbarFragment(MyPageInquireAppBar.newInstance())

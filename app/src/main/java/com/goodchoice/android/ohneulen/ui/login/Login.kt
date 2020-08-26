@@ -23,10 +23,13 @@ import com.goodchoice.android.ohneulen.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class Login(private val fragment: Fragment) : Fragment() {
+class Login(private val fragment: Fragment, private val bottomNavVisibility: Boolean) : Fragment() {
 
     companion object {
-        fun newInstance(fragment: Fragment = MyPageAppBar.newInstance()) = Login(fragment)
+        fun newInstance(
+            fragment: Fragment = MyPageAppBar.newInstance(),
+            bottomNavVisibility: Boolean
+        ) = Login(fragment, bottomNavVisibility)
     }
 
     private lateinit var binding: LoginBinding
@@ -154,9 +157,6 @@ class Login(private val fragment: Fragment) : Fragment() {
         //로그인 성공
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
-                if (fragment is MyPageAppBar) {
-                    MainActivity.bottomNav.visibility = View.VISIBLE
-                }
                 replaceAppbarFragment(fragment)
                 MainActivity.supportFragmentManager.popBackStack()
             }
@@ -175,6 +175,11 @@ class Login(private val fragment: Fragment) : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        if (bottomNavVisibility) {
+            MainActivity.bottomNav.visibility = View.VISIBLE
+        } else {
+            MainActivity.bottomNav.visibility = View.GONE
+        }
         loginViewModel.loginErrorToast.postValue(Event(false))
     }
 

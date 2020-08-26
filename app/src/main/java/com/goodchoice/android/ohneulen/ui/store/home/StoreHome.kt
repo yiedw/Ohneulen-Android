@@ -130,7 +130,7 @@ class StoreHome : Fragment() {
     //개업일 업데이트
     @SuppressLint("SetTextI18n")
     private fun storeUpdate(storeDetail: StoreDetail) {
-        val store = storeDetail.storeInfo.store
+        val store = storeDetail.storeInfo.storeFull
         //추후변경
 //        val openDate = store.openDate.substring(0, 4) + "." + store.openDate.substring(
 //            4,
@@ -248,7 +248,7 @@ class StoreHome : Fragment() {
 
     fun reportClick(view: View) {
         replaceAppbarFragment(StoreHomeReportAppBar.newInstance())
-        popupFragment(StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.store.storeName))
+        popupFragment(StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.storeFull.storeName))
     }
 
 }

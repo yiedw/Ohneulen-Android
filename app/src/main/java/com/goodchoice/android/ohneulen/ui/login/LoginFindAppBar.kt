@@ -37,11 +37,11 @@ class LoginFindAppBar : Fragment() ,OnBackPressedListener{
 
     fun backClick(view: View){
         replaceAppbarFragment(LoginAppBar.newInstance())
-        replaceMainFragment(Login.newInstance())
+        replaceMainFragment(Login.newInstance(bottomNavVisibility = false))
     }
 
     override fun onBackPressed() {
         replaceAppbarFragment(LoginAppBar.newInstance())
-        replaceMainFragment(Login.newInstance())
+        replaceMainFragment(Login.newInstance(bottomNavVisibility = false))
     }
 }

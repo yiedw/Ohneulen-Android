@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 
 class MyPageViewModel : ViewModel() {
 
-    val goodAdapter = MyPageGoodAdapter()
+//    val goodAdapter = MyPageGoodAdapter()
 
 
     //후기

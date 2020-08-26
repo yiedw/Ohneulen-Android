@@ -43,20 +43,25 @@ interface NetworkService {
     @POST("store/searchList")
     @FormUrlEncoded
     suspend fun requestStoreSearchList(
-        @Field("addry[]") addry:List<Double>,
-        @Field("addrx[]") addrx:List<Double>,
-        @Field("cate[]") cate:List<String>,
-        @Field("option[]") option:List<String>,
-        @Field("openTime[]") openTime:List<String>,
-        @Field("sort[]") sort:List<String>
+        @Field("addry[]") addry: List<Double>,
+        @Field("addrx[]") addrx: List<Double>,
+        @Field("cate[]") cate: List<String>,
+        @Field("option[]") option: List<String>,
+        @Field("openTime[]") openTime: List<String>,
+        @Field("sort[]") sort: List<String>
     ): GetStoreListResponse
 
     //찜 설정
     @POST("api/set_memberLike")
     @FormUrlEncoded
     suspend fun requestSetMemberLike(
-        @Field("store_seq") storeSeq:String
-    ):GetEmptyDataResponse
+        @Field("store_seq") storeSeq: String
+    ): GetEmptyDataResponse
+
+    //찜 목록 가져오기
+    @POST("api/get_memberLike")
+    suspend fun requestGetMemberLike(
+    ): GetStoreListResponse
 
 
     //카카오 위치 검색

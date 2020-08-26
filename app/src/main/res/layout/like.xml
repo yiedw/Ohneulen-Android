@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.like.Like" />
+        <variable
+            name="viewModel"
+            type="com.goodchoice.android.ohneulen.ui.like.LikeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,19 +23,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:layout_marginTop="12dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:searchStoreAdapter="@{viewModel.likeStoreAdapter}"
+            bind:searchStore="@{viewModel.storeList}"
+            bind:searchStoreNetworkService="@{viewModel.mNetworkService}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/like_zero"
+            android:id="@+id/like_empty"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/background_border_dotted"
             android:onClick="@{fragment.moveSearch}"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

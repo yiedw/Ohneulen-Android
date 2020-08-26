@@ -35,6 +35,7 @@ class LoginAppBar(private val fragment: Fragment) :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.login_appbar,

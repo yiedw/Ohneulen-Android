@@ -2,6 +2,9 @@ package com.goodchoice.android.ohneulen.ui.search
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +17,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.data.service.NetworkService
@@ -48,33 +52,57 @@ class SearchStoreAdapter :
         fun bind(item: Store) {
             binding.apply {
                 store = item
-                storeItemLike.isSelected = item.likes
+                if (item.photoURL.isNullOrEmpty()) {
+                    if (!item.image.isNullOrEmpty()) {
+                        Glide.with(binding.storeItemImage.context)
+                            .load("${BaseUrl.OHNEULEN}${item.image[0].photoURL}").centerCrop()
+                            .into(binding.storeItemImage)
+                    }
+                } else {
+                    Glide.with(binding.storeItemImage.context)
+                        .load("${BaseUrl.OHNEULEN}${item.photoURL}").centerCrop()
+                        .into(binding.storeItemImage)
+                }
+                if (StoreAppBar.stat == 2) {
+                    //찜목록일때
+                    storeItemLike.isSelected = true
+                } else if (StoreAppBar.stat == 1) {
+                    //검색일때
+                    storeItemLike.isSelected = item.likes
+
+                }
                 //하트표시 클릭
                 storeItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
-                        loginDialog(root.context, SearchAppBar.newInstance())
+                        loginDialog(root.context, SearchAppBar.newInstance(), true)
                         return@setOnClickListener
                     }
-
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
                             val response = mNetworkService.requestSetMemberLike(item.seq)
                             if (response.resultCode == ConstList.SUCCESS) {
-
                                 storeItemLike.isSelected = !storeItemLike.isSelected
                                 if (storeItemLike.isSelected) {
-                                    Toast.makeText(
-                                        root.context,
-                                        "찜 목록에 저장되었습니다",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    Handler(Looper.getMainLooper()).post {
+                                        Toast.makeText(
+                                            root.context,
+                                            "찜 목록에 저장되었습니다",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                } else {
+                                    if (StoreAppBar.stat == 2) {
+                                        val newList=ArrayList(currentList).also { it.removeAt(adapterPosition) }
+//                                        notifyItemRemoved(adapterPosition)
+                                        submitList(newList)
+                                    }
                                 }
                             } else if (response.resultCode == ConstList.REQUIRE_LOGIN) {
                                 LoginViewModel.isLogin.postValue(false)
-                                loginDialog(root.context, SearchAppBar.newInstance())
+                                loginDialog(root.context, SearchAppBar.newInstance(), true)
                             }
                         } catch (e: Exception) {
-                            Toast.makeText(root.context, "찜에 실패하였습니다", Toast.LENGTH_LONG).show()
+                            Timber.e(e.toString())
                         }
                     }
 
@@ -86,7 +114,6 @@ class SearchStoreAdapter :
 //                    dialog.show(MainActivity.supportFragmentManager,"loading")
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
-//                    replaceAppbarFragment(StoreAppBar.newInstance())
                     addMainFragment(StoreFragment.newInstance(), true)
                 }
             }
@@ -108,6 +135,7 @@ class SearchStoreAdapter :
 
     override fun onBindViewHolder(holder: SearchStoreViewHolder, position: Int) {
         holder.bind(getItem(position))
+
     }
 
 }

@@ -9,21 +9,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.login.Login
+import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
+import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
-import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.iosParameters
@@ -34,9 +31,12 @@ import timber.log.Timber
 
 
 class StoreAppBar : Fragment(), OnBackPressedListener {
+    // 1->search
+    // 2->like
 
     companion object {
         fun newInstance() = StoreAppBar()
+        var stat = 1
     }
 
     private lateinit var binding: StoreAppbarBinding
@@ -78,12 +78,11 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 
         //찜상태 받아오기
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
-            binding.storeAppbarLike.isSelected = it.storeInfo.store.likes
+            binding.storeAppbarLike.isSelected = it.storeInfo.storeFull.likes
         })
 
         //하트눌렀을때
         storeViewModel.setMemberLikeResponseCode.observe(viewLifecycleOwner, Observer {
-            Timber.e("adsf")
             if (it == ConstList.SUCCESS) {
                 binding.storeAppbarLike.isSelected = !binding.storeAppbarLike.isSelected
                 if (binding.storeAppbarLike.isSelected) {
@@ -93,7 +92,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             } else if (it == ConstList.REQUIRE_LOGIN) {
                 LoginViewModel.isLogin.postValue(false)
                 binding.storeAppbarLike.isSelected = false
-                loginDialog(requireContext(), newInstance())
+                loginDialog(requireContext(), newInstance(), false)
                 storeViewModel.setMemberLikeResponseCode.postValue("")
             }
 
@@ -110,7 +109,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
     fun likeClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             binding.storeAppbarLike.isSelected = false
-            loginDialog(requireContext(), newInstance())
+            loginDialog(requireContext(), newInstance(), false)
             return
         }
         storeViewModel.setMemberLike()
@@ -131,20 +130,31 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 //            replaceMainFragment(Search.newInstance())
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
         } else {
-            replaceAppbarFragment(SearchAppBar.newInstance(true))
+            if (stat == 1) {
+                replaceAppbarFragment(SearchAppBar.newInstance(true))
+            } else if (stat == 2) {
+                replaceAppbarFragment(LikeAppBar.newInstance())
+            } else {
+                replaceAppbarFragment(HomeAppBar.newInstance())
+            }
             MainActivity.supportFragmentManager.popBackStack()
         }
     }
 
     override fun onBackPressed() {
         MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
-        Timber.e(MainActivity.supportFragmentManager.backStackEntryCount.toString())
         if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
 //            replaceAppbarFragment(SearchAppBar.newInstance())
 //            replaceMainFragment(Search.newInstance())
         } else {
-            replaceAppbarFragment(SearchAppBar.newInstance(true))
+            if (stat == 1) {
+                replaceAppbarFragment(SearchAppBar.newInstance(true))
+            } else if (stat == 2) {
+                replaceAppbarFragment(LikeAppBar.newInstance())
+            } else {
+                replaceAppbarFragment(HomeAppBar.newInstance())
+            }
             MainActivity.supportFragmentManager.popBackStack()
         }
     }

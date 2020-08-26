@@ -15,6 +15,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SearchAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -32,6 +33,12 @@ class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListene
     private lateinit var binding: SearchAppbarBinding
     private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        //store stat 설정
+        StoreAppBar.stat=1
+    }
 
 
     override fun onCreateView(

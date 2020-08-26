@@ -159,7 +159,7 @@ class StoreReview : Fragment() {
 
     fun reviewWriteClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
-            loginDialog(requireContext(), StoreAppBar.newInstance())
+            loginDialog(requireContext(), StoreAppBar.newInstance(),false)
         } else {
             replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
             popupFragment(StoreReviewWrite.newInstance())
