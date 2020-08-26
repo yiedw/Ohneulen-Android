@@ -51,12 +51,13 @@ interface NetworkService {
         @Field("sort[]") sort:List<String>
     ): GetStoreListResponse
 
-    //스토어 리스트 검색(임시)
-    @POST("store/searchList")
+    //찜 설정
+    @POST("api/set_memberLike")
     @FormUrlEncoded
-    suspend fun requestTempStoreSearchList(
-        @Field("cate[]") cate:List<String>
-    ): GetStoreListResponse
+    suspend fun requestSetMemberLike(
+        @Field("store_seq") storeSeq:String
+    ):GetEmptyDataResponse
+
 
     //카카오 위치 검색
     @GET
@@ -73,11 +74,5 @@ interface NetworkService {
         @Header("Authorization") authorizationKey: String = App.resources.getString(R.string.kakao_rest_key)
     ): KakaoKeywordResponse
 
-    @GET
-    suspend fun requestTestData(
-        @Url url: String = "https://newsapi.org/v2/everything?q=sports&apiKey=aa67d8d98c8e4ad1b4f16dbd5f3be348",
-        @Query("page") page: Int,
-        @Query("pageSize") pageSize: Int
-    ): TestResponse
 
 }

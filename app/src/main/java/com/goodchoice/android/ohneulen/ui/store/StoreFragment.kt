@@ -95,11 +95,11 @@ class StoreFragment : Fragment() {
             binding.storeNewScrollView.visibility = View.VISIBLE
             MainActivity.bottomNav.visibility = View.GONE
             replaceAppbarFragment(StoreAppBar.newInstance())
-            if (first) {
-                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
-                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
-                }
-            }
+//            if (first) {
+//                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
+//                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
+//                }
+//            }
 
         })
         stickyHeader()

@@ -52,7 +52,7 @@ class InitData(private val networkService: NetworkService) {
                 subCategory.add(tempList)
             }
             subCategory = getOhneulenSubData(networkService, mainCategory)
-            Timber.e(subCategory.toString())
+//            Timber.e(subCategory.toString())
         }
     }
 

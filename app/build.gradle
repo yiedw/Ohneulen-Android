@@ -7,6 +7,8 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
+
+
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -22,25 +24,26 @@ android {
         applicationId "com.goodchoice.android.ohneulen"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 1
-        versionName "0.0.1"
+        versionCode 2
+        versionName "0.0.2"
 
     }
 
+//            multiDexEnabled true
     buildTypes {
         release {
-            debuggable false
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String","Ohneulen","\"https://www.ohneulen.com/\""
-            buildConfigField "String","OhneulenSignUp","\"https://m.ohneulen.com/member/regist\""
-            resValue("string","app_name","오늘은")
+            debuggable false
+            buildConfigField "String", "Ohneulen", "\"https://www.ohneulen.com/\""
+            buildConfigField "String", "OhneulenSignUp", "\"https://www.ohneulen.com/member/regist\""
+            resValue("string", "app_name", "오늘은")
         }
-        debug{
+        debug {
             debuggable true
-            buildConfigField "String","Ohneulen","\"https://develop.ohneulen.com/\""
-            buildConfigField "String","OhneulenSignUp","\"https://devm.ohneulen.com/member/regist\""
-            resValue("string","app_name","개발용")
+            buildConfigField "String", "Ohneulen", "\"https://develop.ohneulen.com/\""
+            buildConfigField "String", "OhneulenSignUp", "\"https://devm.ohneulen.com/member/regist\""
+            resValue("string", "app_name", "개발용")
         }
     }
 

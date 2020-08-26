@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
+import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
@@ -26,7 +27,11 @@ import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.Exception
 
 
 class SearchStoreAdapter :
@@ -40,21 +45,25 @@ class SearchStoreAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(item: Store) {
             binding.apply {
-//                if (!first) {
-//                    first = true
-//                    MainActivity.supportFragmentManager.beginTransaction().addToBackStack(null)
-//                        .add(R.id.main_frameLayout,StoreFragment.newInstance())
-//                }
                 store = item
                 storeItemLike.isSelected = item.likes
+                    //하트표시 클릭
                 storeItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
                         loginDialog(root.context, SearchAppBar.newInstance())
                         return@setOnClickListener
                     }
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            networkService.requestSetMemberLike(item.seq)
+                        }
+                        catch (e:Exception){
+                            Toast.makeText(root.context,"찜에 실패하였습니다",Toast.LENGTH_LONG).show()
+                        }
+                    }
                     storeItemLike.isSelected = !storeItemLike.isSelected
                     if (storeItemLike.isSelected) {
-//                        storeItemLike.isSelected = false
                         Toast.makeText(root.context, "찜 목록에 저장되었습니다", Toast.LENGTH_SHORT).show()
                     }
 
@@ -62,8 +71,8 @@ class SearchStoreAdapter :
 
                 root.setOnClickListener {
                     parentView.isEnabled = false
-                    val dialog=LoadingDialog.newInstance("매장 들어가는 중...")
-                    dialog.show(MainActivity.supportFragmentManager,"loading")
+//                    val dialog=LoadingDialog.newInstance("매장 들어가는 중...")
+//                    dialog.show(MainActivity.supportFragmentManager,"loading")
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
 //                    replaceAppbarFragment(StoreAppBar.newInstance())

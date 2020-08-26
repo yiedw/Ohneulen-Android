@@ -44,6 +44,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var mainCategoryPosition = MutableLiveData<Int>(0)
     var subCategoryPosition = 0
 
+
     val mainCategory = initData.mainCategory
     val subCategoryList = initData.subCategory
     var subCategory = MutableLiveData<List<OhneulenData>>(subCategoryList[0])
@@ -85,6 +86,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
         CoroutineScope(Dispatchers.IO).launch {
             val y: Double
             val x: Double
+
             val addressResponse = networkService.requestKakaoAddress(address = searchEditText)
             if (addressResponse.documents.isEmpty()) {
                 val keywordResponse =

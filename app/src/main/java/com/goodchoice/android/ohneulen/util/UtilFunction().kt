@@ -34,6 +34,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
+import java.lang.Exception
 import java.security.MessageDigest
 import java.text.DecimalFormat
 
@@ -110,7 +111,7 @@ fun addAppbarFragment(
     fragmentTransaction.add(R.id.appbar_frameLayout, fragment).commit()
 }
 
-fun popupFragment(fragment: Fragment){
+fun popupFragment(fragment: Fragment) {
     MainActivity.supportFragmentManager.beginTransaction()
         .setCustomAnimations(
             R.anim.enter_bottom_to_top,
@@ -143,7 +144,7 @@ fun Int.dp(): Int {
 fun fcmToken(context: Context) {
 //    FirebaseApp.initializeApp(context)
     FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { task ->
-        Timber.e("fcmToken : $task.token")
+//        Timber.e("fcmToken : $task.token")
     }
 
     //푸시알람 받기
@@ -196,7 +197,7 @@ fun loginDialog(context: Context, backFragmentAppBar: Fragment) {
     }
 
     dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
-        replaceAppbarFragment(LoginAppBar.newInstance( backFragmentAppBar))
+        replaceAppbarFragment(LoginAppBar.newInstance(backFragmentAppBar))
         addMainFragment(Login.newInstance(backFragmentAppBar), true)
         dialog.dismiss()
     }
@@ -210,13 +211,19 @@ suspend fun getOhneulenData(
 ): MutableList<OhneulenData> {
     val list = mutableListOf<OhneulenData>()
     withContext(Dispatchers.IO) {
-        val response =
-            networkService.requestOhneulenData(code.toRequestBody())
-        for (i in response.resultData.indices) {
-            val majorCode = response.resultData[i].majorCode
-            val minorCode = response.resultData[i].minorCode
-            val minorName = response.resultData[i].minorName
-            list.add(OhneulenData(majorCode, minorCode, minorName, false))
+        try {
+            val response =
+                networkService.requestOhneulenData(code.toRequestBody())
+            for (i in response.resultData.indices) {
+                val majorCode = response.resultData[i].majorCode
+                val minorCode = response.resultData[i].minorCode
+                val minorName = response.resultData[i].minorName
+                list.add(OhneulenData(majorCode, minorCode, minorName, false))
+            }
+
+        } catch (e: Exception) {
+
+
         }
     }
     return list
@@ -228,16 +235,21 @@ suspend fun getOhneulenSubData(
 ): MutableList<List<OhneulenData>> {
     val subList = mutableListOf<List<OhneulenData>>()
     withContext(Dispatchers.IO) {
-        for (i in mainList.indices) {
-            val tempList = getOhneulenData(networkService, mainList[i].minorCode)
-            subList.add(tempList)
+        try {
+            for (i in mainList.indices) {
+                val tempList = getOhneulenData(networkService, mainList[i].minorCode)
+                subList.add(tempList)
+            }
+
+        } catch (e: Exception) {
+
         }
     }
     return subList
 }
 
-fun comma(number:Int):String{
-    val formatter=DecimalFormat("###,###")
+fun comma(number: Int): String {
+    val formatter = DecimalFormat("###,###")
     return formatter.format(number)
 }
 
