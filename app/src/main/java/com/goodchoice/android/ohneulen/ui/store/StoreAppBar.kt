@@ -9,10 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.StoreAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
@@ -73,15 +76,34 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 //            buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)
         }
 
-        //하트상태 받아오기
+        //찜상태 받아오기
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             binding.storeAppbarLike.isSelected = it.storeInfo.store.likes
+        })
+
+        //하트눌렀을때
+        storeViewModel.setMemberLikeResponseCode.observe(viewLifecycleOwner, Observer {
+            Timber.e("adsf")
+            if (it == ConstList.SUCCESS) {
+                binding.storeAppbarLike.isSelected = !binding.storeAppbarLike.isSelected
+                if (binding.storeAppbarLike.isSelected) {
+                    Toast.makeText(requireContext(), "찜 목록에 저장되었습니다", Toast.LENGTH_SHORT).show()
+                }
+                storeViewModel.setMemberLikeResponseCode.postValue("")
+            } else if (it == ConstList.REQUIRE_LOGIN) {
+                LoginViewModel.isLogin.postValue(false)
+                binding.storeAppbarLike.isSelected = false
+                loginDialog(requireContext(), newInstance())
+                storeViewModel.setMemberLikeResponseCode.postValue("")
+            }
+
         })
 
         //공유하기 링크
         dynamicLink.addOnSuccessListener {
             shareLink = dynamicLink.result!!.shortLink.toString()
         }
+
     }
 
 
@@ -91,10 +113,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             loginDialog(requireContext(), newInstance())
             return
         }
-        binding.storeAppbarLike.isSelected = !binding.storeAppbarLike.isSelected
-        if (binding.storeAppbarLike.isSelected) {
-            Toast.makeText(requireContext(), "찜 목록에 저장되었습니다", Toast.LENGTH_SHORT).show()
-        }
+        storeViewModel.setMemberLike()
     }
 
     fun shareClick(view: View) {

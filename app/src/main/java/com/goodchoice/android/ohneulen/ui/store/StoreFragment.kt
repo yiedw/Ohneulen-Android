@@ -25,6 +25,7 @@ import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailStoreDialog
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
@@ -81,9 +82,14 @@ class StoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //로그인했을때
+        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+            storeViewModel.getStoreDetail(storeSeq)
+        })
+
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
-
 //            메뉴 없으면 메뉴탭 삭제
             if (it.menuList.isNullOrEmpty()) {
                 viewPagerSettingNullMenu()

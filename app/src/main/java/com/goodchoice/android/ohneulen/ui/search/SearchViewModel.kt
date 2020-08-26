@@ -19,11 +19,13 @@ import kotlin.system.measureNanoTime
 class SearchViewModel(private val networkService: NetworkService, initData: InitData) :
     ViewModel() {
 
+
     var searchEditText = ""
     var kakaoMapPoint = MutableLiveData<MapPoint>()
     var toastMessage = MutableLiveData<Boolean>(false)
 
 
+    var mNetworkService=networkService
     var searchStoreList = MutableLiveData<List<Store>>()
     val searchStoreAdapter = SearchStoreAdapter()
 

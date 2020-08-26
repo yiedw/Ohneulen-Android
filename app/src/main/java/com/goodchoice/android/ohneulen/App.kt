@@ -17,7 +17,6 @@ class App : Application() {
 
     companion object {
         lateinit var resources: Resources
-        var categorySwitch = MutableLiveData<Int>(0)
         var cookie = HashSet<String>()
     }
 

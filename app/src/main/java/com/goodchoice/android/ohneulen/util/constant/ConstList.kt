@@ -31,4 +31,8 @@ object ConstList {
 
     //webview android
     const val WEBVIEW_ANDROID="WEBVIEW_ANDROID"
+
+    //networkCode
+    const val SUCCESS="000"
+    const val REQUIRE_LOGIN="900"
 }

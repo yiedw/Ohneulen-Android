@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.data.model.*
+import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
@@ -23,11 +24,12 @@ import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 
 //searchStore
-@BindingAdapter("searchStoreAdapter", "searchStore")
+@BindingAdapter("searchStoreAdapter", "searchStore","searchStoreNetworkService")
 fun setSearchStoreAdapter(
     recyclerView: RecyclerView,
     adapter: SearchStoreAdapter?,
-    items: List<Store>?
+    items: List<Store>?,
+    networkService: NetworkService
 ) {
 
     val smoothScroller = object : LinearSmoothScroller(recyclerView.context) {
@@ -39,6 +41,7 @@ fun setSearchStoreAdapter(
     recyclerView.setHasFixedSize(true)
     recyclerView.adapter = adapter?.apply {
         parentView = recyclerView
+        mNetworkService=networkService
         submitList(items)
         Handler().postDelayed({
             recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)

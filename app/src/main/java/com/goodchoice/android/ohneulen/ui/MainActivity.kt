@@ -3,6 +3,7 @@ package com.goodchoice.android.ohneulen.ui
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
+import android.net.Network
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
+import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.like.Like
@@ -34,6 +36,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_activity.*
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -54,15 +57,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private val mainViewModel: MainViewModel by viewModel()
 
 
-//    init {
-//        initData
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-
 
         Companion.supportFragmentManager = supportFragmentManager
         appbarFrameLayout = appbar_frameLayout
