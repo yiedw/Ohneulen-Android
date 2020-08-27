@@ -1,9 +1,9 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
 
-class MyPageViewModel(private val networkService: NetworkService) : ViewModel() {
+class MyPageViewModel(private val networkService: NetworkService) : ViewModel(){
 
 //    val goodAdapter = MyPageGoodAdapter()
 
@@ -30,26 +30,42 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel() 
 
     //문의
     var mypageInquireAdapter = InquireAdapter()
-    var mypageInquireList: LiveData<List<Inquire>> = liveData(Dispatchers.IO) {
-        emit(getInquireList())
+    var mypageInquireList = MutableLiveData<List<Inquire>>()
+    var mypageInquireCode = MutableLiveData<String>()
+
+    fun getInquireList() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = networkService.requestGetInquire()
+                if (response.resultCode == ConstList.SUCCESS) {
+                    if (mypageFAQList.value != response.resultData) {
+                        mypageInquireList.postValue(response.resultData)
+                    }
+                } else if (response.resultCode == ConstList.REQUIRE_LOGIN) {
+                    LoginViewModel.isLogin.postValue(false)
+                }
+            } catch (e: Exception) {
+                Timber.e(e.toString())
+            }
+        }
     }
 
-    //    var mypageInquireList: LiveData<List<Inquire>> = liveData(Dispatchers.IO) {
-//        emit(getInquire())
-//    }
-    private suspend fun getInquireList(): List<Inquire> {
-        var tempInquireList = listOf<Inquire>()
+    fun setInquireList(gubun1: String, title: String, contents: String) {
         try {
-            val response = networkService.requestGetInquire()
-            if (response.resultCode == ConstList.SUCCESS) {
-                tempInquireList = response.resultData
-            } else if (response.resultCode == ConstList.REQUIRE_LOGIN) {
-                LoginViewModel.isLogin.postValue(false)
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = networkService.requestSetInquire(
+                    gubun1,
+                    title,
+                    contents
+                )
+                mypageInquireCode.postValue(response.resultCode)
+                if (response.resultCode == ConstList.SUCCESS) {
+                    getInquireList()
+                }
             }
         } catch (e: Exception) {
             Timber.e(e.toString())
         }
-        return tempInquireList
     }
 
 

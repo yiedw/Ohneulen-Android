@@ -15,7 +15,7 @@ import kotlin.math.sin
 val viewModelModule = module {
     viewModel { HomeViewModel() }
     single { StoreViewModel(get()) }
-    viewModel { MyPageViewModel(get()) }
+    single { MyPageViewModel(get()) }
     single { LoginViewModel(get(), androidApplication()) }
     single { SearchViewModel(get(), get()) }
     single {

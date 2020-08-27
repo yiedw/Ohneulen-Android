@@ -359,7 +359,7 @@ class StoreFragment : Fragment() {
         for (i in storeDetail.hashtagList) {
             val tv = TextView(requireContext())
             tv.height = 25.dp()
-            tv.text = i.keyword
+            tv.text = "#${i.keyword}"
             tv.gravity = Gravity.CENTER
             tv.setPadding(13.dp(), 0, 13.dp(), 0)
             tv.setTextColor(requireContext().getColor(R.color.colorOhneulen))

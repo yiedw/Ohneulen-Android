@@ -170,6 +170,15 @@ fun setInquire(recyclerView: RecyclerView, adapter: InquireAdapter, items: List<
             submitList(items)
         }
     }
+    //데이터 업데이트됐을때 스크롤 맨위로
+    recyclerView.adapter!!.registerAdapterDataObserver(object :
+        RecyclerView.AdapterDataObserver() {
+        override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+            super.onItemRangeInserted(positionStart, itemCount)
+            recyclerView.smoothScrollToPosition(0)
+        }
+    })
+
 }
 
 @BindingAdapter("FAQ", "mypageViewModelFAQ")

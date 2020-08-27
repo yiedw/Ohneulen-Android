@@ -120,10 +120,7 @@ fun popupFragment(fragment: Fragment) {
             R.anim.exit_top_to_bottom
         )
         .addToBackStack(null)
-        .add(
-            MainActivity.mainFrameLayout.id,
-            fragment
-        )
+        .add(MainActivity.mainFrameLayout.id, fragment)
         .commit()
 }
 

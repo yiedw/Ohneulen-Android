@@ -27,7 +27,6 @@ class InquireAdapter : ListAdapter<Inquire, InquireAdapter.InquireViewHolder>(In
                 if(item.answer==null){
                     inquireItemAnswer.visibility=View.GONE
                 }
-                executePendingBindings()
             }
         }
     }

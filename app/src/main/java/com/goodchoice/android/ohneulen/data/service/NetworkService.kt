@@ -68,6 +68,15 @@ interface NetworkService {
     suspend fun requestGetInquire(
     ):GetInquireResponse
 
+    //문의 내역 보내기
+    @POST("api/set_board")
+    @FormUrlEncoded
+    suspend fun requestSetInquire(
+        @Field("gubun1") gubun1:String,
+        @Field("title") title:String,
+        @Field("contents") contents:String
+    ):GetInquireResponse
+
 
     //카카오
     //카카오 위치 검색
