@@ -12,6 +12,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -56,6 +57,11 @@ class SearchStoreAdapter :
                     if (!item.image.isNullOrEmpty()) {
                         Glide.with(binding.storeItemImage.context)
                             .load("${BaseUrl.OHNEULEN}${item.image[0].photoURL}").centerCrop()
+                            .into(binding.storeItemImage)
+                    }
+                    else{
+                        Glide.with(binding.storeItemImage.context)
+                            .load(ContextCompat.getDrawable(root.context,R.drawable.search_no_img))
                             .into(binding.storeItemImage)
                     }
                 } else {
@@ -110,8 +116,8 @@ class SearchStoreAdapter :
 
                 root.setOnClickListener {
                     parentView.isEnabled = false
-//                    val dialog=LoadingDialog.newInstance("매장 들어가는 중...")
-//                    dialog.show(MainActivity.supportFragmentManager,"loading")
+                    val dialog=LoadingDialog.newInstance("매장 들어가는 중...")
+                    dialog.show(MainActivity.supportFragmentManager,"loading")
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
                     addMainFragment(StoreFragment.newInstance(), true)

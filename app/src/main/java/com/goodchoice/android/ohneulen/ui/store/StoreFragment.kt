@@ -35,23 +35,18 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
     companion object {
         fun newInstance() = StoreFragment()
         var storeSeq: String = ""
+        private var first = false
 
-        //        lateinit var store: Store
-        // 각 fragment
-        // 0 -> home
-        // 1 -> map
-        // 2 -> menu
-        // 3 -> review
         var state = 0
     }
 
-    private var first = false
     private var check = false
 
     private lateinit var binding: StoreFragmentBinding
@@ -88,7 +83,9 @@ class StoreFragment : Fragment() {
 
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+
 //            메뉴 없으면 메뉴탭 삭제
+            replaceAppbarFragment(StoreAppBar.newInstance())
             if (it.menuList.isNullOrEmpty()) {
                 viewPagerSettingNullMenu()
             } else {
@@ -98,35 +95,41 @@ class StoreFragment : Fragment() {
             storeImage(it)
             binding.storeNewScrollView.visibility = View.VISIBLE
             MainActivity.bottomNav.visibility = View.GONE
-            replaceAppbarFragment(StoreAppBar.newInstance())
-//            if (first) {
-//                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
-//                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
-//                }
-//            }
-
-        })
-        stickyHeader()
-
-        binding.storeNewScrollView.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-
-            if (!first) {
-                first = !first
+            if (first || check) {
                 binding.storeNewScrollView.scrollTo(0, 1)
                 binding.storeNewScrollView.smoothScrollTo(0, 0)
                 if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
                     (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
                 }
             }
-//
-//
-            return@setOnScrollChangeListener
-        }
+
+
+        })
+        stickyHeader()
+
+//        binding.storeNewScrollView.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+//            if (!first) {
+//                first = true
+//                Timber.e("a2")
+//                binding.storeNewScrollView.scrollTo(0, 1)
+//                binding.storeNewScrollView.smoothScrollTo(0, 0)
+//                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
+//                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
+//                }
+//            }
+////
+////
+//            return@setOnScrollChangeListener
+//        }
     }
 
 
     override fun onResume() {
         super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 
     override fun onDestroy() {
@@ -303,6 +306,14 @@ class StoreFragment : Fragment() {
                     .also { lp ->
                         lp.height = view.measuredHeight
                     }
+            }
+            if (!first) {
+                first = true
+                binding.storeNewScrollView.scrollTo(0, 1)
+                binding.storeNewScrollView.smoothScrollTo(0, 0)
+                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
+                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
+                }
             }
         }
     }
