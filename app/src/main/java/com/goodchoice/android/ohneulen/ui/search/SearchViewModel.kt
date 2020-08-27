@@ -14,6 +14,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.java.KoinJavaComponent.inject
 import timber.log.Timber
+import java.lang.Exception
 import kotlin.system.measureNanoTime
 
 class SearchViewModel(private val networkService: NetworkService, initData: InitData) :
@@ -130,7 +131,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
                 )
                 searchStoreList.postValue(response.resultData)
 
-            } catch (e: Throwable) {
+            } catch (e: Exception) {
                 Timber.e(e.toString())
             }
 //            cate.clear()

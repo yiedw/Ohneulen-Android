@@ -38,7 +38,7 @@
             android:background="@drawable/background_border_dotted"
             android:onClick="@{fragment::newClick}"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

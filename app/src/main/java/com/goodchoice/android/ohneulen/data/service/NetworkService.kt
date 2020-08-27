@@ -63,7 +63,13 @@ interface NetworkService {
     suspend fun requestGetMemberLike(
     ): GetStoreListResponse
 
+    //문의 내역 가져오기
+    @POST("api/get_board")
+    suspend fun requestGetInquire(
+    ):GetInquireResponse
 
+
+    //카카오
     //카카오 위치 검색
     @GET
     suspend fun requestKakaoAddress(

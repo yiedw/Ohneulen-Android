@@ -33,27 +33,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="11dp"
-            android:text="@{inquire.nickName}"
+            android:text="닉네임"
             android:textColor="@color/colorTextGrey"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
 
         <TextView
+            android:layout_marginStart="5dp"
             android:id="@+id/inquire_item_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="11dp"
-            android:text=" | "
+            android:text="|"
             app:layout_constraintLeft_toRightOf="@id/inquire_item_nickName"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
 
         <TextView
+            android:layout_marginStart="5dp"
             android:id="@+id/inquire_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="11dp"
-            android:text="@{inquire.date}"
+            android:text="@{inquire.modifyDate}"
             android:textSize="14sp"
             app:layout_constraintLeft_toRightOf="@id/inquire_item_tv"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
@@ -63,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="@{inquire.status}"
+            android:text="@{inquire.statusName}"
             android:textColor="@color/colorHeader"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/inquire_item_date"
