@@ -85,7 +85,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     }
 
 
-    fun searchMapData() {
+    fun getSearchMapData() {
         CoroutineScope(Dispatchers.IO).launch {
             val y: Double
             val x: Double

@@ -17,12 +17,9 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
-import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-import kotlin.system.measureNanoTime
 
 class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListener {
 
@@ -60,7 +57,7 @@ class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListene
             searchViewModel.searchEditText = mainViewModel.searchEditText
             binding.searchAppbarEt.setText(mainViewModel.searchEditText)
             if (!back)
-                searchViewModel.searchMapData()
+                searchViewModel.getSearchMapData()
         }
         binding.fragment = this
         return binding.root
@@ -76,7 +73,7 @@ class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListene
                 imm.hideSoftInputFromWindow(binding.searchAppbarEt.windowToken, 0)
                 mainViewModel.searchEditText = binding.searchAppbarEt.text.toString()
                 searchViewModel.searchEditText = binding.searchAppbarEt.text.toString()
-                searchViewModel.searchMapData()
+                searchViewModel.getSearchMapData()
             } else {
                 Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)
                     .show()
@@ -104,7 +101,7 @@ class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListene
     fun submitClick(view: View) {
         mainViewModel.searchEditText = binding.searchAppbarEt.text.toString()
         searchViewModel.searchEditText = binding.searchAppbarEt.text.toString()
-        searchViewModel.searchMapData()
+        searchViewModel.getSearchMapData()
 
     }
 

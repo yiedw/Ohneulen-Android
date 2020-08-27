@@ -1,7 +1,7 @@
 package com.goodchoice.android.ohneulen.data.model
 data class Inquire(
-    val answer: String,
-    val answerID: String,
+    val answer: String?,
+    val answerID: String?,
     val answerState: Any,
     val content: String,
     val gubun1: String,

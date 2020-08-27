@@ -68,7 +68,7 @@
             android:text="@{inquire.statusName}"
             android:textColor="@color/colorHeader"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/inquire_item_date"
+            app:layout_constraintBottom_toBottomOf="@id/inquire_item_contour"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

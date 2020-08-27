@@ -28,6 +28,7 @@ class MyPage : Fragment() {
 
     private lateinit var binding: MypageBinding
     private val loginViewModel: LoginViewModel by viewModel()
+    private val myPageViewModel:MyPageViewModel by viewModel()
 
 
     override fun onCreateView(
