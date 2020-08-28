@@ -32,7 +32,12 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 
     val filterHashMap = HashMap<Int, String>()
 
-    val tempCate = mutableListOf<OhneulenData>()
+    //한번 거를 데이터
+    val tempCateOhneulenData = mutableListOf<OhneulenData>()
+    val tempCate = mutableListOf<String>()
+    val tempOption = mutableListOf<String>()
+    val tempOpenTime = mutableListOf<String>()
+    val tempSort = mutableListOf<String>()
 
     //서버로 전송할 데이터
     val cate = mutableListOf<String>()
@@ -46,7 +51,6 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     //카테고리
     var mainCategoryPosition = MutableLiveData<Int>(0)
     var subCategoryPosition = 0
-
 
     val mainCategory = initData.mainCategory
     val subCategoryList = initData.subCategory

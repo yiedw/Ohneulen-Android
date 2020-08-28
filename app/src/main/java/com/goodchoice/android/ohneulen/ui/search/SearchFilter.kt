@@ -155,17 +155,17 @@ class SearchFilter : Fragment() {
 
     //아래 체크뷰 생성
     private fun bottomViewGenerate() {
-        if (searchViewModel.tempCate.size > 0) {
+        if (searchViewModel.tempCateOhneulenData.size > 0) {
             binding.searchFilterTv1.visibility = View.VISIBLE
             binding.searchFilterGridLayout.visibility = View.VISIBLE
-        } else if (searchViewModel.tempCate.size == 0) {
+        } else if (searchViewModel.tempCateOhneulenData.size == 0) {
             binding.searchFilterTv1.visibility = View.GONE
             binding.searchFilterGridLayout.visibility = View.GONE
             binding.searchFilterGridLayout.removeAllViews()
         }
 
 //        처음시작시 체크해둔 뷰 생성
-        for (i in searchViewModel.tempCate) {
+        for (i in searchViewModel.tempCateOhneulenData) {
             val ohneulenData = i
             val layoutInflater = this.layoutInflater
             val param = GridLayout.LayoutParams()
@@ -206,7 +206,7 @@ class SearchFilter : Fragment() {
                     }
                 }
                 //tempCate child 삭제
-                searchViewModel.tempCate.remove(ohneulenData)
+                searchViewModel.tempCateOhneulenData.remove(ohneulenData)
             }
 
 //            binding.searchFilterGridLayout.addView(selectView, 0)
@@ -216,10 +216,10 @@ class SearchFilter : Fragment() {
 
         //체크 검사해서 바뀔때마다 확인
         searchViewModel.subCategory.observe(viewLifecycleOwner, Observer {
-            if (searchViewModel.tempCate.size > 0) {
+            if (searchViewModel.tempCateOhneulenData.size > 0) {
                 binding.searchFilterTv1.visibility = View.VISIBLE
                 binding.searchFilterGridLayout.visibility = View.VISIBLE
-            } else if (searchViewModel.tempCate.size == 0) {
+            } else if (searchViewModel.tempCateOhneulenData.size == 0) {
                 binding.searchFilterTv1.visibility = View.GONE
                 binding.searchFilterGridLayout.visibility = View.GONE
                 binding.searchFilterGridLayout.removeAllViews()
@@ -271,7 +271,7 @@ class SearchFilter : Fragment() {
                     }
 
                     //tempCate child 삭제
-                    searchViewModel.tempCate.remove(ohneulenData)
+                    searchViewModel.tempCateOhneulenData.remove(ohneulenData)
                 }
                 if (checkClick) {
                     checkClick = false
@@ -380,6 +380,7 @@ class SearchFilter : Fragment() {
             tb.layoutParams = param
             tb.isChecked = mutableList[i].check
             tb.stateListAnimator = null
+//            tb.textSize= 14f
             //체크표시돼있을때
             if (mutableList[i].check) {
                 tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -554,7 +555,7 @@ class SearchFilter : Fragment() {
     fun resetClick(view: View) {
         //음식선택일때
         if (checkFood) {
-            if (searchViewModel.tempCate.isNullOrEmpty()) {
+            if (searchViewModel.tempCateOhneulenData.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), "음식의 종류를 선택해 주세요", Toast.LENGTH_SHORT).show()
                 return
             }
@@ -564,7 +565,7 @@ class SearchFilter : Fragment() {
                     searchViewModel.subCategoryList[i][j].check = false
                 }
             }
-            searchViewModel.tempCate.clear()
+            searchViewModel.tempCateOhneulenData.clear()
             searchViewModel.cate.clear()
             searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
         }

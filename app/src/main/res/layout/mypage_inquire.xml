@@ -50,6 +50,7 @@
                 android:layout_marginBottom="13dp"
                 android:gravity="center"
                 android:lineSpacingExtra="3dp"
+                android:textSize="14dp"
                 android:text="궁금하신 부분이나 불편한 부분을 \n빠르게 해결해 드리겠습니다."
                 android:textAlignment="center"
                 android:textColor="#a7a7a7"

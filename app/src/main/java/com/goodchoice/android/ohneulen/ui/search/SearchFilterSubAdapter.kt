@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
-import timber.log.Timber
 
 class SearchFilterSubAdapter() :
     ListAdapter<OhneulenData, SearchFilterSubAdapter.SearchFilterViewHolder>(SearchFilterSubDiffUtil) {
@@ -43,7 +42,7 @@ class SearchFilterSubAdapter() :
                         searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
 
                     if (!subCategory.check) {
-                        if (searchViewModel.tempCate.size > 4) {
+                        if (searchViewModel.tempCateOhneulenData.size > 4) {
                             Toast.makeText(root.context, "최대 5개까지 선택 가능합니다.", Toast.LENGTH_SHORT)
                                 .show()
                             return@setOnClickListener
@@ -56,11 +55,11 @@ class SearchFilterSubAdapter() :
                     val code = "${items.majorCode}${items.minorCode}"
                     if (subCategory.check) {
                         //아이템이 없을때 추가
-                        searchViewModel.tempCate.add(items)
+                        searchViewModel.tempCateOhneulenData.add(items)
                         searchViewModel.cate.add(code)
                     } else {
                         //아이템이 있으면 삭제
-                        searchViewModel.tempCate.remove(items)
+                        searchViewModel.tempCateOhneulenData.remove(items)
                         searchViewModel.cate.remove(code)
                     }
 

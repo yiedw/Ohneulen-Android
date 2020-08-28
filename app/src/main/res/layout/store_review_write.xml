@@ -45,7 +45,7 @@
                     android:text="@{viewModel.storeDetail.storeInfo.storeFull.storeName}"
                     android:textAlignment="center"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -56,6 +56,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.storeDetail.storeInfo.storeFull.storeName}"
                     android:textAlignment="center"
+                    android:textSize="14dp"
                     android:textColor="@color/colorTextBlack"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -67,6 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="에서 어떠셨나요?"
+                    android:textSize="14dp"
                     android:textAlignment="center"
                     android:textColor="@color/colorTextBlack"
                     app:layout_constraintBottom_toBottomOf="@id/store_review_write_tv1"
@@ -99,7 +101,7 @@
                         android:layout_marginTop="25dp"
                         android:text="맛"
                         android:textColor="@color/colorTextBlack"
-                        android:textSize="13sp"
+                        android:textSize="13dp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/store_review_write_rating" />
@@ -126,7 +128,7 @@
                             android:text="맛있어요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb1_2"
@@ -139,7 +141,7 @@
                             android:text="괜찮아요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb1_3"
@@ -152,7 +154,7 @@
                             android:text="보통이에요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb1_4"
@@ -165,7 +167,7 @@
                             android:text="별로에요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb1_5"
@@ -178,7 +180,7 @@
                             android:text="맛없어요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                     </RadioGroup>
 
@@ -190,7 +192,7 @@
                         android:layout_marginTop="15dp"
                         android:text="가격"
                         android:textColor="@color/colorTextBlack"
-                        android:textSize="13sp"
+                        android:textSize="13dp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/store_review_rg1" />
@@ -216,7 +218,7 @@
                             android:text="저렴해요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb2_2"
@@ -229,7 +231,7 @@
                             android:text="합리적"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb2_3"
@@ -242,7 +244,7 @@
                             android:text="보통이에요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb2_4"
@@ -255,7 +257,7 @@
                             android:text="비합리적"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb2_5"
@@ -268,7 +270,7 @@
                             android:text="비싸요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                     </RadioGroup>
 
@@ -279,7 +281,7 @@
                         android:layout_marginTop="15dp"
                         android:text="직원 친절도"
                         android:textColor="@color/colorTextBlack"
-                        android:textSize="13sp"
+                        android:textSize="13dp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/store_review_rg2" />
@@ -305,7 +307,7 @@
                             android:text="친절해요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb3_2"
@@ -318,7 +320,7 @@
                             android:text="괜찮아요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb3_3"
@@ -331,7 +333,7 @@
                             android:text="보통이에요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb3_4"
@@ -344,7 +346,7 @@
                             android:text="별로에요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb3_5"
@@ -357,7 +359,7 @@
                             android:text="불쾌해요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                     </RadioGroup>
 
@@ -369,7 +371,7 @@
                         android:layout_marginTop="15dp"
                         android:text="분위기"
                         android:textColor="@color/colorTextBlack"
-                        android:textSize="13sp"
+                        android:textSize="13dp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/store_review_rg3" />
@@ -395,7 +397,7 @@
                             android:text="좋아요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb4_2"
@@ -408,7 +410,7 @@
                             android:text="괜찮아요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb4_3"
@@ -421,7 +423,7 @@
                             android:text="보통이에요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb4_4"
@@ -434,7 +436,7 @@
                             android:text="별로에요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb4_5"
@@ -447,7 +449,7 @@
                             android:text="나빠요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                     </RadioGroup>
 
@@ -458,7 +460,7 @@
                         android:layout_marginTop="15dp"
                         android:text="청결도"
                         android:textColor="@color/colorTextBlack"
-                        android:textSize="13sp"
+                        android:textSize="13dp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/store_review_rg4" />
@@ -486,7 +488,7 @@
                             android:text="상쾌해요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb5_2"
@@ -499,7 +501,7 @@
                             android:text="깨끗해요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb5_3"
@@ -512,7 +514,7 @@
                             android:text="보통이에요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb5_4"
@@ -525,7 +527,7 @@
                             android:text="더러워요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                         <RadioButton
                             android:id="@+id/store_review_rb5_5"
@@ -538,7 +540,7 @@
                             android:text="불쾌해요"
                             android:textAlignment="center"
                             android:textColor="@drawable/text_selector"
-                            android:textSize="12sp" />
+                            android:textSize="12dp" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -563,7 +565,7 @@
                         android:hint="후기를 작성해 주세요."
                         android:maxLength="1000"
                         android:textColor="@color/colorBlack"
-                        android:textSize="13sp" />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:id="@+id/store_review_write_et_length"
@@ -571,7 +573,7 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="@color/colorCGrey"
-                        android:textSize="13sp"
+                        android:textSize="13dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/store_review_write_max_et" />
 
@@ -581,7 +583,7 @@
                         android:layout_height="wrap_content"
                         android:text=" /1000"
                         android:textColor="@color/colorCGrey"
-                        android:textSize="13sp"
+                        android:textSize="13dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent" />
 

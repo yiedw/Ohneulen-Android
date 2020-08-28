@@ -130,7 +130,7 @@
                 android:paddingTop="10dp"
                 android:text="* 최대 5개까지 선택 가능"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/search_filter_gridLayout"
                 app:layout_constraintTop_toBottomOf="@id/search_filter_scrollview_main" />
@@ -209,6 +209,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
+                            android:textSize="14dp"
                             android:background="@drawable/background_rounding"
                             android:gravity="center"
                             android:onClick="@{fragment::sortButtonClick}"
@@ -219,6 +220,7 @@
                             android:textColor="@color/colorBlack" />
 
                         <Button
+                            android:textSize="14dp"
                             android:id="@+id/search_filter_rating"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"

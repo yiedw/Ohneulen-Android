@@ -15,10 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="어쩌구 저쩌구\n1.\n2.\n3.\n4."
+            android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:textSize="14dp"
             android:id="@+id/mypage_secession_reason"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,16 +38,19 @@
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="14dp"
                 android:text="컨텐츠부족" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="14dp"
                 android:text="컨텐츠부족" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="14dp"
                 android:text="컨텐츠부족" />
 
         </RadioGroup>
@@ -53,6 +58,7 @@
         <EditText
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:textSize="14dp"
             android:hint="어쩌거저쩌구"
             app:layout_constraintBottom_toTopOf="@id/mypage_secession_submit"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -60,6 +66,7 @@
             app:layout_constraintTop_toBottomOf="@id/mypage_secession_radio" />
 
         <Button
+            android:textSize="14dp"
             android:stateListAnimator="@null"
             android:id="@+id/mypage_secession_submit"
             android:layout_width="match_parent"

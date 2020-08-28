@@ -35,7 +35,7 @@
             android:layout_marginBottom="11dp"
             android:text="닉네임"
             android:textColor="@color/colorTextGrey"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
 
@@ -45,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="11dp"
+            android:textSize="14dp"
             android:text="|"
             app:layout_constraintLeft_toRightOf="@id/inquire_item_nickName"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
@@ -56,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="11dp"
             android:text="@{inquire.modifyDate}"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintLeft_toRightOf="@id/inquire_item_tv"
             app:layout_constraintTop_toBottomOf="@id/inquire_item_title" />
 
@@ -67,7 +68,7 @@
             android:textStyle="bold"
             android:text="@{inquire.statusName}"
             android:textColor="@color/colorHeader"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/inquire_item_contour"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -96,7 +97,7 @@
                 android:padding="10dp"
                 android:text="@{inquire.content}"
                 android:textColor="@color/colorBlack"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 />
 
             <TextView
@@ -107,7 +108,7 @@
                 android:padding="10dp"
                 android:text="@{inquire.answer}"
                 android:textColor="@color/colorTextGrey"
-                android:textSize="14sp" />
+                android:textSize="14dp"/>
 
         </LinearLayout>
 

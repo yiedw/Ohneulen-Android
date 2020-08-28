@@ -66,7 +66,7 @@
                     android:onClick="@{fragment::infoClick}"
                     android:text="yaa@naver.com"
                     android:textColor="#808080"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/mypage_info"
                     app:layout_constraintLeft_toRightOf="@id/mypage_info"
@@ -82,7 +82,7 @@
                     android:onClick="@{fragment::infoClick}"
                     android:text="로그인  "
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="15sp"
+                    android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="@id/mypage_info"
                     app:layout_constraintLeft_toRightOf="@id/mypage_info"
                     app:layout_constraintTop_toTopOf="@id/mypage_info" />
@@ -210,46 +210,46 @@
                         android:layout_height="19dp"
                         android:onClick="@{fragment::termsClick}"
                         android:text="이용약관"
-                        android:textSize="13sp" />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" | "
-                        android:textSize="13sp" />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="19dp"
                         android:onClick="@{fragment::term2Click}"
                         android:text="개인정보처리방침"
-                        android:textSize="13sp" />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" | "
-                        android:textSize="13sp" />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="19dp"
                         android:onClick="@{fragment::companyClick}"
                         android:text="회사소개"
-                        android:textSize="13sp" />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" | "
-                        android:textSize="13sp" />
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="19dp"
                         android:onClick="@{fragment::contactusClick}"
                         android:text="사업제휴"
-                        android:textSize="13sp" />
+                        android:textSize="13dp" />
 
                 </LinearLayout>
 
@@ -261,7 +261,7 @@
                     android:paddingBottom="30dp"
                     android:text="@string/footer"
                     android:textColor="#88888888"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
 

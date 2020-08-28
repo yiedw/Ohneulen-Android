@@ -2,8 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="fragment_horizontal_margin">16dp</dimen>
     <dimen name="fragment_vertical_margin">16dp</dimen>
-    <dimen name="header_center">17sp</dimen>
-    <dimen name="main_contents">15sp</dimen>
+    <dimen name="header_center">17dp</dimen>
+    <dimen name="main_contents">15dp</dimen>
     <dimen name="store_home_normal">29dp</dimen>
     <dimen name="store_home_three">16dp</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12dp</dimen>

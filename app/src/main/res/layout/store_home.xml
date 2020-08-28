@@ -41,7 +41,7 @@
                     android:layout_height="match_parent"
                     android:text="주소"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/store_home_address"
@@ -49,7 +49,7 @@
                     android:layout_height="match_parent"
                     android:text="@{viewModel.storeDetail.storeInfo.storeFull.addrRoad1}"
                     android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </LinearLayout>
 
 
@@ -63,7 +63,7 @@
                     android:layout_height="match_parent"
                     android:text="전화"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
                     android:layout_marginTop="5dp"
                     android:text="@{viewModel.storeDetail.storeInfo.storeFull.bizTel}"
                     android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </LinearLayout>
 
 
@@ -101,7 +101,7 @@
                     android:layout_height="match_parent"
                     android:text="영업일"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
 
                 <LinearLayout
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:text="휴무일"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <LinearLayout
                     android:id="@+id/store_home_closeDay"
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:textColor="@color/colorGrey88"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </LinearLayout>
 
 
@@ -204,7 +204,7 @@
             android:paddingVertical="16dp"
             android:text="@{viewModel.storeDetail.storeInfo.storeFull.contents}"
             android:textColor="@color/colorGrey88"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -232,7 +232,7 @@
                 android:layout_gravity="center"
                 android:text="개업일\n업데이트"
                 android:textColor="#c0c0c0"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/store_home_open_tv2"
@@ -245,7 +245,7 @@
                 android:layout_marginStart="11dp"
                 android:text=""
                 android:textColor="#c0c0c0"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 app:layout_constraintLeft_toRightOf="@id/store_home_open_tv1"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -255,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="#c0c0c0"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 app:layout_constraintLeft_toLeftOf="@id/store_home_open_tv2"
                 app:layout_constraintRight_toRightOf="@id/store_home_open_tv2"
                 app:layout_constraintTop_toBottomOf="@id/store_home_open_tv2" />

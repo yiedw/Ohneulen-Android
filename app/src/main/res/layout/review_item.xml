@@ -54,11 +54,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{member.nickName}"
-            android:textSize="20sp"
+            android:textSize="20dp"
             app:layout_constraintLeft_toLeftOf="@id/review_item_ratingbar"
             app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 
         <TextView
+            android:textSize="14dp"
             android:id="@+id/review_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,6 +67,7 @@
             app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 
         <TextView
+            android:textSize="14dp"
             android:id="@+id/review_item_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +77,7 @@
             app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 
         <TextView
+            android:textSize="14dp"
             android:id="@+id/review_item_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -122,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="7.5dp"
             android:text="좋아합니다"
-            android:textSize="13sp"
+            android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="@id/review_item_good"
             app:layout_constraintLeft_toRightOf="@id/review_item_good"
             app:layout_constraintTop_toTopOf="@id/review_item_good" />

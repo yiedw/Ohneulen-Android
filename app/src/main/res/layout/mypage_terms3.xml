@@ -21,10 +21,11 @@
                 android:layout_height="wrap_content"
                 android:text="개인정보 수집 및 이용"
                 android:textColor="@color/colorBlack"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <TextView
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -33,12 +34,14 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="문의자명, 문의자 연락처, 문의자 이메일 주소"
                 android:textColor="#777777" />
 
             <TextView
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -47,6 +50,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
@@ -54,6 +58,7 @@
                 android:textColor="#777777" />
 
             <TextView
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -62,6 +67,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
@@ -70,6 +76,7 @@
                 android:textColor="#777777" />
 
             <TextView
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -78,6 +85,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"

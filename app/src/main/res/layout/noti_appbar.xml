@@ -45,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/settings"
+            android:textSize="14dp"
             android:focusable="true"
             android:onClick="@{fragment::setClick}"
             app:layout_constraintBottom_toBottomOf="parent"

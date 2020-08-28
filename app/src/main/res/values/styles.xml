@@ -16,6 +16,21 @@
         <item name="android:splitMotionEvents">false</item>
         <item name="android:windowEnableSplitTouch">false</item>
 
+        <item name="android:textViewStyle">@style/textViewStyle</item>
+        <item name="android:buttonStyleToggle">@style/toggleButtonStyle</item>
+
+
+    </style>
+    <style name="textViewStyle">
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="toggleButtonStyle">
+        <item name="android:textSize">14dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="selectable">true</item>
+        <item name="android:checkable">true</item>
     </style>
 
     <style name="starRatingBarM" parent="Widget.AppCompat.RatingBar">
@@ -39,10 +54,11 @@
     </style>
 
     <style name="tablayout_textapperance" parent="Widget.Design.TabLayout">
-        <item name="android:textSize">15sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:textColor">@color/colorCGrey</item>
     </style>
+
+
 
 
 </resources>

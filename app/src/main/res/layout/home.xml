@@ -22,10 +22,10 @@
             android:id="@+id/home_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lineSpacingExtra="10sp"
+            android:lineSpacingExtra="10dp"
             android:paddingHorizontal="30dp"
             android:textColor="@color/colorBlack"
-            android:textSize="24sp"
+            android:textSize="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +55,7 @@
                 android:paddingEnd="40dp"
                 android:paddingBottom="12dp"
                 android:textColor="@color/colorBlack"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -25,7 +25,7 @@
             android:inputType="text"
             android:paddingStart="44dp"
             android:paddingEnd="20dp"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView

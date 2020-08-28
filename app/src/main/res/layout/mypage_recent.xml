@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="13dp"
                 android:lineSpacingExtra="3dp"
+                android:textSize="14dp"
                 android:gravity="center"
                 android:text="더 많은 맛집이 있어요 \n 지금 찾으러 가보실래요?"
                 android:textAlignment="center"

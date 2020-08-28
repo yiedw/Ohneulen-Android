@@ -6,5 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="30dp"
     android:gravity="center"
-    android:textSize="13sp"
+    android:textSize="13dp"
     android:ellipsize="marquee"/>

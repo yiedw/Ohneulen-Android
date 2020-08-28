@@ -55,7 +55,7 @@
                     android:id="@+id/store_fragment_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/store_fragment_name" />
 
@@ -66,7 +66,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="4.8"
                     android:textColor="@color/colorOhneulen"
-                    android:textSize="15sp"
+                    android:textSize="15dp"
                     app:layout_constraintRight_toLeftOf="@id/store_fragment_rating_start"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -138,6 +138,7 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/store_tab"
+                app:tabTextAppearance="@style/tablayout_textapperance"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/colorWhite"
