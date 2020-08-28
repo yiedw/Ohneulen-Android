@@ -47,7 +47,7 @@ interface NetworkService {
         @Field("addrx[]") addrx: List<Double>,
         @Field("cate[]") cate: List<String>,
         @Field("option[]") option: List<String>,
-        @Field("openTime[]") openTime: List<String>,
+        @Field("opentime[]") openTime: List<String>,
         @Field("sort[]") sort: List<String>
     ): GetStoreListResponse
 

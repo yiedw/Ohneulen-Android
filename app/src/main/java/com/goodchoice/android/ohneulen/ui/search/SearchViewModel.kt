@@ -135,9 +135,9 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
                 Timber.e(e.toString())
             }
 //            cate.clear()
-            option.clear()
-            openTime.clear()
-            sort.clear()
+//            option.clear()
+//            openTime.clear()
+//            sort.clear()
             mainCategoryPosition.postValue(0)
         }
     }
