@@ -34,10 +34,10 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
 
     //한번 거를 데이터
     val tempCateOhneulenData = mutableListOf<OhneulenData>()
-    val tempCate = mutableListOf<String>()
-    val tempOption = mutableListOf<String>()
-    val tempOpenTime = mutableListOf<String>()
-    val tempSort = mutableListOf<String>()
+    var tempCate = mutableListOf<String>()
+    var tempOption = mutableListOf<String>()
+    var tempOpenTime = mutableListOf<String>()
+    var tempSort = mutableListOf<String>()
 
     //서버로 전송할 데이터
     val cate = mutableListOf<String>()

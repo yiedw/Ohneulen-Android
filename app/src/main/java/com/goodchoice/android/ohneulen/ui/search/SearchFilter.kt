@@ -59,6 +59,12 @@ class SearchFilter : Fragment() {
             viewModel = searchViewModel
         }
 
+        //이전 체크해둔 목록 가져오기
+        searchViewModel.tempCate=searchViewModel.cate
+        searchViewModel.tempOption=searchViewModel.option
+        searchViewModel.tempOpenTime=searchViewModel.openTime
+        searchViewModel.tempSort=searchViewModel.sort
+
 
 
         return binding.root
@@ -407,12 +413,12 @@ class SearchFilter : Fragment() {
                     )
                     //옵션일때
                     if (gridLayout == binding.searchFilterConvenience) {
-                        searchViewModel.option.add(mutableList[i].minorCode)
+                        searchViewModel.tempOption.add(mutableList[i].minorCode)
                         searchViewModel.mainOptionKind[i].check = isChecked
                     }
                     //휴무일 일때
                     else if (gridLayout == binding.searchFilterTimeDay) {
-                        searchViewModel.openTime.add(mutableList[i].minorCode)
+                        searchViewModel.tempOpenTime.add(mutableList[i].minorCode)
                         searchViewModel.timeDay[i].check = isChecked
                     }
 
@@ -421,12 +427,12 @@ class SearchFilter : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
                     tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
                     if (gridLayout == binding.searchFilterConvenience) {
-                        searchViewModel.option.remove(mutableList[i].minorCode)
+                        searchViewModel.tempOption.remove(mutableList[i].minorCode)
                         searchViewModel.mainOptionKind[i].check = isChecked
                     }
                     //휴무일 일때
                     else if (gridLayout == binding.searchFilterTimeDay) {
-                        searchViewModel.openTime.remove(mutableList[i].minorCode)
+                        searchViewModel.tempOpenTime.remove(mutableList[i].minorCode)
                         searchViewModel.timeDay[i].check = isChecked
                     }
 
@@ -474,9 +480,9 @@ class SearchFilter : Fragment() {
 
 
     fun filterClick(view: View) {
-        if(view==binding.searchFilterFood && checkFood)
+        if (view == binding.searchFilterFood && checkFood)
             return
-        else if(view==binding.searchFilterOptions && !checkFood)
+        else if (view == binding.searchFilterOptions && !checkFood)
             return
         if (view == binding.searchFilterFood) {
             binding.searchFilterFoodCon.visibility = View.VISIBLE
@@ -496,8 +502,8 @@ class SearchFilter : Fragment() {
     fun sortButtonClick(view: View) {
         if (view == binding.searchFilterRecent) {
             //최근순 클릭
-            searchViewModel.sort.add("date")
-            searchViewModel.sort.remove("point")
+            searchViewModel.tempSort.add("date")
+            searchViewModel.tempSort.remove("point")
             searchViewModel.checkSortRecent = true
             searchViewModel.checkSortRating = false
             binding.apply {
@@ -523,8 +529,8 @@ class SearchFilter : Fragment() {
             }
         } else {
             //평점순 클릭
-            searchViewModel.sort.add("point")
-            searchViewModel.sort.remove("date")
+            searchViewModel.tempSort.add("point")
+            searchViewModel.tempSort.remove("date")
             searchViewModel.checkSortRecent = false
             searchViewModel.checkSortRating = true
             binding.apply {
@@ -567,13 +573,14 @@ class SearchFilter : Fragment() {
             }
             searchViewModel.tempCateOhneulenData.clear()
             searchViewModel.cate.clear()
+            searchViewModel.tempCate.clear()
             searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
         }
 
         //옵션선택일때
         else {
-            if (!searchViewModel.checkSortRating && !searchViewModel.checkSortRecent && searchViewModel.option.isEmpty()
-                && searchViewModel.openTime.isEmpty() && searchViewModel.sort.isEmpty()
+            if (!searchViewModel.checkSortRating && !searchViewModel.checkSortRecent && searchViewModel.tempOption.isEmpty()
+                && searchViewModel.tempOpenTime.isEmpty() && searchViewModel.tempSort.isEmpty()
             ) {
                 Toast.makeText(requireContext(), "옵션을 선택해 주세요", Toast.LENGTH_SHORT).show()
                 return
@@ -595,9 +602,9 @@ class SearchFilter : Fragment() {
                     R.color.colorBlack
                 )
             )
-            searchViewModel.option.clear()
-            searchViewModel.openTime.clear()
-            searchViewModel.sort.clear()
+            searchViewModel.tempOption.clear()
+            searchViewModel.tempOpenTime.clear()
+            searchViewModel.tempSort.clear()
             //옵션
             for (i in 0 until binding.searchFilterConvenience.childCount) {
                 (binding.searchFilterConvenience.getChildAt(i) as ToggleButton).isChecked = false
