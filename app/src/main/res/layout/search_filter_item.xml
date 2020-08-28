@@ -8,13 +8,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="32dp">
+        android:layout_height="38dp">
 
         <TextView
             android:id="@+id/filter_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingVertical="8dp"
+            android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:text="테스트"
             android:textColor="@color/colorGrey88"

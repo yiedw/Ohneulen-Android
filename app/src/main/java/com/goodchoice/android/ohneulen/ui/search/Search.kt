@@ -8,14 +8,18 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.TranslateAnimation
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
@@ -89,32 +93,8 @@ class Search : Fragment(), MapView.POIItemEventListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //터치막기
-        mapView.setOnDragListener { v, event -> true }
-//        mapView.setOnTouchListener { _, _ -> true }
-
-        //marker 이벤트
-//        val mapViewPOIItemListener = object : MapView.POIItemEventListener {
-//            override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
-//                StoreFragment.storeSeq = p1!!.tag.toString()
-//                replaceAppbarFragment(StoreAppBar.newInstance())
-//                addMainFragment(StoreFragment.newInstance(), true)
-//
-//            }
-//
-//            override fun onCalloutBalloonOfPOIItemTouched(
-//                p0: MapView?,
-//                p1: MapPOIItem?,
-//                p2: MapPOIItem.CalloutBalloonButtonType?
-//            ) {
-//            }
-//
-//            override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
-//            }
-//
-//            override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
-//            }
-//        }
+//        터치막기
+//        mapView.setOnDragListener { v, event -> true }
         mapView.setPOIItemEventListener(this)
 
 
@@ -156,14 +136,55 @@ class Search : Fragment(), MapView.POIItemEventListener {
 
     fun switchClick(view: View) {
         if (!switchOn) {
+            slideUp()
             binding.searchMap.visibility = View.GONE
             Glide.with(requireContext()).load(R.drawable.open).into(binding.searchSwitch)
         } else {
+            slideDown()
             binding.searchMap.visibility = View.VISIBLE
             Glide.with(requireContext()).load(R.drawable.close).into(binding.searchSwitch)
         }
         switchOn = !switchOn
     }
+
+    private fun slideUp() {
+        val animateMap = TranslateAnimation(0f, 0f, 0f, -binding.searchMap.height.toFloat()).apply {
+            this.duration = 400
+            this.fillAfter = false
+        }
+        val animateInfoCon = TranslateAnimation(0f, 0f, binding.searchInfoCon.y, 0f).apply {
+            this.duration = 400
+            this.fillAfter = false
+        }
+        val animateStoreRv = TranslateAnimation(0f, 0f, binding.searchStoreRv.y-binding.searchInfoCon.height.toFloat(), 0f).apply {
+            this.duration = 400
+            this.fillAfter = false
+        }
+
+        binding.searchMap.startAnimation(animateMap)
+        binding.searchInfoCon.startAnimation(animateInfoCon)
+        binding.searchStoreRv.startAnimation(animateStoreRv)
+
+    }
+
+    private fun slideDown() {
+        val animate = TranslateAnimation(0f, 0f, -binding.searchMap.height.toFloat(), 0f)
+        animate.duration = 400
+        animate.fillAfter = false
+        binding.searchMap.startAnimation(animate)
+        binding.searchInfoCon.startAnimation(animate)
+        binding.searchStoreRv.startAnimation(animate)
+    }
+//    private fun slide(up:Boolean){
+//        val transition=Slide(Gravity.TOP)
+//        transition.duration=500
+//        transition.addTarget(binding.searchMap)
+//        transition.addTarget(binding.searchInfoCon)
+//        transition.addTarget(binding.searchStoreRv)
+//
+//        TransitionManager.beginDelayedTransition(binding.search,transition)
+//        binding.searchMap.visibility = if (up) View.GONE else View.VISIBLE
+//    }
 
     private fun circleSearch(mapPoint: MapPoint) {
         searchViewModel.addry.clear()
@@ -259,6 +280,7 @@ class Search : Fragment(), MapView.POIItemEventListener {
 
     }
 
+
     private fun addMarker(store: Store) {
         val marker = MapPOIItem()
         marker.itemName = store.storeName
@@ -271,6 +293,7 @@ class Search : Fragment(), MapView.POIItemEventListener {
         marker.setCustomImageAnchor(0.5f, 0.5f)
         mapView.addPOIItem(marker)
     }
+
 
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
     }
