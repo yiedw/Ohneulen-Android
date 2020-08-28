@@ -65,7 +65,7 @@
             </RadioGroup>
 
             <ImageView
-                android:id="@+id/search_filter_"
+                android:id="@+id/search_filter_choice_background"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/search_filter_choice_select_true"

@@ -7,6 +7,7 @@ import android.graphics.Point
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.*
+import android.view.animation.TranslateAnimation
 import android.widget.GridLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -14,7 +15,6 @@ import android.widget.ToggleButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.get
-import androidx.core.view.marginStart
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,7 +23,6 @@ import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
-import com.goodchoice.android.ohneulen.util.px
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -38,8 +37,6 @@ class SearchFilter : Fragment() {
     private lateinit var binding: SearchFilterBinding
     var checkFood = true
     var checkClick = false
-
-    var first = true
 
     var position = 0
     private var previousPosition = 0
@@ -138,6 +135,7 @@ class SearchFilter : Fragment() {
 
         //timeDay
         timeDayGenerate()
+
 
     }
 
@@ -451,7 +449,34 @@ class SearchFilter : Fragment() {
         toggleButtonGenerate(binding.searchFilterTimeDay, timeDay)
     }
 
+    private fun slideLeft() {
+        val animate = TranslateAnimation(binding.searchFilterChoice.width.toFloat(), 0f, 0f, 0f)
+        binding.searchFilterChoiceBackground.startAnimation(animate)
+    }
+
+    private fun slideRight() {
+        Timber.e(binding.searchFilterFood.width.toFloat().toString())
+        val animate = TranslateAnimation(0f, binding.searchFilterFood.width.toFloat(), 0f, 0f)
+        binding.searchFilterChoiceBackground.startAnimation(animate)
+    }
+
+    private fun slide() {
+        val animate = if (checkFood) {
+            TranslateAnimation(binding.searchFilterFood.width.toFloat(), 0f, 0f, 0f)
+        } else {
+            TranslateAnimation(0f, binding.searchFilterFood.width.toFloat(), 0f, 0f)
+        }
+        animate.duration = 200
+        animate.fillAfter = true
+        binding.searchFilterChoiceBackground.startAnimation(animate)
+    }
+
+
     fun filterClick(view: View) {
+        if(view==binding.searchFilterFood && checkFood)
+            return
+        else if(view==binding.searchFilterOptions && !checkFood)
+            return
         if (view == binding.searchFilterFood) {
             binding.searchFilterFoodCon.visibility = View.VISIBLE
             binding.searchFilterOptionsView.visibility = View.GONE
@@ -463,61 +488,9 @@ class SearchFilter : Fragment() {
             binding.searchFilterResetBorder.visibility = View.VISIBLE
             checkFood = false
         }
+        slide()
     }
 
-//    fun onFoodClick(view: View) {
-//        binding.searchFilterFoodCon.visibility = View.VISIBLE
-//        binding.searchFilterOptionsView.visibility = View.GONE
-//        binding.searchFilterResetBorder.visibility = View.GONE
-//        binding.searchFilterReset.setBackgroundColor(Color.parseColor("#f6f6f6"))
-//        checkFood = true
-//        binding.searchFilterFood.setTypeface(null, Typeface.BOLD)
-//        binding.searchFilterFood.setTextColor(
-//            ContextCompat.getColor(
-//                requireContext(),
-//                R.color.colorOhneulen
-//            )
-//        )
-//        binding.searchFilterFood.background = ContextCompat.getDrawable(
-//            requireContext(),
-//            R.drawable.background_rounding_filter_select
-//        )
-//        binding.searchFilterOptions.setTypeface(null, Typeface.NORMAL)
-//        binding.searchFilterOptions.setTextColor(
-//            ContextCompat.getColor(
-//                requireContext(),
-//                R.color.colorCGrey
-//            )
-//        )
-//        binding.searchFilterOptions.background = null
-//    }
-//
-//    fun onOptionsClick(view: View) {
-//        binding.searchFilterFoodCon.visibility = View.GONE
-//        binding.searchFilterOptionsView.visibility = View.VISIBLE
-//        binding.searchFilterResetBorder.visibility = View.VISIBLE
-//        checkFood = false
-//        binding.searchFilterReset.setBackgroundColor(requireContext().getColor(R.color.white))
-//        binding.searchFilterOptions.setTypeface(null, Typeface.BOLD)
-//        binding.searchFilterOptions.setTextColor(
-//            ContextCompat.getColor(
-//                requireContext(),
-//                R.color.colorOhneulen
-//            )
-//        )
-//        binding.searchFilterOptions.background = ContextCompat.getDrawable(
-//            requireContext(),
-//            R.drawable.background_rounding_filter_select
-//        )
-//        binding.searchFilterFood.setTypeface(null, Typeface.NORMAL)
-//        binding.searchFilterFood.setTextColor(
-//            ContextCompat.getColor(
-//                requireContext(),
-//                R.color.colorCGrey
-//            )
-//        )
-//        binding.searchFilterFood.background = null
-//    }
 
     fun sortButtonClick(view: View) {
         if (view == binding.searchFilterRecent) {
