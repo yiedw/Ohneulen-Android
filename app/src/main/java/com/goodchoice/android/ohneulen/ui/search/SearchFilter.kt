@@ -571,8 +571,10 @@ class SearchFilter : Fragment() {
                     searchViewModel.subCategoryList[i][j].check = false
                 }
             }
+            searchViewModel.checkSortRecent=false
+            searchViewModel.checkSortRating=false
             searchViewModel.tempCateOhneulenData.clear()
-            searchViewModel.cate.clear()
+//            searchViewModel.cate.clear()
             searchViewModel.tempCate.clear()
             searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
         }

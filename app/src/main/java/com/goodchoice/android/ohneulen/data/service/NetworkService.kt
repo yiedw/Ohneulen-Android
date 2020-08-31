@@ -6,6 +6,7 @@ import com.goodchoice.android.ohneulen.data.remote.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import okhttp3.RequestBody
 import retrofit2.http.*
+import java.io.File
 
 interface NetworkService {
 
@@ -76,6 +77,21 @@ interface NetworkService {
         @Field("title") title:String,
         @Field("contents") contents:String
     ):GetInquireResponse
+
+    //리뷰 쓰기
+    @POST("/api/set_review")
+    @FormUrlEncoded
+    suspend fun requestSetReview(
+        @Field("store_seq") storeSeq: String,
+        @Field("point0") point0:String,
+        @Field("reviewSelect01") reviewSelect01:String,
+        @Field("reviewSelect02") reviewSelect02:String,
+        @Field("reviewSelect03") reviewSelect03:String,
+        @Field("reviewSelect04") reviewSelect04:String,
+        @Field("reviewSelect05") reviewSelect05:String,
+        @Field("reviewText") reviewText:String,
+        @Field("reviewImgList") reviewImgList:List<ByteArray>
+    ):GetEmptyDataResponse
 
 
     //카카오

@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_new"
-                android:onClick="@{fragment::onClick}"
+
                 android:paddingHorizontal="20dp">
 
 
@@ -634,6 +634,7 @@
 
 
         <Button
+            android:onClick="@{fragment::onSubmitClick}"
             android:id="@+id/store_review_write_submit"
             android:layout_width="match_parent"
             android:layout_height="50dp"

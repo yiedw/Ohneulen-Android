@@ -7,26 +7,32 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.FrameLayout
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.Toast
+import androidx.core.net.toFile
 import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteBinding
 import com.goodchoice.android.ohneulen.databinding.StoreReviewWriteImageItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
-import com.goodchoice.android.ohneulen.util.KeyboardVisibilityUtils
+import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.dp
+import com.goodchoice.android.ohneulen.util.loginDialog
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.io.File
 
 class StoreReviewWrite : Fragment() {
 
@@ -36,8 +42,8 @@ class StoreReviewWrite : Fragment() {
     }
 
     private lateinit var binding: StoreReviewWriteBinding
-    private var selectedUriList: MutableList<Uri>? = null
-    private val storeViewMode: StoreViewModel by viewModel()
+    private var selectedUriList = mutableListOf<Uri>()
+    private val storeViewModel: StoreViewModel by viewModel()
 
 //    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
@@ -62,7 +68,7 @@ class StoreReviewWrite : Fragment() {
             false
         )
         binding.fragment = this
-        binding.viewModel = storeViewMode
+        binding.viewModel = storeViewModel
 
         return binding.root
     }
@@ -70,12 +76,8 @@ class StoreReviewWrite : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        storeReviewWriteEt 누르면 화면 맨 위로올리기
-//        binding.storeReviewWriteEt.setOnClickListener {
-//            binding.storeReviewWriteScroll.post {
-//                binding.storeReviewWriteScroll.fullScroll(View.FOCUS_DOWN)
-//            }
-//        }
+
+
         binding.storeReviewWriteEt.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 binding.storeReviewPointLinearLayout.visibility = View.GONE
@@ -83,16 +85,6 @@ class StoreReviewWrite : Fragment() {
                 binding.storeReviewPointLinearLayout.visibility = View.VISIBLE
             }
         }
-//        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
-//            onShowKeyboard = { keyboardHeight ->
-//                val param=ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,keyboardHeight.dp())
-//                param.topToBottom=binding.storeReviewWriteBorder.id
-//                binding.storeReviewWriteKeyboard.layoutParams=param
-//                binding.storeReviewWriteKeyboard.visibility = View.VISIBLE
-//                binding.storeReviewWriteScroll.run {
-//                    smoothScrollBy(scrollX, scrollY + keyboardHeight)
-//                }
-//            })
 
 
         binding.storeReviewWriteEt.addTextChangedListener(object : TextWatcher {
@@ -107,7 +99,18 @@ class StoreReviewWrite : Fragment() {
                 binding.storeReviewWriteEtLength.text =
                     binding.storeReviewWriteEt.text.toString().length.toString()
             }
+        })
 
+        //리뷰 작성후 성공 실패인지 판단
+        storeViewModel.setReviewCode.observe(viewLifecycleOwner, Observer {
+            if (it == ConstList.SUCCESS) {
+                Timber.e(StoreFragment.storeSeq)
+                Toast.makeText(requireContext(), "후기가 등록 되었습니다", Toast.LENGTH_SHORT).show()
+                replaceAppbarFragment(StoreAppBar.newInstance())
+                MainActivity.supportFragmentManager.popBackStack()
+            } else if (it == ConstList.REQUIRE_LOGIN) {
+                loginDialog(requireContext(), StoreReviewWriteAppbar.newInstance(), false)
+            }
         })
     }
 
@@ -125,7 +128,6 @@ class StoreReviewWrite : Fragment() {
                     .selectedUri(selectedUriList)
                     .max(5, "최대 5개까지 등록 가능합니다")
                     .startMultiImage { list: List<Uri> -> showMultiImage(list) }
-
             }
 
             override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
@@ -166,8 +168,59 @@ class StoreReviewWrite : Fragment() {
         }
     }
 
+    private fun submitCheck(): Boolean {
+        val reviewSelect01 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg1.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewSelect02 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg2.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewSelect03 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg3.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewSelect04 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewSelect05 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        if (reviewSelect01 == "0"
+            || reviewSelect02 == "0"
+            || reviewSelect03 == "0"
+            || reviewSelect04 == "0"
+            || reviewSelect05 == "0"
+        ) {
+            return false
+        }
 
-    fun onClick(view: View) {
-
+        return true
     }
+
+
+    fun onSubmitClick(view: View) {
+        val point0 = binding.storeReviewWriteRating.rating.toInt().toString()
+        val reviewSelect01 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg1.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewSelect02 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg2.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewSelect03 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg3.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewSelect04 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewSelect05 =
+            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+        val reviewText = binding.storeReviewWriteEt.text.toString()
+        val reviewImgList = mutableListOf<ByteArray>()
+        for (i in selectedUriList) {
+            reviewImgList.add(i.toFile().readBytes())
+        }
+        Timber.e(reviewSelect01)
+
+//        storeViewModel.setReview(
+//            point0,
+//            reviewSelect01,
+//            reviewSelect02,
+//            reviewSelect03,
+//            reviewSelect04,
+//            reviewSelect05,
+//            reviewText
+//        )
+    }
+
+
 }

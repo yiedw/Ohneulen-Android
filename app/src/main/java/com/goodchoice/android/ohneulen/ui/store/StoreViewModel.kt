@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
+import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -24,7 +25,9 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     //storeDetail 가져오기
     var storeMenuList = listOf<StoreMenu>()
     var storeDetail = MutableLiveData<StoreDetail>()
+    var storeSeq = StoreFragment.storeSeq
     fun getStoreDetail(storeSeq: String) {
+        this.storeSeq = storeSeq
         CoroutineScope(Dispatchers.IO).launch {
             val storeDetailResponse = networkService.requestGetStoreInfo(
                 storeSeq.toRequestBody()
@@ -39,7 +42,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
     //찜 설정
     var setMemberLikeResponseCode = MutableLiveData<String>()
-    var storeLike=MutableLiveData<Boolean>(false)
+    var storeLike = MutableLiveData<Boolean>(false)
     fun setMemberLike() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -66,7 +69,40 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     val date = Calendar.getInstance().time
     val today = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA).format(date)
 
-    //storeReviewImage
+    //후기 작성
+    var setReviewCode = MutableLiveData<String>()
+
+    fun setReview(
+        point0: String,
+        reviewSelect01: String,
+        reviewSelect02: String,
+        reviewSelect03: String,
+        reviewSelect04: String,
+        reviewSelect05: String,
+        reviewText:String,
+        reviewImgList:List<ByteArray> = listOf()
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = networkService.requestSetReview(
+                    storeSeq,
+                    point0,
+                    reviewSelect01,
+                    reviewSelect02,
+                    reviewSelect03,
+                    reviewSelect04,
+                    reviewSelect05,
+                    reviewText,
+                    reviewImgList
+                    )
+                setReviewCode.postValue(response.resultCode)
+
+
+            } catch (e: Exception) {
+                Timber.e(e.toString())
+            }
+        }
+    }
 
 
     val loading = MutableLiveData<Boolean>()
