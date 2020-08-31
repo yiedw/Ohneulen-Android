@@ -43,7 +43,6 @@ class LoginAppBar(private val fragment: Fragment) :
             false
         )
         binding.fragment = this
-//        Timber.e("ASdf")
         return binding.root
     }
 

@@ -3,6 +3,7 @@ package com.goodchoice.android.ohneulen.di
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.util.AddCookiesInterceptor
 import com.goodchoice.android.ohneulen.util.ReceivedCookiesInterceptor
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -32,10 +33,11 @@ fun networkModule(baseUrl: String) = module {
     }
 
     single {
+        val gson=GsonBuilder().setLenient().create()
         Retrofit.Builder()
             .client(get<OkHttpClient>())
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(NetworkService::class.java)
     }

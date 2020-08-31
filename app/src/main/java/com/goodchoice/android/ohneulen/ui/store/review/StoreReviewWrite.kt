@@ -1,5 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.store.review
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -32,6 +34,7 @@ import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 class StoreReviewWrite : Fragment() {
@@ -106,6 +109,7 @@ class StoreReviewWrite : Fragment() {
             if (it == ConstList.SUCCESS) {
                 Timber.e(StoreFragment.storeSeq)
                 Toast.makeText(requireContext(), "후기가 등록 되었습니다", Toast.LENGTH_SHORT).show()
+                storeViewModel.getStoreDetail(StoreFragment.storeSeq)
                 replaceAppbarFragment(StoreAppBar.newInstance())
                 MainActivity.supportFragmentManager.popBackStack()
             } else if (it == ConstList.REQUIRE_LOGIN) {
@@ -172,23 +176,37 @@ class StoreReviewWrite : Fragment() {
         val reviewSelect01 =
             (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg1.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
         val reviewSelect02 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg2.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+            (binding.storeReviewRg2.indexOfChild(binding.storeReviewRg2.findViewById(binding.storeReviewRg2.checkedRadioButtonId)) + 1).toString()
         val reviewSelect03 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg3.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+            (binding.storeReviewRg3.indexOfChild(binding.storeReviewRg3.findViewById(binding.storeReviewRg3.checkedRadioButtonId)) + 1).toString()
         val reviewSelect04 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+            (binding.storeReviewRg4.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg4.checkedRadioButtonId)) + 1).toString()
         val reviewSelect05 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
-        if (binding.storeReviewWriteRating.rating.toInt()==0
-            || reviewSelect01 == "0"
-            || reviewSelect02 == "0"
-            || reviewSelect03 == "0"
-            || reviewSelect04 == "0"
-            || reviewSelect05 == "0"
-            || binding.storeReviewWriteEt.text.isNullOrEmpty()
-        ) {
+            (binding.storeReviewRg5.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg5.checkedRadioButtonId)) + 1).toString()
+
+        if (binding.storeReviewWriteRating.rating.toInt() == 0) {
+            Toast.makeText(requireContext(), "평점을 입력해 주세요", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (reviewSelect01 == "0") {
+            Toast.makeText(requireContext(), "맛을 평가해 주세요", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (reviewSelect02 == "0") {
+            Toast.makeText(requireContext(), "가격을 평가해 주세요", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (reviewSelect03 == "0") {
+            Toast.makeText(requireContext(), "직원 친절도를 평가해 주세요", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (reviewSelect04 == "0") {
+            Toast.makeText(requireContext(), "분위기를 평가해 주세요", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (reviewSelect05 == "0") {
+            Toast.makeText(requireContext(), "청결도를 평가해 주세요", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (binding.storeReviewWriteEt.length() < 5) {
+            Toast.makeText(requireContext(), "후기를 5자 이상 작성해 주세요", Toast.LENGTH_SHORT).show()
             return false
         }
+
 
         return true
     }
@@ -209,25 +227,30 @@ class StoreReviewWrite : Fragment() {
         val reviewText = binding.storeReviewWriteEt.text.toString()
         val reviewImgList = mutableListOf<ByteArray>()
         for (i in selectedUriList) {
-            reviewImgList.add(i.toFile().readBytes())
-        }
-        if(!submitCheck()){
-            Timber.e("asdf")
-            return
-        }
-        else{
-            Timber.e("11")
-        }
+            requireContext().contentResolver.openInputStream(i)!!.buffered().use {
+                reviewImgList.add(it.readBytes())
 
-//        storeViewModel.setReview(
-//            point0,
-//            reviewSelect01,
-//            reviewSelect02,
-//            reviewSelect03,
-//            reviewSelect04,
-//            reviewSelect05,
-//            reviewText
-//        )
+//            val inputStream=requireContext().contentResolver.openInputStream(i)!!
+//                val bitmap = BitmapFactory.decodeStream(inputStream)
+//                val baos = ByteArrayOutputStream()
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+//                val data = baos.toByteArray()
+//                reviewImgList.add(data)
+//                Timber.e(data.toString())
+            }
+        }
+        if (submitCheck()) {
+            storeViewModel.setReview(
+                point0,
+                reviewSelect01,
+                reviewSelect02,
+                reviewSelect03,
+                reviewSelect04,
+                reviewSelect05,
+                reviewText
+//                reviewImgList
+            )
+        }
     }
 
 

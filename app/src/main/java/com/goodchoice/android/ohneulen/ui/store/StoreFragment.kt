@@ -273,6 +273,7 @@ class StoreFragment : Fragment() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     state = position
+                    Timber.e(position.toString()+"asdf")
                     val view =
                         (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
