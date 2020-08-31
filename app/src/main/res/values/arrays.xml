@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="inquire_spinner_item">
+        <item>선택해주세요</item>
         <item>계정</item>
         <item>매장</item>
         <item>기타</item>

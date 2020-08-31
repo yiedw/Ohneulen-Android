@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -30,7 +30,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDt5MMiYTHvU3qZ-5giAEJSAQvROqiHhk8" />
-
+        
         <activity
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustPan">

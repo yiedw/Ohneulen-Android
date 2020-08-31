@@ -179,11 +179,13 @@ class StoreReviewWrite : Fragment() {
             (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
         val reviewSelect05 =
             (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
-        if (reviewSelect01 == "0"
+        if (binding.storeReviewWriteRating.rating.toInt()==0
+            || reviewSelect01 == "0"
             || reviewSelect02 == "0"
             || reviewSelect03 == "0"
             || reviewSelect04 == "0"
             || reviewSelect05 == "0"
+            || binding.storeReviewWriteEt.text.isNullOrEmpty()
         ) {
             return false
         }
@@ -209,7 +211,13 @@ class StoreReviewWrite : Fragment() {
         for (i in selectedUriList) {
             reviewImgList.add(i.toFile().readBytes())
         }
-        Timber.e(reviewSelect01)
+        if(!submitCheck()){
+            Timber.e("asdf")
+            return
+        }
+        else{
+            Timber.e("11")
+        }
 
 //        storeViewModel.setReview(
 //            point0,

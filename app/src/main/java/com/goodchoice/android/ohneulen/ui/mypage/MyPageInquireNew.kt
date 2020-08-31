@@ -61,6 +61,7 @@ class MyPageInquireNew : Fragment() {
             it.setDropDownViewResource(R.layout.mypage_inquire_new_spinner_array)
             spinner.adapter = it
         }
+        binding.mypageInquireNewSpinner.setSelection(0)
 
         //제목 글자수 세기
         binding.mypageInquireNewEt1.addTextChangedListener(object : TextWatcher {
@@ -108,14 +109,22 @@ class MyPageInquireNew : Fragment() {
 
     fun submitClick(view: View) {
         var gubun1 = (binding.mypageInquireNewSpinner.selectedItemPosition + 1).toString()
-        while (gubun1.length != 3) {
-            gubun1 = "0$gubun1"
-        }
         val title = binding.mypageInquireNewEt1.text.toString()
         val contents = binding.mypageInquireNewEt2.text.toString()
-        if (title.isEmpty() || contents.isEmpty()) {
-            Toast.makeText(requireContext(), "제목 또는 내용을 적어주세요", Toast.LENGTH_SHORT).show()
+        if(gubun1=="1"){
+            Toast.makeText(requireContext(),"분류를 선택해 주세요",Toast.LENGTH_SHORT).show()
             return
+        }
+        else if(title.isEmpty()){
+            Toast.makeText(requireContext(),"제목을 작성해 주세요",Toast.LENGTH_SHORT).show()
+            return
+        }
+        else if(contents.length<5){
+            Toast.makeText(requireContext(),"내용을 5자 이상 작성해 주세요",Toast.LENGTH_SHORT).show()
+            return
+        }
+        while (gubun1.length != 3) {
+            gubun1 = "0$gubun1"
         }
         mypageViewModel.setInquireList(gubun1, title, contents)
 
