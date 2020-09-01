@@ -56,11 +56,11 @@ class SearchFilterSubAdapter() :
                     if (subCategory.check) {
                         //아이템이 없을때 추가
                         searchViewModel.tempCateOhneulenData.add(items)
-                        searchViewModel.tempCate.add(code)
+                        searchViewModel.cate.add(code)
                     } else {
                         //아이템이 있으면 삭제
                         searchViewModel.tempCateOhneulenData.remove(items)
-                        searchViewModel.tempCate.remove(code)
+                        searchViewModel.cate.remove(code)
                     }
 
 
