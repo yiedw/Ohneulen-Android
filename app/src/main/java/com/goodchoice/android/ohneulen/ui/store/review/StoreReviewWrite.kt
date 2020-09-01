@@ -121,6 +121,15 @@ class StoreReviewWrite : Fragment() {
                 loginDialog(requireContext(), StoreReviewWriteAppbar.newInstance(), false)
             }
         })
+
+        //사진 용량체크
+//        storeViewModel.toastMessageCheck.observe(viewLifecycleOwner, Observer {
+//            if(it=="321"){
+//                Toast.makeText(requireContext(),"사진의 해상도가 너무 높습니다",Toast.LENGTH_SHORT).show()
+//            }
+//            storeViewModel.toastMessageCheck.postValue("000")
+////            binding.storeReviewWriteImage.removeV
+//        })
     }
 
     override fun onDestroy() {
@@ -159,7 +168,6 @@ class StoreReviewWrite : Fragment() {
         val height = 60.dp()
         uriList.forEach {
             val uri = it
-            Timber.e(it.toString())
             val itemBinding =
                 StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
             Glide.with(requireContext())

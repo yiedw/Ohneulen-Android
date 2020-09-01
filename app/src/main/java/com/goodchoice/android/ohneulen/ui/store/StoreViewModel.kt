@@ -109,6 +109,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
         }
     }
 
+    var toastMessageCheck=MutableLiveData("000")
     fun imageUpload(file: File) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -117,8 +118,10 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                 val response = networkService.requestImageUpload(body)
                 if (response.resultCode == ConstList.SUCCESS) {
                     reviewImgList.add("/public/upload/storeimg/${response.resultData.file_name}")
-                    Timber.e(reviewImgList.toString())
                 }
+//                else if(response.resultCode=="321"){
+//                    toastMessageCheck.postValue("321")
+//                }
             } catch (e: Exception) {
                 Timber.e(e.toString())
             }
