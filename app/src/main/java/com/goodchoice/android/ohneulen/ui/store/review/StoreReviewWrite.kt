@@ -179,6 +179,7 @@ class StoreReviewWrite : Fragment() {
             storeViewModel.imageUpload(file)
 //            storeViewModel.imageUpload(data)
         }
+        storeViewModel.reviewImgList.clear()
     }
 
     private fun submitCheck(): Boolean {
