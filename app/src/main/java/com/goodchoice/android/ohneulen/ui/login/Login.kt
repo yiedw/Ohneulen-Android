@@ -136,10 +136,11 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
             if (hasFocus) {
                 binding.loginPw.background =
                     requireContext().getDrawable(R.drawable.edittext_border_select)
-                binding.loginLogo.visibility = View.GONE
+//                binding.loginLogo.visibility = View.GONE
             } else {
                 binding.loginPw.background =
                     requireContext().getDrawable(R.drawable.edittext_border)
+                binding.loginLogo.visibility = View.VISIBLE
             }
         }
 //

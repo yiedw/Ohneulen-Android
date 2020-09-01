@@ -35,8 +35,9 @@ import com.gun0912.tedpermission.TedPermission
 import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
-class Search : Fragment(), MapView.POIItemEventListener {
+class Search : Fragment(), MapView.POIItemEventListener,MapView.MapViewEventListener {
 
     companion object {
         fun newInstance() = Search()
@@ -84,6 +85,7 @@ class Search : Fragment(), MapView.POIItemEventListener {
         }
         mapViewContainer = binding.searchMap
         mapView.setZoomLevel(3, false)
+
         mapViewContainer.addView(mapView)
         getCurrentLocationCheck()
         return binding.root
@@ -96,6 +98,7 @@ class Search : Fragment(), MapView.POIItemEventListener {
 //        터치막기
 //        mapView.setOnDragListener { v, event -> true }
         mapView.setPOIItemEventListener(this)
+        mapView.setMapViewEventListener(this)
 
 
         //검색어 없을시 토스트 띄우기
@@ -127,6 +130,13 @@ class Search : Fragment(), MapView.POIItemEventListener {
         })
         MainActivity.bottomNav.visibility = View.VISIBLE
 
+
+//        mapView.setOnDragListener { v, event ->
+//
+//            Timber.e("asdf")
+//            true
+//        }
+
     }
 
     override fun onResume() {
@@ -156,7 +166,12 @@ class Search : Fragment(), MapView.POIItemEventListener {
             this.duration = 400
             this.fillAfter = false
         }
-        val animateStoreRv = TranslateAnimation(0f, 0f, binding.searchStoreRv.y-binding.searchInfoCon.height.toFloat(), 0f).apply {
+        val animateStoreRv = TranslateAnimation(
+            0f,
+            0f,
+            binding.searchStoreRv.y - binding.searchInfoCon.height.toFloat(),
+            0f
+        ).apply {
             this.duration = 400
             this.fillAfter = false
         }
@@ -312,6 +327,35 @@ class Search : Fragment(), MapView.POIItemEventListener {
     }
 
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+    }
+
+    override fun onMapViewDoubleTapped(p0: MapView?, p1: MapPoint?) {
+
+    }
+
+    override fun onMapViewInitialized(p0: MapView?) {
+    }
+
+    override fun onMapViewDragStarted(p0: MapView?, p1: MapPoint?) {
+    }
+
+    override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {
+    }
+
+    override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
+    }
+
+    override fun onMapViewDragEnded(p0: MapView?, p1: MapPoint?) {
+        searchViewModel.kakaoMapPoint.postValue(mapView.mapCenterPoint)
+    }
+
+    override fun onMapViewSingleTapped(p0: MapView?, p1: MapPoint?) {
+    }
+
+    override fun onMapViewZoomLevelChanged(p0: MapView?, p1: Int) {
+    }
+
+    override fun onMapViewLongPressed(p0: MapView?, p1: MapPoint?) {
     }
 
 

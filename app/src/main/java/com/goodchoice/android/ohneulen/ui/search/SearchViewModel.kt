@@ -115,6 +115,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
         }
     }
 
+
     fun currentLocationData(latitude: Double, longitude: Double) {
         CoroutineScope(Dispatchers.IO).launch {
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(latitude, longitude))

@@ -83,7 +83,6 @@ class StoreFragment : Fragment() {
 
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
-
 //            메뉴 없으면 메뉴탭 삭제
             replaceAppbarFragment(StoreAppBar.newInstance())
             if (it.menuList.isNullOrEmpty()) {
@@ -273,7 +272,6 @@ class StoreFragment : Fragment() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     state = position
-                    Timber.e(position.toString()+"asdf")
                     val view =
                         (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
@@ -308,6 +306,7 @@ class StoreFragment : Fragment() {
                         lp.height = view.measuredHeight
                     }
             }
+
             if (!first) {
                 first = true
                 binding.storeNewScrollView.scrollTo(0, 1)

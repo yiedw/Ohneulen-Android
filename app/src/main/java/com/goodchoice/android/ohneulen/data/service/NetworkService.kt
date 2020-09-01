@@ -4,6 +4,7 @@ import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.remote.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
 import java.io.File
@@ -67,31 +68,37 @@ interface NetworkService {
     //문의 내역 가져오기
     @POST("api/get_board")
     suspend fun requestGetInquire(
-    ):GetInquireResponse
+    ): GetInquireResponse
 
     //문의 내역 보내기
     @POST("api/set_board")
     @FormUrlEncoded
     suspend fun requestSetInquire(
-        @Field("gubun1") gubun1:String,
-        @Field("title") title:String,
-        @Field("contents") contents:String
-    ):GetInquireResponse
+        @Field("gubun1") gubun1: String,
+        @Field("title") title: String,
+        @Field("contents") contents: String
+    ): GetInquireResponse
 
     //리뷰 쓰기
     @POST("/api/set_review")
     @FormUrlEncoded
     suspend fun requestSetReview(
         @Field("store_seq") storeSeq: String,
-        @Field("point0") point0:String,
-        @Field("reviewSelect01") reviewSelect01:String,
-        @Field("reviewSelect02") reviewSelect02:String,
-        @Field("reviewSelect03") reviewSelect03:String,
-        @Field("reviewSelect04") reviewSelect04:String,
-        @Field("reviewSelect05") reviewSelect05:String,
-        @Field("reviewText") reviewText:String,
-        @Field("reviewImgList") reviewImgList:List<ByteArray>
-    ):GetEmptyDataResponse
+        @Field("point0") point0: String,
+        @Field("reviewSelect01") reviewSelect01: String,
+        @Field("reviewSelect02") reviewSelect02: String,
+        @Field("reviewSelect03") reviewSelect03: String,
+        @Field("reviewSelect04") reviewSelect04: String,
+        @Field("reviewSelect05") reviewSelect05: String,
+        @Field("reviewText") reviewText: String,
+        @Field("reviewImgList") reviewImgList: List<String>
+    ): GetEmptyDataResponse
+
+    @POST("/common/imgupload")
+    @Multipart
+    suspend fun requestImageUpload(
+        @Part file: MultipartBody.Part
+    ):GetImageUploadResponse
 
 
     //카카오

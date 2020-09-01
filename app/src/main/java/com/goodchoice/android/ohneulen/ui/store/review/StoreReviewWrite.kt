@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store.review
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -11,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.core.net.toFile
 import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -53,6 +53,11 @@ class StoreReviewWrite : Fragment() {
     override fun onResume() {
         super.onResume()
         MainActivity.bottomNav.visibility = View.GONE
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        storeViewModel.reviewImgList.clear()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,8 +112,8 @@ class StoreReviewWrite : Fragment() {
         //리뷰 작성후 성공 실패인지 판단
         storeViewModel.setReviewCode.observe(viewLifecycleOwner, Observer {
             if (it == ConstList.SUCCESS) {
-                Timber.e(StoreFragment.storeSeq)
                 Toast.makeText(requireContext(), "후기가 등록 되었습니다", Toast.LENGTH_SHORT).show()
+                storeViewModel.setReviewCode.postValue("")
                 storeViewModel.getStoreDetail(StoreFragment.storeSeq)
                 replaceAppbarFragment(StoreAppBar.newInstance())
                 MainActivity.supportFragmentManager.popBackStack()
@@ -154,6 +159,7 @@ class StoreReviewWrite : Fragment() {
         val height = 60.dp()
         uriList.forEach {
             val uri = it
+            Timber.e(it.toString())
             val itemBinding =
                 StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
             Glide.with(requireContext())
@@ -166,9 +172,12 @@ class StoreReviewWrite : Fragment() {
             itemBinding.root.layoutParams = layoutParams
             itemBinding.root.setOnClickListener {
                 binding.storeReviewWriteImage.removeView(itemBinding.root)
-                selectedUriList!!.remove(uri)
+                selectedUriList.remove(uri)
             }
             binding.storeReviewWriteImage.addView(itemBinding.root, 0)
+            val file=File(uri.path!!)
+            storeViewModel.imageUpload(file)
+//            storeViewModel.imageUpload(data)
         }
     }
 
@@ -236,7 +245,6 @@ class StoreReviewWrite : Fragment() {
 //                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
 //                val data = baos.toByteArray()
 //                reviewImgList.add(data)
-//                Timber.e(data.toString())
             }
         }
         if (submitCheck()) {
@@ -251,6 +259,9 @@ class StoreReviewWrite : Fragment() {
 //                reviewImgList
             )
         }
+    }
+    fun uri2File(uri:Uri){
+        val file= File(uri.path!!)
     }
 
 

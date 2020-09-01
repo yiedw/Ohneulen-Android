@@ -12,6 +12,11 @@ import com.goodchoice.android.ohneulen.util.loginDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 import java.io.File
@@ -32,6 +37,8 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
             val storeDetailResponse = networkService.requestGetStoreInfo(
                 storeSeq.toRequestBody()
             )
+            if (storeDetail.value == storeDetailResponse.resultData)
+                return@launch
             if (storeDetailResponse.resultCode == "000") {
                 storeDetail.postValue(storeDetailResponse.resultData)
                 storeMenuList = storeDetailResponse.resultData.menuList
@@ -48,13 +55,11 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
             try {
                 val response = networkService.requestSetMemberLike(StoreFragment.storeSeq)
                 setMemberLikeResponseCode.postValue(response.resultCode)
-                Timber.e(setMemberLikeResponseCode.value!!)
             } catch (e: Exception) {
                 Timber.e("찜에 실패하였습니다.")
             }
         }
     }
-
 
     //menuDetail 클릭했을때 클릭한 곳으로 이동
     var menuIndex = 0
@@ -71,7 +76,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
     //후기 작성
     var setReviewCode = MutableLiveData<String>()
-
+    val reviewImgList = mutableListOf<String>()
     fun setReview(
         point0: String,
         reviewSelect01: String,
@@ -79,8 +84,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
         reviewSelect03: String,
         reviewSelect04: String,
         reviewSelect05: String,
-        reviewText:String,
-        reviewImgList:List<ByteArray> = listOf()
+        reviewText: String
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -94,10 +98,26 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                     reviewSelect05,
                     reviewText,
                     reviewImgList
-                    )
+                )
                 setReviewCode.postValue(response.resultCode)
 
 
+            } catch (e: Exception) {
+                Timber.e(e.toString())
+            }
+        }
+    }
+
+    fun imageUpload(file: File) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val requestFile= file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                val body=MultipartBody.Part.createFormData("file",file.name,requestFile)
+                val response = networkService.requestImageUpload(body)
+                if (response.resultCode == ConstList.SUCCESS) {
+                    reviewImgList.add(response.resultData.full_path)
+                    Timber.e(reviewImgList.toString())
+                }
             } catch (e: Exception) {
                 Timber.e(e.toString())
             }

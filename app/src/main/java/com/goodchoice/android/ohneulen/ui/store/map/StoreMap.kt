@@ -103,13 +103,14 @@ class StoreMap : Fragment(), OnMapReadyCallback {
     fun onNavClick(view: View) {
         //매장데이터 넣어주기
         try {
+
             val kakaoMap =
-                "kakaomap://route?sp=37.537229,127.005515&ep=37.4979502,127.0276368&by=CAR"
+                "kakaomap://route?ep=${currentLatLng.latitude},${currentLatLng.longitude}&by=CAR"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(kakaoMap))
             startActivity(intent)
 
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(requireContext(), "카카오맵이 깔려있지 않습니다 스토어로 이동합니다", Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), "카카오맵이 깔려있지 않습니다 \n스토어로 이동합니다", Toast.LENGTH_SHORT)
                 .show()
             val uri = "market://details?id=net.daum.android.map"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))

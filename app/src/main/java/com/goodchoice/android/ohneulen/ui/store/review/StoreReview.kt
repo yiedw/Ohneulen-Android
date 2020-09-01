@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -51,6 +52,7 @@ class StoreReview : Fragment() {
     private lateinit var binding: StoreReviewBinding
     private val storeViewModel: StoreViewModel by viewModel()
     private val loginViewModel: LoginViewModel by viewModel()
+
 
 
     override fun onCreateView(
