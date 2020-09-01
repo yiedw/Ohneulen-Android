@@ -91,7 +91,7 @@ interface NetworkService {
         @Field("reviewSelect04") reviewSelect04: String,
         @Field("reviewSelect05") reviewSelect05: String,
         @Field("reviewText") reviewText: String,
-        @Field("reviewImgList") reviewImgList: List<String>
+        @Field("reviewImgList[]") reviewImgList: List<String>
     ): GetEmptyDataResponse
 
     @POST("/common/imgupload")

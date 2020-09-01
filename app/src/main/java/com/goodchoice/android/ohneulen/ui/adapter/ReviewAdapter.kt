@@ -41,13 +41,13 @@ class ReviewAdapter(val report: Boolean = true) :
                     popupFragment(StoreReviewReport.newInstance(reviewItem))
                 }
 
-                reviewItemImage.setOnClickListener {
-                    val dialog = ImageDetailReviewDialog.newInstance(adapterPosition)
-                    dialog.show(MainActivity.supportFragmentManager, "")
-                }
 
                 //리뷰에 사진이 있을때
                 if (!reviewItem.imgList.isNullOrEmpty()) {
+                    reviewItemImage.setOnClickListener {
+                        val dialog = ImageDetailReviewDialog.newInstance(adapterPosition)
+                        dialog.show(MainActivity.supportFragmentManager, "")
+                    }
                     Glide.with(root).load(BaseUrl.OHNEULEN + reviewItem.imgList[0].photoURL)
                         .centerCrop()
                         .into(reviewItemImage)
@@ -62,10 +62,11 @@ class ReviewAdapter(val report: Boolean = true) :
 
                 //날짜 넣어주기(형식 약간 변경)
                 reviewItemDate.text =
-                    "${reviewItem.modifyDate.substring(0, 4)}.${reviewItem.modifyDate.substring(
-                        5,
-                        7
-                    )}.${reviewItem.modifyDate.substring(8, 10)}"
+                    reviewItem.modifyDate
+//                    "${reviewItem.modifyDate.substring(0, 4)}.${reviewItem.modifyDate.substring(
+//                        5,
+//                        7
+//                    )}.${reviewItem.modifyDate.substring(8, 10)}"
             }
         }
     }

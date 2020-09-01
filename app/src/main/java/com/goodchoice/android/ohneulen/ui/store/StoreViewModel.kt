@@ -7,6 +7,7 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
+import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.loginDialog
 import kotlinx.coroutines.CoroutineScope
@@ -115,7 +116,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                 val body=MultipartBody.Part.createFormData("file",file.name,requestFile)
                 val response = networkService.requestImageUpload(body)
                 if (response.resultCode == ConstList.SUCCESS) {
-                    reviewImgList.add(response.resultData.full_path)
+                    reviewImgList.add("/public/upload/storeimg/${response.resultData.file_name}")
                     Timber.e(reviewImgList.toString())
                 }
             } catch (e: Exception) {
