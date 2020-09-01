@@ -26,7 +26,7 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var toastMessage = MutableLiveData<Boolean>(false)
 
 
-    var mNetworkService=networkService
+    var mNetworkService = networkService
     var searchStoreList = MutableLiveData<List<Store>>()
     val searchStoreAdapter = SearchStoreAdapter()
 
