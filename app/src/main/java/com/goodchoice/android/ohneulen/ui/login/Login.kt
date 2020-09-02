@@ -216,13 +216,13 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
     }
 
     fun findEmailClick(view: View) {
-        loginViewModel.emailClick = true
+//        loginViewModel.emailClick = true
         replaceAppbarFragment(LoginFindAppBar.newInstance())
-        replaceMainFragment(LoginFind.newInstance())
+        addMainFragment(LoginFindEmail.newInstance(),true)
     }
 
     fun findPwClick(view: View) {
-        loginViewModel.emailClick = false
+//        loginViewModel.emailClick = false
         replaceAppbarFragment(LoginFindAppBar.newInstance())
         replaceMainFragment(LoginFind.newInstance())
     }

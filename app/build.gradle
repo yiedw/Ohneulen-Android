@@ -45,6 +45,8 @@ android {
             debuggable false
             buildConfigField "String", "Ohneulen", "\"https://www.ohneulen.com/\""
             buildConfigField "String", "OhneulenSignUp", "\"https://www.ohneulen.com/member/regist\""
+            buildConfigField "String", "OhneulenFindId","\"https://m.ohneulen.com/member/find?g=id\""
+            buildConfigField "String", "OhneulenFindPw","\"https://m.ohneulen.com/member/find?g=pw\""
             resValue("string", "app_name", "오늘은")
             signingConfig signingConfigs.release
         }
@@ -52,6 +54,8 @@ android {
             debuggable true
             buildConfigField "String", "Ohneulen", "\"https://develop.ohneulen.com/\""
             buildConfigField "String", "OhneulenSignUp", "\"https://devm.ohneulen.com/member/regist\""
+            buildConfigField "String", "OhneulenFindId","\"https://devm.ohneulen.com/member/find?g=id\""
+            buildConfigField "String", "OhneulenFindPw","\"https://devm.ohneulen.com/member/find?g=pw\""
             resValue("string", "app_name", "개발용")
             applicationIdSuffix '.dev'
         }

@@ -54,8 +54,7 @@ class LoginSignUp : Fragment() {
         setting.setSupportMultipleWindows(true)
 //        setting.userAgentString = "Android_app"
         //본인인증 받기위해 필요
-        setting.mixedContentMode =
-            WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        setting.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         val cookieManager: CookieManager = CookieManager.getInstance()
         cookieManager.setAcceptCookie(true)
         cookieManager.setAcceptThirdPartyCookies(binding.loginSignUpWebView, true)

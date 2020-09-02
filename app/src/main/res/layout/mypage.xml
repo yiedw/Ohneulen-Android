@@ -14,257 +14,256 @@
     </data>
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f6f6f6">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mypage_login_area"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#f6f6f6">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:onClick="@{fragment::infoClick}"
+            android:paddingBottom="35dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mypage_login_area"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
+            <ImageView
+                android:id="@+id/mypage_info"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="30dp"
+                android:background="@drawable/circle_transparent"
+                android:focusable="true"
                 android:onClick="@{fragment::infoClick}"
-                android:paddingBottom="35dp"
-                app:layout_constraintTop_toTopOf="parent">
+                android:src="@drawable/profile"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/mypage_info"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginVertical="30dp"
-                    android:background="@drawable/circle_transparent"
-                    android:focusable="true"
-                    android:onClick="@{fragment::infoClick}"
-                    android:src="@drawable/profile"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/mypage_nickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:onClick="@{fragment::infoClick}"
+                android:text="닉네임"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/mypage_email"
+                app:layout_constraintLeft_toRightOf="@id/mypage_info"
+                app:layout_constraintTop_toTopOf="@id/mypage_info"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-                <TextView
-                    android:id="@+id/mypage_nickName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:onClick="@{fragment::infoClick}"
-                    android:text="닉네임"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="@dimen/main_contents"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_email"
-                    app:layout_constraintLeft_toRightOf="@id/mypage_info"
-                    app:layout_constraintTop_toTopOf="@id/mypage_info"
-                    app:layout_constraintVertical_chainStyle="packed" />
+            <TextView
+                android:id="@+id/mypage_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:onClick="@{fragment::infoClick}"
+                android:text="yaa@naver.com"
+                android:textColor="#808080"
+                android:textSize="13dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/mypage_info"
+                app:layout_constraintLeft_toRightOf="@id/mypage_info"
+                app:layout_constraintTop_toBottomOf="@id/mypage_nickName" />
 
-                <TextView
-                    android:id="@+id/mypage_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:onClick="@{fragment::infoClick}"
-                    android:text="yaa@naver.com"
-                    android:textColor="#808080"
-                    android:textSize="13dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@id/mypage_info"
-                    app:layout_constraintLeft_toRightOf="@id/mypage_info"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_nickName" />
+            <TextView
+                android:id="@+id/mypage_login"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:drawableRight="@drawable/more_point"
+                android:gravity="center"
+                android:onClick="@{fragment::infoClick}"
+                android:text="로그인  "
+                android:textColor="@color/colorTextBlack"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@id/mypage_info"
+                app:layout_constraintLeft_toRightOf="@id/mypage_info"
+                app:layout_constraintTop_toTopOf="@id/mypage_info" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/mypage_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="10dp"
-                    android:drawableRight="@drawable/more_point"
-                    android:gravity="center"
-                    android:onClick="@{fragment::infoClick}"
-                    android:text="로그인  "
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="@id/mypage_info"
-                    app:layout_constraintLeft_toRightOf="@id/mypage_info"
-                    app:layout_constraintTop_toTopOf="@id/mypage_info" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/mypage_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mypage_login_area">
+
+            <TextView
+                android:id="@+id/mypage_good"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:drawableRight="@drawable/more_point"
+                android:gravity="fill"
+                android:onClick="@{fragment::likeClick}"
+                android:paddingHorizontal="20dp"
+                android:text="@string/favorite"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="#e5e5e5" />
+
+
+            <TextView
+                android:id="@+id/mypage_recentList"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginHorizontal="20dp"
+                android:drawableRight="@drawable/more_point"
+                android:gravity="fill"
+                android:onClick="@{fragment::recentClick}"
+                android:text="@string/recent_list"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/mypage_review"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginHorizontal="20dp"
+                android:drawableRight="@drawable/more_point"
+                android:focusable="true"
+                android:gravity="fill"
+                android:onClick="@{fragment::reviewClick}"
+                android:text="@string/my_review"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/mypage_questions"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@color/white"
+                android:drawableRight="@drawable/more_point"
+                android:focusable="true"
+                android:gravity="fill"
+                android:onClick="@{fragment::inquireClick}"
+                android:paddingHorizontal="20dp"
+                android:text="@string/inquiry_details"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#e5e5e5" />
+
+
+            <TextView
+                android:id="@+id/mypage_faq"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:paddingHorizontal="20dp"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/more_point"
+                android:focusable="true"
+                android:gravity="fill"
+                android:onClick="@{fragment::FAQClick}"
+                android:text="@string/frequently_asked_questions"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/main_contents" />
+
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mypage_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f6f6f6"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="100dp"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
-                android:id="@+id/mypage_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mypage_login_area">
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/mypage_footer">
 
                 <TextView
-                    android:id="@+id/mypage_good"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_gravity="center"
-                    android:paddingHorizontal="20dp"
-                    android:background="@color/white"
-                    android:drawableRight="@drawable/more_point"
-                    android:gravity="fill"
-                    android:onClick="@{fragment::likeClick}"
-                    android:text="@string/favorite"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="@dimen/main_contents"
-                    android:textStyle="bold" />
-                <View
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#e5e5e5"/>
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:onClick="@{fragment::termsClick}"
+                    android:text="이용약관"
+                    android:textSize="13dp" />
 
                 <TextView
-                    android:id="@+id/mypage_recentList"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:drawableRight="@drawable/more_point"
-                    android:gravity="fill"
-                    android:onClick="@{fragment::recentClick}"
-                    android:text="@string/recent_list"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="@dimen/main_contents"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" | "
+                    android:textSize="13dp" />
 
                 <TextView
-                    android:id="@+id/mypage_review"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:drawableRight="@drawable/more_point"
-                    android:focusable="true"
-                    android:gravity="fill"
-                    android:onClick="@{fragment::reviewClick}"
-                    android:text="@string/my_review"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="@dimen/main_contents"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:onClick="@{fragment::term2Click}"
+                    android:text="개인정보처리방침"
+                    android:textSize="13dp" />
 
                 <TextView
-                    android:background="@color/white"
-                    android:paddingHorizontal="20dp"
-                    android:id="@+id/mypage_questions"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:drawableRight="@drawable/more_point"
-                    android:focusable="true"
-                    android:gravity="fill"
-                    android:onClick="@{fragment::inquireClick}"
-                    android:text="@string/inquiry_details"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="@dimen/main_contents"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#e5e5e5"/>
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" | "
+                    android:textSize="13dp" />
 
                 <TextView
-                    android:id="@+id/mypage_frequentlyQ"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:drawableRight="@drawable/more_point"
-                    android:focusable="true"
-                    android:gravity="fill"
-                    android:onClick="@{fragment::FAQClick}"
-                    android:text="@string/frequently_asked_questions"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="@dimen/main_contents"
-                    android:visibility="gone" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:onClick="@{fragment::companyClick}"
+                    android:text="회사소개"
+                    android:textSize="13dp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" | "
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:onClick="@{fragment::contactusClick}"
+                    android:text="사업제휴"
+                    android:textSize="13dp" />
 
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mypage_con"
+            <TextView
+                android:id="@+id/mypage_footer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#f6f6f6"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_footer">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="19dp"
-                        android:onClick="@{fragment::termsClick}"
-                        android:text="이용약관"
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" | "
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="19dp"
-                        android:onClick="@{fragment::term2Click}"
-                        android:text="개인정보처리방침"
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" | "
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="19dp"
-                        android:onClick="@{fragment::companyClick}"
-                        android:text="회사소개"
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" | "
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="19dp"
-                        android:onClick="@{fragment::contactusClick}"
-                        android:text="사업제휴"
-                        android:textSize="13dp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/mypage_footer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingBottom="30dp"
-                    android:text="@string/footer"
-                    android:textColor="#88888888"
-                    android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                android:layout_marginTop="20dp"
+                android:paddingBottom="30dp"
+                android:text="@string/footer"
+                android:textColor="#88888888"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
