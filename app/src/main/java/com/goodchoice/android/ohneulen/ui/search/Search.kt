@@ -37,7 +37,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class Search : Fragment(), MapView.POIItemEventListener,MapView.MapViewEventListener {
+class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventListener {
 
     companion object {
         fun newInstance() = Search()
@@ -86,7 +86,9 @@ class Search : Fragment(), MapView.POIItemEventListener,MapView.MapViewEventList
         mapViewContainer = binding.searchMap
         mapView.setZoomLevel(3, false)
 
-        mapViewContainer.addView(mapView)
+        if (mapViewContainer.childCount == 0) {
+            mapViewContainer.addView(mapView)
+        }
         getCurrentLocationCheck()
         return binding.root
     }
@@ -141,6 +143,11 @@ class Search : Fragment(), MapView.POIItemEventListener,MapView.MapViewEventList
 
     override fun onResume() {
         super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapViewContainer.removeAllViews()
     }
 
 

@@ -14,7 +14,7 @@ import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class LoginFindAppBar : Fragment() ,OnBackPressedListener{
+class LoginFindAppBar : Fragment() {
 
     companion object {
         fun newInstance() = LoginFindAppBar()
@@ -46,13 +46,10 @@ class LoginFindAppBar : Fragment() ,OnBackPressedListener{
         MainActivity.appbarFrameLayout.visibility=View.VISIBLE
     }
 
-    fun backClick(view: View){
-        replaceAppbarFragment(LoginAppBar.newInstance())
-        MainActivity.supportFragmentManager.popBackStack()
-    }
+//    fun backClick(view: View){
+//        replaceAppbarFragment(LoginAppBar.newInstance())
+//        MainActivity.supportFragmentManager.popBackStack()
+//    }
 
-    override fun onBackPressed() {
-        replaceAppbarFragment(LoginAppBar.newInstance())
-        MainActivity.supportFragmentManager.popBackStack()
-    }
+
 }

@@ -1,17 +1,26 @@
 package com.goodchoice.android.ohneulen.ui.login
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.*
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginFindPwBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
+import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import timber.log.Timber
 
-class LoginFindPw : Fragment() {
+class LoginFindPw : Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance() = LoginFindPw()
     }
@@ -29,87 +38,75 @@ class LoginFindPw : Fragment() {
             container,
             false
         )
-        binding.loginFindPwRb1.isChecked = true
-        binding.loginFindPwRg.setOnCheckedChangeListener { group, checkedId ->
-            if (checkedId == R.id.login_find_pw_rb1) {
-                binding.loginFindPwLinearLayout1.visibility = View.VISIBLE
-                binding.loginFindPwLinearLayout2.visibility = View.GONE
-            } else {
-                binding.loginFindPwLinearLayout1.visibility = View.GONE
-                binding.loginFindPwLinearLayout2.visibility = View.VISIBLE
-            }
-        }
         return binding.root
     }
 
+    @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loginFindPwPhoneEt.setOnFocusChangeListener { v, hasFocus ->
+        WebView.setWebContentsDebuggingEnabled(false)
+        val setting = binding.loginFindPwWebView.settings
+        setting.javaScriptEnabled = true
+        setting.setSupportMultipleWindows(true)
+        setting.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        val cookieManager = CookieManager.getInstance()
+        cookieManager.setAcceptCookie(true)
+        cookieManager.setAcceptThirdPartyCookies(binding.loginFindPwWebView, true)
+        binding.loginFindPwWebView.loadUrl(BaseUrl.OHNEULEN_FIND_PW)
+        binding.loginFindPwWebView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                return false
+            }
 
-            if (hasFocus) {
-                binding.loginFindPwPhone.background =
-                    requireContext().getDrawable(R.drawable.edittext_border_select)
-            } else {
-                binding.loginFindPwPhone.background =
-                    requireContext().getDrawable(R.drawable.edittext_border)
-                if (!binding.loginFindPwPhoneEt.text.isNullOrEmpty()) {
-                    val emailRegex =
-                        Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
-                    if (binding.loginFindPwPhoneEt.text.matches(emailRegex)) {
-                        binding.apply {
-                            loginFindPwPhoneCheck.visibility = View.VISIBLE
-                            loginFindPwPhoneClear.visibility = View.GONE
-                            loginFindPwPhoneBt.isEnabled = true
-                            loginFindPwPhoneBt.background=
-                                ContextCompat.getDrawable(requireContext(),R.drawable.background_rounding_green)
-                        }
-                    } else {
-                        binding.apply {
-                            loginFindPwPhoneCheck.visibility = View.GONE
-                            loginFindPwPhoneClear.visibility = View.VISIBLE
-                            loginFindPwPhoneBt.isEnabled = false
-                            loginFindPwPhoneBt.background=
-                                ContextCompat.getDrawable(requireContext(),R.drawable.background_rounding_cgrey)
-                        }
-                    }
-
-                }
+            override fun onFormResubmission(
+                view: WebView?,
+                dontResend: Message?,
+                resend: Message?
+            ) {
+                super.onFormResubmission(view, dontResend, resend)
+                resend!!.sendToTarget()
             }
         }
 
-        binding.loginFindPwEmailEt.setOnFocusChangeListener { v, hasFocus ->
-
-            if (hasFocus) {
-                binding.loginFindPwEmail.background =
-                    requireContext().getDrawable(R.drawable.edittext_border_select)
-            } else {
-                binding.loginFindPwEmail.background =
-                    requireContext().getDrawable(R.drawable.edittext_border)
-                if (!binding.loginFindPwEmailEt.text.isNullOrEmpty()) {
-                    val emailRegex =
-                        Regex("[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
-                    if(binding.loginFindPwEmailEt.text.matches(emailRegex)){
-                        binding.apply{
-                            loginFindPwEmailCheck.visibility = View.VISIBLE
-                            loginFindPwEmailClear.visibility = View.GONE
-                            loginFindPwEmailBt.isEnabled = true
-                            loginFindPwEmailBt.background=
-                                ContextCompat.getDrawable(requireContext(),R.drawable.background_rounding_green)
-                        }
-                    }
-                    else{
-                        binding.apply {
-                            loginFindPwEmailCheck.visibility = View.GONE
-                            loginFindPwEmailClear.visibility = View.VISIBLE
-                            loginFindPwEmailBt.isEnabled = false
-                            loginFindPwEmailBt.background=
-                                ContextCompat.getDrawable(requireContext(),R.drawable.background_rounding_cgrey)
-                        }
+        binding.loginFindPwWebView.addJavascriptInterface(object : Object() {
+            @JavascriptInterface
+            fun signUpSubmit(stat: Int) {
+                //0 success 1 fail
+                if (stat == 0) {
+                    replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+                    MainActivity.supportFragmentManager.popBackStack()
+                    Toast.makeText(
+                        MainActivity.mainFrameLayout.context,
+                        "회원가입이 완료되었습니다",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Handler().post {
+                        Toast.makeText(
+                            requireContext(),
+                            "회원가입에 실패하였습니다\n 아이디,비밀번호를 확인해주세요",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
-        }
+
+            @JavascriptInterface
+            fun onBackClick() {
+                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+                MainActivity.supportFragmentManager.popBackStack()
+            }
+        }, "android")
+
+
     }
 
+    override fun onBackPressed() {
+        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+        MainActivity.supportFragmentManager.popBackStack()
+    }
 
 }

@@ -20,7 +20,7 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import timber.log.Timber
 
-class LoginSignUp : Fragment() {
+class LoginSignUp : Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance() = LoginSignUp()
     }
@@ -28,6 +28,7 @@ class LoginSignUp : Fragment() {
     private lateinit var binding: LoginSignUpBinding
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
     }
 
     override fun onCreateView(
@@ -93,11 +94,22 @@ class LoginSignUp : Fragment() {
 
             @JavascriptInterface
             fun onBackClick() {
-//                Toast.makeText(MainActivity.mainFrameLayout.context,"회원가입이 완료되었습니다",Toast.LENGTH_SHORT).show()
-                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-                MainActivity.supportFragmentManager.popBackStack()
+                 binding.loginSignUpWebView.post {
+                    if (binding.loginSignUpWebView.canGoBack()) {
+                        binding.loginSignUpWebView.goBack()
+                    } else {
+                        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+                        MainActivity.supportFragmentManager.popBackStack()
+                    }
+                }
             }
         }, "android")
+
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+        MainActivity.supportFragmentManager.popBackStack()
 
     }
 

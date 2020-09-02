@@ -14,12 +14,13 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginFindEmailBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import timber.log.Timber
 
-class LoginFindEmail : Fragment() {
+class LoginFindEmail : Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance() = LoginFindEmail()
     }
@@ -95,11 +96,17 @@ class LoginFindEmail : Fragment() {
 
             @JavascriptInterface
             fun onBackClick() {
-                binding.loginFindEmailWebView.post { binding.loginFindEmailWebView.goBack() }
+                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+                MainActivity.supportFragmentManager.popBackStack()
             }
         }, "android")
 
 
+    }
+
+    override fun onBackPressed() {
+        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
 }

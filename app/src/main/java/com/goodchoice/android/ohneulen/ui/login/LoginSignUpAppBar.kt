@@ -14,14 +14,14 @@ import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.util.*
 
-class LoginSignUpAppBar(private val fragment: Fragment) : Fragment(), OnBackPressedListener {
+class LoginSignUpAppBar(private val fragment: Fragment) : Fragment() {
     companion object {
         fun newInstance(fragment: Fragment=MyPageAppBar.newInstance()) = LoginSignUpAppBar(fragment)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        MainActivity.appbarFrameLayout.visibility = View.GONE
+        MainActivity.appbarFrameLayout.visibility=View.GONE
     }
 
     private lateinit var binding: LoginSignUpAppbarBinding
@@ -43,13 +43,8 @@ class LoginSignUpAppBar(private val fragment: Fragment) : Fragment(), OnBackPres
 
     override fun onDestroy() {
         super.onDestroy()
-        MainActivity.appbarFrameLayout.visibility = View.VISIBLE
-
+        MainActivity.appbarFrameLayout.visibility=View.VISIBLE
     }
 
-    override fun onBackPressed() {
-        replaceAppbarFragment(LoginAppBar.newInstance( fragment))
-        MainActivity.supportFragmentManager.popBackStack()
 
-    }
 }

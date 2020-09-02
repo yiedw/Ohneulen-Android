@@ -59,7 +59,7 @@ class RevealAnimation(private val mView: View, intent: Intent, private val mActi
 
         // create the animator for this view (the start radius is zero)
         val circularReveal =
-            ViewAnimationUtils.createCircularReveal(mView, x, y, 3f, finalRadius)
+            ViewAnimationUtils.createCircularReveal(mView, x, y, 10f, finalRadius)
         circularReveal.duration = 850
         circularReveal.interpolator = AccelerateInterpolator()
 

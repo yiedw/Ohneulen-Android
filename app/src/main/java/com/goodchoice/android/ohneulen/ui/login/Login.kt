@@ -166,9 +166,11 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
         //로그인 에러 수신
         loginViewModel.loginErrorToast.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled().let { it ->
-                if (it!!) {
-                    Toast.makeText(requireContext(), "아이디 혹은 비밀번호가 맞지 않습니다", Toast.LENGTH_SHORT)
-                        .show()
+                if (it != null) {
+                    if (it) {
+                        Toast.makeText(requireContext(), "아이디 혹은 비밀번호가 맞지 않습니다", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             }
         })
@@ -217,14 +219,13 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
 
     fun findEmailClick(view: View) {
 //        loginViewModel.emailClick = true
-        replaceAppbarFragment(LoginFindAppBar.newInstance())
-        addMainFragment(LoginFindEmail.newInstance(),true)
+        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+        addMainFragment(LoginFindEmail.newInstance(), true)
     }
 
     fun findPwClick(view: View) {
-//        loginViewModel.emailClick = false
-        replaceAppbarFragment(LoginFindAppBar.newInstance())
-        replaceMainFragment(LoginFind.newInstance())
+        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+        replaceMainFragment(LoginFindPw.newInstance(), true)
     }
 
     fun signUpClick(view: View) {
