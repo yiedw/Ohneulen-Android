@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui
 
+import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
@@ -8,17 +9,21 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
+import com.goodchoice.android.ohneulen.databinding.MainActivityBinding
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.like.Like
@@ -44,6 +49,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.lang.Exception
 import java.lang.RuntimeException
+import kotlin.math.hypot
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -55,10 +61,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         lateinit var initMainFrameLayout: ViewGroup.LayoutParams
     }
 
+    private lateinit var binding: MainActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        val intent=this.intent
+        binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+        RevealAnimation(binding.mainActivity,intent,this)
 
         Companion.supportFragmentManager = supportFragmentManager
         appbarFrameLayout = appbar_frameLayout
@@ -148,8 +158,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
 
             R.id.menu_bottom_nav_like -> {
-                if(!LoginViewModel.isLogin.value!!){
-                    loginDialog(this,supportFragmentManager.findFragmentById(R.id.appbar_frameLayout)!!,true)
+                if (!LoginViewModel.isLogin.value!!) {
+                    loginDialog(
+                        this,
+                        supportFragmentManager.findFragmentById(R.id.appbar_frameLayout)!!,
+                        true
+                    )
                     return false
                 }
                 replaceAppbarFragment(LikeAppBar.newInstance())
@@ -167,10 +181,41 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return false
     }
 
-    private fun backStackClear(){
-        for(i in 0 until supportFragmentManager.backStackEntryCount){
+    private fun backStackClear() {
+        for (i in 0 until supportFragmentManager.backStackEntryCount) {
             supportFragmentManager.popBackStack()
         }
+    }
+
+    private fun showReveal() {
+        val centerX = binding.mainActivityCenter.x
+        val centerY = binding.mainActivityCenter.y
+        val radius =
+            hypot(binding.mainActivity.width.toDouble(), binding.mainActivity.height.toDouble())
+
+        val revealAnimator = ViewAnimationUtils.createCircularReveal(
+            binding.mainActivity,
+            centerX.toInt(), centerY.toInt(), 0f, radius.toFloat()
+        )
+        revealAnimator.interpolator = object : AccelerateDecelerateInterpolator() {
+
+        }
+        revealAnimator.duration = 1000
+        revealAnimator.start()
+        revealAnimator.addListener(object :Animator.AnimatorListener{
+            override fun onAnimationRepeat(animation: Animator?) {
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+            }
+
+            override fun onAnimationStart(animation: Animator?) {
+            }
+
+        })
     }
 
 
