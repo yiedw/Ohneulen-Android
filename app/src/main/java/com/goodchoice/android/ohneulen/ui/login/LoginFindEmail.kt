@@ -43,7 +43,7 @@ class LoginFindEmail : Fragment() {
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        WebView.setWebContentsDebuggingEnabled(true)
+        WebView.setWebContentsDebuggingEnabled(false)
         val setting = binding.loginFindEmailWebView.settings
         setting.javaScriptEnabled = true
         setting.setSupportMultipleWindows(true)
@@ -95,13 +95,7 @@ class LoginFindEmail : Fragment() {
 
             @JavascriptInterface
             fun onBackClick() {
-//                Timber.e(binding.loginFindEmailWebView.canGoBack().toString())
                 binding.loginFindEmailWebView.post { binding.loginFindEmailWebView.goBack() }
-
-//                Toast.makeText(MainActivity.mainFrameLayout.context,"회원가입이 완료되었습니다",Toast.LENGTH_SHORT).show()
-//                replaceAppbarFragment(LoginFindAppBar.newInstance())
-//                replaceMainFragment(newInstance())
-//                MainActivity.supportFragmentManager.popBackStack()
             }
         }, "android")
 

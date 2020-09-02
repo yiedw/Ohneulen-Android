@@ -55,11 +55,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         lateinit var initMainFrameLayout: ViewGroup.LayoutParams
     }
 
-    private val initData: InitData by inject()
-    private val mainViewModel: MainViewModel by viewModel()
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
