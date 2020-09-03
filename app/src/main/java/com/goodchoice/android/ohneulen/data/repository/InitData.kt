@@ -26,25 +26,26 @@ class InitData(private val networkService: NetworkService) {
     var timeDay = mutableListOf<OhneulenData>()
 
 
-
     //옵션
 
     init {
 //        tempLogin()
 
         //옵션 가져오기
-        getOptionKind()
-        //카테고리 가져오기
-        getCategory()
-        //요일 가져오기
         CoroutineScope(Dispatchers.IO).launch {
-            timeDay = getOhneulenData(networkService, ConstList.TIME_DAY)
+            getOptionKind()
+            //카테고리 가져오기
+            getCategory()
+            //요일 가져오기
+            CoroutineScope(Dispatchers.IO).launch {
+                timeDay = getOhneulenData(networkService, ConstList.TIME_DAY)
+            }
         }
 
     }
 
 
-    private fun getCategory() {
+    private suspend fun getCategory() {
         CoroutineScope(Dispatchers.IO).launch {
             mainCategory = getOhneulenData(networkService, ConstList.CATEGORY)
             for (i in mainCategory.indices) {
@@ -53,10 +54,10 @@ class InitData(private val networkService: NetworkService) {
             }
             subCategory = getOhneulenSubData(networkService, mainCategory)
 //            Timber.e(subCategory.toString())
-        }
+        }.join()
     }
 
-    private fun getOptionKind() {
+    private suspend fun getOptionKind() {
         CoroutineScope(Dispatchers.IO).launch {
             mainOptionKind = getOhneulenData(networkService, ConstList.OPTION_KIND)
             for (i in mainOptionKind.indices) {
@@ -64,7 +65,7 @@ class InitData(private val networkService: NetworkService) {
                 subOptionKind.add(tempList)
             }
             subOptionKind = getOhneulenSubData(networkService, mainOptionKind)
-        }
+        }.join()
     }
 
 }
