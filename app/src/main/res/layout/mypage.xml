@@ -176,7 +176,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:paddingHorizontal="20dp"
-                android:visibility="gone"
                 android:textStyle="bold"
                 android:drawableRight="@drawable/more_point"
                 android:focusable="true"

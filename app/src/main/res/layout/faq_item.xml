@@ -30,14 +30,17 @@
 
         <TextView
             android:id="@+id/faq_item_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
             android:paddingTop="15dp"
             android:paddingBottom="10dp"
             android:text="@{faq.title}"
             android:textColor="@color/colorTextBlack"
             android:textSize="@dimen/main_contents"
             app:layout_constraintLeft_toRightOf="@id/faq_item_classification"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -74,13 +77,31 @@
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/faq_item_title">
 
-            <TextView
-                android:id="@+id/faq_item_content_tv"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textColor="@color/colorTextGrey"
-                android:textSize="14dp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="A. "
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:id="@+id/faq_item_content_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{faq.content}"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

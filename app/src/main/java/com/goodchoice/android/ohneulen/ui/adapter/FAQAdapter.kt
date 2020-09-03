@@ -50,7 +50,7 @@ class FAQAdapter : ListAdapter<FAQ, FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
 //                    }
                 }
                 faq = item
-                binding.faqItemContentTv.text="A. ${item.content}"
+//                binding.faqItemContentTv.text="A. ${item.content}"
             }
         }
 

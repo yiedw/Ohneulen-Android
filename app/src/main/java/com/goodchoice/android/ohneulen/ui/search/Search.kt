@@ -20,6 +20,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.transition.Slide
 import androidx.transition.TransitionManager
+import androidx.transition.Visibility
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Store
@@ -106,9 +107,10 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         //검색어 없을시 토스트 띄우기
         searchViewModel.toastMessage.observe(
             viewLifecycleOwner, Observer {
-                if (searchViewModel.toastMessage.value!!) {
+
+                if (it) {
                     Toast.makeText(requireContext(), "검색결과가 없습니다", Toast.LENGTH_SHORT).show()
-                    searchViewModel.toastMessage = MutableLiveData(false)
+                    searchViewModel.toastMessage.postValue(false)
                 }
             }
         )
@@ -120,15 +122,17 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         )
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+            if (it.isEmpty()) {
+                binding.searchNone.visibility = View.VISIBLE
+            } else {
+                binding.searchNone.visibility = View.GONE
+            }
             binding.searchStoreAmount.text = "매장 ${it.size}"
             //마커추가
             mapView.removeAllPOIItems()
             for (i in it) {
                 addMarker(i)
             }
-//            if(it.isEmpty()){
-//                Toast.makeText(requireContext(),"검색결과가 없습니다",Toast.LENGTH_SHORT).show()
-//            }
         })
         MainActivity.bottomNav.visibility = View.VISIBLE
 

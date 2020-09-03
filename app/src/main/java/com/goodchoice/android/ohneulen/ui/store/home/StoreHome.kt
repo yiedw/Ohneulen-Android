@@ -61,6 +61,13 @@ class StoreHome : Fragment() {
             optionGenerate(it)
             //키워드 뷰 생성
             keywordsGenerate(it)
+            if (it.storeInfo.storeFull.contents.isEmpty()) {
+                binding.storeHomeContents.visibility = View.GONE
+            } else {
+                binding.storeHomeContents.visibility = View.VISIBLE
+            }
+
+
         })
     }
 
@@ -142,7 +149,13 @@ class StoreHome : Fragment() {
 //        ) + "." + store.modifyDate.substring(8, 10)
         val openDate = store.openDate
         val modifyDate = store.modifyDate.substring(0, 10)
-        binding.storeHomeOpenTv2.text = "$openDate\n$modifyDate"
+        if (store.openDate.isEmpty()) {
+            binding.storeHomeOpenTv1.text = "업데이트"
+            binding.storeHomeOpenTv2.text = modifyDate
+        } else {
+            binding.storeHomeOpenTv1.text = "개업일\n업데이트"
+            binding.storeHomeOpenTv2.text = "$openDate\n$modifyDate"
+        }
     }
 
     private fun optionGenerate(storeDetail: StoreDetail) {
@@ -240,7 +253,6 @@ class StoreHome : Fragment() {
             linearLayout.addView(tv)
             binding.storeHomeKeywords.addView(linearLayout)
         }
-
 
 
     }
