@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SplashBinding
+import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import timber.log.Timber
 
 
@@ -31,7 +32,6 @@ class Splash : AppCompatActivity() {
         val view = binding.splashLogo
         if (view.width != 0)
             startRevealActivity(view)
-
     }
 
 

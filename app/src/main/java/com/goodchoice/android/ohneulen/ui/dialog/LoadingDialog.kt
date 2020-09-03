@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.dialog
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.ImageDetailReviewBinding
 import com.goodchoice.android.ohneulen.databinding.LoadingBinding
@@ -43,7 +46,14 @@ class LoadingDialog(private val text: String) : DialogFragment() {
             false
         )
         binding.loadingText.text = text
-        Glide.with(requireContext()).load(R.raw.loading).into(binding.loadingGif)
+//        val animation=binding.loadingGif.background as AnimationDrawable
+//        binding.loadingGif.post {
+//            animation.start()
+//
+//        }
+        Glide.with(requireContext()).load(R.raw.loading_test)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .into(binding.loadingGif)
         return binding.root
 
     }

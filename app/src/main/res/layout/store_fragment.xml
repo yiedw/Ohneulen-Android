@@ -23,12 +23,13 @@
         android:id="@+id/store_newScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#f6f6f6"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -138,7 +139,6 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/store_tab"
-                app:tabTextAppearance="@style/tablayout_textapperance"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/colorWhite"
@@ -147,6 +147,7 @@
                 app:tabIndicator="@color/white"
                 app:tabRippleColor="@null"
                 app:tabSelectedTextColor="@color/colorOhneulen"
+                app:tabTextAppearance="@style/tablayout_textapperance"
                 app:tabTextColor="@color/colorCGrey">
 
             </com.google.android.material.tabs.TabLayout>
