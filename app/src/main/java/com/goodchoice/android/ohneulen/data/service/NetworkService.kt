@@ -63,7 +63,7 @@ interface NetworkService {
     //찜 목록 가져오기
     @POST("api/get_memberLike")
     suspend fun requestGetMemberLike(
-    ): GetStoreListResponse
+    ): GetMemberLikeResponse
 
     //문의 내역 가져오기
     @POST("api/get_board")

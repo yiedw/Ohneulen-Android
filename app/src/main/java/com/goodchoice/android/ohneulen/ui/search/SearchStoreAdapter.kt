@@ -25,8 +25,6 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
-import com.goodchoice.android.ohneulen.ui.login.Login
-import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
@@ -75,7 +73,6 @@ class SearchStoreAdapter :
                 } else if (StoreAppBar.stat == 1) {
                     //검색일때
                     storeItemLike.isSelected = item.likes
-
                 }
                 //하트표시 클릭
                 storeItemLike.setOnClickListener {

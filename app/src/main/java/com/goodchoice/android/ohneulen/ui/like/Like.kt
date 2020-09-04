@@ -70,7 +70,7 @@ class Like : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //찜목록 체크
         likeViewModel.getStoreLikeList()
-        likeViewModel.storeList.observe(viewLifecycleOwner, Observer {
+        likeViewModel.likeStoreList.observe(viewLifecycleOwner, Observer {
             if (it.isNullOrEmpty()) {
                 binding.likeRv.visibility = View.GONE
                 binding.likeEmpty.visibility = View.VISIBLE

@@ -1,7 +1,6 @@
 package com.goodchoice.android.ohneulen.extension
 
 import android.os.Handler
-import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchFilterSubAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.adapter.ImageDetailAdapter
+import com.goodchoice.android.ohneulen.ui.like.LikeStoreAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
@@ -247,31 +247,30 @@ fun setImageDetailStore(
     loading.postValue(true)
 
 }
-////LikeStore
-//@BindingAdapter("likeStoreAdapter", "likeStore","likeNetworkService")
-//fun setLikeStoreAdapter(
-//    recyclerView: RecyclerView,
-//    adapter: SearchStoreAdapter?,
-//    items: List<Store>?,
-//    networkService: NetworkService
-//) {
-//
-//    val smoothScroller = object : LinearSmoothScroller(recyclerView.context) {
-//        override fun getVerticalSnapPreference(): Int {
-//            return SNAP_TO_START
-//        }
-//    }
-//    smoothScroller.targetPosition = 0
-//    recyclerView.setHasFixedSize(true)
-//    recyclerView.adapter = adapter?.apply {
-//        parentView = recyclerView
-//        mNetworkService=networkService
-//        submitList(items)
-//        Handler().postDelayed({
-//            recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
-//        }, 200)
-//
-//    }
-//}
+//LikeStore
+@BindingAdapter("likeStoreAdapter", "likeStore","likeStoreNetworkService")
+fun setLikeStoreAdapter(
+    recyclerView: RecyclerView,
+    adapter: LikeStoreAdapter?,
+    items: List<LikeStore>?,
+    networkService: NetworkService
+) {
+
+    val smoothScroller = object : LinearSmoothScroller(recyclerView.context) {
+        override fun getVerticalSnapPreference(): Int {
+            return SNAP_TO_START
+        }
+    }
+    smoothScroller.targetPosition = 0
+    recyclerView.setHasFixedSize(true)
+    recyclerView.adapter = adapter?.apply {
+        mNetworkService=networkService
+        submitList(items)
+        Handler().postDelayed({
+            recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
+        }, 200)
+
+    }
+}
 
 
