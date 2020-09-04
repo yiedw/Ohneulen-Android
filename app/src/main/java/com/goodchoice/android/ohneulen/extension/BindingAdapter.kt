@@ -247,13 +247,12 @@ fun setImageDetailStore(
     loading.postValue(true)
 
 }
+
 //LikeStore
-@BindingAdapter("likeStoreAdapter", "likeStore","likeStoreNetworkService")
+@BindingAdapter("likeStore")
 fun setLikeStoreAdapter(
     recyclerView: RecyclerView,
-    adapter: LikeStoreAdapter?,
-    items: List<LikeStore>?,
-    networkService: NetworkService
+    items: List<LikeStore>?
 ) {
 
     val smoothScroller = object : LinearSmoothScroller(recyclerView.context) {
@@ -263,14 +262,10 @@ fun setLikeStoreAdapter(
     }
     smoothScroller.targetPosition = 0
     recyclerView.setHasFixedSize(true)
-    recyclerView.adapter = adapter?.apply {
-        mNetworkService=networkService
+    (recyclerView.adapter as LikeStoreAdapter).apply {
         submitList(items)
-        Handler().postDelayed({
-            recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
-        }, 200)
-
     }
+
 }
 
 

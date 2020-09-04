@@ -12,6 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LikeBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
@@ -60,9 +62,13 @@ class Like : Fragment() {
         binding.likeEmptyTv.text =
             textColor
 
-        binding.lifecycleOwner=viewLifecycleOwner
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.fragment = this
         binding.viewModel = likeViewModel
+
+        //adapter 추가  + 세팅
+        likeStoreAdapterSetting()
+
         return binding.root
     }
 
@@ -88,8 +94,27 @@ class Like : Fragment() {
         })
     }
 
+    private fun likeStoreAdapterSetting() {
+        binding.likeRv.setHasFixedSize(true)
+        val likeStoreAdapter = LikeStoreAdapter().apply {
+            mNetworkService = likeViewModel.mNetworkService
+            binding.likeRv.layoutManager = LinearLayoutManager(requireContext())
+        }
+        binding.likeRv.adapter = likeStoreAdapter
+
+
+        val smoothScroller = object : LinearSmoothScroller(requireContext()) {
+            override fun getVerticalSnapPreference(): Int {
+                return SNAP_TO_START
+            }
+        }
+        smoothScroller.targetPosition=0
+        binding.likeRv.layoutManager!!.startSmoothScroll(smoothScroller)
+    }
+
     fun moveSearch(view: View) {
         mainViewModel.searchEditText = "강남역"
         MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
     }
+
 }

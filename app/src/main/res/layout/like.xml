@@ -24,12 +24,10 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             android:layout_marginTop="12dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:likeStoreAdapter="@{viewModel.likeStoreAdapter}"
             bind:likeStore="@{viewModel.likeStoreList}"
-            bind:likeStoreNetworkService="@{viewModel.mNetworkService}"/>
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/like_empty"
