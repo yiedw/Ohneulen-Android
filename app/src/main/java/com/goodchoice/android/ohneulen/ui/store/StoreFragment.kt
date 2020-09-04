@@ -3,10 +3,7 @@ package com.goodchoice.android.ohneulen.ui.store
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -48,7 +45,6 @@ class StoreFragment : Fragment() {
     }
 
     private var check = false
-
     private lateinit var binding: StoreFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
 
@@ -193,15 +189,15 @@ class StoreFragment : Fragment() {
     //viewPager setting
     private fun viewPagerSetting() {
 
-        binding.storeViewPager2.adapter = StorePagerAdapter(
+        binding.storeFragmentViewPager2.adapter = StorePagerAdapter(
             getFragmentList(), childFragmentManager,
             lifecycle
         )
-        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
+        binding.storeFragmentViewPager2.offscreenPageLimit = getFragmentList().size
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
-        TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
+        TabLayoutMediator(binding.storeTab, binding.storeFragmentViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
 
         }.attach()
@@ -212,15 +208,15 @@ class StoreFragment : Fragment() {
                 R.color.white
             )
         )
-        binding.storeViewPager2.registerOnPageChangeCallback(
+        binding.storeFragmentViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    binding.storeViewPager2.setCurrentItem(position, true)
+                    binding.storeFragmentViewPager2.setCurrentItem(position, true)
                     state = position
 
                     val view =
-                        (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
+                        (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
                         )
                     view?.let {
@@ -228,7 +224,7 @@ class StoreFragment : Fragment() {
                             mapSetting()
                         } else {
                             //viewPager 크기조절
-                            updatePagerHeightForChild(view, binding.storeViewPager2)
+                            updatePagerHeightForChild(view, binding.storeFragmentViewPager2)
 
                         }
                     }
@@ -246,17 +242,17 @@ class StoreFragment : Fragment() {
     }
 
     private fun viewPagerSettingNullMenu() {
-        binding.storeViewPager2.adapter = StorePagerAdapter(
+        binding.storeFragmentViewPager2.adapter = StorePagerAdapter(
             getFragmentListNullMenu(), childFragmentManager,
             lifecycle
         )
 //        binding.storeViewPager2.offscreenPageLimit = 1
-        binding.storeViewPager2.offscreenPageLimit = getFragmentList().size
+        binding.storeFragmentViewPager2.offscreenPageLimit = getFragmentList().size
 
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "후기")
-        TabLayoutMediator(binding.storeTab, binding.storeViewPager2) { tab, position ->
+        TabLayoutMediator(binding.storeTab, binding.storeFragmentViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
         }.attach()
 //        Timber.e(binding.storeTab.tabCount.toString())
@@ -267,13 +263,13 @@ class StoreFragment : Fragment() {
             )
         )
 
-        binding.storeViewPager2.registerOnPageChangeCallback(
+        binding.storeFragmentViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     state = position
                     val view =
-                        (binding.storeViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
+                        (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
                         )
                     view?.let {
@@ -281,7 +277,7 @@ class StoreFragment : Fragment() {
                             mapSetting()
                         } else {
                             //viewPager 크기조절
-                            updatePagerHeightForChild(view, binding.storeViewPager2)
+                            updatePagerHeightForChild(view, binding.storeFragmentViewPager2)
 //                            (binding.storeViewPager2.adapter as StorePagerAdapter).notifyDataSetChanged()
                         }
                     }
@@ -303,10 +299,9 @@ class StoreFragment : Fragment() {
             if (pager.layoutParams.height != view.measuredHeight) {
                 pager.layoutParams = (pager.layoutParams)
                     .also { lp ->
-                        lp.height = view.measuredHeight
+                            lp.height = view.measuredHeight
                     }
             }
-
             if (!first) {
                 first = true
                 binding.storeNewScrollView.scrollTo(0, 1)
@@ -351,7 +346,7 @@ class StoreFragment : Fragment() {
         layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.topToBottom = R.id.store_tab
 //        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        binding.storeViewPager2.layoutParams = layoutParams
+        binding.storeFragmentViewPager2.layoutParams = layoutParams
     }
 
     private fun hashTagGenerate(storeDetail: StoreDetail) {

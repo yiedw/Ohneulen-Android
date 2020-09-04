@@ -43,15 +43,12 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     companion object {
         fun newInstance() = Search()
     }
-
     private var switchOn = false
     private lateinit var binding: SearchBinding
     private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
 
-    private val mapView by lazy {
-        MapView(requireContext())
-    }
+    private lateinit var mapView: MapView
     private lateinit var mapViewContainer: ViewGroup
     private lateinit var locationManager: LocationManager
 
@@ -84,6 +81,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             binding.fragment = this@Search
             viewModel = searchViewModel
         }
+        mapView = MapView(requireContext())
         mapViewContainer = binding.searchMap
         mapView.setZoomLevel(3, false)
 
@@ -122,16 +120,19 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         )
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()) {
-                binding.searchNone.visibility = View.VISIBLE
-            } else {
-                binding.searchNone.visibility = View.GONE
-            }
-            binding.searchStoreAmount.text = "매장 ${it.size}"
-            //마커추가
-            mapView.removeAllPOIItems()
-            for (i in it) {
-                addMarker(i)
+            if (it != null) {
+
+                if (it.isEmpty()) {
+                    binding.searchNone.visibility = View.VISIBLE
+                } else {
+                    binding.searchNone.visibility = View.GONE
+                }
+                binding.searchStoreAmount.text = "매장 ${it.size}"
+                //마커추가
+                mapView.removeAllPOIItems()
+                for (i in it) {
+                    addMarker(i)
+                }
             }
         })
         MainActivity.bottomNav.visibility = View.VISIBLE

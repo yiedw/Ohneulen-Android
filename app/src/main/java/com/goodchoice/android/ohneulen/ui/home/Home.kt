@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.BuildConfig
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
@@ -63,15 +64,15 @@ class Home() : Fragment(), OnBackPressedListener {
 //        searchViewModel.searchStoreList=MutableLiveData()
 
         //currentLocationSearch 초기화
-        mainViewModel.currentLocationSearch=false
+        mainViewModel.currentLocationSearch = false
 //        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(BuildConfig.DEBUG){
-            Toast.makeText(requireContext(),"개발용",Toast.LENGTH_LONG).show()
+        if (BuildConfig.DEBUG) {
+            Toast.makeText(requireContext(), "개발용", Toast.LENGTH_LONG).show()
         }
         //문자열 색 입히기
         val title = resources.getString(R.string.home_title)
@@ -82,7 +83,7 @@ class Home() : Fragment(), OnBackPressedListener {
             3,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        spanBuilder.setSpan(StyleSpan(Typeface.BOLD),0,3,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spanBuilder.setSpan(StyleSpan(Typeface.BOLD), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.homeTitle.append(spanBuilder)
 
 
@@ -121,15 +122,22 @@ class Home() : Fragment(), OnBackPressedListener {
             return
         }
         mainViewModel.searchEditText = binding.homeEditText.text.toString()
-        mainViewModel.currentLocationSearch=false
+        mainViewModel.currentLocationSearch = false
         hideKeyboard(view, requireContext())
-        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
+        if (InitData.endNumber.value == 3)
+            MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
+        else {
+            InitData.endNumber.observe(viewLifecycleOwner, Observer {
+                if (it == 3) {
+                    MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
+                }
+            })
+        }
     }
 
     fun currentLocationClick(view: View) {
-        mainViewModel.currentLocationSearch=true
+        mainViewModel.currentLocationSearch = true
         MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
-
 
 
         //임시

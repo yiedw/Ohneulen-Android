@@ -13,9 +13,13 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SplashBinding
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
+import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 
@@ -25,15 +29,20 @@ class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.splash)
+//        InitData.startMainActivity.observe(this, Observer {
+//            if(it){
+//                startRevealActivity(binding.splashLogo)
+//            }
+//        })
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         val view = binding.splashLogo
-        if (view.width != 0)
+        if (view.width != 0 ) {
             startRevealActivity(view)
+        }
     }
-
 
 
     private fun startRevealActivity(v: View) {

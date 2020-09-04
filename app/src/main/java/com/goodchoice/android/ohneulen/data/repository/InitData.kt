@@ -14,6 +14,10 @@ import timber.log.Timber
 class InitData(private val networkService: NetworkService) {
 
 
+    companion object {
+        var endNumber=MutableLiveData(0)
+    }
+
     //카테고리
     var mainCategory = mutableListOf<OhneulenData>()
     var subCategory = mutableListOf<List<OhneulenData>>()
@@ -25,25 +29,44 @@ class InitData(private val networkService: NetworkService) {
     //요일
     var timeDay = mutableListOf<OhneulenData>()
 
-
     //옵션
 
     init {
-//        tempLogin()
-
-        //옵션 가져오기
         CoroutineScope(Dispatchers.IO).launch {
+            //옵션 가져오기
             getOptionKind()
             //카테고리 가져오기
             getCategory()
             //요일 가져오기
-            CoroutineScope(Dispatchers.IO).launch {
-                timeDay = getOhneulenData(networkService, ConstList.TIME_DAY)
-            }
+            getTimeDay()
         }
 
     }
 
+    private suspend fun getData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            CoroutineScope(Dispatchers.IO).launch {
+                mainCategory = getOhneulenData(networkService, ConstList.CATEGORY)
+                for (i in mainCategory.indices) {
+                    val tempList = getOhneulenData(networkService, mainCategory[i].minorCode)
+                    subCategory.add(tempList)
+                }
+                subCategory = getOhneulenSubData(networkService, mainCategory)
+//            Timber.e(subCategory.toString())
+            }
+            CoroutineScope(Dispatchers.IO).launch {
+                mainOptionKind = getOhneulenData(networkService, ConstList.OPTION_KIND)
+                for (i in mainOptionKind.indices) {
+                    val tempList = getOhneulenData(networkService, mainOptionKind[i].minorCode)
+                    subOptionKind.add(tempList)
+                }
+                subOptionKind = getOhneulenSubData(networkService, mainOptionKind)
+            }
+            CoroutineScope(Dispatchers.IO).launch {
+                timeDay = getOhneulenData(networkService, ConstList.TIME_DAY)
+            }
+        }
+    }
 
     private suspend fun getCategory() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -53,8 +76,9 @@ class InitData(private val networkService: NetworkService) {
                 subCategory.add(tempList)
             }
             subCategory = getOhneulenSubData(networkService, mainCategory)
-//            Timber.e(subCategory.toString())
-        }.join()
+            Timber.e(subCategory.toString())
+            endNumber.postValue(endNumber.value!!+1)
+        }
     }
 
     private suspend fun getOptionKind() {
@@ -65,7 +89,15 @@ class InitData(private val networkService: NetworkService) {
                 subOptionKind.add(tempList)
             }
             subOptionKind = getOhneulenSubData(networkService, mainOptionKind)
-        }.join()
+            endNumber.postValue(endNumber.value!!+1)
+        }
+    }
+
+    private suspend fun getTimeDay() {
+        CoroutineScope(Dispatchers.IO).launch {
+            timeDay = getOhneulenData(networkService, ConstList.TIME_DAY)
+            endNumber.postValue(endNumber.value!!+1)
+        }
     }
 
 }

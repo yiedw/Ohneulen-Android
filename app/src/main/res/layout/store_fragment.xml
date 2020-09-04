@@ -29,7 +29,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#f6f6f6"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -160,10 +159,11 @@
                 app:layout_constraintTop_toBottomOf="@id/store_tab" />
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/store_viewPager2"
+                android:id="@+id/store_fragment_viewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/store_fragment_border2" />
+                app:layout_constraintTop_toBottomOf="@id/store_fragment_border2"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

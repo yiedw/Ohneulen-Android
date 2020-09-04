@@ -99,6 +99,12 @@ class LoginFindEmail : Fragment(), OnBackPressedListener {
                 replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                 MainActivity.supportFragmentManager.popBackStack()
             }
+
+            @JavascriptInterface
+            fun onLoginClick(){
+                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+                MainActivity.supportFragmentManager.popBackStack()
+            }
         }, "android")
 
 

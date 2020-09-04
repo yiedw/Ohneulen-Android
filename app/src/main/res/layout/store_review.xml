@@ -351,6 +351,7 @@
                 android:lineSpacingExtra="3dp"
                 android:textSize="14dp"
                 android:text="더 많은 맛집이 있어요 \n 지금 찾으러 가보실래요?"
+                android:textColor="#a7a7a7"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

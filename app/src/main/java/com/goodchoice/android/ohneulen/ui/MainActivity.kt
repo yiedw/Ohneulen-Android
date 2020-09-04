@@ -34,6 +34,7 @@ import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
+import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.*
@@ -62,6 +63,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private lateinit var binding: MainActivityBinding
+//    private val searchViewModel: SearchViewModel by inject()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -69,6 +72,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val intent=this.intent
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         RevealAnimation(binding.mainActivity,intent,this)
+
+        Timber.e("asdf")
+//        searchViewModel.subCategoryList
 
         Companion.supportFragmentManager = supportFragmentManager
         appbarFrameLayout = appbar_frameLayout
