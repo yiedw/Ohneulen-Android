@@ -54,6 +54,14 @@ import kotlin.math.hypot
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * static 변수
+     * supportFragmentManager = SupportFragmentManager
+     * appbarFrameLayout = 헤더뷰
+     * mainFrameLayout = 메인뷰
+     * bottomNav = 바텀네비게이션
+     * initMainFrame =
+     */
     companion object {
         lateinit var supportFragmentManager: FragmentManager
         lateinit var appbarFrameLayout: FrameLayout

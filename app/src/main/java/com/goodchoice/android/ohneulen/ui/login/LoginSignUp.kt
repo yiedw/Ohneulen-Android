@@ -103,6 +103,13 @@ class LoginSignUp : Fragment(), OnBackPressedListener {
                     }
                 }
             }
+
+            @JavascriptInterface
+            fun alert(message: String) {
+                Handler().post {
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
+            }
         }, "android")
 
     }

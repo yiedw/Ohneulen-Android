@@ -101,9 +101,20 @@ class LoginFindPw : Fragment(), OnBackPressedListener {
             }
 
             @JavascriptInterface
-            fun onNextClick(){
+            fun onLoginClick() {
                 replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                 MainActivity.supportFragmentManager.popBackStack()
+                Handler().post {
+                    Toast.makeText(requireContext(), "비밀번호가 재설정 되었습니다", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
+            @JavascriptInterface
+            fun alert(message: String) {
+                Handler().post {
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
             }
         }, "android")
 

@@ -71,19 +71,6 @@ class StoreHome : Fragment() {
                 binding.storeHomeContents.visibility = View.VISIBLE
             }
 
-            view.viewTreeObserver.addOnWindowFocusChangeListener {
-                val parentFragment=parentFragment as StoreFragment
-                val height=parentFragment.store_home
-                if (binding.storeHome.height < MainActivity.mainFrameLayout.height) {
-                    Timber.e(binding.storeHome.height.toString())
-                    Timber.e(MainActivity.mainFrameLayout.height.toString())
-                    binding.storeHome.layoutParams =
-                        FrameLayout.LayoutParams(
-                            binding.storeHome.width,
-                            MainActivity.mainFrameLayout.height
-                        )
-                }
-            }
 
 
         })
@@ -272,7 +259,6 @@ class StoreHome : Fragment() {
             binding.storeHomeKeywords.addView(linearLayout)
         }
     }
-
 
 
     fun reportClick(view: View) {

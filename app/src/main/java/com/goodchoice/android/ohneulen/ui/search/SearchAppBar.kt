@@ -34,7 +34,7 @@ class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListene
     override fun onAttach(context: Context) {
         super.onAttach(context)
         //store stat 설정
-        StoreAppBar.stat=1
+        StoreAppBar.stat = 1
     }
 
 
@@ -99,9 +99,17 @@ class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListene
     }
 
     fun submitClick(view: View) {
-        mainViewModel.searchEditText = binding.searchAppbarEt.text.toString()
-        searchViewModel.searchEditText = binding.searchAppbarEt.text.toString()
-        searchViewModel.getSearchMapData()
+        if (!binding.searchAppbarEt.text.toString().isBlank()) {
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.searchAppbarEt.windowToken, 0)
+            mainViewModel.searchEditText = binding.searchAppbarEt.text.toString()
+            searchViewModel.searchEditText = binding.searchAppbarEt.text.toString()
+            searchViewModel.getSearchMapData()
+        } else {
+            Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)
+                .show()
+        }
 
     }
 
