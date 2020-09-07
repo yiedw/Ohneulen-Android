@@ -24,4 +24,5 @@
     <color name="colorGrey88">#888888</color>
     <color name="colorGreyFA">#fafafa</color>
     <color name="colorCursor">#0373ff</color>
+    <color name="colorBackgroundF6">#f6f6f6</color>
 </resources>

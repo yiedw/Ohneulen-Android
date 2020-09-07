@@ -44,7 +44,7 @@
             android:layout_marginLeft="7dp"
             android:isIndicator="true"
             android:numStars="5"
-            android:rating="3.5"
+            android:rating="5"
             android:stepSize="0.01"
             app:layout_constraintLeft_toRightOf="@id/review_item_profile"
             app:layout_constraintTop_toTopOf="@id/review_item_profile" />

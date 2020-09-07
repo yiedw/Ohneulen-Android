@@ -31,6 +31,7 @@ import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -276,9 +277,14 @@ class StoreFragment : Fragment() {
                         if (position == 1) {
                             mapSetting()
                         } else {
+                            if(position==0){
+                                binding.storeNewScrollView.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorBackgroundF6))
+                            }
+                            else{
+                                binding.storeNewScrollView.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorWhite))
+                            }
                             //viewPager 크기조절
                             updatePagerHeightForChild(view, binding.storeFragmentViewPager2)
-//                            (binding.storeViewPager2.adapter as StorePagerAdapter).notifyDataSetChanged()
                         }
                     }
                 }

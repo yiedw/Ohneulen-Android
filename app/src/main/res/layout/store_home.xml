@@ -17,6 +17,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/store_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#f6f6f6"
@@ -220,12 +221,12 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-
-
             android:orientation="horizontal"
             android:background="#f6f6f6">
 

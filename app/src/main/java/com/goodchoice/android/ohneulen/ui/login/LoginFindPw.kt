@@ -101,7 +101,7 @@ class LoginFindPw : Fragment(), OnBackPressedListener {
             }
 
             @JavascriptInterface
-            fun onLoginClick(){
+            fun onNextClick(){
                 replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                 MainActivity.supportFragmentManager.popBackStack()
             }

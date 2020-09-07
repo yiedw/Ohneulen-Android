@@ -31,6 +31,7 @@ import com.goodchoice.android.ohneulen.ui.search.*
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class Home() : Fragment(), OnBackPressedListener {
 
@@ -127,7 +128,9 @@ class Home() : Fragment(), OnBackPressedListener {
         if (InitData.endNumber.value == 3)
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
         else {
+            Timber.e(InitData.endNumber.value.toString())
             InitData.endNumber.observe(viewLifecycleOwner, Observer {
+            Timber.e(InitData.endNumber.value.toString()+"asdf")
                 if (it == 3) {
                     MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
                 }

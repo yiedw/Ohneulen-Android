@@ -2,13 +2,13 @@ package com.goodchoice.android.ohneulen.ui.store.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.DisplayMetrics
+import android.view.*
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,11 +16,15 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
+import kotlinx.android.synthetic.main.store_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreHome : Fragment() {
     companion object {
@@ -65,6 +69,20 @@ class StoreHome : Fragment() {
                 binding.storeHomeContents.visibility = View.GONE
             } else {
                 binding.storeHomeContents.visibility = View.VISIBLE
+            }
+
+            view.viewTreeObserver.addOnWindowFocusChangeListener {
+                val parentFragment=parentFragment as StoreFragment
+                val height=parentFragment.store_home
+                if (binding.storeHome.height < MainActivity.mainFrameLayout.height) {
+                    Timber.e(binding.storeHome.height.toString())
+                    Timber.e(MainActivity.mainFrameLayout.height.toString())
+                    binding.storeHome.layoutParams =
+                        FrameLayout.LayoutParams(
+                            binding.storeHome.width,
+                            MainActivity.mainFrameLayout.height
+                        )
+                }
             }
 
 
@@ -253,9 +271,8 @@ class StoreHome : Fragment() {
             linearLayout.addView(tv)
             binding.storeHomeKeywords.addView(linearLayout)
         }
-
-
     }
+
 
 
     fun reportClick(view: View) {

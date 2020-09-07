@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         RevealAnimation(binding.mainActivity,intent,this)
 
-        Timber.e("asdf")
 //        searchViewModel.subCategoryList
 
         Companion.supportFragmentManager = supportFragmentManager

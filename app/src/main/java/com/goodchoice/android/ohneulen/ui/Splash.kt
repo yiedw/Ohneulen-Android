@@ -2,24 +2,23 @@ package com.goodchoice.android.ohneulen.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.os.Build
+import android.net.ConnectivityManager
+import android.net.ConnectivityManager.TYPE_WIFI
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.AccelerateInterpolator
-import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SplashBinding
-import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
-import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
-import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 
@@ -29,18 +28,18 @@ class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.splash)
-//        InitData.startMainActivity.observe(this, Observer {
-//            if(it){
-//                startRevealActivity(binding.splashLogo)
-//            }
-//        })
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         val view = binding.splashLogo
-        if (view.width != 0 ) {
-            startRevealActivity(view)
+        if (view.width != 0) {
+            if (!networkCheck(this)) {
+                Toast.makeText(this, "네트워크를 연결해 주세요", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                startRevealActivity(view)
+            }
         }
     }
 
@@ -54,6 +53,14 @@ class Splash : AppCompatActivity() {
         intent.putExtra(RevealAnimation.EXTRA_CIRCULAR_REVEAL_Y, revealY)
         startActivity(intent)
         overridePendingTransition(0, 0)
+    }
+
+    private fun networkCheck(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val new = connectivityManager.activeNetwork ?: return false
+        val actNw = connectivityManager.getNetworkCapabilities(new) ?: return false
+        return true
     }
 
 
