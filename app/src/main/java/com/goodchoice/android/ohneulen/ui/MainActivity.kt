@@ -15,6 +15,7 @@ import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -77,9 +78,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        val intent=this.intent
+        val intent = this.intent
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
-        RevealAnimation(binding.mainActivity,intent,this)
+        RevealAnimation(binding.mainActivity, intent, this)
 
 //        searchViewModel.subCategoryList
 
@@ -99,27 +100,24 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             .getDynamicLink(Intent())
             .addOnSuccessListener(this) {
                 var deepLink: Uri? = null
+                bottomNav.selectedItemId = R.id.menu_bottom_nav_home
                 if (it != null) {
                     //딥링크로 받아서 들어올때
+//                    Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
                     deepLink = it.link
-                    val segment = deepLink!!.lastPathSegment
-                    when (segment) {
-                        ConstList.SEGMENT_STORE -> {
-                            val seq = deepLink.getQueryParameter(ConstList.SEQ)
-                            StoreFragment.storeSeq = seq!!
-//                            replaceAppbarFragment(
-//                                StoreAppBar.newInstance(),
-//                                tag = "storeAppBar"
-//                            )
-//                            appbarFrameLayout.setBackgroundColor(getColor(R.color.colorHeader))
-                            addAppbarFragment(StoreAppBar.newInstance())
-                            addMainFragment(StoreFragment.newInstance())
-
-                        }
-                    }
-                } else {
-                    //일반적으로 앱을 실행 했을때
-                    bottomNav.selectedItemId = R.id.menu_bottom_nav_home
+                    val storeSeq = deepLink!!.lastPathSegment
+                    StoreFragment.storeSeq = storeSeq!!
+                    addAppbarFragment(StoreAppBar.newInstance())
+                    addMainFragment(StoreFragment.newInstance())
+//                    when (segment) {
+//                        ConstList.SEGMENT_STORE -> {
+//                            val seq = deepLink.getQueryParameter(ConstList.SEQ)
+//                            StoreFragment.storeSeq = seq!!
+//                            addAppbarFragment(StoreAppBar.newInstance())
+//                            addMainFragment(StoreFragment.newInstance())
+//
+//                        }
+//                    }
                 }
             }
     }
@@ -215,7 +213,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         revealAnimator.duration = 1000
         revealAnimator.start()
-        revealAnimator.addListener(object :Animator.AnimatorListener{
+        revealAnimator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
             }
 

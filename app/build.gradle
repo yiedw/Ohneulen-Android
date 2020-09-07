@@ -42,7 +42,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            debuggable false
+            debuggable true
             buildConfigField "String", "Ohneulen", "\"https://www.ohneulen.com/\""
             buildConfigField "String", "OhneulenSignUp", "\"https://www.ohneulen.com/member/regist\""
             buildConfigField "String", "OhneulenFindId","\"https://m.ohneulen.com/member/find?g=id\""

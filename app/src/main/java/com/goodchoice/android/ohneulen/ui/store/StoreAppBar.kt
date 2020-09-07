@@ -69,8 +69,9 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
             //웹으로 봤을때 페이지
             link =
-                Uri.parse("https://www.ohneulen.com/" + ConstList.SEGMENT_STORE + "?" + ConstList.SEQ + "=" + StoreFragment.storeSeq)
+                Uri.parse("https://www.ohneulen.com/store/view/${StoreFragment.storeSeq}")
             domainUriPrefix = "https://ohneulen.page.link"
+//            Timber.e(requireActivity().packageName)
             androidParameters("com.goodchoice.android.ohneulen") { }
             iosParameters("com.goodchoice.ios.ohneulen") {}
 //            buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)

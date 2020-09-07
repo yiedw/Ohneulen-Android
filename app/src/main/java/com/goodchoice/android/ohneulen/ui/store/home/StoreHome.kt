@@ -65,11 +65,15 @@ class StoreHome : Fragment() {
             optionGenerate(it)
             //키워드 뷰 생성
             keywordsGenerate(it)
+
+            //설명 없으면 숨기기
             if (it.storeInfo.storeFull.contents.isEmpty()) {
                 binding.storeHomeContents.visibility = View.GONE
             } else {
                 binding.storeHomeContents.visibility = View.VISIBLE
             }
+
+
 
 
 
@@ -223,6 +227,12 @@ class StoreHome : Fragment() {
     //키워드 뷰 생성
     private fun keywordsGenerate(storeDetail: StoreDetail) {
         binding.storeHomeKeywords.removeAllViews()
+        //키워드 뷰 없으면 숨기기
+        if(storeDetail.keywordList.isEmpty()){
+            binding.storeHomeKeywords.visibility=View.GONE
+            return
+        }
+        binding.storeHomeKeywords.visibility=View.VISIBLE
         for (i in storeDetail.keywordList) {
             val linearLayout = LinearLayout(requireContext())
             linearLayout.orientation = LinearLayout.HORIZONTAL
