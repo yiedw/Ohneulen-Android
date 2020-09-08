@@ -1,9 +1,11 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import com.google.maps.android.clustering.ClusterItem
 import javax.sql.DataSource
 
+@Keep
 data class StoreFull (
     val seq: String,
     val kind: String,
@@ -38,6 +40,7 @@ data class StoreFull (
     val opentime:String
 )
 
+@Keep
 data class Cate1Name(
     val majorName: String?,
     val minorName: String?

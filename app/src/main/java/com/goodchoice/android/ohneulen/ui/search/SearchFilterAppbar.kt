@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterAppbarBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -23,6 +25,7 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
 
     private lateinit var binding: SearchFilterAppbarBinding
     private val searchViewModel: SearchViewModel by viewModel()
+    private val initData:InitData by inject()
     private var tempCate = mutableListOf<String>()
     private var tempOption = mutableListOf<String>()
     private var tempOpenTime = mutableListOf<String>()
@@ -84,50 +87,50 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
         searchViewModel.tempCateOhneulenData.clear()
 
         //카테고리(음식)
-        for (i in searchViewModel.subCategoryList.indices) {
-            for (j in searchViewModel.subCategoryList[i].indices) {
+        for (i in initData.subCategoryList.indices) {
+            for (j in initData.subCategoryList[i].indices) {
                 for (k in tempCate.indices) {
-                    if (searchViewModel.subCategoryList[i][j].majorCode + searchViewModel.subCategoryList[i][j].minorCode == tempCate[k]) {
-                        searchViewModel.subCategoryList[i][j].check = true
-                        searchViewModel.tempCateOhneulenData.add(searchViewModel.subCategoryList[i][j])
+                    if (initData.subCategoryList[i][j].majorCode + initData.subCategoryList[i][j].minorCode == tempCate[k]) {
+                        initData.subCategoryList[i][j].check = true
+                        searchViewModel.tempCateOhneulenData.add(initData.subCategoryList[i][j])
                         break
                     } else if (k == tempCate.size - 1) {
-                        searchViewModel.subCategoryList[i][j].check = false
+                        initData.subCategoryList[i][j].check = false
                     }
                 }
                 if (tempCate.size == 0) {
-                    searchViewModel.subCategoryList[i][j].check = false
+                    initData.subCategoryList[i][j].check = false
                 }
             }
         }
 
         //옵션
-        for (i in searchViewModel.mainOptionKind.indices) {
+        for (i in initData.mainOptionKind.indices) {
             for (j in searchViewModel.option.indices) {
-                if (searchViewModel.mainOptionKind[i].minorCode == searchViewModel.option[j]) {
-                    searchViewModel.mainOptionKind[i].check = true
+                if (initData.mainOptionKind[i].minorCode == searchViewModel.option[j]) {
+                    initData.mainOptionKind[i].check = true
                     break
                 } else if (j == searchViewModel.option.size - 1) {
-                    searchViewModel.mainOptionKind[i].check = false
+                    initData.mainOptionKind[i].check = false
                 }
             }
             if (searchViewModel.option.size == 0) {
-                searchViewModel.mainOptionKind[i].check = false
+                initData.mainOptionKind[i].check = false
             }
         }
 
         //영업일
-        for (i in searchViewModel.timeDay.indices) {
+        for (i in initData.timeDay.indices) {
             for (j in searchViewModel.openTime.indices) {
-                if (searchViewModel.timeDay[i].minorCode == searchViewModel.openTime[j]) {
-                    searchViewModel.timeDay[i].check = true
+                if (initData.timeDay[i].minorCode == searchViewModel.openTime[j]) {
+                    initData.timeDay[i].check = true
                     break
                 } else if (j == searchViewModel.openTime.size - 1) {
-                    searchViewModel.timeDay[i].check = false
+                    initData.timeDay[i].check = false
                 }
             }
             if (searchViewModel.openTime.size == 0) {
-                searchViewModel.timeDay[i].check = false
+                initData.timeDay[i].check = false
             }
         }
 

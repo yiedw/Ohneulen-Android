@@ -1,11 +1,20 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+
 //자주찾는 질문
+@Keep
 data class FAQ(
+    @SerializedName("seq")
     val seq: String,
+    @SerializedName("classification")
     val classification: String,
+    @SerializedName("title")
     val title: String,
+    @SerializedName("content")
     val content: String,
+    @SerializedName("check")
     var check: Boolean = false
 )
 

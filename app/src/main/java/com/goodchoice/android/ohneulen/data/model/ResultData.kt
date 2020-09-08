@@ -1,5 +1,8 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import androidx.annotation.Keep
+
+@Keep
 data class ResultData(
     val hashtagList: List<Any>,
     val keywordList: List<Keyword>,

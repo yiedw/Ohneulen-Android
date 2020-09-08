@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterItemBinding
 
 class SearchFilterSubAdapter() :
     ListAdapter<OhneulenData, SearchFilterSubAdapter.SearchFilterViewHolder>(SearchFilterSubDiffUtil) {
 
     lateinit var searchViewModel: SearchViewModel
+    lateinit var initData:InitData
 
     inner class SearchFilterViewHolder(private val binding: SearchFilterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,7 +41,7 @@ class SearchFilterSubAdapter() :
                 root.setOnClickListener {
                     searchViewModel.subCategoryPosition = adapterPosition
                     val subCategory =
-                        searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
+                        initData.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
 
                     if (!subCategory.check) {
                         if (searchViewModel.tempCateOhneulenData.size > 4) {
@@ -51,7 +53,7 @@ class SearchFilterSubAdapter() :
 
 
                     subCategory.check = !subCategory.check
-                    searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                    initData.subCategory.postValue(initData.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
                     val code = "${items.majorCode}${items.minorCode}"
                     if (subCategory.check) {
                         //아이템이 없을때 추가

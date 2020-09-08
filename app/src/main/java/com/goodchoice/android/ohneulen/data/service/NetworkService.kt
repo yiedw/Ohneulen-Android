@@ -27,9 +27,9 @@ interface NetworkService {
 
     //필터 항목 받아오기
     @POST("api/getcodelist")
-    @Multipart
+    @FormUrlEncoded
     suspend fun requestOhneulenData(
-        @Part("majorCode") majorCode: RequestBody
+        @Field("majorCode") majorCode: String
     ): OhneulenResponse
 
 

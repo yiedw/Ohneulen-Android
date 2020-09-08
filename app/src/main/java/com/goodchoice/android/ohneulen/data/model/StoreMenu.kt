@@ -1,5 +1,8 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import androidx.annotation.Keep
+
+@Keep
 data class StoreMenu(
     val seq:String,
     val store_seq:String,

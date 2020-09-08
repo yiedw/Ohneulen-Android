@@ -17,7 +17,7 @@ import timber.log.Timber
 import java.lang.Exception
 import kotlin.system.measureNanoTime
 
-class SearchViewModel(private val networkService: NetworkService, initData: InitData) :
+class SearchViewModel(private val networkService: NetworkService) :
     ViewModel() {
     var searchEditText = ""
     var kakaoMapPoint = MutableLiveData<MapPoint>()
@@ -45,20 +45,20 @@ class SearchViewModel(private val networkService: NetworkService, initData: Init
     var mainCategoryPosition = MutableLiveData<Int>(0)
     var subCategoryPosition = 0
 
-    val mainCategory = initData.mainCategory
-    val subCategoryList = initData.subCategory
-    var subCategory = MutableLiveData<List<OhneulenData>>(subCategoryList[0])
+//    val mainCategory = initData.mainCategory
+//    val subCategoryList = initData.subCategory
+//    var subCategory = MutableLiveData<List<OhneulenData>>(subCategoryList[0])
 
     //정렬
     var checkSortRating = false
     var checkSortRecent = false
 
     //옵션
-    var mainOptionKind = initData.mainOptionKind
-    var subOptionKind = initData.subOptionKind
-
-    //요일
-    var timeDay = initData.timeDay
+//    var mainOptionKind = initData.mainOptionKind
+//    var subOptionKind = initData.subOptionKind
+//
+//    //요일
+//    var timeDay = initData.timeDay
 
 
     fun getStoreSearchList() {

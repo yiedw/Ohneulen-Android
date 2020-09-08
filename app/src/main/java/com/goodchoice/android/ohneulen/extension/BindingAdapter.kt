@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.data.model.*
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
@@ -52,14 +53,16 @@ fun setSearchStoreAdapter(
 }
 
 //filter
-@BindingAdapter("subCategory", "subCategoryViewModel")
+@BindingAdapter("subCategory", "subCategoryViewModel","filterInitData")
 fun setFilterSubAdapter(
     recyclerView: RecyclerView,
-    items: List<OhneulenData>,
-    viewModel: SearchViewModel
+    items: List<OhneulenData>?,
+    viewModel: SearchViewModel,
+    initData:InitData
 ) {
     recyclerView.adapter = SearchFilterSubAdapter().apply {
         searchViewModel = viewModel
+        this.initData=initData
         submitList(items)
     }
 }

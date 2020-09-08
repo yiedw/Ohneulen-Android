@@ -1,5 +1,8 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import androidx.annotation.Keep
+
+@Keep
 data class Review(
     val content: String,
     val imgList: List<Image>,

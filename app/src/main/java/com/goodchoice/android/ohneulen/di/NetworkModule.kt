@@ -17,7 +17,7 @@ private const val READ_TIMEOUT = 20L
 
 fun networkModule(baseUrl: String) = module {
 
-    single {
+    single(createdAtStart = true) {
         OkHttpClient.Builder().apply {
             connectTimeout(CONNECT_TIMEOUT, java.util.concurrent.TimeUnit.SECONDS)
             writeTimeout(WRITE_TIMEOUT, java.util.concurrent.TimeUnit.SECONDS)
@@ -32,7 +32,7 @@ fun networkModule(baseUrl: String) = module {
         }.build()
     }
 
-    single {
+    single(createdAtStart = true) {
         val gson=GsonBuilder().setLenient().create()
         Retrofit.Builder()
             .client(get<OkHttpClient>())

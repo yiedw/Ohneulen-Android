@@ -210,7 +210,7 @@ suspend fun getOhneulenData(
     withContext(Dispatchers.IO) {
         try {
             val response =
-                networkService.requestOhneulenData(code.toRequestBody())
+                networkService.requestOhneulenData(code)
             for (i in response.resultData.indices) {
                 val majorCode = response.resultData[i].majorCode
                 val minorCode = response.resultData[i].minorCode

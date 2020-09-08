@@ -1,10 +1,13 @@
 package com.goodchoice.android.ohneulen.data.remote
 
+import androidx.annotation.Keep
+
+@Keep
 data class KakaoKeywordResponse(
     val documents: List<Keyword>,
     val meta: Meta
 )
-
+@Keep
 data class Keyword(
     val address_name: String,
     val category_group_code: String,
@@ -19,14 +22,14 @@ data class Keyword(
     val x: String,
     val y: String
 )
-
+@Keep
 data class Meta(
     val is_end: Boolean,
     val pageable_count: Int,
     val same_name: SameName,
     val total_count: Int
 )
-
+@Keep
 data class SameName(
     val keyword: String,
     val region: List<Any>,

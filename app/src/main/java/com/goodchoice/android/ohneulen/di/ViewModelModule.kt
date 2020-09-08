@@ -17,7 +17,7 @@ val viewModelModule = module {
     single { StoreViewModel(get()) }
     single { MyPageViewModel(get()) }
     single { LoginViewModel(get(), androidApplication()) }
-    single { SearchViewModel(get(), get()) }
+    single { SearchViewModel(get()) }
     single {
         MainViewModel()
     }

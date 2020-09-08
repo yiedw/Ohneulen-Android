@@ -1,10 +1,14 @@
 package com.goodchoice.android.ohneulen.data.remote
 
+import androidx.annotation.Keep
+
+@Keep
 data class KakaoAddressResponse(
     val documents: List<Document>,
     val meta: Meta
 )
 
+@Keep
 data class Document(
     val address: Address,
     val address_name: String,
@@ -14,6 +18,7 @@ data class Document(
     val y: String
 )
 
+@Keep
 data class Address(
     val address_name: String,
     val b_code: String,

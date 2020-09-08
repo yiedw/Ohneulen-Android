@@ -20,10 +20,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
+import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -34,6 +36,7 @@ class SearchFilter : Fragment() {
     }
 
     private val searchViewModel: SearchViewModel by viewModel()
+    private val initData: InitData by inject()
     private lateinit var binding: SearchFilterBinding
     var checkFood = true
     var checkClick = false
@@ -57,6 +60,7 @@ class SearchFilter : Fragment() {
             lifecycleOwner = this@SearchFilter
             fragment = this@SearchFilter
             viewModel = searchViewModel
+            filterInitData= initData
         }
 
         return binding.root
@@ -115,7 +119,7 @@ class SearchFilter : Fragment() {
         //메인카테고리 클릭시 서브 카테고리 변경
         searchViewModel.mainCategoryPosition.observe(viewLifecycleOwner, Observer {
             searchViewModel.subCategoryPosition = 0
-            searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[it])
+            initData.subCategory.postValue(initData.subCategoryList[it])
         })
 
         //음식 메인카테고리 리스트 생성
@@ -190,11 +194,11 @@ class SearchFilter : Fragment() {
                             ""
                         )
                     ) {
-                        loop@ for (j in searchViewModel.subCategoryList.indices) {
-                            for (k in searchViewModel.subCategoryList[j].indices) {
-                                if (searchViewModel.subCategoryList[j][k].minorName == ohneulenData.minorName) {
-                                    searchViewModel.subCategoryList[j][k].check = false
-                                    searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                        loop@ for (j in initData.subCategoryList.indices) {
+                            for (k in initData.subCategoryList[j].indices) {
+                                if (initData.subCategoryList[j][k].minorName == ohneulenData.minorName) {
+                                    initData.subCategoryList[j][k].check = false
+                                    initData.subCategory.postValue(initData.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
                                     break@loop
                                 }
                             }
@@ -213,7 +217,7 @@ class SearchFilter : Fragment() {
 
 
         //체크 검사해서 바뀔때마다 확인
-        searchViewModel.subCategory.observe(viewLifecycleOwner, Observer {
+        initData.subCategory.observe(viewLifecycleOwner, Observer {
             if (searchViewModel.tempCateOhneulenData.size > 0) {
                 binding.searchFilterTv1.visibility = View.VISIBLE
                 binding.searchFilterGridLayout.visibility = View.VISIBLE
@@ -223,9 +227,9 @@ class SearchFilter : Fragment() {
                 binding.searchFilterGridLayout.removeAllViews()
             }
 
-            if (!searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!].isNullOrEmpty()) {
+            if (!initData.subCategoryList[searchViewModel.mainCategoryPosition.value!!].isNullOrEmpty()) {
                 val ohneulenData =
-                    searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
+                    initData.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition]
                 val layoutInflater = this.layoutInflater
                 val param = GridLayout.LayoutParams()
 //                param.setMargins(5.dp(),5.dp(),5.dp(),5.dp())
@@ -252,11 +256,11 @@ class SearchFilter : Fragment() {
                                 ""
                             )
                         ) {
-                            loop@ for (j in searchViewModel.subCategoryList.indices) {
-                                for (k in searchViewModel.subCategoryList[j].indices) {
-                                    if (searchViewModel.subCategoryList[j][k].minorName == ohneulenData.minorName) {
-                                        searchViewModel.subCategoryList[j][k].check = false
-                                        searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+                            loop@ for (j in initData.subCategoryList.indices) {
+                                for (k in initData.subCategoryList[j].indices) {
+                                    if (initData.subCategoryList[j][k].minorName == ohneulenData.minorName) {
+                                        initData.subCategoryList[j][k].check = false
+                                        initData.subCategory.postValue(initData.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
 //                                        searchViewModel.subCategory.value=searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!]
                                         checkClick = true
                                         break@loop
@@ -277,7 +281,7 @@ class SearchFilter : Fragment() {
                 }
 
                 //위에 체크된 뷰 클릭
-                if (searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].check) {
+                if (initData.subCategoryList[searchViewModel.mainCategoryPosition.value!!][searchViewModel.subCategoryPosition].check) {
 //                    selectView.setPadding(5.dp(), 5.dp(), 5.dp(), 5.dp())
                     var check = false
                     //중복체크해서 없으면 추가
@@ -309,7 +313,7 @@ class SearchFilter : Fragment() {
     }
 
     private fun foodFilterGenerate() {
-        val mainCategory = searchViewModel.mainCategory
+        val mainCategory = initData.mainCategory
         for (i in mainCategory.indices) {
             val inflater =
                 requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -406,12 +410,12 @@ class SearchFilter : Fragment() {
                     //옵션일때
                     if (gridLayout == binding.searchFilterConvenience) {
                         searchViewModel.option.add(mutableList[i].minorCode)
-                        searchViewModel.mainOptionKind[i].check = isChecked
+                        initData.mainOptionKind[i].check = isChecked
                     }
                     //휴무일 일때
                     else if (gridLayout == binding.searchFilterTimeDay) {
                         searchViewModel.openTime.add(mutableList[i].minorCode)
-                        searchViewModel.timeDay[i].check = isChecked
+                        initData.timeDay[i].check = isChecked
                     }
 
                 } else {
@@ -420,12 +424,12 @@ class SearchFilter : Fragment() {
                     tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
                     if (gridLayout == binding.searchFilterConvenience) {
                         searchViewModel.option.remove(mutableList[i].minorCode)
-                        searchViewModel.mainOptionKind[i].check = isChecked
+                        initData.mainOptionKind[i].check = isChecked
                     }
                     //휴무일 일때
                     else if (gridLayout == binding.searchFilterTimeDay) {
                         searchViewModel.openTime.remove(mutableList[i].minorCode)
-                        searchViewModel.timeDay[i].check = isChecked
+                        initData.timeDay[i].check = isChecked
                     }
 
                 }
@@ -439,12 +443,12 @@ class SearchFilter : Fragment() {
     }
 
     private fun convenienceGenerate() {
-        val convenience = searchViewModel.mainOptionKind
+        val convenience = initData.mainOptionKind
         toggleButtonGenerate(binding.searchFilterConvenience, convenience)
     }
 
     private fun timeDayGenerate() {
-        val timeDay = searchViewModel.timeDay
+        val timeDay = initData.timeDay
         toggleButtonGenerate(binding.searchFilterTimeDay, timeDay)
     }
 
@@ -558,15 +562,15 @@ class SearchFilter : Fragment() {
                 return
             }
 //            }
-            for (i in searchViewModel.subCategoryList.indices) {
-                for (j in searchViewModel.subCategoryList[i].indices) {
-                    searchViewModel.subCategoryList[i][j].check = false
+            for (i in initData.subCategoryList.indices) {
+                for (j in initData.subCategoryList[i].indices) {
+                    initData.subCategoryList[i][j].check = false
                 }
             }
 
             searchViewModel.tempCateOhneulenData.clear()
             searchViewModel.cate.clear()
-            searchViewModel.subCategory.postValue(searchViewModel.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
+            initData.subCategory.postValue(initData.subCategoryList[searchViewModel.mainCategoryPosition.value!!])
         }
 
         //옵션선택일때

@@ -1,9 +1,11 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import com.google.maps.android.clustering.ClusterItem
 import javax.sql.DataSource
 
+@Keep
 data class Store (
     val seq: String,
     val kind: String,

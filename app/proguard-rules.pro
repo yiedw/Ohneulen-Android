@@ -35,6 +35,12 @@
   public *;
 }
 
+-ignorewarnings
 
-
-
+#noinspection ShrinkerUnresolvedReference
+-keep class net.daum.mf.map.n.** { *; }
+-keep class net.daum.mf.map.api.MapView { *; }
+-keep class net.daum.android.map.location.MapViewLocationManager { *; }
+-keep class net.daum.mf.map.api.MapPolyline { *; }
+-keep class net.daum.mf.map.api.MapPoint** { *; }
+-keep class net.daum.mf.map.common.**{ *;}

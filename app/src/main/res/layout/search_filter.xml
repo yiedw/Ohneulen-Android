@@ -12,6 +12,9 @@
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.search.SearchViewModel" />
+        <variable
+            name="filterInitData"
+            type="com.goodchoice.android.ohneulen.data.repository.InitData" />
 
     </data>
 
@@ -117,8 +120,9 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintLeft_toRightOf="@id/search_filter_scrollview_main"
                 app:layout_constraintRight_toRightOf="parent"
-                bind:subCategory="@{viewModel.subCategory}"
-                bind:subCategoryViewModel="@{viewModel}" />
+                bind:subCategory="@{filterInitData.subCategory}"
+                bind:subCategoryViewModel="@{viewModel}"
+                bind:filterInitData="@{filterInitData}"/>
 
 
             <TextView

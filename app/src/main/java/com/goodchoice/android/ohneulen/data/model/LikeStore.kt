@@ -1,5 +1,8 @@
 package com.goodchoice.android.ohneulen.data.model
 
+import androidx.annotation.Keep
+
+@Keep
 data class LikeStore(
     val addrDepth1: String,
     val addrDepth2: String,
@@ -30,6 +33,7 @@ data class LikeStore(
     val storeName: String
 )
 
+@Keep
 data class LikeStoreImage(
     val insertDate: String,
     val insertID: String,
