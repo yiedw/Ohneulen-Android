@@ -135,7 +135,7 @@ class StoreFragment : Fragment() {
 
     //이미지 세팅(1장 or 여러장)
     private fun storeImage(storeDetail: StoreDetail) {
-        //노 이미지일대
+        //노 이미지일때
         if (storeDetail.storeInfo.image.isEmpty()) {
             binding.storeFragmentOneImage.visibility = View.VISIBLE
             binding.storeFragmentImageRv.visibility = View.GONE
@@ -153,8 +153,13 @@ class StoreFragment : Fragment() {
             //여러개일때
             binding.storeFragmentOneImage.visibility = View.INVISIBLE
             binding.storeFragmentImageRv.visibility = View.VISIBLE
+//            Glide.with(requireContext())
+//                .load(R.drawable.store_home_no_img)
+//                .apply {
+//                    RequestOptions().transform(RoundedCorners(20))
+//                }
+//                .into(binding.storeFragmentOneImage)
 //            binding.storeFragmentImageRv.s
-
         }
         storeHeader(storeDetail)
 
@@ -313,9 +318,12 @@ class StoreFragment : Fragment() {
             val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             view.measure(wMeasureSpec, hMeasureSpec)
 
-            val layoutParams=ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,ConstraintLayout.LayoutParams.WRAP_CONTENT)
+            val layoutParams = ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT
+            )
             layoutParams.topToBottom = R.id.store_fragment_border2
-            pager.layoutParams=layoutParams
+            pager.layoutParams = layoutParams
             if (pager.layoutParams.height != view.measuredHeight) {
                 pager.layoutParams = (pager.layoutParams)
                     .also { lp ->

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -25,11 +26,16 @@ class StoreImageAdapter :
     inner class StoreImageViewHolder(private val binding: StoreImageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Image) {
+            val multiOption = MultiTransformation(
+                CenterCrop(),
+                RoundedCorners(20)
+            )
+
             binding.apply {
                 Timber.e("${BaseUrl.OHNEULEN}${item.photoURL}")
                 Glide.with(root)
                     .load("${BaseUrl.OHNEULEN}${item.photoURL}")
-                    .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
+                    .apply(RequestOptions().transform(CenterCrop(),RoundedCorners(20)))
                     .into(storeImageItem)
 
                 root.setOnClickListener {
