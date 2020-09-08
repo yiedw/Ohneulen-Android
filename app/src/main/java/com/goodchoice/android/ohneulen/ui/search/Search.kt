@@ -33,6 +33,7 @@ import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.search.*
 import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,6 +44,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     companion object {
         fun newInstance() = Search()
     }
+
     private var switchOn = false
     private lateinit var binding: SearchBinding
     private val searchViewModel: SearchViewModel by inject()
@@ -187,10 +189,16 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             this.duration = 400
             this.fillAfter = false
         }
+        val animateNoneView =
+            TranslateAnimation(0f, 0f, 0f, 0f).apply {
+                this.duration = 400
+                this.fillAfter = false
+            }
 
         binding.searchMap.startAnimation(animateMap)
         binding.searchInfoCon.startAnimation(animateInfoCon)
         binding.searchStoreRv.startAnimation(animateStoreRv)
+        binding.searchNone.startAnimation(animateNoneView)
 
     }
 

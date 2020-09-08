@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,16 +16,21 @@ import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.home.noti.NotiAppBar
 import com.goodchoice.android.ohneulen.ui.home.noti.Noti
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
+import kotlin.system.exitProcess
 
-class HomeAppBar :Fragment(){
+class HomeAppBar :Fragment(),OnBackPressedListener{
 
     companion object{
         fun newInstance()=HomeAppBar()
     }
 
     private lateinit var binding:HomeAppbarBinding
+    private val FINISH_TIME: Long = 3000
+    private var backPressedTime: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,5 +65,18 @@ class HomeAppBar :Fragment(){
     fun notiClick(view:View){
         replaceAppbarFragment(NotiAppBar.newInstance())
         replaceMainFragment(Noti.newInstance())
+    }
+
+    override fun onBackPressed() {
+        val tempTime: Long = System.currentTimeMillis();
+        val intervalTime: Long = tempTime - backPressedTime
+        if (intervalTime < FINISH_TIME) {
+            requireActivity().finishAffinity()
+            System.runFinalization()
+            exitProcess(0)
+        } else {
+            Toast.makeText(activity, "뒤로가기를 한번 더 누르면 앱이 종료됩니다", Toast.LENGTH_SHORT).show()
+            backPressedTime = tempTime
+        }
     }
 }

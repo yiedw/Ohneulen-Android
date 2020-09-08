@@ -96,12 +96,18 @@ class LoginFindEmail : Fragment(), OnBackPressedListener {
 
             @JavascriptInterface
             fun onBackClick() {
-                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-                MainActivity.supportFragmentManager.popBackStack()
+                binding.loginFindEmailWebView.post {
+                    if (binding.loginFindEmailWebView.canGoBack()) {
+                        binding.loginFindEmailWebView.goBack()
+                    } else {
+                        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+                        MainActivity.supportFragmentManager.popBackStack()
+                    }
+                }
             }
 
             @JavascriptInterface
-            fun onLoginClick(){
+            fun onLoginClick() {
                 replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                 MainActivity.supportFragmentManager.popBackStack()
             }
@@ -111,8 +117,13 @@ class LoginFindEmail : Fragment(), OnBackPressedListener {
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-        MainActivity.supportFragmentManager.popBackStack()
+        if (binding.loginFindEmailWebView.canGoBack()) {
+            binding.loginFindEmailWebView.goBack()
+        } else {
+            replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+            MainActivity.supportFragmentManager.popBackStack()
+
+        }
     }
 
 }

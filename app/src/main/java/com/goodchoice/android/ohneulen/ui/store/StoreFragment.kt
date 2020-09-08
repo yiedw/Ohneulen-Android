@@ -153,6 +153,8 @@ class StoreFragment : Fragment() {
             //여러개일때
             binding.storeFragmentOneImage.visibility = View.INVISIBLE
             binding.storeFragmentImageRv.visibility = View.VISIBLE
+//            binding.storeFragmentImageRv.s
+
         }
         storeHeader(storeDetail)
 
@@ -172,7 +174,7 @@ class StoreFragment : Fragment() {
         )
 
         val text =
-            TextUtils.concat("${store.cate1Name!!.minorName} /좋아요 ", likeCnt, " /후기 ", reviewCnt)
+            TextUtils.concat("${store.cate1Name!!.minorName} / 좋아요 ", likeCnt, " / 후기 ", reviewCnt)
         binding.storeFragmentDetail.text = text
     }
 
@@ -277,11 +279,20 @@ class StoreFragment : Fragment() {
                         if (position == 1) {
                             mapSetting()
                         } else {
-                            if(position==0){
-                                binding.storeNewScrollView.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorBackgroundF6))
-                            }
-                            else{
-                                binding.storeNewScrollView.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorWhite))
+                            if (position == 0) {
+                                binding.storeNewScrollView.setBackgroundColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorBackgroundF6
+                                    )
+                                )
+                            } else {
+                                binding.storeNewScrollView.setBackgroundColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorWhite
+                                    )
+                                )
                             }
                             //viewPager 크기조절
                             updatePagerHeightForChild(view, binding.storeFragmentViewPager2)
@@ -302,10 +313,13 @@ class StoreFragment : Fragment() {
             val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             view.measure(wMeasureSpec, hMeasureSpec)
 
+            val layoutParams=ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,ConstraintLayout.LayoutParams.WRAP_CONTENT)
+            layoutParams.topToBottom = R.id.store_fragment_border2
+            pager.layoutParams=layoutParams
             if (pager.layoutParams.height != view.measuredHeight) {
                 pager.layoutParams = (pager.layoutParams)
                     .also { lp ->
-                            lp.height = view.measuredHeight
+                        lp.height = view.measuredHeight
                     }
             }
             if (!first) {

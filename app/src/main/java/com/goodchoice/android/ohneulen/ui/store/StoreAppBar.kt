@@ -127,8 +127,6 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
     fun backClick(view: View) {
         MainActivity.mainFrameLayout.layoutParams = MainActivity.initMainFrameLayout
         if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
-//            replaceAppbarFragment(SearchAppBar.newInstance())
-//            replaceMainFragment(Search.newInstance())
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
         } else {
             if (stat == 1) {

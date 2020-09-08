@@ -16,6 +16,7 @@ import com.goodchoice.android.ohneulen.databinding.StoreImageItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailStoreDialog
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import timber.log.Timber
 
 class StoreImageAdapter :
     ListAdapter<Image, StoreImageAdapter.StoreImageViewHolder>(StoreImageDiffUtil) {
@@ -25,6 +26,7 @@ class StoreImageAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Image) {
             binding.apply {
+                Timber.e("${BaseUrl.OHNEULEN}${item.photoURL}")
                 Glide.with(root)
                     .load("${BaseUrl.OHNEULEN}${item.photoURL}")
                     .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))

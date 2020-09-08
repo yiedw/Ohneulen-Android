@@ -96,8 +96,14 @@ class LoginFindPw : Fragment(), OnBackPressedListener {
 
             @JavascriptInterface
             fun onBackClick() {
-                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-                MainActivity.supportFragmentManager.popBackStack()
+                binding.loginFindPwWebView.post {
+                    if (binding.loginFindPwWebView.canGoBack()) {
+                        binding.loginFindPwWebView.goBack()
+                    } else {
+                        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+                        MainActivity.supportFragmentManager.popBackStack()
+                    }
+                }
             }
 
             @JavascriptInterface
@@ -122,8 +128,13 @@ class LoginFindPw : Fragment(), OnBackPressedListener {
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-        MainActivity.supportFragmentManager.popBackStack()
+        if (binding.loginFindPwWebView.canGoBack()) {
+            binding.loginFindPwWebView.goBack()
+        } else {
+            replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+            MainActivity.supportFragmentManager.popBackStack()
+
+        }
     }
 
 }

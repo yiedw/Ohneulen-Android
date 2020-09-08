@@ -33,7 +33,7 @@ import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class Home() : Fragment(), OnBackPressedListener {
+class Home() : Fragment() {
 
     companion object {
         fun newInstance() = Home()
@@ -42,8 +42,7 @@ class Home() : Fragment(), OnBackPressedListener {
     private val mainViewModel: MainViewModel by viewModel()
     private lateinit var binding: HomeBinding
 
-    private val FINISH_TIME: Long = 3000
-    private var backPressedTime: Long = 0
+
     override fun onResume() {
         super.onResume()
         MainActivity.bottomNav.visibility = View.VISIBLE
@@ -159,16 +158,6 @@ class Home() : Fragment(), OnBackPressedListener {
 
     }
 
-    override fun onBackPressed() {
-        val tempTime: Long = System.currentTimeMillis();
-        val intervalTime: Long = tempTime - backPressedTime
-        if (intervalTime < FINISH_TIME) {
-            requireActivity().finish()
-        } else {
-            Toast.makeText(activity, "뒤로가기를 한번 더 누르면 앱이 종료됩니다", Toast.LENGTH_SHORT).show()
-            backPressedTime = tempTime
-        }
-    }
 
 
 }

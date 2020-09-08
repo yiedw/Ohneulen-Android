@@ -110,7 +110,7 @@
                 android:text="@string/favorite"
                 android:textColor="@color/colorTextBlack"
                 android:textSize="@dimen/main_contents"
-                android:textStyle="bold" />
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -163,11 +163,12 @@
                 android:text="@string/inquiry_details"
                 android:textColor="@color/colorTextBlack"
                 android:textSize="@dimen/main_contents"
-                android:textStyle="bold" />
+                />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="#e5e5e5" />
 
 
@@ -175,15 +176,15 @@
                 android:id="@+id/mypage_faq"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:paddingHorizontal="20dp"
-                android:textStyle="bold"
                 android:drawableRight="@drawable/more_point"
                 android:focusable="true"
                 android:gravity="fill"
                 android:onClick="@{fragment::FAQClick}"
+                android:paddingHorizontal="20dp"
                 android:text="@string/frequently_asked_questions"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="@dimen/main_contents" />
+                android:textSize="@dimen/main_contents"
+                />
 
 
         </LinearLayout>
@@ -194,7 +195,6 @@
             android:layout_height="wrap_content"
             android:background="#f6f6f6"
             android:paddingHorizontal="20dp"
-            android:paddingTop="100dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout

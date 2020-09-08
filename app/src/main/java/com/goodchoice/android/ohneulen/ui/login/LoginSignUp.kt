@@ -94,7 +94,7 @@ class LoginSignUp : Fragment(), OnBackPressedListener {
 
             @JavascriptInterface
             fun onBackClick() {
-                 binding.loginSignUpWebView.post {
+                binding.loginSignUpWebView.post {
                     if (binding.loginSignUpWebView.canGoBack()) {
                         binding.loginSignUpWebView.goBack()
                     } else {
@@ -115,8 +115,13 @@ class LoginSignUp : Fragment(), OnBackPressedListener {
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-        MainActivity.supportFragmentManager.popBackStack()
+        if (binding.loginSignUpWebView.canGoBack()) {
+            binding.loginSignUpWebView.goBack()
+        } else {
+            replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+            MainActivity.supportFragmentManager.popBackStack()
+
+        }
 
     }
 

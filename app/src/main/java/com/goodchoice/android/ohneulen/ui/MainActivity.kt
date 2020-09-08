@@ -25,6 +25,7 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.databinding.MainActivityBinding
+import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.like.Like
@@ -103,12 +104,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 bottomNav.selectedItemId = R.id.menu_bottom_nav_home
                 if (it != null) {
                     //딥링크로 받아서 들어올때
-//                    Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
+                    val dialog= LoadingDialog.newInstance("매장 들어가는 중...")
+                    dialog.show(MainActivity.supportFragmentManager,"loading")
                     deepLink = it.link
                     val storeSeq = deepLink!!.lastPathSegment
                     StoreFragment.storeSeq = storeSeq!!
-                    addAppbarFragment(StoreAppBar.newInstance())
-                    addMainFragment(StoreFragment.newInstance())
+                    StoreAppBar.stat=0
+                    addMainFragment(StoreFragment.newInstance(),true)
+//                    replaceAppbarFragment(StoreAppBar.newInstance())
 //                    when (segment) {
 //                        ConstList.SEGMENT_STORE -> {
 //                            val seq = deepLink.getQueryParameter(ConstList.SEQ)
@@ -120,6 +123,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //                    }
                 }
             }
+
+//        Firebase.dynamicLinks.
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     //다른곳 터치시 키보드 내리기
