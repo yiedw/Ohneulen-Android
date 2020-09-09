@@ -51,6 +51,36 @@ class SearchStoreAdapter :
         fun bind(item: Store) {
             binding.apply {
                 store = item
+
+
+                //평점
+                val point= String.format("%.1f",(item.P_1+item.P_2+item.P_3+item.P_4+item.P_5+item.P_6)/6)
+                binding.storeItemRating.text=point
+
+                //리뷰 갯수
+                if(item.review_cnt>=1000){
+                    binding.storeItemReviewCnt.text="999+"
+                }
+                else if(item.review_cnt>100){
+                    binding.storeItemReviewCnt.text=(item.review_cnt/100*100).toString()
+                }
+                else{
+                    binding.storeItemReviewCnt.text=item.review_cnt.toString()
+                }
+
+                //좋아요 갯수
+                if(item.like_cnt>=1000){
+                    binding.storeItemGoodCnt.text="999+"
+                }
+                else if(item.like_cnt>100){
+                    binding.storeItemGoodCnt.text=(item.like_cnt/100*100).toString()
+                }
+                else{
+                    binding.storeItemGoodCnt.text=item.like_cnt.toString()
+                }
+
+
+
                 if (item.photoURL.isNullOrEmpty()) {
                     if (!item.image.isNullOrEmpty()) {
                         Glide.with(binding.storeItemImage.context)

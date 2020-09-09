@@ -113,7 +113,7 @@
             app:layout_constraintTop_toBottomOf="@id/store_item_name" />
 
         <TextView
-            android:id="@+id/store_item_good"
+            android:id="@+id/store_item_good_cnt"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="51"
@@ -131,10 +131,11 @@
             android:textColor="@color/colorCGrey"
             android:textSize="13dp"
             app:layout_constraintBottom_toTopOf="@id/store_item_businessTime_tv"
-            app:layout_constraintLeft_toRightOf="@id/store_item_good"
+            app:layout_constraintLeft_toRightOf="@id/store_item_good_cnt"
             app:layout_constraintTop_toBottomOf="@id/store_item_name" />
 
         <TextView
+            android:id="@+id/store_item_review_cnt"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="100+"

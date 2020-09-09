@@ -32,7 +32,6 @@ class StoreImageAdapter :
             )
 
             binding.apply {
-                Timber.e("${BaseUrl.OHNEULEN}${item.photoURL}")
                 Glide.with(root)
                     .load("${BaseUrl.OHNEULEN}${item.photoURL}")
                     .apply(RequestOptions().transform(CenterCrop(),RoundedCorners(20)))

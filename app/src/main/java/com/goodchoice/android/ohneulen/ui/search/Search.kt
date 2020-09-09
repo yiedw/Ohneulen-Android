@@ -3,22 +3,23 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.transition.Slide
 import androidx.transition.TransitionManager
 import androidx.transition.Visibility
 import com.bumptech.glide.Glide
@@ -30,7 +31,9 @@ import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.search.*
@@ -45,6 +48,9 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         fun newInstance() = Search()
     }
 
+    private val ONE_MARKER = 0
+    private val MARKER_LIST = 1
+
     private var switchOn = false
     private lateinit var binding: SearchBinding
     private val searchViewModel: SearchViewModel by inject()
@@ -53,6 +59,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     private lateinit var mapView: MapView
     private lateinit var mapViewContainer: ViewGroup
     private lateinit var locationManager: LocationManager
+
+    private lateinit var storeListHashMap: HashMap<Int, ArrayList<Store>>
 
 
     override fun onAttach(context: Context) {
@@ -76,6 +84,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 container,
                 false
             )
+        storeListHashMap = HashMap()
 
         //바인딩
         binding.apply {
@@ -130,21 +139,46 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     binding.searchNone.visibility = View.GONE
                 }
                 binding.searchStoreAmount.text = "매장 ${it.size}"
+
+
                 //마커추가
                 mapView.removeAllPOIItems()
-                for (i in it) {
+                for(i in it){
                     addMarker(i)
                 }
+                //클러스터 추가
+//                val storeList = mutableListOf<Store>()
+//                for (i in it.indices) {
+//                    if (i == 0) {
+//                        storeList.add(it[i])
+//                    } else {
+//                        if (it[i].addrY == it[i - 1].addrY && it[i].addrX == it[i - 1].addrX) {
+//                            storeList.add(it[i])
+//                        } else {
+//                            if (storeList.size == 1) {
+//                                addMarker(storeList[0])
+//                            } else {
+//                                addMarkerList(i, storeList)
+//                            }
+//                            storeList.clear()
+//                            storeList.add(it[i])
+//                        }
+//                    }
+//
+////                    addMarker(it[i])
+//                }
+//                if (storeList.size == 1) {
+////                    Timber.e(storeList[0].storeName)
+//                    addMarker(storeList[0])
+//                } else {
+//                    addMarkerList(it.size, storeList)
+//                }
             }
         })
         MainActivity.bottomNav.visibility = View.VISIBLE
 
+        //markerClickEvent
 
-//        mapView.setOnDragListener { v, event ->
-//
-//            Timber.e("asdf")
-//            true
-//        }
 
     }
 
@@ -190,7 +224,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             this.fillAfter = false
         }
         val animateNoneView =
-            TranslateAnimation(0f, 0f, 0f, 0f).apply {
+            TranslateAnimation(0f, 0f, binding.searchNone.y-binding.searchInfoCon.height.toFloat(), 0f).apply {
                 this.duration = 400
                 this.fillAfter = false
             }
@@ -209,17 +243,9 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         binding.searchMap.startAnimation(animate)
         binding.searchInfoCon.startAnimation(animate)
         binding.searchStoreRv.startAnimation(animate)
+        binding.searchNone.startAnimation(animate)
     }
-//    private fun slide(up:Boolean){
-//        val transition=Slide(Gravity.TOP)
-//        transition.duration=500
-//        transition.addTarget(binding.searchMap)
-//        transition.addTarget(binding.searchInfoCon)
-//        transition.addTarget(binding.searchStoreRv)
-//
-//        TransitionManager.beginDelayedTransition(binding.search,transition)
-//        binding.searchMap.visibility = if (up) View.GONE else View.VISIBLE
-//    }
+
 
     private fun circleSearch(mapPoint: MapPoint) {
         searchViewModel.addry.clear()
@@ -319,7 +345,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     private fun addMarker(store: Store) {
         val marker = MapPOIItem()
         marker.itemName = store.storeName
-        marker.tag = store.seq.toInt()
+        marker.tag = ONE_MARKER
         val mapPoint = MapPoint.mapPointWithGeoCoord(store.addrY.toDouble(), store.addrX.toDouble())
         marker.mapPoint = mapPoint
         marker.markerType = MapPOIItem.MarkerType.CustomImage
@@ -327,6 +353,51 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         marker.isCustomImageAutoscale = false
         marker.setCustomImageAnchor(0.5f, 0.5f)
         mapView.addPOIItem(marker)
+    }
+
+    private fun addMarkerList(
+        index: Int,
+        storeList: List<Store>
+    ) {
+        val store = storeList[0]
+        val marker = MapPOIItem()
+        val mapPoint = MapPoint.mapPointWithGeoCoord(store.addrY.toDouble(), store.addrX.toDouble())
+        marker.mapPoint = mapPoint
+        marker.markerType = MapPOIItem.MarkerType.CustomImage
+        marker.tag = MARKER_LIST
+        marker.itemName = index.toString()
+        //말풍선 안보이게 가리기
+        marker.isShowCalloutBalloonOnTouch = false
+
+        //layout -> Bitmap
+//        val layoutInflater =
+//            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//        val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
+//        markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text =
+//            storeList.size.toString()
+//        markerView.measure(
+//            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+//            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+//        )
+//        markerView.layout(0,0,markerView.measuredWidth,markerView.measuredHeight)
+////
+//        val markerBitmap = Bitmap.createBitmap(
+//            markerView.measuredWidth,
+//            markerView.measuredHeight,
+//            Bitmap.Config.ARGB_8888
+//        )
+        val iconGenerator=IconGenerator(requireContext())
+        val layoutInflater:LayoutInflater =requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val markerView=layoutInflater.inflate(R.layout.cluster_icon_unselected,null)
+        markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text=storeList.size.toString()
+        iconGenerator.setContentView(markerView)
+        iconGenerator.setBackground(null)
+        marker.customImageBitmap = iconGenerator.makeIcon()
+        marker.setCustomImageAnchor(0.5f, 0.5f)
+        mapView.addPOIItem(marker)
+
+        storeListHashMap[index] = ArrayList(storeList)
+
     }
 
 
@@ -346,7 +417,11 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
     }
 
-    override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+    override fun onPOIItemSelected(p0: MapView?, marker: MapPOIItem?) {
+        if (marker!!.tag == ONE_MARKER)
+            return
+        (binding.searchStoreRv.adapter as SearchStoreAdapter).submitList(storeListHashMap[marker.itemName.toInt()])
+
     }
 
     override fun onMapViewDoubleTapped(p0: MapView?, p1: MapPoint?) {

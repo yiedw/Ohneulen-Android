@@ -37,6 +37,14 @@ data class Store (
     val image: List<Image>,
     val photoURL: String,
     val openTime: List<OpenTime>,
-    val opentime:String
+    val opentime:String,
+    val like_cnt:Int,
+    val review_cnt:Int,
+    val P_1:Double,
+    val P_2:Double,
+    val P_3:Double,
+    val P_4:Double,
+    val P_5:Double,
+    val P_6:Double
 )
 
