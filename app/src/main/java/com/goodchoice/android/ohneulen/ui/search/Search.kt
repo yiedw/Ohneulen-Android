@@ -3,7 +3,6 @@ package com.goodchoice.android.ohneulen.ui.search
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
@@ -13,17 +12,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.transition.TransitionManager
-import androidx.transition.Visibility
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.SearchStore
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.SearchBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
@@ -31,16 +28,13 @@ import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
-import com.goodchoice.android.ohneulen.util.dp
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.search.*
 import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventListener {
 
@@ -342,7 +336,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     }
 
 
-    private fun addMarker(store: Store) {
+    private fun addMarker(store: SearchStore) {
         val marker = MapPOIItem()
         marker.itemName = store.storeName
         marker.tag = ONE_MARKER
@@ -420,7 +414,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     override fun onPOIItemSelected(p0: MapView?, marker: MapPOIItem?) {
         if (marker!!.tag == ONE_MARKER)
             return
-        (binding.searchStoreRv.adapter as SearchStoreAdapter).submitList(storeListHashMap[marker.itemName.toInt()])
+//        (binding.searchStoreRv.adapter as SearchStoreAdapter).submitList(storeListHashMap[marker.itemName.toInt()])
 
     }
 

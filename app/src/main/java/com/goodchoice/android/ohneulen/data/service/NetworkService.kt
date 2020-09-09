@@ -7,7 +7,6 @@ import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
-import java.io.File
 
 interface NetworkService {
 
@@ -41,7 +40,6 @@ interface NetworkService {
     ): GetStoreInfoResponse
 
     //스토어 리스트 검색
-    //    @Multipart
     @POST("store/searchList")
     @FormUrlEncoded
     suspend fun requestStoreSearchList(
@@ -51,7 +49,7 @@ interface NetworkService {
         @Field("option[]") option: List<String>,
         @Field("opentime[]") openTime: List<String>,
         @Field("sort[]") sort: List<String>
-    ): GetStoreListResponse
+    ): SearchStoreResponse
 
     //찜 설정
     @POST("api/set_memberLike")

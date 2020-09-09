@@ -34,7 +34,7 @@
 //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageGoodViewHolder {
 //        return DataBindingUtil.inflate<StoreItemBinding>(
 //            LayoutInflater.from(parent.context),
-//            R.layout.store_item,
+//            R.layout.search_store_item,
 //            parent,
 //            false
 //        ).let {

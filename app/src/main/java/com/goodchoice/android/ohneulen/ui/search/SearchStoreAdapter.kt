@@ -1,28 +1,20 @@
 package com.goodchoice.android.ohneulen.ui.search
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.os.Handler
-import android.os.HandlerThread
 import android.os.Looper
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.model.Store
+import com.goodchoice.android.ohneulen.data.model.SearchStore
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.databinding.StoreItemBinding
+import com.goodchoice.android.ohneulen.databinding.SearchStoreItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
@@ -39,73 +31,53 @@ import java.lang.Exception
 
 
 class SearchStoreAdapter :
-    ListAdapter<Store, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
+    ListAdapter<SearchStore, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
     var first = false
     lateinit var parentView: RecyclerView
     lateinit var mNetworkService: NetworkService
 
-    inner class SearchStoreViewHolder(private val binding: StoreItemBinding) :
+    inner class SearchStoreViewHolder(private val binding: SearchStoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(item: Store) {
+        fun bind(item: SearchStore) {
             binding.apply {
-                store = item
+                searchStore = item
 
 
                 //평점
-                val point= String.format("%.1f",(item.P_1+item.P_2+item.P_3+item.P_4+item.P_5+item.P_6)/6)
-                binding.storeItemRating.text=point
+                val point = String.format(
+                    "%.1f",
+                    (item.P_1 + item.P_2 + item.P_3 + item.P_4 + item.P_5 + item.P_6) / 6
+                )
+                binding.searchStoreItemRating.text = point
 
                 //리뷰 갯수
-                if(item.review_cnt>=1000){
-                    binding.storeItemReviewCnt.text="999+"
-                }
-                else if(item.review_cnt>100){
-                    binding.storeItemReviewCnt.text=(item.review_cnt/100*100).toString()
-                }
-                else{
-                    binding.storeItemReviewCnt.text=item.review_cnt.toString()
+                if (item.reviewCnt >= 1000) {
+                    binding.searchStoreItemReviewCnt.text = "999+"
+                } else if (item.reviewCnt > 100) {
+                    binding.searchStoreItemReviewCnt.text = (item.reviewCnt / 100 * 100).toString()
+                } else {
+                    binding.searchStoreItemReviewCnt.text = item.reviewCnt.toString()
                 }
 
                 //좋아요 갯수
-                if(item.like_cnt>=1000){
-                    binding.storeItemGoodCnt.text="999+"
-                }
-                else if(item.like_cnt>100){
-                    binding.storeItemGoodCnt.text=(item.like_cnt/100*100).toString()
-                }
-                else{
-                    binding.storeItemGoodCnt.text=item.like_cnt.toString()
-                }
-
-
-
-                if (item.photoURL.isNullOrEmpty()) {
-                    if (!item.image.isNullOrEmpty()) {
-                        Glide.with(binding.storeItemImage.context)
-                            .load("${BaseUrl.OHNEULEN}${item.image[0].photoURL}").centerCrop()
-                            .into(binding.storeItemImage)
-                    }
-                    else{
-                        Glide.with(binding.storeItemImage.context)
-                            .load(ContextCompat.getDrawable(root.context,R.drawable.search_no_img))
-                            .into(binding.storeItemImage)
-                    }
+                if (item.likeCnt >= 1000) {
+                    binding.searchStoreItemGoodCnt.text = "999+"
+                } else if (item.likeCnt > 100) {
+                    binding.searchStoreItemGoodCnt.text = (item.likeCnt / 100 * 100).toString()
                 } else {
-                    Glide.with(binding.storeItemImage.context)
-                        .load("${BaseUrl.OHNEULEN}${item.photoURL}").centerCrop()
-                        .into(binding.storeItemImage)
+                    binding.searchStoreItemGoodCnt.text = item.likeCnt.toString()
                 }
-                if (StoreAppBar.stat == 2) {
-                    //찜목록일때
-                    storeItemLike.isSelected = true
-                } else if (StoreAppBar.stat == 1) {
-                    //검색일때
-                    storeItemLike.isSelected = item.likes
-                }
+
+
+
+                Glide.with(binding.searchStoreItemImage.context)
+                    .load("${BaseUrl.OHNEULEN}${item.photoURL}").centerCrop()
+                    .into(binding.searchStoreItemImage)
+
                 //하트표시 클릭
-                storeItemLike.setOnClickListener {
+                searchStoreItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
                         loginDialog(root.context, SearchAppBar.newInstance(), true)
                         return@setOnClickListener
@@ -114,8 +86,8 @@ class SearchStoreAdapter :
                         try {
                             val response = mNetworkService.requestSetMemberLike(item.seq)
                             if (response.resultCode == ConstList.SUCCESS) {
-                                storeItemLike.isSelected = !storeItemLike.isSelected
-                                if (storeItemLike.isSelected) {
+                                searchStoreItemLike.isSelected = !searchStoreItemLike.isSelected
+                                if (searchStoreItemLike.isSelected) {
                                     Handler(Looper.getMainLooper()).post {
                                         Toast.makeText(
                                             root.context,
@@ -125,7 +97,9 @@ class SearchStoreAdapter :
                                     }
                                 } else {
                                     if (StoreAppBar.stat == 2) {
-                                        val newList=ArrayList(currentList).also { it.removeAt(adapterPosition) }
+                                        val newList = ArrayList(currentList).also {
+                                            it.removeAt(adapterPosition)
+                                        }
 //                                        notifyItemRemoved(adapterPosition)
                                         submitList(newList)
                                     }
@@ -143,8 +117,8 @@ class SearchStoreAdapter :
 
                 root.setOnClickListener {
                     parentView.isEnabled = false
-                    val dialog=LoadingDialog.newInstance("매장 들어가는 중...")
-                    dialog.show(MainActivity.supportFragmentManager,"loading")
+                    val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
+                    dialog.show(MainActivity.supportFragmentManager, "loading")
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
                     addMainFragment(StoreFragment.newInstance(), true)
@@ -154,9 +128,9 @@ class SearchStoreAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchStoreViewHolder {
-        return DataBindingUtil.inflate<StoreItemBinding>(
+        return DataBindingUtil.inflate<SearchStoreItemBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.store_item,
+            R.layout.search_store_item,
             parent,
             false
         ).let {
@@ -173,12 +147,12 @@ class SearchStoreAdapter :
 
 }
 
-object SearchStoreDiffUtil : DiffUtil.ItemCallback<Store>() {
-    override fun areItemsTheSame(oldItem: Store, newItem: Store): Boolean {
+object SearchStoreDiffUtil : DiffUtil.ItemCallback<SearchStore>() {
+    override fun areItemsTheSame(oldItem: SearchStore, newItem: SearchStore): Boolean {
         return oldItem.seq == newItem.seq
     }
 
-    override fun areContentsTheSame(oldItem: Store, newItem: Store): Boolean {
+    override fun areContentsTheSame(oldItem: SearchStore, newItem: SearchStore): Boolean {
         return oldItem == newItem
     }
 

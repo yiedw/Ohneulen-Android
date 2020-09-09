@@ -22,14 +22,13 @@ import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore", "searchStoreNetworkService")
 fun setSearchStoreAdapter(
     recyclerView: RecyclerView,
     adapter: SearchStoreAdapter?,
-    items: List<Store>?,
+    items: List<SearchStore>?,
     networkService: NetworkService
 ) {
 

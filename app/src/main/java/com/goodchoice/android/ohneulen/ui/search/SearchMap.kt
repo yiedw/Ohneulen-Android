@@ -2,7 +2,6 @@ package com.goodchoice.android.ohneulen.ui.search
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.graphics.Color
 import android.location.Location
@@ -12,13 +11,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.SearchMapBinding
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.gun0912.tedpermission.PermissionListener
@@ -30,8 +27,6 @@ import net.daum.mf.map.api.MapView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import kotlin.system.measureNanoTime
-import kotlin.time.TimedValue
 
 class SearchMap : Fragment() {
 

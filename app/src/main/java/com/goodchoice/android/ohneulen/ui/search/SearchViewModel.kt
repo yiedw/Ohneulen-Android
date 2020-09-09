@@ -2,20 +2,14 @@ package com.goodchoice.android.ohneulen.ui.search
 
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
+import com.goodchoice.android.ohneulen.data.model.SearchStore
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.data.model.Store
-import com.goodchoice.android.ohneulen.data.repository.InitData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.koin.java.KoinJavaComponent.inject
 import timber.log.Timber
 import java.lang.Exception
-import kotlin.system.measureNanoTime
 
 class SearchViewModel(private val networkService: NetworkService) :
     ViewModel() {
@@ -25,7 +19,7 @@ class SearchViewModel(private val networkService: NetworkService) :
 
 
     var mNetworkService = networkService
-    var searchStoreList = MutableLiveData<List<Store>>()
+    var searchStoreList = MutableLiveData<List<SearchStore>>()
     val searchStoreAdapter = SearchStoreAdapter()
 
     val filterHashMap = HashMap<Int, String>()
