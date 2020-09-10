@@ -60,7 +60,7 @@ class SearchFilter : Fragment() {
             lifecycleOwner = this@SearchFilter
             fragment = this@SearchFilter
             viewModel = searchViewModel
-            filterInitData= initData
+            filterInitData = initData
         }
 
         return binding.root
@@ -204,11 +204,11 @@ class SearchFilter : Fragment() {
                             }
                         }
                         binding.searchFilterGridLayout.removeViewAt(i)
-                        break
                     }
                 }
                 //tempCate child 삭제
                 searchViewModel.tempCateOhneulenData.remove(ohneulenData)
+                searchViewModel.cate.remove("${ohneulenData.majorCode}${ohneulenData.minorCode}")
             }
 
 //            binding.searchFilterGridLayout.addView(selectView, 0)

@@ -95,22 +95,36 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         //네비게이션 연결
         main_bottom_nav.setOnNavigationItemSelectedListener(this)
+        bottomNav.selectedItemId = R.id.menu_bottom_nav_home
 
         //다이나믹 링크
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         Firebase.dynamicLinks
             .getDynamicLink(Intent())
             .addOnSuccessListener(this) {
                 var deepLink: Uri? = null
-                bottomNav.selectedItemId = R.id.menu_bottom_nav_home
                 if (it != null) {
+
                     //딥링크로 받아서 들어올때
-                    val dialog= LoadingDialog.newInstance("매장 들어가는 중...")
-                    dialog.show(MainActivity.supportFragmentManager,"loading")
+                    val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
+                    dialog.show(MainActivity.supportFragmentManager, "loading")
                     deepLink = it.link
+                    Timber.e(deepLink.toString())
                     val storeSeq = deepLink!!.lastPathSegment
                     StoreFragment.storeSeq = storeSeq!!
-                    StoreAppBar.stat=0
-                    addMainFragment(StoreFragment.newInstance(),true)
+                    StoreAppBar.stat = 0
+                    addMainFragment(StoreFragment.newInstance(), true)
+
 //                    replaceAppbarFragment(StoreAppBar.newInstance())
 //                    when (segment) {
 //                        ConstList.SEGMENT_STORE -> {
@@ -123,12 +137,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //                    }
                 }
             }
-
-//        Firebase.dynamicLinks.
-    }
-
-    override fun onResume() {
-        super.onResume()
+            .addOnFailureListener {
+                Timber.e("fail")
+            }
+            .addOnCompleteListener {
+                Timber.e("asdf123123123")
+//                this.intent.data = null
+            }
     }
 
     //다른곳 터치시 키보드 내리기

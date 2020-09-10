@@ -15,8 +15,9 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:paddingLeft="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:onClick="@{fragment::onCloseClick}"
             android:src="@drawable/x"

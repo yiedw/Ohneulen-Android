@@ -18,8 +18,9 @@
 
         <ImageView
             android:id="@+id/store_review_write_appbar_close"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:paddingLeft="20dp"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:onClick="@{fragment::closeOnClick}"
             android:src="@drawable/x"

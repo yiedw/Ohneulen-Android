@@ -63,6 +63,7 @@ class SearchFilterSubAdapter() :
                         //아이템이 있으면 삭제
                         searchViewModel.tempCateOhneulenData.remove(items)
                         searchViewModel.cate.remove(code)
+
                     }
 
 

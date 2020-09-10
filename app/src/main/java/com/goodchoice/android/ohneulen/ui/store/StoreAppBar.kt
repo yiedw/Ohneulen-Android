@@ -40,7 +40,8 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
     }
 
     private lateinit var binding: StoreAppbarBinding
-//    private lateinit var shareLink: String
+
+    //    private lateinit var shareLink: String
     private val storeViewModel: StoreViewModel by viewModel()
 
     //나중에 되돌리기
@@ -119,12 +120,12 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             iosParameters("com.goodchoice.ios.ohneulen") {}
 //            buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)
         }
-        var shareLink=""
+        var shareLink = ""
         dynamicLink.addOnSuccessListener {
-             shareLink = dynamicLink.result!!.shortLink.toString()
+            shareLink = dynamicLink.result!!.shortLink.toString()
+            intent.putExtra(Intent.EXTRA_TEXT, shareLink)
+            startActivity(sharing)
         }
-        intent.putExtra(Intent.EXTRA_TEXT, shareLink)
-        startActivity(sharing)
     }
 
     fun backClick(view: View) {

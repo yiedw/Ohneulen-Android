@@ -40,6 +40,7 @@ class Splash : AppCompatActivity() {
                 Toast.makeText(this, "네트워크를 연결해 주세요", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
+                Thread.sleep(200)
                 startRevealActivity(view)
             }
         }

@@ -15,9 +15,10 @@
         >
 
         <ImageView
+            android:paddingLeft="20dp"
             android:id="@+id/noti_appbar_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:gravity="center"
             android:onClick="@{fragment::backClick}"

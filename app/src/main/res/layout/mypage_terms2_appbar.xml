@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:focusable="true"
             android:gravity="center"
+            android:paddingLeft="20dp"
             android:onClick="@{fragment::onBackClick}"
             android:src="@drawable/back"
             app:layout_constraintBottom_toBottomOf="parent"
