@@ -17,11 +17,12 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
+import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListener {
+class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListener {
 
     companion object {
         fun newInstance(back: Boolean = false) = SearchAppBar(back)
@@ -65,6 +66,7 @@ class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         binding.searchAppbarEt.setOnEditorActionListener { v, actionId, event ->
             if (!binding.searchAppbarEt.text.toString().isBlank()) {
@@ -130,6 +132,7 @@ class SearchAppBar(private val back: Boolean) : Fragment(), OnBackPressedListene
             .addToBackStack(null)
             .commit()
         replaceAppbarFragment(SearchFilterAppbar.newInstance())
+//        addAppbarFragment(SearchFilterAppbar.newInstance(),true)
 //        addMainFragment(SearchFilter.newInstance(), true)
     }
 

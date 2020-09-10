@@ -88,21 +88,35 @@ class SearchStoreAdapter :
                             if (response.resultCode == ConstList.SUCCESS) {
                                 searchStoreItemLike.isSelected = !searchStoreItemLike.isSelected
                                 if (searchStoreItemLike.isSelected) {
+//                                    getItem(adapterPosition).likeCnt++
+//                                    notifyItemChanged(adapterPosition)
+//                                    searchStoreItemLike.isSelected=true
+//                                        (binding.searchStoreItemGoodCnt.text.toString() .toInt() + 1).toString()
                                     Handler(Looper.getMainLooper()).post {
+                                        val goodCnt = binding.searchStoreItemGoodCnt.text.toString()
+                                            .toInt()
+                                        binding.searchStoreItemGoodCnt.text =
+                                            (goodCnt + 1).toString()
                                         Toast.makeText(
                                             root.context,
                                             "찜 목록에 저장되었습니다",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
+
                                 } else {
-                                    if (StoreAppBar.stat == 2) {
-                                        val newList = ArrayList(currentList).also {
-                                            it.removeAt(adapterPosition)
-                                        }
-//                                        notifyItemRemoved(adapterPosition)
-                                        submitList(newList)
-                                    }
+//                                    getItem(adapterPosition).likeCnt--
+//                                    notifyItemChanged(adapterPosition)
+//                                    searchStoreItemLike.isSelected=false
+//                                    binding.searchStoreItemGoodCnt.text =
+//                                        (binding.searchStoreItemGoodCnt.text.toString().toInt()-1).toString()
+//                                    if (StoreAppBar.stat == 2) {
+//                                        val newList = ArrayList(currentList).also {
+//                                            it.removeAt(adapterPosition)
+//                                        }
+////                                        notifyItemRemoved(adapterPosition)
+//                                        submitList(newList)
+//                                    }
                                 }
                             } else if (response.resultCode == ConstList.REQUIRE_LOGIN) {
                                 LoginViewModel.isLogin.postValue(false)
@@ -137,8 +151,6 @@ class SearchStoreAdapter :
             SearchStoreViewHolder(it)
         }
     }
-
-    override fun getItemCount() = super.getItemCount()
 
     override fun onBindViewHolder(holder: SearchStoreViewHolder, position: Int) {
         holder.bind(getItem(position))

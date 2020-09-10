@@ -30,8 +30,9 @@ data class SearchStore(
     val insertDate: String,
     val insertID: String,
     val kind: String,
+    var like: Boolean=false,
     @SerializedName("like_cnt")
-    val likeCnt: Int,
+    var likeCnt: Int,
     val memo: String,
     val modifyDate: String,
     val modifyID: String,

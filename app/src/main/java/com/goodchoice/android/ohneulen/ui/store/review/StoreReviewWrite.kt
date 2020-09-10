@@ -132,11 +132,6 @@ class StoreReviewWrite : Fragment() {
 //        })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MainActivity.bottomNav.visibility = View.VISIBLE
-//        keyboardVisibilityUtils.detachKeyboardListeners()
-    }
 
     fun imageAdd(view: View) {
         val permissionListener = object : PermissionListener {

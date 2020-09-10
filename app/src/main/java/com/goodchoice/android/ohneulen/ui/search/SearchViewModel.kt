@@ -31,7 +31,7 @@ class SearchViewModel(private val networkService: NetworkService) :
     var option = mutableListOf<String>()
     var openTime = mutableListOf<String>()
     var sort = mutableListOf<String>()
-    val addrx = mutableListOf<Double>()
+    var addrx = mutableListOf<Double>()
     val addry = mutableListOf<Double>()
 
 

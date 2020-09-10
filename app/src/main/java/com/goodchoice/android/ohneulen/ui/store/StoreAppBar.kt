@@ -40,7 +40,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
     }
 
     private lateinit var binding: StoreAppbarBinding
-    private lateinit var shareLink: String
+//    private lateinit var shareLink: String
     private val storeViewModel: StoreViewModel by viewModel()
 
     //나중에 되돌리기
@@ -66,16 +66,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
-            //웹으로 봤을때 페이지
-            link =
-                Uri.parse("https://www.ohneulen.com/store/view/${StoreFragment.storeSeq}")
-            domainUriPrefix = "https://ohneulen.page.link"
-//            Timber.e(requireActivity().packageName)
-            androidParameters("com.goodchoice.android.ohneulen") { }
-            iosParameters("com.goodchoice.ios.ohneulen") {}
-//            buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)
-        }
+
 
         //찜상태 받아오기
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
@@ -100,9 +91,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         })
 
         //공유하기 링크
-        dynamicLink.addOnSuccessListener {
-            shareLink = dynamicLink.result!!.shortLink.toString()
-        }
+
 
     }
 
@@ -120,6 +109,20 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
         val sharing = Intent.createChooser(intent, "share")
+        val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
+            //웹으로 봤을때 페이지
+            link =
+                Uri.parse("https://www.ohneulen.com/store/view/${StoreFragment.storeSeq}")
+            domainUriPrefix = "https://ohneulen.page.link"
+//            Timber.e(requireActivity().packageName)
+            androidParameters("com.goodchoice.android.ohneulen") { }
+            iosParameters("com.goodchoice.ios.ohneulen") {}
+//            buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)
+        }
+        var shareLink=""
+        dynamicLink.addOnSuccessListener {
+             shareLink = dynamicLink.result!!.shortLink.toString()
+        }
         intent.putExtra(Intent.EXTRA_TEXT, shareLink)
         startActivity(sharing)
     }

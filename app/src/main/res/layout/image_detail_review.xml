@@ -20,9 +20,10 @@
             android:id="@+id/image_detail_review_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:layout_marginRight="21dp"
             android:onClick="@{fragment::onBackClick}"
+            android:paddingTop="16dp"
+            android:paddingRight="21dp"
+            android:paddingBottom="16dp"
             android:src="@drawable/image_detail_close"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +31,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/image_detail_review_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_detail_review_back" />
         <!--            bind:imageDetailLoading="@{viewModel.loading}"-->
