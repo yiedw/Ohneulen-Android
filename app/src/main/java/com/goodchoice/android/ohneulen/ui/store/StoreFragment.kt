@@ -132,6 +132,7 @@ class StoreFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         MainActivity.bottomNav.visibility = View.VISIBLE
+//        first = false
     }
 
     //이미지 세팅(1장 or 여러장)
@@ -331,13 +332,10 @@ class StoreFragment : Fragment() {
                         lp.height = view.measuredHeight
                     }
             }
-            if (!first) {
-                first = true
-                binding.storeNewScrollView.scrollTo(0, 1)
-                binding.storeNewScrollView.smoothScrollTo(0, 0)
-                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
-                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
-                }
+            binding.storeNewScrollView.scrollTo(0, 1)
+            binding.storeNewScrollView.smoothScrollTo(0, 0)
+            if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
+                (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
             }
         }
     }

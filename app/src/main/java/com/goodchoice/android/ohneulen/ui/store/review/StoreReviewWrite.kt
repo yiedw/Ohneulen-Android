@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store.review
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -47,16 +48,14 @@ class StoreReviewWrite : Fragment() {
     private lateinit var binding: StoreReviewWriteBinding
     private var selectedUriList = mutableListOf<Uri>()
     private val storeViewModel: StoreViewModel by viewModel()
+    private var mToast:Toast?=null
 
 //    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav.visibility = View.GONE
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        MainActivity.bottomNav.visibility = View.GONE
         storeViewModel.reviewImgList.clear()
     }
 
@@ -198,30 +197,39 @@ class StoreReviewWrite : Fragment() {
             (binding.storeReviewRg5.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg5.checkedRadioButtonId)) + 1).toString()
 
         if (binding.storeReviewWriteRating.rating.toInt() == 0) {
-            Toast.makeText(requireContext(), "평점을 입력해 주세요", Toast.LENGTH_SHORT).show()
+            showToast("평점을 입력해 주세요")
             return false
         } else if (reviewSelect01 == "0") {
-            Toast.makeText(requireContext(), "맛을 평가해 주세요", Toast.LENGTH_SHORT).show()
+            showToast("맛을 평가해 주세요")
             return false
         } else if (reviewSelect02 == "0") {
-            Toast.makeText(requireContext(), "가격을 평가해 주세요", Toast.LENGTH_SHORT).show()
+            showToast("가격을 평가해 주세요")
             return false
         } else if (reviewSelect03 == "0") {
-            Toast.makeText(requireContext(), "직원 친절도를 평가해 주세요", Toast.LENGTH_SHORT).show()
+            showToast("직원 친절도를 평가해 주세요")
             return false
         } else if (reviewSelect04 == "0") {
-            Toast.makeText(requireContext(), "분위기를 평가해 주세요", Toast.LENGTH_SHORT).show()
+            showToast("분위기를 평가해 주세요")
             return false
         } else if (reviewSelect05 == "0") {
-            Toast.makeText(requireContext(), "청결도를 평가해 주세요", Toast.LENGTH_SHORT).show()
+            showToast("청결도를 평가해 주세요")
             return false
         } else if (binding.storeReviewWriteEt.length() < 5) {
-            Toast.makeText(requireContext(), "후기를 5자 이상 작성해 주세요", Toast.LENGTH_SHORT).show()
+            showToast("후기를 5자 이상 작성해 주세요")
             return false
         }
-
-
         return true
+    }
+
+    @SuppressLint("ShowToast")
+    private fun showToast(message:String){
+        if(mToast==null){
+            mToast=Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT)
+        }
+        else{
+            mToast!!.setText(message)
+        }
+        mToast!!.show()
     }
 
 

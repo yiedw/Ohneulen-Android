@@ -15,6 +15,7 @@ import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
@@ -249,6 +250,7 @@ fun comma(number: Int): String {
     val formatter = DecimalFormat("###,###")
     return formatter.format(number)
 }
+
 
 
 
