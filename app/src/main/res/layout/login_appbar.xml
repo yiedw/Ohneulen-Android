@@ -13,13 +13,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorHeader"
-        >
+        android:background="@color/colorHeader">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="@{fragment::backClick}"
+            android:paddingLeft="20dp"
             android:src="@drawable/back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -29,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:textSize="@dimen/header_center"
             android:text="@string/login"
             android:textColor="@color/white"
+            android:textSize="@dimen/header_center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

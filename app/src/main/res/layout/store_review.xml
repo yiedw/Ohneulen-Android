@@ -85,6 +85,7 @@
                 app:layout_constraintTop_toTopOf="@id/store_review_ratingbar" />
 
             <TextView
+                android:layout_marginTop="3dp"
                 android:id="@+id/store_review_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -339,7 +340,7 @@
             android:layout_marginBottom="30dp"
             android:background="@drawable/background_border_dotted"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/store_review_con"
             app:layout_goneMarginTop="5dp">

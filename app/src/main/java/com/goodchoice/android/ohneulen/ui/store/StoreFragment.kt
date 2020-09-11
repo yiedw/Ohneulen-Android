@@ -100,6 +100,9 @@ class StoreFragment : Fragment() {
                 }
             }
 
+            //평점세팅
+            storePoint(it)
+
 
         })
         stickyHeader()
@@ -389,6 +392,16 @@ class StoreFragment : Fragment() {
                 requireContext().getDrawable(R.drawable.background_border_rounding_ohneulen)
             binding.storeFragmentHashTag.addView(tv)
         }
+    }
+
+    private fun storePoint(storeDetail: StoreDetail) {
+        var point=0.0
+        for(i in storeDetail.reviewList){
+            point+=i.point_1.toDouble()
+        }
+        point/=storeDetail.reviewCnt
+        binding.storeFragmentRating.text=((point*10).toInt()/10.0).toString()
+        binding.storeFragmentRatingBar.rating=((point*10).toInt()/10.0).toFloat()
     }
 
     fun oneImageClick(view: View) {

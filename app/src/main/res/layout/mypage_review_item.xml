@@ -9,10 +9,6 @@
             type="com.goodchoice.android.ohneulen.data.model.Review" />
 
         <variable
-            name="member"
-            type="com.goodchoice.android.ohneulen.data.model.Member" />
-
-        <variable
             name="profileImage"
             type="com.goodchoice.android.ohneulen.data.model.Photo" />
 
@@ -28,7 +24,7 @@
         android:layout_marginTop="15dp">
 
         <ImageView
-            android:id="@+id/review_item_profile"
+            android:id="@+id/mypage_review_item_profile"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/circle_transparent"
@@ -37,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
-            android:id="@+id/review_item_ratingbar"
+            android:id="@+id/mypage_review_item_ratingbar"
             style="@style/starRatingBarS"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
@@ -46,41 +42,52 @@
             android:numStars="5"
             android:rating="5"
             android:stepSize="0.01"
-            app:layout_constraintLeft_toRightOf="@id/review_item_profile"
-            app:layout_constraintTop_toTopOf="@id/review_item_profile" />
+            app:layout_constraintLeft_toRightOf="@id/mypage_review_item_profile"
+            app:layout_constraintTop_toTopOf="@id/mypage_review_item_profile" />
 
         <TextView
-            android:id="@+id/review_item_nickName"
+            android:id="@+id/mypage_review_item_storeName"
             android:layout_width="wrap_content"
+            android:textColor="@color/colorOhneulen"
             android:layout_height="wrap_content"
-            android:text="@{member.nickName}"
-            android:textSize="20dp"
-            app:layout_constraintLeft_toLeftOf="@id/review_item_ratingbar"
-            app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
+            android:textSize="24dp"
+            app:layout_constraintLeft_toLeftOf="@id/mypage_review_item_ratingbar"
+            app:layout_constraintTop_toBottomOf="@id/mypage_review_item_ratingbar" />
 
         <TextView
-            android:id="@+id/review_item_date"
+            android:id="@+id/mypage_review_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#666666"
-            android:layout_marginStart="8dp"
-            android:textSize="14dp"
-            app:layout_constraintLeft_toRightOf="@id/review_item_nickName"
-            app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
-
-        <TextView
-            android:id="@+id/review_item_report"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="신고"
+            android:layout_marginStart="11dp"
             android:textColor="#666666"
             android:textSize="14dp"
-            app:layout_constraintLeft_toRightOf="@id/review_item_date"
-            app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
+            app:layout_constraintLeft_toRightOf="@id/mypage_review_item_storeName"
+            app:layout_constraintTop_toBottomOf="@id/mypage_review_item_ratingbar" />
 
         <TextView
-            android:id="@+id/review_item_content"
+            android:id="@+id/mypage_review_item_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="수정"
+            android:textColor="#666666"
+            android:textSize="13dp"
+            app:layout_constraintLeft_toRightOf="@id/mypage_review_item_date"
+            app:layout_constraintTop_toBottomOf="@id/mypage_review_item_ratingbar" />
+
+        <TextView
+            android:id="@+id/mypage_review_item_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="삭제"
+            android:textColor="#666666"
+            android:textSize="13dp"
+            app:layout_constraintLeft_toRightOf="@id/mypage_review_item_modify"
+            app:layout_constraintTop_toBottomOf="@id/mypage_review_item_ratingbar" />
+
+        <TextView
+            android:id="@+id/mypage_review_item_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -90,18 +97,18 @@
             android:text="@{review.content}"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/review_item_image"
-            app:layout_constraintTop_toBottomOf="@id/review_item_profile" />
+            app:layout_constraintRight_toLeftOf="@id/mypage_review_item_image"
+            app:layout_constraintTop_toBottomOf="@id/mypage_review_item_profile" />
 
         <ImageView
-            android:id="@+id/review_item_image"
+            android:id="@+id/mypage_review_item_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/review_item_content" />
+            app:layout_constraintTop_toTopOf="@id/mypage_review_item_content" />
 
         <TextView
-            android:id="@+id/review_item_amount"
+            android:id="@+id/mypage_review_item_amount"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="#cc000000"
@@ -109,37 +116,37 @@
             android:textColor="@color/white"
             android:textSize="12dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/review_item_image"
-            app:layout_constraintRight_toRightOf="@id/review_item_image" />
+            app:layout_constraintBottom_toBottomOf="@id/mypage_review_item_image"
+            app:layout_constraintRight_toRightOf="@id/mypage_review_item_image" />
 
         <ImageView
-            android:id="@+id/review_item_good"
+            android:id="@+id/mypage_review_item_good"
             android:layout_width="14.3dp"
             android:layout_height="13dp"
             android:adjustViewBounds="true"
             android:src="@drawable/heart"
-            app:layout_constraintBottom_toBottomOf="@id/review_item_image"
+            app:layout_constraintBottom_toBottomOf="@id/mypage_review_item_image"
             app:layout_constraintLeft_toLeftOf="parent" />
 
 
         <TextView
-            android:id="@+id/review_item_good_text"
+            android:id="@+id/mypage_review_item_good_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="7.5dp"
             android:text="좋아합니다"
             android:textSize="13dp"
-            app:layout_constraintBottom_toBottomOf="@id/review_item_good"
-            app:layout_constraintLeft_toRightOf="@id/review_item_good"
-            app:layout_constraintTop_toTopOf="@id/review_item_good" />
+            app:layout_constraintBottom_toBottomOf="@id/mypage_review_item_good"
+            app:layout_constraintLeft_toRightOf="@id/mypage_review_item_good"
+            app:layout_constraintTop_toTopOf="@id/mypage_review_item_good" />
 
         <View
-            android:id="@+id/review_item_border"
+            android:id="@+id/mypage_review_item_border"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
             android:background="#ebebeb"
-            app:layout_constraintTop_toBottomOf="@id/review_item_good_text" />
+            app:layout_constraintTop_toBottomOf="@id/mypage_review_item_good_text" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

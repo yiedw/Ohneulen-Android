@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.search
 
+import android.os.Parcelable
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.model.SearchStore
@@ -25,6 +26,9 @@ class SearchViewModel(private val networkService: NetworkService) :
     val filterHashMap = HashMap<Int, String>()
 
     val tempCateOhneulenData = mutableListOf<OhneulenData>()
+
+    //recyclerview state
+    var recyclerViewState: Parcelable?=null
 
     //서버로 전송할 데이터
     var cate = mutableListOf<String>()

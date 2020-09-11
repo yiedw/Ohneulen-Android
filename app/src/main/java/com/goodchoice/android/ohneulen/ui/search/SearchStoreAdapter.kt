@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.goodchoice.android.ohneulen.BuildConfig
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.SearchStore
 import com.goodchoice.android.ohneulen.data.service.NetworkService
@@ -43,13 +45,12 @@ class SearchStoreAdapter :
         fun bind(item: SearchStore) {
             binding.apply {
                 searchStore = item
-
+                if(BuildConfig.DEBUG){
+                    searchStoreItemNew.visibility= View.VISIBLE
+                }
 
                 //평점
-                val point = String.format(
-                    "%.1f",
-                    (item.P_1 + item.P_2 + item.P_3 + item.P_4 + item.P_5 + item.P_6) / 6
-                )
+                val point = ((item.P_1*10).toInt()/10.0).toString()
                 binding.searchStoreItemRating.text = point
 
                 //리뷰 갯수

@@ -127,9 +127,7 @@ class Home() : Fragment() {
         if (InitData.endNumber.value == 3)
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
         else {
-            Timber.e(InitData.endNumber.value.toString())
             InitData.endNumber.observe(viewLifecycleOwner, Observer {
-            Timber.e(InitData.endNumber.value.toString()+"asdf")
                 if (it == 3) {
                     MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
                 }

@@ -236,15 +236,15 @@ class StoreReviewWrite : Fragment() {
     fun onSubmitClick(view: View) {
         val point0 = binding.storeReviewWriteRating.rating.toInt().toString()
         val reviewSelect01 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg1.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+            (5-binding.storeReviewRg1.indexOfChild(binding.storeReviewRg1.findViewById(binding.storeReviewRg1.checkedRadioButtonId))).toString()
         val reviewSelect02 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg2.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+            (5-binding.storeReviewRg2.indexOfChild(binding.storeReviewRg2.findViewById(binding.storeReviewRg2.checkedRadioButtonId))).toString()
         val reviewSelect03 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg3.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+            (5-binding.storeReviewRg3.indexOfChild(binding.storeReviewRg3.findViewById(binding.storeReviewRg3.checkedRadioButtonId))).toString()
         val reviewSelect04 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+            (5-binding.storeReviewRg4.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg4.checkedRadioButtonId))).toString()
         val reviewSelect05 =
-            (binding.storeReviewRg1.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg1.checkedRadioButtonId)) + 1).toString()
+            (5-binding.storeReviewRg5.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg5.checkedRadioButtonId))).toString()
         val reviewText = binding.storeReviewWriteEt.text.toString()
         val reviewImgList = mutableListOf<ByteArray>()
         for (i in selectedUriList) {

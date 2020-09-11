@@ -35,6 +35,7 @@ import com.gun0912.tedpermission.TedPermission
 import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventListener {
 
@@ -59,9 +60,10 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
         //초기화 (두번씩 observe 되는것 방지)
-        searchViewModel.kakaoMapPoint = MutableLiveData()
-        searchViewModel.searchStoreList = MutableLiveData()
+//        searchViewModel.kakaoMapPoint = MutableLiveData()
+//        searchViewModel.searchStoreList = MutableLiveData()
 
 
     }
@@ -125,8 +127,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         )
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+            Timber.e("asdf")
             if (it != null) {
-
                 if (it.isEmpty()) {
                     binding.searchNone.visibility = View.VISIBLE
                 } else {
@@ -137,7 +139,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
                 //마커추가
                 mapView.removeAllPOIItems()
-                for(i in it){
+                for (i in it) {
                     addMarker(i)
                 }
                 //클러스터 추가
@@ -173,16 +175,30 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
         //markerClickEvent
 
-
     }
 
     override fun onResume() {
         super.onResume()
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         mapViewContainer.removeAllViews()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        searchViewModel.recyclerViewState=binding.searchStoreRv.layoutManager!!.onSaveInstanceState()
+        Timber.e("ASdfsadf")
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if(searchViewModel.recyclerViewState!=null){
+            Timber.e("viewState")
+            binding.searchStoreRv.layoutManager!!.onRestoreInstanceState(searchViewModel.recyclerViewState)
+        }
     }
 
 
@@ -218,7 +234,12 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             this.fillAfter = false
         }
         val animateNoneView =
-            TranslateAnimation(0f, 0f, binding.searchNone.y-binding.searchInfoCon.height.toFloat(), 0f).apply {
+            TranslateAnimation(
+                0f,
+                0f,
+                binding.searchNone.y - binding.searchInfoCon.height.toFloat(),
+                0f
+            ).apply {
                 this.duration = 400
                 this.fillAfter = false
             }
@@ -380,10 +401,12 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 //            markerView.measuredHeight,
 //            Bitmap.Config.ARGB_8888
 //        )
-        val iconGenerator=IconGenerator(requireContext())
-        val layoutInflater:LayoutInflater =requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val markerView=layoutInflater.inflate(R.layout.cluster_icon_unselected,null)
-        markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text=storeList.size.toString()
+        val iconGenerator = IconGenerator(requireContext())
+        val layoutInflater: LayoutInflater =
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val markerView = layoutInflater.inflate(R.layout.cluster_icon_unselected, null)
+        markerView.findViewById<TextView>(R.id.cluster_icon_unselected).text =
+            storeList.size.toString()
         iconGenerator.setContentView(markerView)
         iconGenerator.setBackground(null)
         marker.customImageBitmap = iconGenerator.makeIcon()

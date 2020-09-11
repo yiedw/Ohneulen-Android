@@ -1,9 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -13,33 +10,19 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
 import android.widget.RadioButton
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreReviewBinding
-import com.goodchoice.android.ohneulen.ui.login.Login
-import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
-import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -81,6 +64,7 @@ class StoreReview : Fragment() {
                 reviewEmpty()
             } else {
                 reviewNotEmpty()
+                ratingSetting(it)
             }
         })
 
@@ -156,6 +140,38 @@ class StoreReview : Fragment() {
                 radioButton.setTypeface(null, Typeface.NORMAL)
             }
         }
+    }
+
+    private fun ratingSetting(storeDetail: StoreDetail){
+        var point1=0.0
+        var point2=0.0
+        var point3=0.0
+        var point4=0.0
+        var point5=0.0
+        var point6=0.0
+        for(i in storeDetail.reviewList){
+            point1+=i.point_1.toDouble()
+            point2+=i.point_2.toDouble()
+            point3+=i.point_3.toDouble()
+            point4+=i.point_4.toDouble()
+            point5+=i.point_5.toDouble()
+            point6+=i.point_6.toDouble()
+        }
+        point1/=storeDetail.reviewList.size
+        point2/=storeDetail.reviewList.size
+        point3/=storeDetail.reviewList.size
+        point4/=storeDetail.reviewList.size
+        point5/=storeDetail.reviewList.size
+        point6/=storeDetail.reviewList.size
+        Timber.e(point1.toString())
+        binding.storeReviewRatingbar.rating=point1.toFloat()
+        binding.storeReviewProgressbarPrice.progress=(point2*20).toInt()
+        binding.storeReviewProgressbarFlavor.progress=(point3*20).toInt()
+        binding.storeReviewProgressbarKindness.progress=(point4*20).toInt()
+        binding.storeReviewProgressbarClean.progress=(point5*20).toInt()
+        binding.storeReviewProgressbarMood.progress=(point6*20).toInt()
+//        binding.storeReviewRatingScore.text=String.format("%.1f",point1)
+        binding.storeReviewRatingScore.text=((point1*10).toInt()/10.0).toString()
 
     }
 

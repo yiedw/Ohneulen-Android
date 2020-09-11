@@ -317,7 +317,6 @@
             android:textAlignment="center"
             android:textColor="@color/colorGrey88"
             android:textSize="@dimen/main_contents"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/search_filter_submit" />
@@ -335,7 +334,6 @@
             android:textAlignment="center"
             android:textColor="@color/colorGreen"
             android:textSize="@dimen/main_contents"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/search_filter_reset"
             app:layout_constraintRight_toRightOf="parent"

@@ -30,6 +30,7 @@ class ReviewAdapter(val report: Boolean = true) :
         fun bind(reviewItem: Review) {
             binding.apply {
                 review = reviewItem
+                reviewItemRatingbar.rating=reviewItem.point_1.toFloat()
 //                val rating: Double =
 //                    (reviewItem.point_1.toDouble() + reviewItem.point_2.toDouble() +
 //                            reviewItem.point_3.toDouble() + reviewItem.point_4.toDouble() + reviewItem.point_5.toDouble()) / 5

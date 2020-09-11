@@ -469,7 +469,7 @@ class SearchFilter : Fragment() {
         } else {
             TranslateAnimation(0f, binding.searchFilterFood.width.toFloat(), 0f, 0f)
         }
-        animate.duration = 200
+        animate.duration = 300
         animate.fillAfter = true
         binding.searchFilterChoiceBackground.startAnimation(animate)
     }

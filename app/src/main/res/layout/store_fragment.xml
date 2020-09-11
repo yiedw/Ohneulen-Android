@@ -69,11 +69,11 @@
                     android:text="4.8"
                     android:textColor="@color/colorOhneulen"
                     android:textSize="15dp"
-                    app:layout_constraintRight_toLeftOf="@id/store_fragment_rating_start"
+                    app:layout_constraintRight_toLeftOf="@id/store_fragment_ratingBar"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RatingBar
-                    android:id="@+id/store_fragment_rating_start"
+                    android:id="@+id/store_fragment_ratingBar"
                     style="@style/starRatingBarS"
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"

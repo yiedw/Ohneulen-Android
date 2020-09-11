@@ -57,7 +57,7 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
     fun closeOnClick(view: View) {
 //        MainActivity.supportFragmentManager.popBackStack()
         dataRevert()
-        replaceAppbarFragment(SearchAppBar.newInstance())
+        replaceAppbarFragment(SearchAppBar.newInstance(true))
         MainActivity.supportFragmentManager.popBackStack()
     }
 

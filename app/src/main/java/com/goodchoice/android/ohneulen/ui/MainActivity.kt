@@ -137,13 +137,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //                    }
                 }
             }
-            .addOnFailureListener {
-                Timber.e("fail")
-            }
-            .addOnCompleteListener {
-                Timber.e("asdf123123123")
-//                this.intent.data = null
-            }
     }
 
     //다른곳 터치시 키보드 내리기
