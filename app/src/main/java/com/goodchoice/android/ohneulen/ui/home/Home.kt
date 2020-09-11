@@ -124,8 +124,10 @@ class Home() : Fragment() {
         mainViewModel.searchEditText = binding.homeEditText.text.toString()
         mainViewModel.currentLocationSearch = false
         hideKeyboard(view, requireContext())
-        if (InitData.endNumber.value == 3)
+        if (InitData.endNumber.value == 3){
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
+            mainViewModel.searchCheck=true
+        }
         else {
             InitData.endNumber.observe(viewLifecycleOwner, Observer {
                 if (it == 3) {

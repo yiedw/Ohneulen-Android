@@ -56,9 +56,13 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
                 mainViewModel.searchEditText = "강남역"
             }
             searchViewModel.searchEditText = mainViewModel.searchEditText
-            binding.searchAppbarEt.setText(mainViewModel.searchEditText)
-            if (!back)
+            if (searchViewModel.searchAppbarFirst || mainViewModel.searchCheck) {
                 searchViewModel.getSearchMapData()
+                searchViewModel.searchAppbarFirst = false
+                mainViewModel.searchCheck = false
+
+            }
+            binding.searchAppbarEt.setText(mainViewModel.searchEditText)
         }
         binding.fragment = this
         return binding.root

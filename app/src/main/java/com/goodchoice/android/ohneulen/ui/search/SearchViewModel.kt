@@ -24,6 +24,7 @@ class SearchViewModel(private val networkService: NetworkService) :
     val searchStoreAdapter = SearchStoreAdapter()
 
     val filterHashMap = HashMap<Int, String>()
+    var searchAppbarFirst=true
 
     val tempCateOhneulenData = mutableListOf<OhneulenData>()
 
