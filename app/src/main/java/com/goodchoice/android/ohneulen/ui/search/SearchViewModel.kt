@@ -24,12 +24,12 @@ class SearchViewModel(private val networkService: NetworkService) :
     val searchStoreAdapter = SearchStoreAdapter()
 
     val filterHashMap = HashMap<Int, String>()
-    var searchAppbarFirst=true
+    var searchAppbarFirst = true
 
     val tempCateOhneulenData = mutableListOf<OhneulenData>()
 
     //recyclerview state
-    var recyclerViewState: Parcelable?=null
+    var recyclerViewState: Parcelable? = null
 
     //서버로 전송할 데이터
     var cate = mutableListOf<String>()
@@ -71,7 +71,9 @@ class SearchViewModel(private val networkService: NetworkService) :
                     openTime,
                     sort
                 )
-                searchStoreList.postValue(response.resultData)
+                if (response.resultData != searchStoreList.value) {
+                    searchStoreList.postValue(response.resultData)
+                }
 
 
             } catch (e: Throwable) {

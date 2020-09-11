@@ -127,7 +127,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         )
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
-            Timber.e("asdf")
             if (it != null) {
                 if (it.isEmpty()) {
                     binding.searchNone.visibility = View.VISIBLE
@@ -189,13 +188,14 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        searchViewModel.recyclerViewState=binding.searchStoreRv.layoutManager!!.onSaveInstanceState()
+        searchViewModel.recyclerViewState =
+            binding.searchStoreRv.layoutManager!!.onSaveInstanceState()
         Timber.e("ASdfsadf")
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        if(searchViewModel.recyclerViewState!=null){
+        if (searchViewModel.recyclerViewState != null) {
             Timber.e("viewState")
             binding.searchStoreRv.layoutManager!!.onRestoreInstanceState(searchViewModel.recyclerViewState)
         }
@@ -263,8 +263,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
 
     private fun circleSearch(mapPoint: MapPoint) {
-        searchViewModel.addry.clear()
-        searchViewModel.addrx.clear()
         val mapCircle = MapCircle(
             mapPoint,
             300,
@@ -272,6 +270,17 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             Color.argb(128, 255, 255, 0)
         )
         val mapPointBounds = mapCircle.bound
+        if (searchViewModel.addry.isNotEmpty()) {
+            if (searchViewModel.addry[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.latitude
+                && searchViewModel.addry[1] == mapPointBounds.topRight.mapPointGeoCoord.latitude
+                && searchViewModel.addrx[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
+                && searchViewModel.addrx[1] == mapPointBounds.topRight.mapPointGeoCoord.longitude
+            ) {
+                return
+            }
+        }
+        searchViewModel.addry.clear()
+        searchViewModel.addrx.clear()
         searchViewModel.addry.add(mapPointBounds.bottomLeft.mapPointGeoCoord.latitude)
         searchViewModel.addry.add(mapPointBounds.topRight.mapPointGeoCoord.latitude)
         searchViewModel.addrx.add(mapPointBounds.bottomLeft.mapPointGeoCoord.longitude)
