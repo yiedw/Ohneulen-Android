@@ -37,7 +37,6 @@ class StoreReview : Fragment() {
     private val loginViewModel: LoginViewModel by viewModel()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -142,42 +141,41 @@ class StoreReview : Fragment() {
         }
     }
 
-    private fun ratingSetting(storeDetail: StoreDetail){
-        var point1=0.0
-        var point2=0.0
-        var point3=0.0
-        var point4=0.0
-        var point5=0.0
-        var point6=0.0
-        for(i in storeDetail.reviewList){
-            point1+=i.point_1.toDouble()
-            point2+=i.point_2.toDouble()
-            point3+=i.point_3.toDouble()
-            point4+=i.point_4.toDouble()
-            point5+=i.point_5.toDouble()
-            point6+=i.point_6.toDouble()
+    private fun ratingSetting(storeDetail: StoreDetail) {
+        var point1 = 0.0
+        var point2 = 0.0
+        var point3 = 0.0
+        var point4 = 0.0
+        var point5 = 0.0
+        var point6 = 0.0
+        for (i in storeDetail.reviewList) {
+            point1 += i.point_1.toDouble()
+            point2 += i.point_2.toDouble()
+            point3 += i.point_3.toDouble()
+            point4 += i.point_4.toDouble()
+            point5 += i.point_5.toDouble()
+            point6 += i.point_6.toDouble()
         }
-        point1/=storeDetail.reviewList.size
-        point2/=storeDetail.reviewList.size
-        point3/=storeDetail.reviewList.size
-        point4/=storeDetail.reviewList.size
-        point5/=storeDetail.reviewList.size
-        point6/=storeDetail.reviewList.size
-        Timber.e(point1.toString())
-        binding.storeReviewRatingbar.rating=point1.toFloat()
-        binding.storeReviewProgressbarPrice.progress=(point2*20).toInt()
-        binding.storeReviewProgressbarFlavor.progress=(point3*20).toInt()
-        binding.storeReviewProgressbarKindness.progress=(point4*20).toInt()
-        binding.storeReviewProgressbarClean.progress=(point5*20).toInt()
-        binding.storeReviewProgressbarMood.progress=(point6*20).toInt()
+        point1 /= storeDetail.reviewList.size
+        point2 /= storeDetail.reviewList.size
+        point3 /= storeDetail.reviewList.size
+        point4 /= storeDetail.reviewList.size
+        point5 /= storeDetail.reviewList.size
+        point6 /= storeDetail.reviewList.size
+        binding.storeReviewRatingbar.rating = point1.toFloat()
+        binding.storeReviewProgressbarPrice.progress = (point2 * 20).toInt()
+        binding.storeReviewProgressbarFlavor.progress = (point3 * 20).toInt()
+        binding.storeReviewProgressbarKindness.progress = (point4 * 20).toInt()
+        binding.storeReviewProgressbarClean.progress = (point5 * 20).toInt()
+        binding.storeReviewProgressbarMood.progress = (point6 * 20).toInt()
 //        binding.storeReviewRatingScore.text=String.format("%.1f",point1)
-        binding.storeReviewRatingScore.text=((point1*10).toInt()/10.0).toString()
+        binding.storeReviewRatingScore.text = ((point1 * 10).toInt() / 10.0).toString()
 
     }
 
     fun reviewWriteClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
-            loginDialog(requireContext(), StoreAppBar.newInstance(),false)
+            loginDialog(requireContext(), StoreAppBar.newInstance(), false)
         } else {
             replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
             popupFragment(StoreReviewWrite.newInstance())
