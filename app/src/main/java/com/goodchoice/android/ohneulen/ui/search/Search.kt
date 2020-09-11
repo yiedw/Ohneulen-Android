@@ -8,6 +8,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearSmoothScroller
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.SearchStore
@@ -135,6 +137,11 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 }
                 binding.searchStoreAmount.text = "매장 ${it.size}"
 
+                if (searchViewModel.recyclerViewState != null) {
+                    binding.searchStoreRv.layoutManager!!.onRestoreInstanceState(searchViewModel.recyclerViewState)
+                    searchViewModel.recyclerViewState = null
+                }
+
 
                 //마커추가
                 mapView.removeAllPOIItems()
@@ -184,6 +191,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     override fun onDestroy() {
         super.onDestroy()
         mapViewContainer.removeAllViews()
+        searchViewModel.recyclerViewState =
+            binding.searchStoreRv.layoutManager!!.onSaveInstanceState()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -195,10 +204,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        if (searchViewModel.recyclerViewState != null) {
-            Timber.e("viewState")
-            binding.searchStoreRv.layoutManager!!.onRestoreInstanceState(searchViewModel.recyclerViewState)
-        }
+
     }
 
 
@@ -425,6 +431,24 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         storeListHashMap[index] = ArrayList(storeList)
 
     }
+
+//    private fun searchStoreAdapterSetting(items:Store){
+//        val smoothScroller = object : LinearSmoothScroller(recyclerView.context) {
+//            override fun getVerticalSnapPreference(): Int {
+//                return SNAP_TO_START
+//            }
+//        }
+//        smoothScroller.targetPosition = 0
+//        binding.searchStoreRv.setHasFixedSize(true)
+//        binding.searchStoreRv.adapter = (adapter as SearchStoreAdapter).apply {
+//            mNetworkService = networkService
+//            submitList(items)
+//            Handler().postDelayed({
+//                recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
+//            }, 200)
+//
+//        }
+//    }
 
 
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {

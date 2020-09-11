@@ -41,12 +41,11 @@ fun setSearchStoreAdapter(
     smoothScroller.targetPosition = 0
     recyclerView.setHasFixedSize(true)
     recyclerView.adapter = adapter?.apply {
-        parentView = recyclerView
         mNetworkService = networkService
         submitList(items)
-        Handler().postDelayed({
-            recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
-        }, 200)
+//        Handler().postDelayed({
+//            recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
+//        }, 200)
 
     }
 }

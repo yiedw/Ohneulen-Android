@@ -71,7 +71,6 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.searchAppbarEt.setOnEditorActionListener { v, actionId, event ->
             if (!binding.searchAppbarEt.text.toString().isBlank()) {
                 val imm: InputMethodManager =

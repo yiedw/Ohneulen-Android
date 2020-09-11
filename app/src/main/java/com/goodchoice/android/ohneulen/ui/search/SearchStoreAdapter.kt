@@ -36,7 +36,6 @@ class SearchStoreAdapter :
     ListAdapter<SearchStore, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
     var first = false
-    lateinit var parentView: RecyclerView
     lateinit var mNetworkService: NetworkService
 
     inner class SearchStoreViewHolder(private val binding: SearchStoreItemBinding) :
@@ -131,7 +130,6 @@ class SearchStoreAdapter :
                 }
 
                 root.setOnClickListener {
-                    parentView.isEnabled = false
                     val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
                     dialog.show(MainActivity.supportFragmentManager, "loading")
 //                    root.isEnabled=false
