@@ -21,10 +21,10 @@
 
 
         <ScrollView
-            android:fillViewport="true"
             android:id="@+id/store_review_write_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@id/store_review_write_submit"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -56,8 +56,8 @@
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.storeDetail.storeInfo.storeFull.storeName}"
                     android:textAlignment="center"
-                    android:textSize="14dp"
                     android:textColor="@color/colorTextBlack"
+                    android:textSize="14dp"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/store_review_write_tv2"
@@ -68,9 +68,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="에서 어떠셨나요?"
-                    android:textSize="14dp"
                     android:textAlignment="center"
                     android:textColor="@color/colorTextBlack"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="@id/store_review_write_tv1"
                     app:layout_constraintLeft_toRightOf="@id/store_review_write_tv1"
                     app:layout_constraintRight_toRightOf="parent"
@@ -546,6 +546,8 @@
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:id="@+id/store_review_write_con1"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -634,11 +636,11 @@
 
 
         <Button
-            android:onClick="@{fragment::onSubmitClick}"
             android:id="@+id/store_review_write_submit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorGreen"
+            android:onClick="@{fragment::onSubmitClick}"
             android:stateListAnimator="@null"
             android:text="작성완료"
             android:textColor="@color/white"

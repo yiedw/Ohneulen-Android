@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.login
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Typeface
 import android.icu.util.ValueIterator
 import android.os.Bundle
 import android.text.Editable
@@ -184,6 +185,12 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
             MainActivity.bottomNav.visibility = View.GONE
         }
         loginViewModel.loginErrorToast.postValue(Event(false))
+    }
+
+    private fun hintFontFamilyChance(){
+        val hintTypeface=Typeface.createFromAsset(requireContext().assets,"font1.ttf")
+        val typefaceSpan=CustomType
+        binding.loginEmailEt.
     }
 
 

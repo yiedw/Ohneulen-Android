@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
@@ -48,7 +49,7 @@ class StoreReviewWrite : Fragment() {
     private lateinit var binding: StoreReviewWriteBinding
     private var selectedUriList = mutableListOf<Uri>()
     private val storeViewModel: StoreViewModel by viewModel()
-    private var mToast:Toast?=null
+    private var mToast: Toast? = null
 
 //    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
@@ -90,8 +91,13 @@ class StoreReviewWrite : Fragment() {
                 binding.storeReviewPointLinearLayout.visibility = View.GONE
             } else {
                 binding.storeReviewPointLinearLayout.visibility = View.VISIBLE
+//                binding.storeReviewWriteScroll.scrollToB
+                binding.storeReviewWriteScroll.post {
+                    binding.storeReviewWriteScroll.fullScroll(ScrollView.FOCUS_DOWN)
+                }
             }
         }
+
 
 
         binding.storeReviewWriteEt.addTextChangedListener(object : TextWatcher {
@@ -177,7 +183,7 @@ class StoreReviewWrite : Fragment() {
                 selectedUriList.remove(uri)
             }
             binding.storeReviewWriteImage.addView(itemBinding.root, 0)
-            val file=File(uri.path!!)
+            val file = File(uri.path!!)
             storeViewModel.imageUpload(file)
 //            storeViewModel.imageUpload(data)
         }
@@ -222,11 +228,10 @@ class StoreReviewWrite : Fragment() {
     }
 
     @SuppressLint("ShowToast")
-    private fun showToast(message:String){
-        if(mToast==null){
-            mToast=Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT)
-        }
-        else{
+    private fun showToast(message: String) {
+        if (mToast == null) {
+            mToast = Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
+        } else {
             mToast!!.setText(message)
         }
         mToast!!.show()
@@ -236,15 +241,15 @@ class StoreReviewWrite : Fragment() {
     fun onSubmitClick(view: View) {
         val point0 = binding.storeReviewWriteRating.rating.toInt().toString()
         val reviewSelect01 =
-            (5-binding.storeReviewRg1.indexOfChild(binding.storeReviewRg1.findViewById(binding.storeReviewRg1.checkedRadioButtonId))).toString()
+            (5 - binding.storeReviewRg1.indexOfChild(binding.storeReviewRg1.findViewById(binding.storeReviewRg1.checkedRadioButtonId))).toString()
         val reviewSelect02 =
-            (5-binding.storeReviewRg2.indexOfChild(binding.storeReviewRg2.findViewById(binding.storeReviewRg2.checkedRadioButtonId))).toString()
+            (5 - binding.storeReviewRg2.indexOfChild(binding.storeReviewRg2.findViewById(binding.storeReviewRg2.checkedRadioButtonId))).toString()
         val reviewSelect03 =
-            (5-binding.storeReviewRg3.indexOfChild(binding.storeReviewRg3.findViewById(binding.storeReviewRg3.checkedRadioButtonId))).toString()
+            (5 - binding.storeReviewRg3.indexOfChild(binding.storeReviewRg3.findViewById(binding.storeReviewRg3.checkedRadioButtonId))).toString()
         val reviewSelect04 =
-            (5-binding.storeReviewRg4.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg4.checkedRadioButtonId))).toString()
+            (5 - binding.storeReviewRg4.indexOfChild(binding.storeReviewRg4.findViewById(binding.storeReviewRg4.checkedRadioButtonId))).toString()
         val reviewSelect05 =
-            (5-binding.storeReviewRg5.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg5.checkedRadioButtonId))).toString()
+            (5 - binding.storeReviewRg5.indexOfChild(binding.storeReviewRg5.findViewById(binding.storeReviewRg5.checkedRadioButtonId))).toString()
         val reviewText = binding.storeReviewWriteEt.text.toString()
         val reviewImgList = mutableListOf<ByteArray>()
         for (i in selectedUriList) {
@@ -272,8 +277,9 @@ class StoreReviewWrite : Fragment() {
             )
         }
     }
-    fun uri2File(uri:Uri){
-        val file= File(uri.path!!)
+
+    fun uri2File(uri: Uri) {
+        val file = File(uri.path!!)
     }
 
 
