@@ -243,12 +243,12 @@ class StoreHome : Fragment() {
             params.setMargins(0, 0, 0, 5.dp())
             linearLayout.layoutParams = params
 
-            //이모티콘
+            //아이콘
             val iv = ImageView(requireContext())
-            val params1 = LinearLayout.LayoutParams(23.dp(), 23.dp())
+            val params1 = LinearLayout.LayoutParams(26.dp(),26.dp())
 //            iv.setPadding(0,0,15.dp(),0)
             iv.layoutParams = params1
-            iv.scaleType = ImageView.ScaleType.FIT_CENTER
+//            iv.scaleType = ImageView.ScaleType.FIT_CENTER
             Glide.with(requireContext()).load("${BaseUrl.OHNEULEN}${i.icon}").into(iv)
 
 
@@ -258,7 +258,7 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
-            params2.marginStart = 27.dp()
+            params2.marginStart = 24.dp()
             tv.gravity = Gravity.CENTER
             tv.layoutParams = params2
             tv.setTextColor(requireContext().getColor(R.color.colorGrey88))

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.StoreMenu
 import com.goodchoice.android.ohneulen.databinding.StoreMenuDetailBinding
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
@@ -62,8 +63,18 @@ class StoreMenuDetailDialog(private var inputIndex: Int) : DialogFragment(), OnB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         storeViewModel.loading.observe(viewLifecycleOwner, Observer {
             if (it) {
+                val list = mutableListOf<StoreMenu>()
+                for (i in storeViewModel.storeMenuList) {
+                    if (i.photoURL.isNotEmpty()) {
+                        list.add(i)
+                    }
+                }
+                (binding.storeMenuDetailRv.adapter as StoreMenuDetailAdapter).menuList = list
+
+
                 (binding.storeMenuDetailRv.adapter as StoreMenuDetailAdapter).menuPosition.observe(
                     viewLifecycleOwner,
                     Observer { pos ->
@@ -73,7 +84,7 @@ class StoreMenuDetailDialog(private var inputIndex: Int) : DialogFragment(), OnB
                         } else {
                             binding.storeMenuDetailLeft.visibility = View.VISIBLE
                         }
-                        if (pos == storeViewModel.storeMenuList.size - 1) {
+                        if (pos == (binding.storeMenuDetailRv.adapter as StoreMenuDetailAdapter).menuList.size - 1) {
                             binding.storeMenuDetailRight.visibility = View.GONE
                         } else {
                             binding.storeMenuDetailRight.visibility = View.VISIBLE

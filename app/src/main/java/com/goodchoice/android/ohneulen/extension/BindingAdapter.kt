@@ -95,7 +95,14 @@ fun setStoreMenuDetail(
 
     recyclerView.adapter = StoreMenuDetailAdapter()
         .apply {
-            menuList = items ?: emptyList()
+            if(items==null) return
+            val list= mutableListOf<StoreMenu>()
+            for(i in items){
+                if(i.photoURL.isNotEmpty()){
+                    list.add(i)
+                }
+            }
+            menuList =list
             menuPosition.postValue(index)
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -104,6 +111,8 @@ fun setStoreMenuDetail(
                         val centerView = snapHelper.findSnapView(recyclerView.layoutManager)
                         val pos: Int? =
                             centerView?.let { recyclerView.layoutManager!!.getPosition(it) }
+
+
                         menuPosition.postValue(pos)
                     }
                 }

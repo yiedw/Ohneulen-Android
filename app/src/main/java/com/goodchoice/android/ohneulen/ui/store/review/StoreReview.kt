@@ -72,7 +72,7 @@ class StoreReview : Fragment() {
                 reviewNotEmpty()
                 ratingSetting(it)
             }
-//            (binding.storeReviewRv.adapter as ReviewAdapter).submitList(it.reviewList.toMutableList())
+            (binding.storeReviewRv.adapter as ReviewAdapter).submitList(it.reviewList.toMutableList())
 //            (this.parentFragment as StoreFragment).view?.findViewById<ViewPager2>(R.id.store_fragment_viewPager2)?.adapter?.notifyItemChanged(2)
 //            Timber.e("asdfsdaf")
         })

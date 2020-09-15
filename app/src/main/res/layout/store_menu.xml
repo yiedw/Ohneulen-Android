@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         bind:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        bind:storeMenu="@{viewModel.storeMenuList}">
+        bind:storeMenu="@{viewModel.storeMenuList}"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 </layout>

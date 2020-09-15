@@ -64,6 +64,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
     //menuDetail 클릭했을때 클릭한 곳으로 이동
     var menuIndex = 0
+    var menuDetailListSize=0
 
 
     //storeimage
