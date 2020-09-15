@@ -23,7 +23,6 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel(){
 
 
     //후기
-    var mypageReviewAdapter = ReviewAdapter(false)
     var mypageReviewList: LiveData<List<Review>> = liveData(Dispatchers.IO) {
         emit(getReview())
     }

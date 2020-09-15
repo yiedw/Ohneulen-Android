@@ -23,7 +23,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            bind:reviewAdapter="@{viewModel.mypageReviewAdapter}"
             bind:review="@{viewModel.mypageReviewList}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout

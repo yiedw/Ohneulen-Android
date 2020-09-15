@@ -68,7 +68,6 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
     //storeimage
     var storeImageDetailIndex = 0
-    var storeReviewAdapter = ReviewAdapter()
 
 
     //후기 신고할때

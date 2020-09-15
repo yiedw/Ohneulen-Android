@@ -82,6 +82,7 @@ class StoreFragment : Fragment() {
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
 //            메뉴 없으면 메뉴탭 삭제
+//            Timber.e("asdf")
             replaceAppbarFragment(StoreAppBar.newInstance())
             if (it.menuList.isNullOrEmpty()) {
                 viewPagerSettingNullMenu()
@@ -100,41 +101,32 @@ class StoreFragment : Fragment() {
                 }
             }
 
+
             //평점세팅
             storePoint(it)
-
+//            binding.storeFragmentViewPager2.adapter!!.notifyDataSetChanged()
+            binding.storeFragmentViewPager2.currentItem = state
+            Timber.e("storeFragment")
 
         })
         stickyHeader()
 
-//        binding.storeNewScrollView.setOnScrollChangeListener { v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-//            if (!first) {
-//                first = true
-//                Timber.e("a2")
-//                binding.storeNewScrollView.scrollTo(0, 1)
-//                binding.storeNewScrollView.smoothScrollTo(0, 0)
-//                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
-//                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
-//                }
-//            }
-////
-////
-//            return@setOnScrollChangeListener
-//        }
     }
 
-
-    override fun onResume() {
-        super.onResume()
-    }
 
     override fun onPause() {
         super.onPause()
     }
 
+//    override fun onStart() {
+//        super.onStart()
+//        storeViewModel.getStoreDetail(storeSeq)
+//    }
+
     override fun onDestroy() {
         super.onDestroy()
         MainActivity.bottomNav.visibility = View.VISIBLE
+        state = 0
 //        first = false
     }
 
@@ -201,18 +193,17 @@ class StoreFragment : Fragment() {
 
     //viewPager setting
     private fun viewPagerSetting() {
-
         binding.storeFragmentViewPager2.adapter = StorePagerAdapter(
             getFragmentList(), childFragmentManager,
             lifecycle
         )
         binding.storeFragmentViewPager2.offscreenPageLimit = getFragmentList().size
 
+
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "메뉴", "후기")
         TabLayoutMediator(binding.storeTab, binding.storeFragmentViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
-
         }.attach()
 //        Timber.e(binding.storeTab.tabCount.toString())
         binding.storeNewScrollView.setBackgroundColor(
@@ -225,7 +216,7 @@ class StoreFragment : Fragment() {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    binding.storeFragmentViewPager2.setCurrentItem(position, true)
+//                    binding.storeFragmentViewPager2.setCurrentItem(position, true)
                     state = position
 
                     val view =
@@ -241,17 +232,10 @@ class StoreFragment : Fragment() {
 
                         }
                     }
-
-//                    binding.storeNewScrollView.scrollTo(0, 0)
-//                    stickyHeader()
-//                    if (position == 1) {
-//                    }
-//                    binding.storeNewScrollView.invalidate()
                 }
 
             }
         )
-
     }
 
     private fun viewPagerSettingNullMenu() {
@@ -259,16 +243,13 @@ class StoreFragment : Fragment() {
             getFragmentListNullMenu(), childFragmentManager,
             lifecycle
         )
-//        binding.storeViewPager2.offscreenPageLimit = 1
         binding.storeFragmentViewPager2.offscreenPageLimit = getFragmentList().size
-
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "후기")
         TabLayoutMediator(binding.storeTab, binding.storeFragmentViewPager2) { tab, position ->
             tab.text = tabLayoutTextList[position]
         }.attach()
-//        Timber.e(binding.storeTab.tabCount.toString())
         binding.storeNewScrollView.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -308,10 +289,18 @@ class StoreFragment : Fragment() {
                             updatePagerHeightForChild(view, binding.storeFragmentViewPager2)
                         }
                     }
+//                    if(position==2){
+//                        state=2
+//                        (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).notifyItemChanged(
+//                            2
+//                        )
+//                    }
                 }
+
 
             }
         )
+//        binding.storeFragmentViewPager2.currentItem = state
     }
 
     //viewPager2 크기조절
@@ -395,13 +384,13 @@ class StoreFragment : Fragment() {
     }
 
     private fun storePoint(storeDetail: StoreDetail) {
-        var point=0.0
-        for(i in storeDetail.reviewList){
-            point+=i.point_1.toDouble()
+        var point = 0.0
+        for (i in storeDetail.reviewList) {
+            point += i.point_1.toDouble()
         }
-        point/=storeDetail.reviewCnt
-        binding.storeFragmentRating.text=((point*10).toInt()/10.0).toString()
-        binding.storeFragmentRatingBar.rating=((point*10).toInt()/10.0).toFloat()
+        point /= storeDetail.reviewCnt
+        binding.storeFragmentRating.text = ((point * 10).toInt() / 10.0).toString()
+        binding.storeFragmentRatingBar.rating = ((point * 10).toInt() / 10.0).toFloat()
     }
 
     fun oneImageClick(view: View) {

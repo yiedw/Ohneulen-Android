@@ -16,11 +16,14 @@ import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreReviewBinding
+import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -54,8 +57,12 @@ class StoreReview : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //rv adapter 세팅
+        val adapter = ReviewAdapter()
+        binding.storeReviewRv.adapter = adapter
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             reviewCnt(it)
             //리뷰가 0개일때
@@ -65,6 +72,9 @@ class StoreReview : Fragment() {
                 reviewNotEmpty()
                 ratingSetting(it)
             }
+//            (binding.storeReviewRv.adapter as ReviewAdapter).submitList(it.reviewList.toMutableList())
+//            (this.parentFragment as StoreFragment).view?.findViewById<ViewPager2>(R.id.store_fragment_viewPager2)?.adapter?.notifyItemChanged(2)
+//            Timber.e("asdfsdaf")
         })
 
         //정렬 bold 주기
@@ -73,9 +83,6 @@ class StoreReview : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 
     @SuppressLint("SetTextI18n")
     private fun reviewCnt(storeDetail: StoreDetail) {

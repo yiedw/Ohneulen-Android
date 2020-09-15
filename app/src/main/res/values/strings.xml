@@ -31,7 +31,7 @@
     <string name="email_tv_fail">이메일 형식이 올바르지 않습니다</string>
     <string name="pw_tv_basic">비밀번호</string>
     <string name="pw_tv_fail">비밀번호를 다시 확인하세요</string>
-    <string name="footer">(주)굿초이스 \n 서울특별시 서초구 강남대로 341, 삼원빌딩 807호\n 대표이사 : 김주영ㅣ사업자번호 : 592–81–01701\n 대표번호 : 02-523-0320 (평일 09:00 ~ 18:00)\n Copyright © 2020 GoodChoice Inc. All rights reserved.</string>
+    <string name="footer">(주)굿초이스 \n서울특별시 서초구 강남대로 341, 삼원빌딩 807호\n대표이사 : 김주영ㅣ사업자번호 : 592–81–01701\n대표번호 : 02-523-0320 (평일 09:00 ~ 18:00)\nCopyright © 2020 GoodChoice Inc. All rights reserved.</string>
     <string name="home_title">오늘은\n어디 가서 어떤 맛있는 걸 먹지?</string>
     <string name="require_login">로그인이 필요한 서비스 입니다.\n로그인 화면으로 이동 하시겠습니까?</string>
     <string name="terms_title_sub1">제 1 조 (목적)</string>

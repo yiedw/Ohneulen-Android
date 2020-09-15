@@ -8,7 +8,6 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearSmoothScroller
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.SearchStore
@@ -199,7 +196,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         super.onSaveInstanceState(outState)
         searchViewModel.recyclerViewState =
             binding.searchStoreRv.layoutManager!!.onSaveInstanceState()
-        Timber.e("ASdfsadf")
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -277,6 +273,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         )
         val mapPointBounds = mapCircle.bound
         if (searchViewModel.addry.isNotEmpty()) {
+//            Timber.e("addry = "+mapPoint.mapPointGeoCoord.latitude)
+//            Timber.e("addrx = "+mapPoint.mapPointGeoCoord.longitude)
             if (searchViewModel.addry[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.latitude
                 && searchViewModel.addry[1] == mapPointBounds.topRight.mapPointGeoCoord.latitude
                 && searchViewModel.addrx[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
@@ -291,7 +289,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         searchViewModel.addry.add(mapPointBounds.topRight.mapPointGeoCoord.latitude)
         searchViewModel.addrx.add(mapPointBounds.bottomLeft.mapPointGeoCoord.longitude)
         searchViewModel.addrx.add(mapPointBounds.topRight.mapPointGeoCoord.longitude)
-        searchViewModel.getStoreSearchList()
+        searchViewModel.getSearchStoreList()
     }
 
     @SuppressLint("MissingPermission")

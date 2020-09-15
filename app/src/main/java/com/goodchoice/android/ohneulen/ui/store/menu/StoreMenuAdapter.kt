@@ -21,11 +21,13 @@ class StoreMenuAdapter :
         fun bind(item: StoreMenu) {
             binding.apply {
                 storeMenu = item
-                val price="${comma(item.price.toInt())} 원"
-                storeMenuItemPrice.text=price
-                root.setOnClickListener {
-                    val dialog = StoreMenuDetailDialog.newInstance(adapterPosition)
-                    dialog.show(MainActivity.supportFragmentManager, "")
+                val price = "${comma(item.price.toInt())} 원"
+                storeMenuItemPrice.text = price
+                if (item.photoURL.isNotEmpty()) {
+                    root.setOnClickListener {
+                        val dialog = StoreMenuDetailDialog.newInstance(adapterPosition)
+                        dialog.show(MainActivity.supportFragmentManager, "")
+                    }
                 }
             }
         }

@@ -60,9 +60,13 @@ class SearchViewModel(private val networkService: NetworkService) :
 //    var timeDay = initData.timeDay
 
 
-    fun getStoreSearchList() {
+    fun getSearchStoreList() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+//                Timber.e("cate + $cate")
+//                Timber.e("option + $option")
+//                Timber.e("openTime + $openTime")
+//                Timber.e("sort + $sort")
                 val response = networkService.requestStoreSearchList(
                     addry,
                     addrx,
@@ -71,6 +75,7 @@ class SearchViewModel(private val networkService: NetworkService) :
                     openTime,
                     sort
                 )
+//                Timber.e(response.toString())
                 if (response.resultData != searchStoreList.value) {
                     searchStoreList.postValue(response.resultData)
                 }

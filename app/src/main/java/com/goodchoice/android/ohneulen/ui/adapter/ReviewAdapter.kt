@@ -87,6 +87,8 @@ class ReviewAdapter(val report: Boolean = true) :
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
+
 }
 
 object ReviewDiffUtil : DiffUtil.ItemCallback<Review>() {

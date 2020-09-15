@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.goodchoice.android.ohneulen.data.model.Review
 
 class StorePagerAdapter(
     private val arrayList: ArrayList<Fragment>,
@@ -22,6 +23,7 @@ class StorePagerAdapter(
     fun getViewAtPosition(position: Int): View? {
         return arrayList[position].view
     }
+
 
 
 }

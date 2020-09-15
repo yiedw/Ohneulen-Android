@@ -148,7 +148,7 @@ class SearchMap : Fragment() {
         searchViewModel.addry.add(mapPointBounds.topRight.mapPointGeoCoord.latitude)
         searchViewModel.addrx.add(mapPointBounds.bottomLeft.mapPointGeoCoord.longitude)
         searchViewModel.addrx.add(mapPointBounds.topRight.mapPointGeoCoord.longitude)
-        searchViewModel.getStoreSearchList()
+        searchViewModel.getSearchStoreList()
     }
 
 //    private fun clusterManagerSetting(googleMap: GoogleMap) {

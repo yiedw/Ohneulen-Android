@@ -85,10 +85,10 @@
                 app:layout_constraintTop_toTopOf="@id/store_review_ratingbar" />
 
             <TextView
-                android:layout_marginTop="3dp"
                 android:id="@+id/store_review_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:textColor="#666666"
                 android:textSize="14dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -327,8 +327,8 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/store_review_notEmpty_con"
-            bind:review="@{viewModel.storeDetail.reviewList}"
-            bind:reviewAdapter="@{viewModel.storeReviewAdapter}" />
+            />
+<!--            bind:review="@{viewModel.storeDetail.reviewList}"-->
 
         <!--        후기가 없을때-->
         <androidx.constraintlayout.widget.ConstraintLayout

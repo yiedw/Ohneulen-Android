@@ -22,6 +22,7 @@ import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import timber.log.Timber
 
 //searchStore
 @BindingAdapter("searchStoreAdapter", "searchStore", "searchStoreNetworkService")
@@ -51,16 +52,16 @@ fun setSearchStoreAdapter(
 }
 
 //filter
-@BindingAdapter("subCategory", "subCategoryViewModel","filterInitData")
+@BindingAdapter("subCategory", "subCategoryViewModel", "filterInitData")
 fun setFilterSubAdapter(
     recyclerView: RecyclerView,
     items: List<OhneulenData>?,
     viewModel: SearchViewModel,
-    initData:InitData
+    initData: InitData
 ) {
     recyclerView.adapter = SearchFilterSubAdapter().apply {
         searchViewModel = viewModel
-        this.initData=initData
+        this.initData = initData
         submitList(items)
     }
 }
@@ -153,13 +154,14 @@ fun setImageViewResID(imageView: ImageView, resID: Int) {
 //    recyclerView.adapter = adapter
 //}
 
-@BindingAdapter("reviewAdapter", "review")
-fun setReview(recyclerView: RecyclerView, adapter: ReviewAdapter, items: List<Review>?) {
-    recyclerView.setHasFixedSize(true)
-    recyclerView.adapter = adapter.apply {
-        if (items != null) {
-            submitList(items)
-        }
+@BindingAdapter("review")
+fun setReview(recyclerView: RecyclerView, items: List<Review>?) {
+//    recyclerView.setHasFixedSize(true)
+    val adapter = recyclerView.adapter as ReviewAdapter
+    if (items != null) {
+//        Timber.e(items.size.toString())
+        adapter.submitList(items.toList())
+//        Timber.e(adapter.currentList.size.toString())
     }
 
 }
@@ -168,7 +170,7 @@ fun setReview(recyclerView: RecyclerView, adapter: ReviewAdapter, items: List<Re
 fun setInquire(recyclerView: RecyclerView, adapter: InquireAdapter, items: List<Inquire>?) {
     recyclerView.adapter = adapter.apply {
         if (items != null) {
-            submitList(items)
+            submitList(items.toMutableList())
         }
     }
     //데이터 업데이트됐을때 스크롤 맨위로
