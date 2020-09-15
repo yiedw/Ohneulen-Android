@@ -49,6 +49,9 @@ fun setSearchStoreAdapter(
 //        }, 200)
 
     }
+    recyclerView.post {
+        recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
+    }
 }
 
 //filter

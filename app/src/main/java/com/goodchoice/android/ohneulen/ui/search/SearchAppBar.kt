@@ -52,11 +52,11 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
         )
 
         if (!mainViewModel.currentLocationSearch) {
-            if (mainViewModel.searchEditText.isEmpty()) {
-                mainViewModel.searchEditText = "강남역"
-            }
-            searchViewModel.searchEditText = mainViewModel.searchEditText
             if (searchViewModel.searchAppbarFirst || mainViewModel.searchCheck) {
+                if (mainViewModel.searchEditText.isEmpty()) {
+                    mainViewModel.searchEditText = "강남역"
+                }
+                searchViewModel.searchEditText = mainViewModel.searchEditText
                 searchViewModel.getSearchMapData()
                 searchViewModel.searchAppbarFirst = false
                 mainViewModel.searchCheck = false
@@ -64,6 +64,9 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
             }
             binding.searchAppbarEt.setText(mainViewModel.searchEditText)
         }
+
+        searchViewModel.searchAppbarFirst=false
+
         binding.fragment = this
         return binding.root
     }
@@ -123,6 +126,8 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
     }
 
     fun filterClick(view: View) {
+        mainViewModel.searchEditText = binding.searchAppbarEt.text.toString()
+        searchViewModel.searchEditText = binding.searchAppbarEt.text.toString()
         val imm =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)

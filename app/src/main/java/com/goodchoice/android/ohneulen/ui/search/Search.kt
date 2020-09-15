@@ -111,7 +111,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         //검색어 없을시 토스트 띄우기
         searchViewModel.toastMessage.observe(
             viewLifecycleOwner, Observer {
-
                 if (it) {
                     Toast.makeText(requireContext(), "검색결과가 없습니다", Toast.LENGTH_SHORT).show()
                     searchViewModel.toastMessage.postValue(false)
@@ -296,6 +295,9 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     private fun getCurrentLocationCheck() {
         if (!mainViewModel.currentLocationSearch)
             return
+        else {
+            mainViewModel.currentLocationSearch = false
+        }
 //        mainViewModel.currentLocationSearch = false
         locationManager =
             requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
