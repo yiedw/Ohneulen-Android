@@ -83,10 +83,13 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
                     binding.loginSubmit.background =
                         requireContext().getDrawable(R.drawable.login_bt_true)
                 }
-                if (binding.loginEmailEt.text.isNotBlank()) {
-                    binding.loginEmailClear.visibility = View.VISIBLE
-                } else {
+                if (binding.loginEmailEt.text.isEmpty()) {
                     binding.loginEmailClear.visibility = View.GONE
+                    binding.loginEmailEt.typeface =
+                        Typeface.create("sans-serif-light", Typeface.NORMAL)
+                } else {
+                    binding.loginEmailClear.visibility = View.VISIBLE
+                    binding.loginEmailEt.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
                 }
             }
 
@@ -100,9 +103,16 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (binding.loginPwEt.text.length == 1) {
-                    binding.loginPwHidden.visibility = View.VISIBLE
 
+                if (binding.loginPwEt.text.isEmpty()) {
+                    binding.loginPwEt.typeface =
+                        Typeface.create("sans-serif-light", Typeface.NORMAL)
+                    binding.loginPwHidden.visibility = View.GONE
+                    binding.loginPwClear.visibility = View.GONE
+                } else {
+                    binding.loginPwEt.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+                    binding.loginPwHidden.visibility = View.VISIBLE
+                    binding.loginPwClear.visibility = View.VISIBLE
                 }
                 if (!binding.loginPwEt.text.isNullOrEmpty() && !binding.loginEmailEt.text.isNullOrEmpty()) {
                     binding.loginSubmit.isEnabled = true
@@ -110,13 +120,6 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
                         requireContext().getDrawable(R.drawable.login_bt_true)
                 }
 
-                if (binding.loginPwEt.text.isNotBlank()) {
-                    binding.loginPwClear.visibility = View.VISIBLE
-
-                } else {
-                    binding.loginPwClear.visibility = View.GONE
-
-                }
             }
 
         })
@@ -185,12 +188,6 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
             MainActivity.bottomNav.visibility = View.GONE
         }
         loginViewModel.loginErrorToast.postValue(Event(false))
-    }
-
-    private fun hintFontFamilyChance(){
-        val hintTypeface=Typeface.createFromAsset(requireContext().assets,"font1.ttf")
-        val typefaceSpan=CustomType
-        binding.loginEmailEt.
     }
 
 
