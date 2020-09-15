@@ -40,6 +40,7 @@
                 <TextView
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:text="주소"
                     android:textColor="@color/colorBlack"
                     android:textSize="14dp" />
@@ -48,28 +49,30 @@
                     android:id="@+id/store_home_address"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@{viewModel.storeDetail.storeInfo.storeFull.addrRoad1}"
                     android:textColor="@color/colorGrey88"
                     android:textSize="14dp" />
             </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/store_home_bizTel"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <TextView
+
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:text="전화"
                     android:textColor="@color/colorBlack"
                     android:textSize="14dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="17dp"
                     android:text="@{viewModel.storeDetail.storeInfo.storeFull.bizTel}"
                     android:textColor="@color/colorGrey88"
                     android:textSize="14dp" />
@@ -99,7 +102,7 @@
 
                 <TextView
                     android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="20dp"
                     android:text="영업일"
                     android:textColor="@color/colorBlack"
                     android:textSize="14dp" />
@@ -108,7 +111,7 @@
                 <LinearLayout
                     android:id="@+id/store_home_openDay"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:textColor="@color/colorGrey88">
 
@@ -222,13 +225,12 @@
             android:visibility="gone" />
 
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:orientation="horizontal"
-            android:background="#f6f6f6">
+            android:background="#f6f6f6"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/store_home_open_tv1"

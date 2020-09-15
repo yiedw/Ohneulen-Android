@@ -167,7 +167,7 @@ class StoreFragment : Fragment() {
     private fun storeHeader(storeDetail: StoreDetail) {
         val store = storeDetail.storeInfo.storeFull
         val likeCnt =
-            textColor("51", 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+            textColor(storeDetail.storeInfo.storeFull., 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
         val reviewCnt = textColor(
             storeDetail.reviewCnt.toString(),
             0,

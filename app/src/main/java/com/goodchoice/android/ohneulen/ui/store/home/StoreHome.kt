@@ -52,9 +52,22 @@ class StoreHome : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+
+            //주소 + 상세주소
+            binding.storeHomeAddress.text =
+                "${it.storeInfo.storeFull.addrRoad1} ${it.storeInfo.storeFull.addrRoad2}"
+
+            //전화번호 없으면 숨기기
+            if (it.storeInfo.storeFull.bizTel.isEmpty()) {
+                binding.storeHomeBizTel.visibility = View.GONE
+            } else {
+                binding.storeHomeBizTel.visibility = View.VISIBLE
+            }
+
             //영업일 뷰 생성
             openDayGenerate(it)
             //휴무일 뷰 생성 ( 옵션에서 같이해결)
@@ -74,9 +87,6 @@ class StoreHome : Fragment() {
             }
 
 
-
-
-
         })
     }
 
@@ -85,6 +95,7 @@ class StoreHome : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun openDayGenerate(storeDetail: StoreDetail) {
         for (i in storeDetail.storeTime.open.indices) {
             val time = storeDetail.storeTime.open[i]
@@ -228,11 +239,11 @@ class StoreHome : Fragment() {
     private fun keywordsGenerate(storeDetail: StoreDetail) {
         binding.storeHomeKeywords.removeAllViews()
         //키워드 뷰 없으면 숨기기
-        if(storeDetail.keywordList.isEmpty()){
-            binding.storeHomeKeywords.visibility=View.GONE
+        if (storeDetail.keywordList.isEmpty()) {
+            binding.storeHomeKeywords.visibility = View.GONE
             return
         }
-        binding.storeHomeKeywords.visibility=View.VISIBLE
+        binding.storeHomeKeywords.visibility = View.VISIBLE
         for (i in storeDetail.keywordList) {
             val linearLayout = LinearLayout(requireContext())
             linearLayout.orientation = LinearLayout.HORIZONTAL
@@ -245,12 +256,23 @@ class StoreHome : Fragment() {
 
             //아이콘
             val iv = ImageView(requireContext())
-            val params1 = LinearLayout.LayoutParams(26.dp(),26.dp())
+            val params1 = LinearLayout.LayoutParams(26.dp(), 26.dp())
 //            iv.setPadding(0,0,15.dp(),0)
             iv.layoutParams = params1
 //            iv.scaleType = ImageView.ScaleType.FIT_CENTER
-            Glide.with(requireContext()).load("${BaseUrl.OHNEULEN}${i.icon}").into(iv)
-
+            if (i.seq == "1") {
+                Glide.with(requireContext())
+                    .load(ContextCompat.getDrawable(requireContext(), R.drawable.store_home_wifi))
+                    .into(iv)
+            } else if (i.seq == "2") {
+                Glide.with(requireContext())
+                    .load(ContextCompat.getDrawable(requireContext(), R.drawable.store_home_animal))
+                    .into(iv)
+            } else if (i.seq == "3") {
+                Glide.with(requireContext())
+                    .load(ContextCompat.getDrawable(requireContext(), R.drawable.store_home_vegan))
+                    .into(iv)
+            }
 
             //설명
             val tv = TextView(requireContext())
