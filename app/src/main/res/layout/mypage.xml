@@ -146,7 +146,7 @@
                 android:textColor="@color/colorTextBlack"
                 android:textSize="@dimen/main_contents"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
 
             <TextView
