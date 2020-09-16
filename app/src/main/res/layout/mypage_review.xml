@@ -4,9 +4,11 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel" />
+
         <variable
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.mypage.MyPageReview" />
@@ -17,13 +19,14 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:nestedScrollingEnabled="false"
             android:id="@+id/mypage_review_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            bind:review="@{viewModel.mypageReviewList}"/>
+            bind:mypageReview="@{viewModel.mypageReviewList}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mypage_like_zero"
@@ -33,7 +36,7 @@
             android:background="@drawable/background_border_dotted"
             android:onClick="@{fragment.moveSearch}"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -41,12 +44,12 @@
                 android:id="@+id/mypage_review_empty_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="3dp"
                 android:layout_marginBottom="13dp"
-                android:textSize="14dp"
                 android:gravity="center"
+                android:lineSpacingExtra="3dp"
                 android:text="더 많은 맛집이 있어요 \n 지금 찾으러 가보실래요?"
                 android:textAlignment="center"
+                android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@id/mypage_review_empty_iv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />

@@ -18,6 +18,7 @@ import com.goodchoice.android.ohneulen.ui.search.SearchStoreAdapter
 import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.adapter.ImageDetailAdapter
 import com.goodchoice.android.ohneulen.ui.like.LikeStoreAdapter
+import com.goodchoice.android.ohneulen.ui.mypage.MyPageReviewAdapter
 import com.goodchoice.android.ohneulen.ui.store.StoreImageAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuAdapter
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenuDetailAdapter
@@ -98,14 +99,14 @@ fun setStoreMenuDetail(
 
     recyclerView.adapter = StoreMenuDetailAdapter()
         .apply {
-            if(items==null) return
-            val list= mutableListOf<StoreMenu>()
-            for(i in items){
-                if(i.photoURL.isNotEmpty()){
+            if (items == null) return
+            val list = mutableListOf<StoreMenu>()
+            for (i in items) {
+                if (i.photoURL.isNotEmpty()) {
                     list.add(i)
                 }
             }
-            menuList =list
+            menuList = list
             menuPosition.postValue(index)
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -175,7 +176,14 @@ fun setReview(recyclerView: RecyclerView, items: List<Review>?) {
         adapter.submitList(items.toList())
 //        Timber.e(adapter.currentList.size.toString())
     }
+}
 
+@BindingAdapter("mypageReview")
+fun setMypageReview(recyclerView: RecyclerView, items: List<Review>?) {
+    val adapter = recyclerView.adapter as MyPageReviewAdapter
+    if (items != null) {
+        adapter.submitList(items.toList())
+    }
 }
 
 @BindingAdapter("inquireAdapter", "inquire")
