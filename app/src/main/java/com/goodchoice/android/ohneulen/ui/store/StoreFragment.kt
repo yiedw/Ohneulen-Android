@@ -1,6 +1,5 @@
 package com.goodchoice.android.ohneulen.ui.store
 
-import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
@@ -28,11 +27,10 @@ import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import com.goodchoice.android.ohneulen.util.dp
+import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -372,10 +370,10 @@ class StoreFragment : Fragment() {
         binding.storeFragmentHashTag.removeAllViews()
         for (i in storeDetail.hashtagList) {
             val tv = TextView(requireContext())
-            tv.height = 25.dp()
+            tv.height = 25.dpToPx()
             tv.text = "#${i.keyword}"
             tv.gravity = Gravity.CENTER
-            tv.setPadding(13.dp(), 0, 13.dp(), 0)
+            tv.setPadding(13.dpToPx(), 0, 13.dpToPx(), 0)
             tv.setTextColor(requireContext().getColor(R.color.colorOhneulen))
             tv.background =
                 requireContext().getDrawable(R.drawable.background_border_rounding_ohneulen)

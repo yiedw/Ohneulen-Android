@@ -126,13 +126,13 @@ fun popupFragment(fragment: Fragment) {
 }
 
 
-fun Int.px(): Int {
+fun Int.pxToDp(): Int {
     val metrics = App.resources.displayMetrics
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this.toFloat(), metrics)
         .toInt()
 }
 
-fun Int.dp(): Int {
+fun Int.dpToPx(): Int {
     val metrics = App.resources.displayMetrics
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), metrics)
         .toInt()

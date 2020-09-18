@@ -2,8 +2,6 @@ package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -28,7 +26,7 @@ import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.constant.ConstList
-import com.goodchoice.android.ohneulen.util.dp
+import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.gun0912.tedpermission.PermissionListener
@@ -36,7 +34,6 @@ import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 class StoreReviewWrite : Fragment() {
@@ -164,8 +161,8 @@ class StoreReviewWrite : Fragment() {
 
     private fun showMultiImage(uriList: List<Uri>) {
         selectedUriList = uriList.toMutableList()
-        val width = 60.dp()
-        val height = 60.dp()
+        val width = 60.dpToPx()
+        val height = 60.dpToPx()
         uriList.forEach {
             val uri = it
             val itemBinding =

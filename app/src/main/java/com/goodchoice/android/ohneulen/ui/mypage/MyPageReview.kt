@@ -14,12 +14,6 @@ import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageReviewBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
-import com.goodchoice.android.ohneulen.ui.search.Search
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
-import com.goodchoice.android.ohneulen.util.dp
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

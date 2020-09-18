@@ -23,7 +23,7 @@ import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.util.dp
+import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -377,7 +377,7 @@ class SearchFilter : Fragment() {
         for (i in mutableList.indices) {
             val param = GridLayout.LayoutParams()
             param.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-            param.height = 32.dp()
+            param.height = 32.dpToPx()
             val tb = ToggleButton(requireContext())
             tb.layoutParams = param
             tb.isChecked = mutableList[i].check

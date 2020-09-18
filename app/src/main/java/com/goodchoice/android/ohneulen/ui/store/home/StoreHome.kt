@@ -2,9 +2,7 @@ package com.goodchoice.android.ohneulen.ui.store.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.*
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,15 +14,10 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
-import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
-import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
-import kotlinx.android.synthetic.main.store_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreHome : Fragment() {
     companion object {
@@ -190,14 +183,14 @@ class StoreHome : Fragment() {
             //옵션 리니어레이아웃 생성
             val linearLayout = LinearLayout(requireContext())
             linearLayout.orientation = LinearLayout.HORIZONTAL
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 20.dp())
-            params.setMargins(0, 5.dp(), 0, 0)
+            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 20.dpToPx())
+            params.setMargins(0, 5.dpToPx(), 0, 0)
             linearLayout.layoutParams = params
 
             //옵션이름
             val tv1 = TextView(requireContext())
             val params1 = LinearLayout.LayoutParams(
-                50.dp(),
+                50.dpToPx(),
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
             tv1.layoutParams = params1
@@ -251,12 +244,12 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            params.setMargins(0, 0, 0, 5.dp())
+            params.setMargins(0, 0, 0, 5.dpToPx())
             linearLayout.layoutParams = params
 
             //아이콘
             val iv = ImageView(requireContext())
-            val params1 = LinearLayout.LayoutParams(26.dp(), 26.dp())
+            val params1 = LinearLayout.LayoutParams(26.dpToPx(), 26.dpToPx())
 //            iv.setPadding(0,0,15.dp(),0)
             iv.layoutParams = params1
 //            iv.scaleType = ImageView.ScaleType.FIT_CENTER
@@ -280,7 +273,7 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
-            params2.marginStart = 24.dp()
+            params2.marginStart = 24.dpToPx()
             tv.gravity = Gravity.CENTER
             tv.layoutParams = params2
             tv.setTextColor(requireContext().getColor(R.color.colorGrey88))
