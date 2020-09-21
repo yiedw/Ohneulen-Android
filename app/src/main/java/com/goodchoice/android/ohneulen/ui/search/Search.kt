@@ -145,81 +145,87 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
                 return@setOnTouchListener false
             }
-                when (event.action) {
-                    //뷰를 터치했을 때 최초 한번만 발생하는 Action
-                    MotionEvent.ACTION_DOWN -> {
-                        initTouchEventY = event.y
-                        initY = v.y
-
-                    }
-                    //뷰를 드래그 했을 때 지속적으로 발생하는 Action
-                    MotionEvent.ACTION_MOVE -> {
-                        //appbar 높이
-                        val appBarHeight = MainActivity.appbarFrameLayout.height
-                        //statusBar 높이
-                        val statusBarHeight =
-                            requireContext().resources.getDimensionPixelSize(R.dimen.status_bar_height)
-
-                        //getRawY -> 화면의 절대 좌표를 제공
-                        //getY -> 방법에따라 절대좌표 or 상대좌표를 제공
-                        //절대좌표 - appbarHeight - statusBarHeight - 초기 터치위치의 y값 (상대좌표)
-                        v.y = (event.rawY - appBarHeight - statusBarHeight - initTouchEventY)
-                        binding.searchStoreFrameLayout.y = v.y + v.height
-
-                        //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
-                        binding.searchStoreFrameLayout.layoutParams.also { lp ->
-                            lp.height =
-                                (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height).toInt()
-                        }
-                        binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
-
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        if (searchStat == 0) {      //지도가 전체를 덮은경우일때
-                            if (v.y < initY) {       //터치를 놨을때 기존위치보다 높을경우
-                                slideUp(
-                                    searchStat1Y.toFloat(),
-                                    searchStat1Y + v.height.toFloat(),
-                                    //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
-                                    (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - searchStat1Y - v.height).toInt()
-                                )
-                                binding.searchMap.translationY =
-                                    (searchStat1Y - binding.searchMap.height) / 2.toFloat()  //map 중앙이 가려지기때문에 조금 이동
-                                searchStat = 1  //지도가 반만 덮은 상태
-                            }
-                        }
-                        //지도가 반만 덮은상태일때
-                        else if (searchStat == 1) {
-                            if (v.y < initY) {
-                                slideUp(
-                                    0f,
-                                    binding.searchInfoCon.height.toFloat(),
-                                    //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
-                                    (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.height).toInt()
-                                )
-                                binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
-                                binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
-                                binding.searchOpen.visibility = View.VISIBLE  // open 이미지 보여줌
-                                v.setBackgroundColor(requireContext().getColor(R.color.white))    //뒤에 지도배경 삭제
-                                searchStat = 2  //리스트가 맵을 덮은상태
-
-                            } else {
-                                slideDown(
-                                    binding.searchMap.height - v.height.toFloat(),
-                                    //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
-                                    MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
-                                    //높이는 그대로
-                                    binding.searchStoreFrameLayout.height
-                                )
-                                binding.searchMap.translationY = 0f     //지도위치를 다시 중앙으로 이동
-                                searchStat = 0  //맵이 리스트를 덮은상태
-                            }
-                        }
-
-
-                    }
+            when (event.action) {
+                //뷰를 터치했을 때 최초 한번만 발생하는 Action
+                MotionEvent.ACTION_DOWN -> {
+                    initTouchEventY = event.y
+                    initY = v.y
 
                 }
+                //뷰를 드래그 했을 때 지속적으로 발생하는 Action
+                MotionEvent.ACTION_MOVE -> {
+                    //appbar 높이
+                    val appBarHeight = MainActivity.appbarFrameLayout.height
+                    //statusBar 높이
+                    val statusBarHeight =
+                        requireContext().resources.getDimensionPixelSize(R.dimen.status_bar_height)
+
+                    //getRawY -> 화면의 절대 좌표를 제공
+                    //getY -> 방법에따라 절대좌표 or 상대좌표를 제공
+                    //절대좌표 - appbarHeight - statusBarHeight - 초기 터치위치의 y값 (상대좌표)
+                    v.y = (event.rawY - appBarHeight - statusBarHeight - initTouchEventY)
+                    binding.searchStoreFrameLayout.y = v.y + v.height
+
+                    //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
+                    binding.searchStoreFrameLayout.layoutParams.also { lp ->
+                        lp.height =
+                            (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height).toInt()
+                    }
+                    binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
+
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (searchStat == 0) {      //지도가 전체를 덮은경우일때
+                        if (v.y < initY) {       //터치를 놨을때 기존위치보다 높을경우
+                            slideUp(
+                                searchStat1Y.toFloat(),
+                                searchStat1Y + v.height.toFloat(),
+                                //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
+                                (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - searchStat1Y - v.height).toInt()
+                            )
+                            binding.searchMap.translationY =
+                                (searchStat1Y - binding.searchMap.height) / 2.toFloat()  //map 중앙이 가려지기때문에 조금 이동
+                            searchStat = 1  //지도가 반만 덮은 상태
+                        } else {
+                            slideUp(
+                                initY,
+                                initY + binding.searchInfoCon.height,
+                                binding.searchStoreFrameLayout.height
+                            )
+                        }
+                    }
+                    //지도가 반만 덮은상태일때
+                    else if (searchStat == 1) {
+                        if (v.y < initY) {
+                            slideUp(
+                                0f,
+                                binding.searchInfoCon.height.toFloat(),
+                                //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
+                                (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.height).toInt()
+                            )
+                            binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
+                            binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
+                            binding.searchOpen.visibility = View.VISIBLE  // open 이미지 보여줌
+                            v.setBackgroundColor(requireContext().getColor(R.color.white))    //뒤에 지도배경 삭제
+                            searchStat = 2  //리스트가 맵을 덮은상태
+
+                        } else {
+                            slideDown(
+                                binding.searchMap.height - v.height.toFloat(),
+                                //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
+                                MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
+                                //높이는 그대로
+                                binding.searchStoreFrameLayout.height
+                            )
+                            binding.searchMap.translationY = 0f     //지도위치를 다시 중앙으로 이동
+                            searchStat = 0  //맵이 리스트를 덮은상태
+                        }
+                    }
+
+
+                }
+
+            }
             true
         }
 
