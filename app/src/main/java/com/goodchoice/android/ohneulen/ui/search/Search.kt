@@ -328,7 +328,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     private fun circleSearch(mapPoint: MapPoint) {
         val mapCircle = MapCircle(
             mapPoint,
-            300,
+            700,
             Color.argb(128, 255, 0, 0),
             Color.argb(128, 255, 255, 0)
         )
