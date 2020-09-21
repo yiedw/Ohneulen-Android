@@ -57,6 +57,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     private val ONE_MARKER = 0
     private val MARKER_LIST = 1
 
+    private val searchStat1Y = 262.dpToPx()
+
     private lateinit var binding: SearchBinding
     private val searchViewModel: SearchViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
@@ -126,24 +128,36 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         var initY = 0f                // 드래그 이후 뷰 위치를 판별하기 위해 사용
         binding.searchInfoCon.setOnTouchListener { v, event ->
             if (searchStat == 2) {
-                //infoCon 뷰를 정해진 위치로 고정
-                v.y = 262.dpToPx().toFloat()
-                //searchStoreRv도 위치 고정
-                binding.searchStoreRv.y = v.y + v.height
 
-                //searchStoreRv height 전체 뷰에 맞게 재설정
-                binding.searchStoreRv.layoutParams.also { lp ->
-                    lp.height =
-                        (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.y - v.height).toInt()
-                }
-                //뷰 새로고침
-                binding.searchStoreRv.requestLayout()
-                //다시 배경에 지도 보이게
-                v.background = ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.background_new
-                )
-                searchStat = 1
+                v.animate().y(searchStat1Y.toFloat())
+                    .setDuration(400)
+                    .withEndAction {
+                        //infoCon 뷰를 정해진 위치로 고정
+                        v.y = searchStat1Y.toFloat()
+                    }.withStartAction {
+                        binding.searchStoreRv.animate()
+                            .y(searchStat1Y.toFloat() + v.height).setDuration(400)
+                            .withEndAction {
+                                //searchStoreRv height 전체 뷰에 맞게 재설정
+                                binding.searchStoreRv.layoutParams.also { lp ->
+                                    lp.height =
+                                        (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.y - v.height).toInt()
+                                }
+                                //뷰 새로고침
+                                binding.searchStoreRv.requestLayout()
+
+                                //다시 배경에 지도 보이게
+                                v.background = ContextCompat.getDrawable(
+                                    requireContext(),
+                                    R.drawable.background_new
+                                )
+                                searchStat = 1
+
+                                binding.searchSlide.visibility = View.VISIBLE    // 슬라이드이미지 보여줌
+                                binding.searchOpen.visibility = View.GONE  // open 이미지 숨김
+                            }
+                    }.start()
+
                 return@setOnTouchListener false
             }
             when (event.action) {
@@ -151,6 +165,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 MotionEvent.ACTION_DOWN -> {
                     initTouchEventY = event.y
                     initY = v.y
+
                 }
 
 
@@ -168,85 +183,99 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     v.y = (event.rawY - appBarHeight - statusBarHeight - initTouchEventY)
                     binding.searchStoreRv.y = v.y + v.height
 
+                    //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
+                    binding.searchStoreRv.layoutParams.also { lp ->
+                        lp.height =
+                            (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height).toInt()
+                    }
+                    binding.searchStoreRv.requestLayout()   //뷰 새로고침
+
                 }
                 MotionEvent.ACTION_UP -> {
+                    if (searchStat == 0) {      //지도가 전체를 덮은경우일때
+                        if (v.y < initY) {       //터치를 놨을때 기존위치보다 높을경우
+                            binding.searchStoreRv.animate()
+                                .y(searchStat1Y.toFloat() + v.height).setDuration(400)
+                                .withEndAction {        //액션이 끝났을때
+                                    binding.searchStoreRv.y =
+                                        searchStat1Y.toFloat() + v.height
+                                    binding.searchStoreRv.layoutParams.also { lp ->
+                                        lp.height =
+                                            (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.y - v.height).toInt()     //searchStoreRv height 전체 뷰에 맞게 재설정
+                                    }
+                                    //뷰 새로고침
+                                    binding.searchStoreRv.requestLayout()
+                                }
+                                .withStartAction {         //infoCon ,search list, map 애니메이션을 동시에 실행
+                                    v.animate().y(searchStat1Y.toFloat())
+                                        .setDuration(400)
+                                        .withEndAction {
+                                            v.y = searchStat1Y.toFloat()
+                                        }.start()
 
-                    //지도가 전체를 덮은경우일때
-                    if (searchStat == 0) {
-                        //터치를 놨을때 기존위치보다 높을경우
-                        if (v.y < initY) {
-                            //infoCon 뷰를 정해진 위치로 고정
-                            v.y = 262.dpToPx().toFloat()
-                            //searchStoreRv도 위치 고정
-                            binding.searchStoreRv.y = v.y + v.height
+                                    binding.searchMap.translationY =
+                                        (searchStat1Y - binding.searchMap.height) / 2.toFloat()  //map 중앙이 가려지기때문에 조금 이동
+                                }
 
-                            //searchStoreRv height 전체 뷰에 맞게 재설정
-                            binding.searchStoreRv.layoutParams.also { lp ->
-                                lp.height =
-                                    (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.y - v.height).toInt()
-                            }
-                            //뷰 새로고침
-                            binding.searchStoreRv.requestLayout()
                             searchStat = 1
                         }
                     }
                     //지도가 반만 덮은경우일때
                     else if (searchStat == 1) {
                         if (v.y < initY) {
-                            //리스트가 화면을 덮음
-                            v.y = 0f
-                            binding.searchStoreRv.y = v.height.toFloat()
-                            //searchStoreRv도 위치 고정
-                            binding.searchStoreRv.y = v.y + v.height
+                            binding.searchStoreRv.animate()
+                                .y(v.height.toFloat()).setDuration(400)
+                                .withEndAction {        //액션이 끝났을때
+                                    binding.searchStoreRv.y = v.height.toFloat()
+                                    binding.searchStoreRv.layoutParams.also { lp ->
+                                        lp.height =
+                                            (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.height).toInt()     //searchStoreRv height 전체 뷰에 맞게 재설정
+                                    }
+                                    //뷰 새로고침
+                                    binding.searchStoreRv.requestLayout()
+                                    v.setBackgroundColor(
+                                        requireContext().getColor(
+                                            R.color.white
+                                        )
+                                    )    //뒤에 지도배경 삭제
+                                    binding.searchStoreRv.requestLayout()       // 레이아웃 새로고침
+                                    binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
+                                    binding.searchOpen.visibility = View.VISIBLE  // open 이미지 보여줌
+                                }
+                                .withStartAction {              //infoCon ,search list, map 애니메이션을 동시에 실행
+                                    v.animate().y(0f)     //리스트가 화면을 덮음
 
-                            //searchStoreRv height 전체 뷰에 맞게 재설정
-                            binding.searchStoreRv.layoutParams.also { lp ->
-                                lp.height =
-                                    (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.y - v.height).toInt()
-                            }
-                            //뒤에 지도배경 삭제
-                            v.setBackgroundColor(requireContext().getColor(R.color.white))
-                            binding.searchStoreRv.requestLayout()
+                                        .setDuration(400)
+                                        .withEndAction {
+                                            v.y = 0f
+                                        }.start()
+//                                    binding.searchMap.translationY=(searchStat1Y-binding.searchMap.height)/2.toFloat()  //map 중앙이 가려지기때문에 조금 이동
+                                }
                             searchStat = 2
+
                         } else {
-                            //infoCon 을 다시 지도 아래에 붙여줌
-//                            val layoutParams = ConstraintLayout.LayoutParams(
-//                                ConstraintLayout.LayoutParams.MATCH_PARENT,
-//                                44.dpToPx()
-//                            )
-//                            layoutParams.bottomToBottom = R.id.search_map
-//                            v.layoutParams = layoutParams
-//                            v.requestLayout()
-                            //맵 전체높이에서 infoCon높이만큼 빼준값을 y로 설정
-                            v.y = (binding.searchMap.height - 44.dpToPx()).toFloat()
-                            //searchStoreRv도 위치 고정
-                            binding.searchStoreRv.y = v.y + v.height
+
+                            v.animate().y(binding.searchMap.height - v.height.toFloat())
+                                .setDuration(400)
+                                .withEndAction {
+                                    //맵 전체높이에서 infoCon 높이만큼 빼준값을 y로 설정
+                                    v.y = binding.searchMap.height - v.height.toFloat()
+                                }.withStartAction {
+                                    binding.searchStoreRv.animate()
+                                        //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
+                                        .y(MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height)
+                                        .setDuration(400)
+                                        .withEndAction {
+                                            binding.searchStoreRv.y = v.y + v.height
+                                        }
+                                }.start()
+
+                            binding.searchMap.translationY =0f
+
 
                             searchStat = 0
                         }
                     }
-//                    else if (searchStat == 2) {
-//                        if (v.y > initY) {
-//                            //infoCon 뷰를 정해진 위치로 고정
-//                            v.y = 262.dpToPx().toFloat()
-//                            //searchStoreRv도 위치 고정
-//                            binding.searchStoreRv.y = v.y + v.height
-//
-//                            //searchStoreRv height 전체 뷰에 맞게 재설정
-//                            binding.searchStoreRv.layoutParams.also { lp ->
-//                                lp.height =
-//                                    (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.y - v.height).toInt()
-//                            }
-//                            //뷰 새로고침
-//                            binding.searchStoreRv.requestLayout()
-//                            //다시 배경에 지도 보이게
-//                            v.background = ContextCompat.getDrawable(
-//                                requireContext(),
-//                                R.drawable.background_new
-//                            )
-//                            searchStat = 1
-//                        }
-//                    }
 
 
                 }
@@ -278,8 +307,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 } else {
                     binding.searchNone.visibility = View.GONE
                 }
-                binding.searchStoreAmount.text = "매장 ${it.size}"
 
+                binding.searchStoreAmount2.text = it.size.toString()
                 if (searchViewModel.recyclerViewState != null) {
                     binding.searchStoreRv.layoutManager!!.onRestoreInstanceState(searchViewModel.recyclerViewState)
                     searchViewModel.recyclerViewState = null
@@ -349,19 +378,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     }
 
-
-//    fun switchClick(view: View) {
-//        if (!switchOn) {
-//            slideUp()
-//            binding.searchMap.visibility = View.GONE
-//            Glide.with(requireContext()).load(R.drawable.open).into(binding.searchSwitch)
-//        } else {
-//            slideDown()
-//            binding.searchMap.visibility = View.VISIBLE
-//            Glide.with(requireContext()).load(R.drawable.close).into(binding.searchSwitch)
-//        }
-//        switchOn = !switchOn
-//    }
 
     private fun slideUp() {
         val animateMap = TranslateAnimation(0f, 0f, 0f, -binding.searchMap.height.toFloat()).apply {
