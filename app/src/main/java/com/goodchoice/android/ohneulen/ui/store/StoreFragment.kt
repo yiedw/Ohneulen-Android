@@ -104,7 +104,6 @@ class StoreFragment : Fragment() {
             storePoint(it)
 //            binding.storeFragmentViewPager2.adapter!!.notifyDataSetChanged()
             binding.storeFragmentViewPager2.currentItem = state
-            Timber.e("storeFragment")
 
         })
         stickyHeader()

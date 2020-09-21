@@ -35,7 +35,6 @@ import java.lang.Exception
 class SearchStoreAdapter :
     ListAdapter<SearchStore, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
-    var first = false
     lateinit var mNetworkService: NetworkService
 
     inner class SearchStoreViewHolder(private val binding: SearchStoreItemBinding) :
@@ -44,12 +43,12 @@ class SearchStoreAdapter :
         fun bind(item: SearchStore) {
             binding.apply {
                 searchStore = item
-                if(BuildConfig.DEBUG){
-                    searchStoreItemNew.visibility= View.VISIBLE
+                if (BuildConfig.DEBUG) {
+                    searchStoreItemNew.visibility = View.VISIBLE
                 }
 
                 //평점
-                val point = ((item.P_1*10).toInt()/10.0).toString()
+                val point = ((item.P_1 * 10).toInt() / 10.0).toString()
                 binding.searchStoreItemRating.text = point
 
                 //리뷰 갯수
@@ -88,10 +87,6 @@ class SearchStoreAdapter :
                             if (response.resultCode == ConstList.SUCCESS) {
                                 searchStoreItemLike.isSelected = !searchStoreItemLike.isSelected
                                 if (searchStoreItemLike.isSelected) {
-//                                    getItem(adapterPosition).likeCnt++
-//                                    notifyItemChanged(adapterPosition)
-//                                    searchStoreItemLike.isSelected=true
-//                                        (binding.searchStoreItemGoodCnt.text.toString() .toInt() + 1).toString()
                                     Handler(Looper.getMainLooper()).post {
                                         val goodCnt = binding.searchStoreItemGoodCnt.text.toString()
                                             .toInt()
@@ -117,6 +112,10 @@ class SearchStoreAdapter :
 ////                                        notifyItemRemoved(adapterPosition)
 //                                        submitList(newList)
 //                                    }
+                                } else {
+                                    Handler(Looper.getMainLooper()).post {
+                                        bind(item)
+                                    }
                                 }
                             } else if (response.resultCode == ConstList.REQUIRE_LOGIN) {
                                 LoginViewModel.isLogin.postValue(false)

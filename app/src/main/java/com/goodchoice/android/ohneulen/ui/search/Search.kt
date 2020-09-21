@@ -341,6 +341,10 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 && searchViewModel.addrx[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
                 && searchViewModel.addrx[1] == mapPointBounds.topRight.mapPointGeoCoord.longitude
             ) {
+//                Timber.e(searchViewModel.addry[0].toString())
+//                Timber.e(searchViewModel.addry[1].toString())
+//                Timber.e(searchViewModel.addrx[0].toString())
+//                Timber.e(searchViewModel.addrx[1].toString())
                 return
             }
         }
