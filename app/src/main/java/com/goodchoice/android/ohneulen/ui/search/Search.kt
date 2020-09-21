@@ -121,6 +121,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         //매장 정보 드래그
         var initTouchEventY = 0f    // 초기 터치이벤트 y
         var initY = 0f                // 드래그 이후 뷰 위치를 판별하기 위해 사용
+
+
         binding.searchInfoCon.setOnTouchListener { v, event ->
             if (searchStat == 2) {
                 slideDown(
@@ -159,14 +161,14 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     //getY -> 방법에따라 절대좌표 or 상대좌표를 제공
                     //절대좌표 - appbarHeight - statusBarHeight - 초기 터치위치의 y값 (상대좌표)
                     v.y = (event.rawY - appBarHeight - statusBarHeight - initTouchEventY)
-                    binding.searchStoreRv.y = v.y + v.height
+                    binding.searchStoreFrameLayout.y = v.y + v.height
 
                     //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
-                    binding.searchStoreRv.layoutParams.also { lp ->
+                    binding.searchStoreFrameLayout.layoutParams.also { lp ->
                         lp.height =
                             (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height).toInt()
                     }
-                    binding.searchStoreRv.requestLayout()   //뷰 새로고침
+                    binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
 
                 }
                 MotionEvent.ACTION_UP -> {
@@ -175,7 +177,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                             slideUp(
                                 searchStat1Y.toFloat(),
                                 searchStat1Y + v.height.toFloat(),
-                                //searchStoreRv height 전체 뷰에 맞게 재설정
+                                //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
                                 (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - searchStat1Y - v.height).toInt()
                             )
                             binding.searchMap.translationY =
@@ -189,10 +191,10 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                             slideUp(
                                 0f,
                                 binding.searchInfoCon.height.toFloat(),
-                                //searchStoreRv height 전체 뷰에 맞게 재설정
+                                //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
                                 (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.height).toInt()
                             )
-                            binding.searchStoreRv.requestLayout()       // 레이아웃 새로고침
+                            binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
                             binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
                             binding.searchOpen.visibility = View.VISIBLE  // open 이미지 보여줌
                             v.setBackgroundColor(requireContext().getColor(R.color.white))    //뒤에 지도배경 삭제
@@ -204,7 +206,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                                 //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
                                 MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
                                 //높이는 그대로
-                                binding.searchStoreRv.height
+                                binding.searchStoreFrameLayout.height
                             )
                             binding.searchMap.translationY = 0f     //지도위치를 다시 중앙으로 이동
                             searchStat = 0  //맵이 리스트를 덮은상태
@@ -236,10 +238,12 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                if (it.isEmpty()) {
+                if (it.isEmpty()) {     //검색결과없을때
                     binding.searchNone.visibility = View.VISIBLE
+                    binding.searchStoreRv.visibility=View.GONE
                 } else {
                     binding.searchNone.visibility = View.GONE
+                    binding.searchStoreRv.visibility=View.VISIBLE
                 }
 
                 binding.searchStoreAmount2.text = it.size.toString()
@@ -483,20 +487,20 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     private fun slideUp(
         searchInfoConY: Float,
-        searchStoreRvY: Float,
-        searchStoreRvHeight: Int
+        searchStoreFrameLayoutY: Float,
+        searchStoreFrameLayoutHeight: Int
     ) {
-        binding.searchStoreRv.animate()
-            .y(searchStoreRvY).setDuration(400)
+        binding.searchStoreFrameLayout.animate()
+            .y(searchStoreFrameLayoutY).setDuration(400)
             .withEndAction {        //액션이 끝났을때
-                binding.searchStoreRv.y =
-                    searchStoreRvY
-                binding.searchStoreRv.layoutParams.also { lp ->
+                binding.searchStoreFrameLayout.y =
+                    searchStoreFrameLayoutY
+                binding.searchStoreFrameLayout.layoutParams.also { lp ->
                     lp.height =
-                        searchStoreRvHeight     //searchStoreRv height 전체 뷰에 맞게 재설정
+                        searchStoreFrameLayoutHeight     //searchStoreRv height 전체 뷰에 맞게 재설정
                 }
                 //뷰 새로고침
-                binding.searchStoreRv.requestLayout()
+                binding.searchStoreFrameLayout.requestLayout()
             }
             .withStartAction {         //infoCon ,search list, map 애니메이션을 동시에 실행
                 binding.searchInfoCon.animate().y(searchInfoConY)
@@ -504,14 +508,15 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     .withEndAction {
                         binding.searchInfoCon.y = searchInfoConY
                     }.start()
-
             }
+
+
     }
 
     private fun slideDown(
         searchInfoConY: Float,
-        searchStoreRvY: Float,
-        searchStoreRvHeight: Int
+        searchStoreFrameLayoutY: Float,
+        searchStoreFrameLayoutHeight: Int
     ) {
         binding.searchInfoCon.animate()
             .y(searchInfoConY)
@@ -519,16 +524,16 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             .withEndAction {
                 binding.searchInfoCon.y = searchInfoConY
             }.withStartAction {
-                binding.searchStoreRv.animate()
-                    .y(searchStoreRvY)
+                binding.searchStoreFrameLayout.animate()
+                    .y(searchStoreFrameLayoutY)
                     .setDuration(400)
                     .withEndAction {
-                        binding.searchStoreRv.y = searchStoreRvY
-                        binding.searchStoreRv.layoutParams.also { lp ->
-                            lp.height = searchStoreRvHeight
+                        binding.searchStoreFrameLayout.y = searchStoreFrameLayoutY
+                        binding.searchStoreFrameLayout.layoutParams.also { lp ->
+                            lp.height = searchStoreFrameLayoutHeight
                         }
                         //뷰 새로고침
-                        binding.searchStoreRv.requestLayout()
+                        binding.searchStoreFrameLayout.requestLayout()
                     }
             }.start()
     }

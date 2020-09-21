@@ -104,7 +104,7 @@ class SearchStoreAdapter :
                                         ).show()
                                     }
 
-                                } else {
+//                                } else {
 //                                    getItem(adapterPosition).likeCnt--
 //                                    notifyItemChanged(adapterPosition)
 //                                    searchStoreItemLike.isSelected=false

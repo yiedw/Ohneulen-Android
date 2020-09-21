@@ -62,11 +62,11 @@
                 android:id="@+id/search_store_amount2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
                 android:textColor="#808080"
                 android:textSize="14dp"
-                android:text="0"
-                app:layout_constraintLeft_toRightOf="@id/search_store_amount1"
-                android:gravity="center"/>
+                app:layout_constraintLeft_toRightOf="@id/search_store_amount1" />
 
             <!--                android:text="매장 102"-->
             <ImageView
@@ -83,46 +83,52 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_store_rv"
+        <FrameLayout
+            android:id="@+id/search_store_frameLayout"
             android:layout_width="match_parent"
             android:layout_height="1000dp"
-            android:background="@color/white"
-            android:paddingHorizontal="20dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/search_infoCon"
-            bind:searchStore="@{viewModel.searchStoreList}"
-            bind:searchStoreAdapter="@{viewModel.searchStoreAdapter}"
-            bind:searchStoreNetworkService="@{viewModel.mNetworkService}" />
+            app:layout_constraintTop_toBottomOf="@id/search_infoCon">
 
-
-        <LinearLayout
-            android:id="@+id/search_none"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:paddingTop="100dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_map"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <ImageView
-                android:id="@+id/search_none_iv"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_store_rv"
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_marginBottom="11dp"
-                android:src="@drawable/circle_3" />
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingHorizontal="20dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                bind:searchStore="@{viewModel.searchStoreList}"
+                bind:searchStoreAdapter="@{viewModel.searchStoreAdapter}"
+                bind:searchStoreNetworkService="@{viewModel.mNetworkService}" />
 
-            <TextView
-                android:id="@+id/search_none_tv"
+            <LinearLayout
+                android:id="@+id/search_none"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="해당 지역의 매장 데이터가 없습니다\n다시 검색해 주세요"
-                android:textColor="@color/colorCGrey"
-                android:textSize="14dp" />
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="100dp"
+                android:visibility="gone"
+                app:layout_constraintVertical_chainStyle="packed">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/search_none_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_marginBottom="11dp"
+                    android:src="@drawable/circle_3" />
+
+                <TextView
+                    android:id="@+id/search_none_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="해당 지역의 매장 데이터가 없습니다\n다시 검색해 주세요"
+                    android:textColor="@color/colorCGrey"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
