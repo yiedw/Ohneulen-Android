@@ -28,6 +28,10 @@ import java.util.*
 
 class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
+
+    //network resultCode
+    val networkResultCode=MutableLiveData<String>()
+
     //storeDetail 가져오기
     var storeMenuList = listOf<StoreMenu>()
     var storeDetail = MutableLiveData<StoreDetail>()
@@ -64,7 +68,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
     //menuDetail 클릭했을때 클릭한 곳으로 이동
     var menuIndex = 0
-    var menuDetailListSize=0
+    var menuDetailListSize = 0
 
 
     //storeimage
@@ -109,12 +113,12 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
         }
     }
 
-    var toastMessageCheck=MutableLiveData("000")
+    var toastMessageCheck = MutableLiveData("000")
     fun imageUpload(file: File) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val requestFile= file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-                val body=MultipartBody.Part.createFormData("file",file.name,requestFile)
+                val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
                 val response = networkService.requestImageUpload(body)
                 if (response.resultCode == ConstList.SUCCESS) {
                     reviewImgList.add("/public/upload/storeimg/${response.resultData.file_name}")
@@ -125,6 +129,22 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
             } catch (e: Exception) {
                 Timber.e(e.toString())
             }
+        }
+    }
+
+
+    fun storeReport(gubun1: String, contents: String) {
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = networkService.requestSetBoard(
+                    ConstList.STORE_REPORT,
+                    gubun1, "", contents
+                )
+                networkResultCode.postValue(response.resultCode)
+
+            }
+        } catch (e: Exception) {
+            Timber.e(e.toString())
         }
     }
 

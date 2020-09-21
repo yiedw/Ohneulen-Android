@@ -88,10 +88,11 @@ class SearchStoreAdapter :
                                 searchStoreItemLike.isSelected = !searchStoreItemLike.isSelected
                                 if (searchStoreItemLike.isSelected) {
                                     Handler(Looper.getMainLooper()).post {
-                                        val goodCnt = binding.searchStoreItemGoodCnt.text.toString()
-                                            .toInt()
-                                        binding.searchStoreItemGoodCnt.text =
-                                            (goodCnt + 1).toString()
+//                                        val goodCnt = binding.searchStoreItemGoodCnt.text.toString()
+//                                            .toInt()
+//                                        binding.searchStoreItemGoodCnt.text =
+//                                            (goodCnt + 1).toString()
+                                        bind(item)
                                         Toast.makeText(
                                             root.context,
                                             "찜 목록에 저장되었습니다",

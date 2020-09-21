@@ -60,22 +60,27 @@ interface NetworkService {
 
     //찜 목록 가져오기
     @POST("api/get_memberLike")
+    @FormUrlEncoded
     suspend fun requestGetMemberLike(
+        @Field("kind") kind:String="001"
     ): GetMemberLikeResponse
 
     //문의 내역 가져오기
     @POST("api/get_board")
-    suspend fun requestGetInquire(
-    ): GetInquireResponse
+    @FormUrlEncoded
+    suspend fun requestGetBoard(
+        @Field("kind") kind:String
+    ): GetBoardResponse
 
     //문의 내역 보내기
     @POST("api/set_board")
     @FormUrlEncoded
-    suspend fun requestSetInquire(
+    suspend fun requestSetBoard(
+        @Field("kind") kind:String,
         @Field("gubun1") gubun1: String,
         @Field("title") title: String,
         @Field("contents") contents: String
-    ): GetInquireResponse
+    ): GetEmptyDataResponse
 
     //리뷰 쓰기
     @POST("/api/set_review")

@@ -183,8 +183,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                                 //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
                                 (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - searchStat1Y - v.height).toInt()
                             )
-                            binding.searchMap.translationY =
-                                (searchStat1Y - binding.searchMap.height) / 2.toFloat()  //map 중앙이 가려지기때문에 조금 이동
+//                            binding.searchMap.translationY =
+//                                (searchStat1Y - binding.searchMap.height) / 2.toFloat()  //map 중앙이 가려지기때문에 조금 이동(범위를 늘려서 필요없음)
                             searchStat = 1  //지도가 반만 덮은 상태
                         } else {
                             slideUp(
@@ -217,7 +217,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                                 //높이는 그대로
                                 binding.searchStoreFrameLayout.height
                             )
-                            binding.searchMap.translationY = 0f     //지도위치를 다시 중앙으로 이동
+//                            binding.searchMap.translationY = 0f     //지도위치를 다시 중앙으로 이동(범위를 늘려서 필요없음)
                             searchStat = 0  //맵이 리스트를 덮은상태
                         }
                     }

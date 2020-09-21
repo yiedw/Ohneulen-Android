@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
@@ -183,7 +185,8 @@ class StoreHome : Fragment() {
             //옵션 리니어레이아웃 생성
             val linearLayout = LinearLayout(requireContext())
             linearLayout.orientation = LinearLayout.HORIZONTAL
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 20.dpToPx())
+            val params =
+                LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 20.dpToPx())
             params.setMargins(0, 5.dpToPx(), 0, 0)
             linearLayout.layoutParams = params
 
@@ -287,6 +290,10 @@ class StoreHome : Fragment() {
 
 
     fun reportClick(view: View) {
+        if (!LoginViewModel.isLogin.value!!) {
+            loginDialog(requireContext(), StoreAppBar.newInstance(), false)
+            return
+        }
         replaceAppbarFragment(StoreHomeReportAppBar.newInstance())
         popupFragment(StoreHomeReport.newInstance(storeViewModel.storeDetail.value!!.storeInfo.storeFull.storeName))
     }

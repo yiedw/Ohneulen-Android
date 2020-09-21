@@ -18,7 +18,9 @@ data class Review(
     val point_7: String,
     val seq: String,
     val status: String,
-    val store_seq: String
+    val store_seq: String,
+    val memName:String,
+    val nickName:String
 )
 
 fun getReview(): List<Review> {
@@ -40,7 +42,9 @@ fun getReview(): List<Review> {
                 "3",
                 "3",
                 "4",
-                "5"
+                "5",
+                "홍길동",
+                ""
             )
         )
     }

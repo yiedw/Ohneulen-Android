@@ -1,14 +1,9 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
-import android.os.Handler
-import android.os.Looper
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
-import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +12,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
 
-class MyPageViewModel(private val networkService: NetworkService) : ViewModel(){
+class MyPageViewModel(private val networkService: NetworkService) : ViewModel() {
 
 //    val goodAdapter = MyPageGoodAdapter()
 
@@ -35,7 +30,8 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel(){
     fun getInquireList() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = networkService.requestGetInquire()
+                //001 -> 1:1문의
+                val response = networkService.requestGetBoard(ConstList.MYPAGE_INQUIRE)
                 if (response.resultCode == ConstList.SUCCESS) {
                     if (mypageFAQList.value != response.resultData) {
                         mypageInquireList.postValue(response.resultData)
@@ -52,7 +48,9 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel(){
     fun setInquireList(gubun1: String, title: String, contents: String) {
         try {
             CoroutineScope(Dispatchers.IO).launch {
-                val response = networkService.requestSetInquire(
+                //001 -> 1:1 문의
+                val response = networkService.requestSetBoard(
+                    ConstList.MYPAGE_INQUIRE,
                     gubun1,
                     title,
                     contents

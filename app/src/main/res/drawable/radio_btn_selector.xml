@@ -3,5 +3,5 @@
     <item android:drawable="@drawable/radio_btn" android:state_checked="false">
 
     </item>
-    <item android:drawable="@drawable/radio_btn_select" android:state_checked="true"></item>
+    <item android:drawable="@drawable/radio_btn_select" android:state_checked="true"/>
 </selector>

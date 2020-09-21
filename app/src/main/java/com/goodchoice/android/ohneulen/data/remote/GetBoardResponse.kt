@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 import com.goodchoice.android.ohneulen.data.model.Inquire
 
 @Keep
-data class GetInquireResponse (
+data class GetBoardResponse (
     val resultCode:String,
     val resultData:List<Inquire>,
     var resultMsg:String

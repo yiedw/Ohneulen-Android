@@ -6,7 +6,7 @@ import com.google.maps.android.clustering.ClusterItem
 import javax.sql.DataSource
 
 @Keep
-data class StoreFull (
+data class StoreFull(
     val seq: String,
     val kind: String,
     val cate1: String,
@@ -32,12 +32,14 @@ data class StoreFull (
     val insertID: String,
     val modifyDate: String,
     val modifyID: String,
-    val cate1Name: Cate1Name?=null,
+    val cate1Name: Cate1Name? = null,
     val likes: Boolean,
     val image: List<Image>,
     val photoURL: String,
     val openTime: List<OpenTime>,
-    val opentime:String
+    val opentime: String,
+    @SerializedName("like_cnt")
+    val likeCnt: Int
 )
 
 @Keep

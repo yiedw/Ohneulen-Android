@@ -80,7 +80,6 @@ class StoreFragment : Fragment() {
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
 //            메뉴 없으면 메뉴탭 삭제
-//            Timber.e("asdf")
             replaceAppbarFragment(StoreAppBar.newInstance())
             if (it.menuList.isNullOrEmpty()) {
                 viewPagerSettingNullMenu()
@@ -163,8 +162,16 @@ class StoreFragment : Fragment() {
     //카테고리 좋아요 후기 갯수
     private fun storeHeader(storeDetail: StoreDetail) {
         val store = storeDetail.storeInfo.storeFull
+
         val likeCnt =
-            textColor("51", 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
+            textColor(
+                //좋아요 갯수 가져오기
+                storeDetail.storeInfo.storeFull.likeCnt.toString(),
+                0,
+                storeDetail.storeInfo.storeFull.likeCnt.toString().length,
+                //색깔설정
+                ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
+            )
         val reviewCnt = textColor(
             storeDetail.reviewCnt.toString(),
             0,

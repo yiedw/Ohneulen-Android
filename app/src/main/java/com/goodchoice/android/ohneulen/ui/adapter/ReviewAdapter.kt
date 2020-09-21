@@ -1,6 +1,8 @@
 package com.goodchoice.android.ohneulen.ui.adapter
 
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,10 @@ import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReportAppBar
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ReviewAdapter(val report: Boolean = true) :
     ListAdapter<Review, ReviewAdapter.ReviewViewHolder>(ReviewDiffUtil) {
@@ -30,7 +36,7 @@ class ReviewAdapter(val report: Boolean = true) :
         fun bind(reviewItem: Review) {
             binding.apply {
                 review = reviewItem
-                reviewItemRatingbar.rating=reviewItem.point_1.toFloat()
+                reviewItemRatingbar.rating = reviewItem.point_1.toFloat()
 //                val rating: Double =
 //                    (reviewItem.point_1.toDouble() + reviewItem.point_2.toDouble() +
 //                            reviewItem.point_3.toDouble() + reviewItem.point_4.toDouble() + reviewItem.point_5.toDouble()) / 5
@@ -68,6 +74,26 @@ class ReviewAdapter(val report: Boolean = true) :
 //                        5,
 //                        7
 //                    )}.${reviewItem.modifyDate.substring(8, 10)}"
+
+                //닉네임 넣어주기
+                if (reviewItem.nickName.isEmpty()) {
+                    //닉네임이 없을때
+                    reviewItemNickName.text = reviewItem.memName
+                } else {
+                    //닉네임이 있을때
+                    reviewItemNickName.text = reviewItem.nickName
+                }
+
+                //좋아요 클릭
+                reviewItemGood.setOnClickListener {
+//                    CoroutineScope(Dispatchers.IO).launch {
+//                    }
+                    reviewItemGood.isSelected = !reviewItemGood.isSelected
+
+//                    Handler(Looper.getMainLooper()).post {
+//                        bind(reviewItem)
+//                    }
+                }
             }
         }
     }
