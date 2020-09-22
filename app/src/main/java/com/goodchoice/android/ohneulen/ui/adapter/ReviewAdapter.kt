@@ -76,7 +76,7 @@ class ReviewAdapter(val report: Boolean = true) :
 //                    )}.${reviewItem.modifyDate.substring(8, 10)}"
 
                 //닉네임 넣어주기
-                if (reviewItem.nickName.isEmpty()) {
+                if (reviewItem.nickName.isNullOrEmpty()) {
                     //닉네임이 없을때
                     reviewItemNickName.text = reviewItem.memName
                 } else {

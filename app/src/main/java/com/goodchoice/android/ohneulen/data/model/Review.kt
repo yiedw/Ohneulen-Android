@@ -20,7 +20,7 @@ data class Review(
     val status: String,
     val store_seq: String,
     val memName:String,
-    val nickName:String
+    val nickName:String?
 )
 
 fun getReview(): List<Review> {

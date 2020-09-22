@@ -8,6 +8,7 @@ import com.goodchoice.android.ohneulen.util.getOhneulenData
 import com.goodchoice.android.ohneulen.util.getOhneulenSubData
 import kotlinx.coroutines.*
 import timber.log.Timber
+import java.lang.Exception
 
 class InitData(private val networkService: NetworkService) {
 
@@ -34,48 +35,68 @@ class InitData(private val networkService: NetworkService) {
     //옵션
 
     init {
-        //옵션 가져오기
-        getOptionKind()
         //카테고리 가져오기
         getCategory()
+        //옵션 가져오기
+        getOptionKind()
         //요일 가져오기
         getTimeDay()
 
     }
 
     private fun getCategory() {
-        CoroutineScope(Dispatchers.IO).launch {
-            mainCategory = getOhneulenData(networkService, ConstList.CATEGORY)
-            for (i in mainCategory.indices) {
-                val tempList = getOhneulenData(networkService, mainCategory[i].minorCode)
-                subCategoryList.add(tempList)
-            }
-            Timber.e(subCategoryList.toString())
-            subCategory.postValue(subCategoryList[0])
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                val mainCategoryScope = CoroutineScope(Dispatchers.IO).launch {
+                    mainCategory = getOhneulenData(networkService, ConstList.CATEGORY)
+                }
+                mainCategoryScope.join()
+
+                for (i in mainCategory.indices) {
+                    val tempList = getOhneulenData(networkService, mainCategory[i].minorCode)
+                    subCategoryList.add(tempList)
+                }
+                Timber.e(subCategoryList.toString())
+                subCategory.postValue(subCategoryList[0])
 //            subCategoryList = getOhneulenSubData(networkService, mainCategory)
-            checkInitData++
-            endNumber.postValue(checkInitData)
+                checkInitData++
+                endNumber.postValue(checkInitData)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
     }
 
     private fun getOptionKind() {
-        CoroutineScope(Dispatchers.IO).launch {
-            mainOptionKind = getOhneulenData(networkService, ConstList.OPTION_KIND)
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val mainOptionKindScope = CoroutineScope(Dispatchers.IO).launch {
+                    mainOptionKind = getOhneulenData(networkService, ConstList.OPTION_KIND)
 //            for (i in mainOptionKind.indices) {
 //                val tempList = getOhneulenData(networkService, mainOptionKind[i].minorCode)
 //                subOptionKind.add(tempList)
 //            }
-            subOptionKind = getOhneulenSubData(networkService, mainOptionKind)
-            checkInitData++
-            endNumber.postValue(checkInitData)
+                }
+                mainOptionKindScope.join()
+                subOptionKind = getOhneulenSubData(networkService, mainOptionKind)
+                checkInitData++
+                endNumber.postValue(checkInitData)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
     }
 
     private fun getTimeDay() {
-        CoroutineScope(Dispatchers.IO).launch {
-            timeDay = getOhneulenData(networkService, ConstList.TIME_DAY)
-            checkInitData++
-            endNumber.postValue(checkInitData)
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                timeDay = getOhneulenData(networkService, ConstList.TIME_DAY)
+                checkInitData++
+                endNumber.postValue(checkInitData)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
     }
 

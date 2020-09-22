@@ -38,17 +38,22 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     var storeSeq = StoreFragment.storeSeq
     fun getStoreDetail(storeSeq: String) {
         this.storeSeq = storeSeq
-        CoroutineScope(Dispatchers.IO).launch {
-            val storeDetailResponse = networkService.requestGetStoreInfo(
-                storeSeq.toRequestBody()
-            )
-            if (storeDetail.value == storeDetailResponse.resultData)
-                return@launch
-            if (storeDetailResponse.resultCode == "000") {
-                storeDetail.postValue(storeDetailResponse.resultData)
-                storeMenuList = storeDetailResponse.resultData.menuList
-            }
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                val storeDetailResponse = networkService.requestGetStoreInfo(
+                    storeSeq.toRequestBody()
+                )
+                if (storeDetail.value == storeDetailResponse.resultData)
+                    return@launch
+                if (storeDetailResponse.resultCode == "000") {
+                    storeDetail.postValue(storeDetailResponse.resultData)
+                    storeMenuList = storeDetailResponse.resultData.menuList
+                }
 
+            }
+        }
+        catch (e:Exception){
+            Timber.e(e.toString())
         }
     }
 

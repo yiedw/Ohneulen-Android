@@ -50,8 +50,8 @@
             <TextView
                 android:id="@+id/search_store_amount1"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
                 android:text="매장 "
                 android:textColor="#1a1a1a"
                 android:textSize="14dp"
@@ -61,12 +61,14 @@
             <TextView
                 android:id="@+id/search_store_amount2"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#808080"
                 android:textSize="14dp"
-                app:layout_constraintLeft_toRightOf="@id/search_store_amount1" />
+                app:layout_constraintBottom_toBottomOf="@id/search_store_amount1"
+                app:layout_constraintLeft_toRightOf="@id/search_store_amount1"
+                app:layout_constraintTop_toTopOf="@id/search_store_amount1" />
 
             <!--                android:text="매장 102"-->
             <ImageView

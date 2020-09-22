@@ -15,12 +15,14 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.SearchStore
 import com.goodchoice.android.ohneulen.data.model.Store
 import com.goodchoice.android.ohneulen.databinding.SearchBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
+import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.addMainFragment
@@ -110,11 +112,48 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //맵을 클릭하는순간 지도로 리스트를 덮기
+        mapView.setOnTouchListener { v, event ->
+            if (searchStat != 0) {
+                slideDown(
+                    binding.searchMap.height - binding.searchInfoCon.height.toFloat(),
+                    //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
+                    MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
+                    //높이는 그대로
+                    binding.searchStoreFrameLayout.height
+                )
+                searchStat = 0  //맵이 리스트를 덮은상태
+            }
+            false
+        }
 
-        //리스트가 지도를 덮고있을경우에는 지도터치 막기
-//        binding.searchInfoCon.setOnClickListener {
-//
-//        }
+        var rvFirstScroll = true
+        //searchStat=1 인 상태에서 list를 스크롤하면 자동으로 리스트가 지도를 덮음
+        binding.searchStoreRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (rvFirstScroll && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    rvFirstScroll = false
+                    //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
+                    binding.searchStoreFrameLayout.layoutParams.also { lp ->
+                        lp.height =
+                            (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height).toInt()
+                    }
+                    binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
+                    slideUp(
+                        0f,
+                        binding.searchInfoCon.height.toFloat(),
+                        //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
+                        (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - binding.searchInfoCon.height).toInt()
+                    )
+                    binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
+                    binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
+                    binding.searchOpen.visibility = View.VISIBLE  // open 이미지 보여줌
+                    binding.searchInfoCon.setBackgroundColor(requireContext().getColor(R.color.white))    //뒤에 지도배경 삭제
+                    searchStat = 2  //리스트가 맵을 덮은상태
+                }
+            }
+        })
 
         //마커이벤트
         mapView.setPOIItemEventListener(this)
@@ -128,18 +167,31 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
         binding.searchInfoCon.setOnTouchListener { v, event ->
             if (searchStat == 2) {
+                //searchStat=2 --> searchStat=1로 갈때 지금은 2-->0으로 변경
+//                slideDown(
+//                    searchStat1Y.toFloat(),
+//                    searchStat1Y.toFloat() + v.height,
+//                    (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.y - v.height).toInt()
+//                )
+//                //다시 배경에 지도 보이게
+//                v.background = ContextCompat.getDrawable(
+//                    requireContext(),
+//                    R.drawable.background_new
+//                )
+//                searchStat = 1  //지도가 반만 덮은상태
                 slideDown(
-                    searchStat1Y.toFloat(),
-                    searchStat1Y.toFloat() + v.height,
-                    (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.y - v.height).toInt()
+                    binding.searchMap.height - v.height.toFloat(),
+                    //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
+                    MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
+                    //높이는 그대로
+                    binding.searchStoreFrameLayout.height
                 )
+                searchStat = 0  //맵이 리스트를 덮은상태
                 //다시 배경에 지도 보이게
                 v.background = ContextCompat.getDrawable(
                     requireContext(),
                     R.drawable.background_new
                 )
-                searchStat = 1  //지도가 반만 덮은상태
-
                 binding.searchSlide.visibility = View.VISIBLE    // 슬라이드이미지 보여줌
                 binding.searchOpen.visibility = View.GONE  // open 이미지 숨김
 
@@ -240,12 +292,14 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         )
         searchViewModel.kakaoMapPoint.observe(
             viewLifecycleOwner, Observer { it ->
+                rvFirstScroll = true
                 mapView.moveCamera(CameraUpdateFactory.newMapPoint(it))
                 circleSearch(it)
             }
         )
 
         searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+
             if (it != null) {
                 if (it.isEmpty()) {     //검색결과없을때
                     binding.searchNone.visibility = View.VISIBLE
@@ -440,8 +494,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     private fun addMarker(store: SearchStore) {
         val marker = MapPOIItem()
-        marker.itemName = store.storeName
-        marker.tag = ONE_MARKER
+        marker.itemName = store.storeName       // 아이템이름
+        marker.tag = store.seq.toInt()
         val mapPoint = MapPoint.mapPointWithGeoCoord(store.addrY.toDouble(), store.addrX.toDouble())
         marker.mapPoint = mapPoint
         marker.markerType = MapPOIItem.MarkerType.CustomImage
@@ -555,12 +609,15 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
     }
 
+    //marker 위에 말풍선을 터치했을때
     override fun onCalloutBalloonOfPOIItemTouched(
         p0: MapView?,
         p1: MapPOIItem?,
         p2: MapPOIItem.CalloutBalloonButtonType?
     ) {
         StoreFragment.storeSeq = p1!!.tag.toString()
+        val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
+        dialog.show(MainActivity.supportFragmentManager, "loading")
         replaceAppbarFragment(StoreAppBar.newInstance())
         addMainFragment(StoreFragment.newInstance(), true)
     }
@@ -569,8 +626,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     }
 
     override fun onPOIItemSelected(p0: MapView?, marker: MapPOIItem?) {
-        if (marker!!.tag == ONE_MARKER)
-            return
 //        (binding.searchStoreRv.adapter as SearchStoreAdapter).submitList(storeListHashMap[marker.itemName.toInt()])
 
     }

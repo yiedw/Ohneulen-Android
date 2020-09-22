@@ -43,8 +43,13 @@ class SearchStoreAdapter :
         fun bind(item: SearchStore) {
             binding.apply {
                 searchStore = item
+                //디버깅모드일때 신규 아이콘 보여주기
                 if (BuildConfig.DEBUG) {
                     searchStoreItemNew.visibility = View.VISIBLE
+                }
+                //맨위에 아이템 제외하고 간격주기
+                if(adapterPosition!=0){
+                    binding.searchStoreItem.setPadding(0,10.dpToPx(),0,0)
                 }
 
                 //평점
@@ -92,6 +97,7 @@ class SearchStoreAdapter :
 //                                            .toInt()
 //                                        binding.searchStoreItemGoodCnt.text =
 //                                            (goodCnt + 1).toString()
+                                        item.likeCnt++
                                         bind(item)
                                         Toast.makeText(
                                             root.context,
@@ -115,6 +121,7 @@ class SearchStoreAdapter :
 //                                    }
                                 } else {
                                     Handler(Looper.getMainLooper()).post {
+                                        item.likeCnt--
                                         bind(item)
                                     }
                                 }
