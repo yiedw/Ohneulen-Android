@@ -133,7 +133,7 @@
             app:layout_constraintBottom_toBottomOf="@id/review_item_good"
             app:layout_constraintLeft_toRightOf="@id/review_item_good"
             app:layout_constraintTop_toTopOf="@id/review_item_good" />
-
+en
         <View
             android:id="@+id/review_item_border"
             android:layout_width="match_parent"
