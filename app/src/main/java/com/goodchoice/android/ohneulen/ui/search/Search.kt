@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.SearchStore
@@ -132,12 +133,12 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         binding.searchStoreRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (rvFirstScroll && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                if (isRecyclerScrollable() && rvFirstScroll && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     rvFirstScroll = false
                     //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
                     binding.searchStoreFrameLayout.layoutParams.also { lp ->
                         lp.height =
-                            (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height).toInt()
+                            (MainActivity.bottomNav.y+MainActivity.bottomNav.height).toInt()
                     }
                     binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
                     slideUp(
@@ -221,7 +222,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
                     binding.searchStoreFrameLayout.layoutParams.also { lp ->
                         lp.height =
-                            (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height).toInt()
+                            (MainActivity.bottomNav.y+MainActivity.bottomNav.height).toInt()
                     }
                     binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
 
@@ -604,6 +605,13 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
                     }
             }.start()
+    }
+
+    //recyclerview 스크롤 여부
+    private fun isRecyclerScrollable():Boolean{
+        val layoutManager=binding.searchStoreRv.layoutManager as LinearLayoutManager
+        val adapter=binding.searchStoreRv.adapter as RecyclerView.Adapter
+        return layoutManager.findLastCompletelyVisibleItemPosition()<adapter.itemCount-1
     }
 
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {

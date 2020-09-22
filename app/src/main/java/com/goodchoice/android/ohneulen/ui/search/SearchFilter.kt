@@ -204,6 +204,7 @@ class SearchFilter : Fragment() {
                             }
                         }
                         binding.searchFilterGridLayout.removeViewAt(i)
+                        break
                     }
                 }
                 //tempCate child 삭제

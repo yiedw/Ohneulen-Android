@@ -305,7 +305,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:ellipsize="end"
-            android:maxLines="3"
             android:text="@{mypageReview.content}"
             android:textColor="#141414"
             android:textSize="14dp"
@@ -334,12 +333,13 @@
 
         <ImageView
             android:id="@+id/mypage_review_item_good"
-            android:layout_width="14.3dp"
-            android:layout_height="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/heart"
-            app:layout_constraintBottom_toBottomOf="@id/mypage_review_item_image"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            android:src="@drawable/review_heart_selector"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mypage_review_item_content" />
 
 
         <TextView
@@ -348,8 +348,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="7.5dp"
             android:text="좋아합니다"
-            android:textSize="13dp"
             android:textColor="#666666"
+            android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="@id/mypage_review_item_good"
             app:layout_constraintLeft_toRightOf="@id/mypage_review_item_good"
             app:layout_constraintTop_toTopOf="@id/mypage_review_item_good" />
