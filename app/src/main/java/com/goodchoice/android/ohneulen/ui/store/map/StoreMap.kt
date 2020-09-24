@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.store.map
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +8,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
@@ -14,7 +17,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.StoreMapBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
+import com.goodchoice.android.ohneulen.util.dpToPx
+import com.goodchoice.android.ohneulen.util.setHeight
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -22,8 +29,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.appbar.AppBarLayout
 import com.google.maps.android.ui.IconGenerator
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class StoreMap : Fragment(), OnMapReadyCallback {
 
@@ -38,6 +47,7 @@ class StoreMap : Fragment(), OnMapReadyCallback {
             StoreMap()
     }
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,18 +59,18 @@ class StoreMap : Fragment(), OnMapReadyCallback {
             container,
             false
         )
-        mapView = binding.storeMapView
-        val layoutParams = ConstraintLayout.LayoutParams(
-            0,
-            0
-        )
-//
-        layoutParams.bottomToTop = R.id.store_map_con
-        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+        //화면에 딱맞게 크기를 조절
+        //지도 높이를 구함
+        //바텀네비게이션 y + 바텀네비게이션 height - 48dp(store_map_con height) - StoreFragment_AppbarLayout
+        val height =
+            MainActivity.bottomNav.y + MainActivity.bottomNav.height - 48.dpToPx() - (parentFragment as StoreFragment).view?.findViewById<AppBarLayout>(
+                R.id.store_appbarLayout
+            )!!.height
+        binding.storeMap.post {
+            binding.storeMap.setHeight(height.toInt())
+        }
 
-        mapView.layoutParams = layoutParams
+        mapView = binding.storeMapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
         binding.fragment = this
@@ -71,7 +81,10 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
             currentLatLng =
-                LatLng(it.storeInfo.storeFull.addrY.toDouble(), it.storeInfo.storeFull.addrX.toDouble())
+                LatLng(
+                    it.storeInfo.storeFull.addrY.toDouble(),
+                    it.storeInfo.storeFull.addrX.toDouble()
+                )
             binding.storeMapAddressRoad.text = it.storeInfo.storeFull.addrRoad1
             val addrOld =
                 "${it.storeInfo.storeFull.addrDepth1} ${it.storeInfo.storeFull.addrDepth2} ${it.storeInfo.storeFull.addrDepth3}"

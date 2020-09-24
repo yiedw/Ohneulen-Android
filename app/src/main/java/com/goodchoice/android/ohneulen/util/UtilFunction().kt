@@ -112,7 +112,7 @@ fun addAppbarFragment(
     fragmentTransaction.add(R.id.appbar_frameLayout, fragment).commit()
 }
 
-fun popupFragment(fragment: Fragment) {
+fun popupFragment(fragment: Fragment,tag:String?=null) {
     MainActivity.supportFragmentManager.beginTransaction()
         .setCustomAnimations(
             R.anim.enter_bottom_to_top,
@@ -121,7 +121,7 @@ fun popupFragment(fragment: Fragment) {
             R.anim.exit_top_to_bottom
         )
         .addToBackStack(null)
-        .add(MainActivity.mainFrameLayout.id, fragment)
+        .add(MainActivity.mainFrameLayout.id, fragment,tag)
         .commit()
 }
 
@@ -249,6 +249,15 @@ suspend fun getOhneulenSubData(
 fun comma(number: Int): String {
     val formatter = DecimalFormat("###,###")
     return formatter.format(number)
+}
+
+//view Height Change
+fun View.setHeight(value:Int){
+    val lp=layoutParams
+    lp?.let {
+        lp.height=value
+        layoutParams=lp
+    }
 }
 
 

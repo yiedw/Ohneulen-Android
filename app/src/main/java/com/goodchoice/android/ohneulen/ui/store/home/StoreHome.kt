@@ -6,20 +6,25 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreHomeBinding
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
+import com.google.android.material.tabs.TabLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class StoreHome : Fragment() {
     companion object {
@@ -81,7 +86,21 @@ class StoreHome : Fragment() {
                 binding.storeHomeContents.visibility = View.VISIBLE
             }
 
-
+            //공간이 남으면 아래로 스크롤 못하게 세팅
+            //탭바 높이 + 남는공간
+//            binding.storeHome.post {
+//                val parentFragment = (parentFragment as StoreFragment).view
+//                //parentFragment toolbar minheight 를 직접 설정
+//                val minHeight =
+//                    parentFragment?.findViewById<TabLayout>(R.id.store_tab)!!.height + parentFragment.findViewById<ViewPager2>(
+//                        R.id.store_fragment_viewPager2
+//                    )!!.height - binding.storeHome.height
+//
+//                Timber.e(minHeight.toString())
+//                parentFragment.findViewById<Toolbar>(R.id.store_toolbar)?.minimumHeight = minHeight
+//                parentFragment.findViewById<Toolbar>(R.id.store_toolbar)?.requestLayout()
+//                Timber.e(parentFragment.findViewById<Toolbar>(R.id.store_toolbar)?.minimumHeight.toString())
+//            }
         })
     }
 

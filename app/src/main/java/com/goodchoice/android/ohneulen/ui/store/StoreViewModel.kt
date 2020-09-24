@@ -1,40 +1,32 @@
 package com.goodchoice.android.ohneulen.ui.store
 
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.model.*
 import com.goodchoice.android.ohneulen.data.service.NetworkService
-import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
-import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
-import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
-import com.goodchoice.android.ohneulen.util.loginDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
 
     //network resultCode
-    val networkResultCode=MutableLiveData<String>()
+    val networkResultCode = MutableLiveData<String>()
 
     //storeDetail 가져오기
-    var storeMenuList = listOf<StoreMenu>()
     var storeDetail = MutableLiveData<StoreDetail>()
+    var storeMenuList = listOf<StoreMenu>()
+    var storeReviewList=listOf<Review>()
     var storeSeq = StoreFragment.storeSeq
     fun getStoreDetail(storeSeq: String) {
         this.storeSeq = storeSeq
@@ -46,16 +38,19 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                 if (storeDetail.value == storeDetailResponse.resultData)
                     return@launch
                 if (storeDetailResponse.resultCode == "000") {
-                    storeDetail.postValue(storeDetailResponse.resultData)
-                    storeMenuList = storeDetailResponse.resultData.menuList
+                    if (storeDetail.value != storeDetailResponse.resultData) {
+                        storeDetail.postValue(storeDetailResponse.resultData)
+                        storeMenuList = storeDetailResponse.resultData.menuList
+                        storeReviewList=storeDetailResponse.resultData.reviewList
+                    }
                 }
 
             }
-        }
-        catch (e:Exception){
+        } catch (e: Exception) {
             Timber.e(e.toString())
         }
     }
+    var storeReviewHeightCheck=false
 
     //찜 설정
     var setMemberLikeResponseCode = MutableLiveData<String>()

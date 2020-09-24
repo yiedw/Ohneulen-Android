@@ -9,13 +9,26 @@
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/store_menu_rv"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/store_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        bind:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        bind:storeMenu="@{viewModel.storeMenuList}"
-        >
+        android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <View
+            android:id="@+id/store_fragment_border2"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#f6f6f6"
+            bind:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/store_menu_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            bind:layout_constraintTop_toBottomOf="@id/store_fragment_border2"
+            bind:storeMenu="@{viewModel.storeMenuList}">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

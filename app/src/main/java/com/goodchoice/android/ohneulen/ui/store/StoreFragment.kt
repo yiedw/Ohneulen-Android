@@ -1,16 +1,24 @@
 package com.goodchoice.android.ohneulen.ui.store
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
-import android.util.DisplayMetrics
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -29,7 +37,9 @@ import com.goodchoice.android.ohneulen.ui.store.review.StoreReview
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import com.goodchoice.android.ohneulen.util.setHeight
 import com.goodchoice.android.ohneulen.util.textColor
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -39,8 +49,10 @@ class StoreFragment : Fragment() {
     companion object {
         fun newInstance() = StoreFragment()
         var storeSeq: String = ""
-        private var first = false
+        private var first = true
 
+        //최초에 한번만 높이를 측정 -> minheight를 수정하기 위해서 (화면에 빈공간 남는거 수정)
+        private var viewPager2Height = 0
         var state = 0
     }
 
@@ -78,7 +90,7 @@ class StoreFragment : Fragment() {
         })
 
         //데이터가 바뀔때마다
-        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer { it ->
 //            메뉴 없으면 메뉴탭 삭제
             replaceAppbarFragment(StoreAppBar.newInstance())
             if (it.menuList.isNullOrEmpty()) {
@@ -88,25 +100,29 @@ class StoreFragment : Fragment() {
             }
             hashTagGenerate(it)
             storeImage(it)
-            binding.storeNewScrollView.visibility = View.VISIBLE
             MainActivity.bottomNav.visibility = View.GONE
-            if (first || check) {
-                binding.storeNewScrollView.scrollTo(0, 1)
-                binding.storeNewScrollView.smoothScrollTo(0, 0)
-                if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
-                    (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
-                }
-            }
-
 
             //평점세팅
             storePoint(it)
-//            binding.storeFragmentViewPager2.adapter!!.notifyDataSetChanged()
-            binding.storeFragmentViewPager2.currentItem = state
+
+
+            if (storeViewModel.storeReviewHeightCheck) {
+                storeViewModel.storeReviewHeightCheck = false
+                val view =
+                    (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
+                        binding.storeFragmentViewPager2.currentItem
+                    )
+                val viewHeight =
+                    view?.findViewById<LinearLayout>(R.id.store_home)?.height
+                Timber.e(viewHeight.toString()+"review")
+            }
 
         })
-        stickyHeader()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
 
@@ -123,6 +139,7 @@ class StoreFragment : Fragment() {
         super.onDestroy()
         MainActivity.bottomNav.visibility = View.VISIBLE
         state = 0
+        storeViewModel.storeDetail = MutableLiveData()
 //        first = false
     }
 
@@ -144,7 +161,7 @@ class StoreFragment : Fragment() {
                 .into(binding.storeFragmentOneImage)
         } else {
             //여러개일때
-            binding.storeFragmentOneImage.visibility = View.INVISIBLE
+            binding.storeFragmentOneImage.visibility = View.GONE
             binding.storeFragmentImageRv.visibility = View.VISIBLE
 //            Glide.with(requireContext())
 //                .load(R.drawable.store_home_no_img)
@@ -186,17 +203,18 @@ class StoreFragment : Fragment() {
 
 
     //스크롤되면 헤더 붙이기
-    private fun stickyHeader() {
-        binding.storeTab.bringToFront()
-        binding.storeNewScrollView.run {
-            header = binding.storeTab
-            freeHeader()
-        }
-    }
+//    private fun stickyHeader() {
+//        binding.storeTab.bringToFront()
+//        binding.storeNewScrollView.run {
+//            header = binding.storeTab
+//            freeHeader()
+//        }
+//    }
 
 
     //viewPager setting
     private fun viewPagerSetting() {
+
         binding.storeFragmentViewPager2.adapter = StorePagerAdapter(
             getFragmentList(), childFragmentManager,
             lifecycle
@@ -220,20 +238,104 @@ class StoreFragment : Fragment() {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-//                    binding.storeFragmentViewPager2.setCurrentItem(position, true)
                     state = position
+
+                    //정확한 viewpager 높이를 구하기 위해 바뀔때마다 높이를 원래대로 세팅해줌
+                    if (viewPager2Height != 0) {
+                        binding.storeFragmentViewPager2.setHeight(viewPager2Height)
+                    }
 
                     val view =
                         (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
                         )
                     view?.let {
-                        if (position == 1) {
-                            mapSetting()
-                        } else {
-                            //viewPager 크기조절
-                            updatePagerHeightForChild(view, binding.storeFragmentViewPager2)
+                        val layoutParams = AppBarLayout.LayoutParams(
+                            AppBarLayout.LayoutParams.MATCH_PARENT,
+                            AppBarLayout.LayoutParams.WRAP_CONTENT
+                        )
+                        when (position) {
+                            0 -> {
+                                //지도를 제외하고는 스크롤
+                                layoutParams.scrollFlags =
+                                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
 
+                                //home 일때 배경색 회색으로 바꿔줌 ( 밑에 남는공간)
+                                binding.storeNewScrollView.setBackgroundColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorBackgroundF6
+                                    )
+                                )
+                                //공간이 남으면 아래로 스크롤 못하게 세팅
+                                it.post {
+
+                                    val viewHeight =
+                                        it.findViewById<LinearLayout>(R.id.store_home).height
+                                    minHeightSetting(viewHeight, layoutParams)
+                                }
+                            }
+
+                            1 -> {
+                                //지도일때는 스크롤 고정
+                                layoutParams.scrollFlags =
+                                    AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+
+                                //나머지는 흰색
+                                binding.storeNewScrollView.setBackgroundColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorWhite
+                                    )
+                                )
+                            }
+
+                            2 -> {
+                                //지도를 제외하고는 스크롤
+                                layoutParams.scrollFlags =
+                                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+
+                                //나머지는 흰색
+                                binding.storeNewScrollView.setBackgroundColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorWhite
+                                    )
+                                )
+
+                                //공간이 남으면 스크롤 못하게
+                                it.post {
+                                    val viewHeight =
+                                        it.findViewById<RecyclerView>(R.id.store_menu_rv).height
+                                    minHeightSetting(viewHeight, layoutParams)
+                                }
+                            }
+
+                            else -> {
+                                //지도를 제외하고는 스크롤
+                                layoutParams.scrollFlags =
+                                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+
+                                //나머지는 흰색
+                                binding.storeNewScrollView.setBackgroundColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorWhite
+                                    )
+                                )
+
+                                //공간이 남으면 스크롤 못하게
+                                it.post {
+                                    val viewHeight =
+                                        it.findViewById<RecyclerView>(R.id.store_review_rv).height
+                                    minHeightSetting(viewHeight, layoutParams)
+                                }
+                            }
+                        }
+
+                        binding.storeCollapsing.layoutParams = layoutParams
+                        if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
+                            (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
                         }
                     }
                 }
@@ -248,6 +350,23 @@ class StoreFragment : Fragment() {
             lifecycle
         )
         binding.storeFragmentViewPager2.offscreenPageLimit = getFragmentList().size
+//        if (binding.storeFragmentViewPager2.currentItem == 2) {
+//            val handler = Handler(Looper.getMainLooper())
+//            handler.post {
+//                Timber.e("sadf")
+//                val layoutParams = AppBarLayout.LayoutParams(
+//                    AppBarLayout.LayoutParams.MATCH_PARENT,
+//                    AppBarLayout.LayoutParams.WRAP_CONTENT
+//                )
+//                val view =
+//                    (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
+//                        2
+//                    )
+//                val viewHeight =
+//                    view?.findViewById<RecyclerView>(R.id.store_review_rv)?.height
+//                minHeightSetting(viewHeight!!, layoutParams)
+//            }
+//        }
 
         //탭 연결
         val tabLayoutTextList = mutableListOf("홈", "지도", "후기")
@@ -260,28 +379,54 @@ class StoreFragment : Fragment() {
                 R.color.white
             )
         )
-
         binding.storeFragmentViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     state = position
+                    //정확한 viewpager 높이를 구하기 위해 바뀔때마다 높이를 원래대로 세팅해줌
+                    if (viewPager2Height != 0) {
+                        binding.storeFragmentViewPager2.setHeight(viewPager2Height)
+
+                    }
+
                     val view =
                         (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
                             position
                         )
                     view?.let {
-                        if (position == 1) {
-                            mapSetting()
-                        } else {
-                            if (position == 0) {
+                        val layoutParams = AppBarLayout.LayoutParams(
+                            AppBarLayout.LayoutParams.MATCH_PARENT,
+                            AppBarLayout.LayoutParams.WRAP_CONTENT
+                        )
+
+                        when (position) {
+                            0 -> {
+                                //지도를 제외하고는 스크롤
+                                layoutParams.scrollFlags =
+                                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+
+                                //home 일때 배경색 회색으로 바꿔줌 ( 밑에 남는공간)
                                 binding.storeNewScrollView.setBackgroundColor(
                                     ContextCompat.getColor(
                                         requireContext(),
                                         R.color.colorBackgroundF6
                                     )
                                 )
-                            } else {
+                                //공간이 남으면 아래로 스크롤 못하게 세팅
+                                it.post {
+                                    val viewHeight =
+                                        it.findViewById<LinearLayout>(R.id.store_home).height
+                                    minHeightSetting(viewHeight, layoutParams)
+                                }
+                            }
+
+                            1 -> {
+                                //지도일때는 스크롤 고정
+                                layoutParams.scrollFlags =
+                                    AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+
+                                //나머지는 흰색
                                 binding.storeNewScrollView.setBackgroundColor(
                                     ContextCompat.getColor(
                                         requireContext(),
@@ -289,16 +434,33 @@ class StoreFragment : Fragment() {
                                     )
                                 )
                             }
-                            //viewPager 크기조절
-                            updatePagerHeightForChild(view, binding.storeFragmentViewPager2)
+
+                            else -> {
+                                //지도를 제외하고는 스크롤
+                                layoutParams.scrollFlags =
+                                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+
+                                //나머지는 흰색
+                                binding.storeNewScrollView.setBackgroundColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorWhite
+                                    )
+                                )
+
+                                //공간이 남으면 스크롤 못하게
+                                it.post {
+                                    val viewHeight =
+                                        it.findViewById<RecyclerView>(R.id.store_review_rv).height
+                                    minHeightSetting(viewHeight, layoutParams)
+                                }
+                            }
+                        }
+                        binding.storeCollapsing.layoutParams = layoutParams
+                        if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
+                            (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
                         }
                     }
-//                    if(position==2){
-//                        state=2
-//                        (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).notifyItemChanged(
-//                            2
-//                        )
-//                    }
                 }
 
 
@@ -320,7 +482,7 @@ class StoreFragment : Fragment() {
                 ConstraintLayout.LayoutParams.MATCH_PARENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
             )
-            layoutParams.topToBottom = R.id.store_fragment_border2
+//            layoutParams.topToBottom = R.id.store_fragment_border2
             pager.layoutParams = layoutParams
             if (pager.layoutParams.height != view.measuredHeight) {
                 pager.layoutParams = (pager.layoutParams)
@@ -328,8 +490,8 @@ class StoreFragment : Fragment() {
                         lp.height = view.measuredHeight
                     }
             }
-            binding.storeNewScrollView.scrollTo(0, 1)
-            binding.storeNewScrollView.smoothScrollTo(0, 0)
+//            binding.storeNewScrollView.scrollTo(0, 1)
+//            binding.storeNewScrollView.smoothScrollTo(0, 0)
             if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
                 (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
             }
@@ -355,23 +517,6 @@ class StoreFragment : Fragment() {
     }
 
 
-    private fun mapSetting() {
-        //지도를 화면에 딱맞게(스크롤뷰 안먹게)
-        val metrics = resources.displayMetrics
-        //store_map_nav height만큼 다시 빼준다
-        val px = 48 * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            MainActivity.bottomNav.bottom - binding.storeTab.bottom - px
-//            MainActivity.bottomNav.top - binding.storeTab.bottom - px
-        )
-        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.topToBottom = R.id.store_tab
-//        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        binding.storeFragmentViewPager2.layoutParams = layoutParams
-    }
-
     private fun hashTagGenerate(storeDetail: StoreDetail) {
         binding.storeFragmentHashTag.removeAllViews()
         for (i in storeDetail.hashtagList) {
@@ -395,6 +540,32 @@ class StoreFragment : Fragment() {
         point /= storeDetail.reviewCnt
         binding.storeFragmentRating.text = ((point * 10).toInt() / 10.0).toString()
         binding.storeFragmentRatingBar.rating = ((point * 10).toInt() / 10.0).toFloat()
+    }
+
+    private fun minHeightSetting(viewHeight: Int, layoutParams: AppBarLayout.LayoutParams) {
+        if (first) {
+            viewPager2Height = binding.storeFragmentViewPager2.height
+            first = false
+        }
+        var minHeight =
+            40.dpToPx() + viewPager2Height - viewHeight
+        Timber.e(minHeight.toString())
+        Timber.e(viewPager2Height.toString() + "init")
+        Timber.e(binding.storeFragmentViewPager2.height.toString())
+        Timber.e(viewHeight.toString())
+        if (minHeight < 40.dpToPx()) {
+            minHeight = 40.dpToPx()
+        }
+        //스크롤 못하는경우 스크롤을 막아줌
+        else if (minHeight > binding.storeAppbarLayout.height) {
+            minHeight = 40.dpToPx()
+            layoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+        }
+        binding.storeToolbar.minimumHeight = minHeight
+    }
+
+    private fun refresh(){
+        binding.storeFragmentViewPager2.adapter?.notifyDataSetChanged()
     }
 
     fun oneImageClick(view: View) {

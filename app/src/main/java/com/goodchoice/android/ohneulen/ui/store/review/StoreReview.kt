@@ -64,7 +64,7 @@ class StoreReview : Fragment() {
         val adapter = ReviewAdapter()
         binding.storeReviewRv.adapter = adapter
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
-            reviewCnt(it)
+//            reviewCnt(it)
             //리뷰가 0개일때
             if (it.reviewCnt == 0) {
                 reviewEmpty()
@@ -72,33 +72,34 @@ class StoreReview : Fragment() {
                 reviewNotEmpty()
                 ratingSetting(it)
             }
-            (binding.storeReviewRv.adapter as ReviewAdapter).submitList(it.reviewList.toMutableList())
-//            (this.parentFragment as StoreFragment).view?.findViewById<ViewPager2>(R.id.store_fragment_viewPager2)?.adapter?.notifyItemChanged(2)
-//            Timber.e("asdfsdaf")
+            //info의 리뷰 갯수와 점수를 알려주기 위해 필요
+            (binding.storeReviewRv.adapter as ReviewAdapter).storeDetail = it
+
         })
 
         //정렬 bold 주기
-        for (i in binding.storeReviewRadioGroup.children) {
-            radioButtonBold(i as RadioButton)
-        }
+//        for (i in binding.storeReviewRadioGroup.children) {
+//            radioButtonBold(i as RadioButton)
+//        }
     }
 
 
     @SuppressLint("SetTextI18n")
-    private fun reviewCnt(storeDetail: StoreDetail) {
-        val spannable = SpannableString("${storeDetail.reviewCnt}개")
-        spannable.setSpan(
-            StyleSpan(Typeface.BOLD),
-            0,
-            spannable.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        binding.storeReviewTv1.text = TextUtils.concat(spannable, "의 후기가 있습니다")
-    }
+//    private fun reviewCnt(storeDetail: StoreDetail) {
+//        val spannable = SpannableString("${storeDetail.reviewCnt}개")
+//        spannable.setSpan(
+//            StyleSpan(Typeface.BOLD),
+//            0,
+//            spannable.length,
+//            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//        )
+//        binding.storeReviewTv1.text = TextUtils.concat(spannable, "의 후기가 있습니다")
+//    }
 
     private fun reviewEmpty() {
         binding.storeReviewEmpty.visibility = View.VISIBLE
-        binding.storeReviewNotEmptyCon.visibility = View.GONE
+        binding.storeReviewFrameLayout.visibility = View.VISIBLE
+        binding.storeReviewRv.visibility = View.GONE
 
         val textReview =
             textColor("맛집", 0, 2, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))
@@ -134,19 +135,10 @@ class StoreReview : Fragment() {
 
     private fun reviewNotEmpty() {
         binding.storeReviewEmpty.visibility = View.GONE
-        binding.storeReviewNotEmptyCon.visibility = View.VISIBLE
+        binding.storeReviewFrameLayout.visibility = View.GONE
         binding.storeReviewRv.visibility = View.VISIBLE
     }
 
-    private fun radioButtonBold(radioButton: RadioButton) {
-        radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                radioButton.setTypeface(null, Typeface.BOLD)
-            } else {
-                radioButton.setTypeface(null, Typeface.NORMAL)
-            }
-        }
-    }
 
     private fun ratingSetting(storeDetail: StoreDetail) {
         var point1 = 0.0
@@ -169,14 +161,14 @@ class StoreReview : Fragment() {
         point4 /= storeDetail.reviewList.size
         point5 /= storeDetail.reviewList.size
         point6 /= storeDetail.reviewList.size
-        binding.storeReviewRatingbar.rating = point1.toFloat()
-        binding.storeReviewProgressbarPrice.progress = (point2 * 20).toInt()
-        binding.storeReviewProgressbarFlavor.progress = (point3 * 20).toInt()
-        binding.storeReviewProgressbarKindness.progress = (point4 * 20).toInt()
-        binding.storeReviewProgressbarClean.progress = (point5 * 20).toInt()
-        binding.storeReviewProgressbarMood.progress = (point6 * 20).toInt()
-//        binding.storeReviewRatingScore.text=String.format("%.1f",point1)
-        binding.storeReviewRatingScore.text = ((point1 * 10).toInt() / 10.0).toString()
+//        binding.storeReviewRatingbar.rating = point1.toFloat()
+//        binding.storeReviewProgressbarPrice.progress = (point2 * 20).toInt()
+//        binding.storeReviewProgressbarFlavor.progress = (point3 * 20).toInt()
+//        binding.storeReviewProgressbarKindness.progress = (point4 * 20).toInt()
+//        binding.storeReviewProgressbarClean.progress = (point5 * 20).toInt()
+//        binding.storeReviewProgressbarMood.progress = (point6 * 20).toInt()
+////        binding.storeReviewRatingScore.text=String.format("%.1f",point1)
+//        binding.storeReviewRatingScore.text = ((point1 * 10).toInt() / 10.0).toString()
 
     }
 
@@ -187,7 +179,6 @@ class StoreReview : Fragment() {
             replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
             popupFragment(StoreReviewWrite.newInstance())
 //            addMainFragment(StoreReviewWrite.newInstance(), true)
-
         }
     }
 
