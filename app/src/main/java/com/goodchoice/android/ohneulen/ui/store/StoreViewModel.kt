@@ -26,7 +26,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
     //storeDetail 가져오기
     var storeDetail = MutableLiveData<StoreDetail>()
     var storeMenuList = listOf<StoreMenu>()
-    var storeReviewList=listOf<Review>()
+    var storeReviewList = listOf<Review>()
     var storeSeq = StoreFragment.storeSeq
     fun getStoreDetail(storeSeq: String) {
         this.storeSeq = storeSeq
@@ -41,7 +41,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                     if (storeDetail.value != storeDetailResponse.resultData) {
                         storeDetail.postValue(storeDetailResponse.resultData)
                         storeMenuList = storeDetailResponse.resultData.menuList
-                        storeReviewList=storeDetailResponse.resultData.reviewList
+                        storeReviewList = storeDetailResponse.resultData.reviewList
                     }
                 }
 
@@ -50,7 +50,8 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
             Timber.e(e.toString())
         }
     }
-    var storeReviewHeightCheck=false
+
+    var storeReviewHeightCheck = false
 
     //찜 설정
     var setMemberLikeResponseCode = MutableLiveData<String>()

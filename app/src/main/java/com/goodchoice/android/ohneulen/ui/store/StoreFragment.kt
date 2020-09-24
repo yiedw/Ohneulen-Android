@@ -85,14 +85,15 @@ class StoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //로그인했을때
-        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
-            storeViewModel.getStoreDetail(storeSeq)
-        })
+//        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+//            storeViewModel.getStoreDetail(storeSeq)
+//        })
 
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer { it ->
-//            메뉴 없으면 메뉴탭 삭제
+            Timber.e("asdf")
             replaceAppbarFragment(StoreAppBar.newInstance())
+//            메뉴 없으면 메뉴탭 삭제
             if (it.menuList.isNullOrEmpty()) {
                 viewPagerSettingNullMenu()
             } else {
@@ -104,18 +105,6 @@ class StoreFragment : Fragment() {
 
             //평점세팅
             storePoint(it)
-
-
-            if (storeViewModel.storeReviewHeightCheck) {
-                storeViewModel.storeReviewHeightCheck = false
-                val view =
-                    (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).getViewAtPosition(
-                        binding.storeFragmentViewPager2.currentItem
-                    )
-                val viewHeight =
-                    view?.findViewById<LinearLayout>(R.id.store_home)?.height
-                Timber.e(viewHeight.toString()+"review")
-            }
 
         })
 
@@ -469,35 +458,6 @@ class StoreFragment : Fragment() {
 //        binding.storeFragmentViewPager2.currentItem = state
     }
 
-    //viewPager2 크기조절
-    //탭 스크롤마다 크기 다르게 주기
-    private fun updatePagerHeightForChild(view: View, pager: ViewPager2) {
-        view.post {
-            val wMeasureSpec =
-                View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
-            val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            view.measure(wMeasureSpec, hMeasureSpec)
-
-            val layoutParams = ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-            )
-//            layoutParams.topToBottom = R.id.store_fragment_border2
-            pager.layoutParams = layoutParams
-            if (pager.layoutParams.height != view.measuredHeight) {
-                pager.layoutParams = (pager.layoutParams)
-                    .also { lp ->
-                        lp.height = view.measuredHeight
-                    }
-            }
-//            binding.storeNewScrollView.scrollTo(0, 1)
-//            binding.storeNewScrollView.smoothScrollTo(0, 0)
-            if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
-                (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
-            }
-        }
-    }
-
     //viewPager에 들어갈 fragmentList
     private fun getFragmentList(): ArrayList<Fragment> {
         return arrayListOf(
@@ -564,7 +524,7 @@ class StoreFragment : Fragment() {
         binding.storeToolbar.minimumHeight = minHeight
     }
 
-    private fun refresh(){
+    private fun refresh() {
         binding.storeFragmentViewPager2.adapter?.notifyDataSetChanged()
     }
 
