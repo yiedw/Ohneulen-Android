@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.search.*
 import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -113,6 +115,18 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //RecyclerviewSetting
+        val adapter = SearchStoreAdapter()
+        binding.searchStoreRv.adapter = adapter
+
+        //search List 를 새로고침 해야하는지 여부
+        searchViewModel.refreshCheck.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                searchViewModel.filterSubmit()
+                searchViewModel.refreshCheck = MutableLiveData(false)
+            }
+        })
+
         //맵을 클릭하는순간 지도로 리스트를 덮기
         mapView.setOnTouchListener { v, event ->
             if (searchStat != 0) {
@@ -138,7 +152,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
                     binding.searchStoreFrameLayout.layoutParams.also { lp ->
                         lp.height =
-                            (MainActivity.bottomNav.y+MainActivity.bottomNav.height).toInt()
+                            (MainActivity.bottomNav.y + MainActivity.bottomNav.height).toInt()
                     }
                     binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
                     slideUp(
@@ -222,7 +236,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
                     binding.searchStoreFrameLayout.layoutParams.also { lp ->
                         lp.height =
-                            (MainActivity.bottomNav.y+MainActivity.bottomNav.height).toInt()
+                            (MainActivity.bottomNav.y + MainActivity.bottomNav.height).toInt()
                     }
                     binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
 
@@ -608,10 +622,10 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     }
 
     //recyclerview 스크롤 여부
-    private fun isRecyclerScrollable():Boolean{
-        val layoutManager=binding.searchStoreRv.layoutManager as LinearLayoutManager
-        val adapter=binding.searchStoreRv.adapter as RecyclerView.Adapter
-        return layoutManager.findLastCompletelyVisibleItemPosition()<adapter.itemCount-1
+    private fun isRecyclerScrollable(): Boolean {
+        val layoutManager = binding.searchStoreRv.layoutManager as LinearLayoutManager
+        val adapter = binding.searchStoreRv.adapter as RecyclerView.Adapter
+        return layoutManager.findLastCompletelyVisibleItemPosition() < adapter.itemCount - 1
     }
 
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {

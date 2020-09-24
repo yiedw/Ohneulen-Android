@@ -98,7 +98,6 @@
                 android:background="@color/white"
                 android:paddingHorizontal="20dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                bind:searchStoreAdapter="@{viewModel.searchStoreAdapter}"
                 bind:searchStore="@{viewModel.searchStoreList}"
                 bind:searchStoreNetworkService="@{viewModel.mNetworkService}" />
 

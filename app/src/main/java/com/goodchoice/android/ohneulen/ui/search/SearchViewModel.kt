@@ -15,8 +15,10 @@ import java.lang.Exception
 class SearchViewModel(private val networkService: NetworkService) :
     ViewModel() {
     var searchEditText = ""
-    var kakaoMapPoint = MutableLiveData<MapPoint>()
-    var toastMessage = MutableLiveData<Boolean>(false)
+    var kakaoMapPoint = MutableLiveData<MapPoint>()                 //카카오맵 좌표
+    var toastMessage = MutableLiveData<Boolean>(false)      //토스트 메시지
+
+    var refreshCheck=MutableLiveData<Boolean>(false)
 
 
     var mNetworkService = networkService

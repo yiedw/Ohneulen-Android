@@ -26,10 +26,9 @@ import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import timber.log.Timber
 
 //searchStore
-@BindingAdapter("searchStoreAdapter", "searchStore", "searchStoreNetworkService")
+@BindingAdapter("searchStore", "searchStoreNetworkService")
 fun setSearchStoreAdapter(
     recyclerView: RecyclerView,
-    adapter: SearchStoreAdapter?,
     items: List<SearchStore>?,
     networkService: NetworkService
 ) {
@@ -39,15 +38,12 @@ fun setSearchStoreAdapter(
             return SNAP_TO_START
         }
     }
-
     smoothScroller.targetPosition = 0
     recyclerView.setHasFixedSize(true)
-    recyclerView.adapter = adapter?.apply {
+
+    (recyclerView.adapter as SearchStoreAdapter).apply {
         mNetworkService = networkService
         submitList(items)
-//        Handler().postDelayed({
-//            recyclerView.layoutManager!!.startSmoothScroll(smoothScroller)
-//        }, 200)
 
     }
     recyclerView.post {

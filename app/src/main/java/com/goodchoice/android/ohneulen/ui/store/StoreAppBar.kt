@@ -17,6 +17,7 @@ import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
+import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.loginDialog
@@ -26,6 +27,7 @@ import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.iosParameters
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -42,7 +44,8 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
     private lateinit var binding: StoreAppbarBinding
 
     //    private lateinit var shareLink: String
-    private val storeViewModel: StoreViewModel by viewModel()
+    private val storeViewModel: StoreViewModel by inject()
+    private val searchViewModel: SearchViewModel by inject() //뒤로가기 했을때 리스트 새로고침
 
     //나중에 되돌리기
 //    private val initMainFragment: ViewGroup.LayoutParams =
@@ -142,6 +145,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             }
             MainActivity.supportFragmentManager.popBackStack()
         }
+        searchViewModel.refreshCheck.postValue(true)
     }
 
     override fun onBackPressed() {
@@ -160,6 +164,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             }
             MainActivity.supportFragmentManager.popBackStack()
         }
+        searchViewModel.refreshCheck.postValue(true)
     }
 
 

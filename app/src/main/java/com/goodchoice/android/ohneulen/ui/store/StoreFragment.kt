@@ -1,8 +1,9 @@
 package com.goodchoice.android.ohneulen.ui.store
 
+import android.animation.ObjectAnimator
+import android.animation.StateListAnimator
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -10,9 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -29,7 +28,6 @@ import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailStoreDialog
-import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.home.StoreHome
 import com.goodchoice.android.ohneulen.ui.store.map.StoreMap
 import com.goodchoice.android.ohneulen.ui.store.menu.StoreMenu
@@ -42,7 +40,6 @@ import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class StoreFragment : Fragment() {
 
@@ -84,10 +81,7 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //로그인했을때
-//        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
-//            storeViewModel.getStoreDetail(storeSeq)
-//        })
+        appbarShadowRemove()    //앱바가 고정되면 나오는 쉐도우 삭제
 
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer { it ->
@@ -523,10 +517,10 @@ class StoreFragment : Fragment() {
         }
         var minHeight =
             40.dpToPx() + viewPager2Height - viewHeight
-        Timber.e(minHeight.toString())
-        Timber.e(viewPager2Height.toString() + "init")
-        Timber.e(binding.storeFragmentViewPager2.height.toString())
-        Timber.e(viewHeight.toString())
+//        Timber.e(minHeight.toString())
+//        Timber.e(viewPager2Height.toString() + "init")
+//        Timber.e(binding.storeFragmentViewPager2.height.toString())
+//        Timber.e(viewHeight.toString())
         if (minHeight < 40.dpToPx()) {
             minHeight = 40.dpToPx()
         }
@@ -538,9 +532,16 @@ class StoreFragment : Fragment() {
         binding.storeToolbar.minimumHeight = minHeight
     }
 
-    private fun refresh() {
-        binding.storeFragmentViewPager2.adapter?.notifyDataSetChanged()
+    private fun appbarShadowRemove() {
+        val stateListAnimator =
+            StateListAnimator()
+        stateListAnimator.addState(
+            IntArray(0),
+            ObjectAnimator.ofFloat(binding.storeAppbarLayout, "elevation", 0f)
+        )
+        binding.storeAppbarLayout.stateListAnimator = stateListAnimator
     }
+
 
     fun oneImageClick(view: View) {
         if (storeViewModel.storeDetail.value!!.storeInfo.image.isEmpty())
