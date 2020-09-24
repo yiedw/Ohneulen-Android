@@ -91,13 +91,26 @@ class StoreFragment : Fragment() {
 
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer { it ->
-            Timber.e("asdf")
             replaceAppbarFragment(StoreAppBar.newInstance())
+            if (!storeViewModel.storeReviewHeightCheck) {
+                //옵저버 중복 방지
 //            메뉴 없으면 메뉴탭 삭제
-            if (it.menuList.isNullOrEmpty()) {
-                viewPagerSettingNullMenu()
+                if (it.menuList.isNullOrEmpty()) {
+                    viewPagerSettingNullMenu()
+                } else {
+                    viewPagerSetting()
+                }
             } else {
-                viewPagerSetting()
+                storeViewModel.storeReviewHeightCheck = false
+                val index = binding.storeFragmentViewPager2.currentItem
+                //리사이클러뷰가 정확히 언제 끝나는 지 알 수 없기때문에 딜레이를 줌
+                //화면에는 별 영향 x
+                Handler().postDelayed({
+                    binding.storeFragmentViewPager2.currentItem = 0
+                    binding.storeFragmentViewPager2.currentItem = index
+
+                }, 300)
+//                (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).notifyDataSetChanged()
             }
             hashTagGenerate(it)
             storeImage(it)
@@ -368,6 +381,7 @@ class StoreFragment : Fragment() {
                 R.color.white
             )
         )
+
         binding.storeFragmentViewPager2.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

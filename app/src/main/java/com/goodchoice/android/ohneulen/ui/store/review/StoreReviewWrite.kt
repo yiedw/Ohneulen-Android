@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -117,8 +118,10 @@ class StoreReviewWrite : Fragment() {
                 Toast.makeText(requireContext(), "후기가 등록 되었습니다", Toast.LENGTH_SHORT).show()
                 storeViewModel.setReviewCode.postValue("")
                 storeViewModel.getStoreDetail(StoreFragment.storeSeq)
+                storeViewModel.storeReviewHeightCheck = true
                 replaceAppbarFragment(StoreAppBar.newInstance())
                 MainActivity.supportFragmentManager.popBackStack()
+
             } else if (it == ConstList.REQUIRE_LOGIN) {
                 loginDialog(requireContext(), StoreReviewWriteAppbar.newInstance(), false)
             }

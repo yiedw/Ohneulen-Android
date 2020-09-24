@@ -116,7 +116,6 @@ class StoreMap : Fragment(), OnMapReadyCallback {
     fun onNavClick(view: View) {
         //매장데이터 넣어주기
         try {
-
             val kakaoMap =
                 "kakaomap://route?ep=${currentLatLng.latitude},${currentLatLng.longitude}&by=CAR"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(kakaoMap))

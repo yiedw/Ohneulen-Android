@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Review
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
@@ -35,6 +36,7 @@ import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
+import timber.log.Timber
 
 class ReviewAdapter(val report: Boolean = true) :
     ListAdapter<Review, RecyclerView.ViewHolder>(ReviewDiffUtil) {
@@ -73,6 +75,9 @@ class ReviewAdapter(val report: Boolean = true) :
                         reviewItemAmount.visibility = View.VISIBLE
                     } else
                         reviewItemAmount.visibility = View.INVISIBLE
+                }
+                else{
+                    reviewItemImage.visibility=View.GONE
                 }
 
                 //날짜 넣어주기(형식 약간 변경)
@@ -166,6 +171,9 @@ class ReviewAdapter(val report: Boolean = true) :
                         reviewItemAmount.visibility = View.VISIBLE
                     } else
                         reviewItemAmount.visibility = View.INVISIBLE
+                }
+                else{
+                    reviewItemImage.visibility=View.GONE
                 }
 
                 //날짜 넣어주기(형식 약간 변경)
