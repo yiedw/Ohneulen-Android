@@ -618,7 +618,7 @@ class SearchFilter : Fragment() {
 
     fun submitClick(view: View) {
         Toast.makeText(requireContext(), "적용되었습니다", Toast.LENGTH_SHORT).show()
-        searchViewModel.filterSubmit()
+        searchViewModel.getSearchStoreList()
         replaceAppbarFragment(SearchAppBar.newInstance(true))
 //        MainActivity.supportFragmentManager.popBackStack()
         MainActivity.supportFragmentManager.popBackStack()

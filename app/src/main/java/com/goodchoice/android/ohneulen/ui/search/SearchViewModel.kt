@@ -124,29 +124,31 @@ class SearchViewModel(private val networkService: NetworkService) :
         }
     }
 
-    fun filterSubmit() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = networkService.requestStoreSearchList(
-                    addry,
-                    addrx,
-                    cate,
-                    option,
-                    openTime,
-                    sort
-                )
-                searchStoreList.postValue(response.resultData)
-
-            } catch (e: Exception) {
-                Timber.e(e.toString())
-            }
-//            cate.clear()
-//            option.clear()
-//            openTime.clear()
-//            sort.clear()
-            mainCategoryPosition.postValue(0)
-        }
-    }
+//    fun getSearchStoreList() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                val response = networkService.requestStoreSearchList(
+//                    addry,
+//                    addrx,
+//                    cate,
+//                    option,
+//                    openTime,
+//                    sort
+//                )
+//                if (response.resultData != searchStoreList.value) {
+//                    searchStoreList.postValue(response.resultData)
+//                }
+//
+//            } catch (e: Exception) {
+//                Timber.e(e.toString())
+//            }
+////            cate.clear()
+////            option.clear()
+////            openTime.clear()
+////            sort.clear()
+//            mainCategoryPosition.postValue(0)
+//        }
+//    }
 
 
     val loading = MutableLiveData<Boolean>()

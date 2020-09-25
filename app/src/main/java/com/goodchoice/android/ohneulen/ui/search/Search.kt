@@ -33,7 +33,6 @@ import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.search.*
 import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -123,8 +122,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         //search List 를 새로고침 해야하는지 여부
         searchViewModel.refreshCheck.observe(viewLifecycleOwner, Observer {
             if (it) {
-                searchViewModel.filterSubmit()
-                searchViewModel.refreshCheck = MutableLiveData(false)
+                searchViewModel.getSearchStoreList()
+                searchViewModel.refreshCheck.postValue(false)
             }
         })
 
@@ -518,6 +517,12 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         marker.customImageResourceId = R.drawable.store_map_location
         marker.isCustomImageAutoscale = false
         marker.setCustomImageAnchor(0.5f, 0.5f)
+
+        val markerBalloon = layoutInflater.inflate(R.layout.marker_custom_balloon, null)
+        markerBalloon.findViewById<TextView>(R.id.marker_custom_balloon_tv).text =
+            store.storeName
+        marker.customCalloutBalloon = markerBalloon
+
         mapView.addPOIItem(marker)
     }
 
@@ -565,7 +570,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         mapView.addPOIItem(marker)
 
         storeListHashMap[index] = ArrayList(storeList)
-
     }
 
     private fun slideUp(
