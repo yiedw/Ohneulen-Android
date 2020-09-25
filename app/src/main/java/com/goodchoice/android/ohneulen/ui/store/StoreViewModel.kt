@@ -53,9 +53,32 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
 
     var storeReviewHeightCheck = false
 
+
+    //로그인 했을때 찜 정보만 받아오기
+    fun getStoreFavoriteCheck(storeSeq: String) {
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                val storeDetailResponse = networkService.requestGetStoreInfo(
+                    storeSeq.toRequestBody()
+                )
+                if (storeDetail.value == storeDetailResponse.resultData)
+                    return@launch
+                if (storeDetailResponse.resultCode == "000") {
+                    if (storeDetail.value != storeDetailResponse.resultData) {
+                        storeFavoriteCheck.postValue(storeDetailResponse.resultData.storeInfo.storeFull.likes)
+                    }
+                }
+
+            }
+        } catch (e: Exception) {
+            Timber.e(e.toString())
+        }
+    }
+
+    var storeFavoriteCheck = MutableLiveData<Boolean>(false)
+
     //찜 설정
     var setMemberLikeResponseCode = MutableLiveData<String>()
-    var storeLike = MutableLiveData<Boolean>(false)
     fun setMemberLike() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -66,6 +89,11 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
             }
         }
     }
+
+    //0 -> 기본상태 반응 x
+    //1 -> 좋아요 없는 상태에서 눌렀을때 (하트가 칠해질때)
+    //2 -> 좋아요 있는 상태에서 눌렀을때 (하트가 없어질때)
+    var storeLikeCnt = MutableLiveData<Int>(0)
 
     //menuDetail 클릭했을때 클릭한 곳으로 이동
     var menuIndex = 0

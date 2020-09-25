@@ -71,10 +71,16 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //로그인했을때 찜상태 새로 받아오기
+        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                storeViewModel.getStoreFavoriteCheck(StoreFragment.storeSeq)
+            }
+        })
 
         //찜상태 받아오기
-        storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
-            binding.storeAppbarLike.isSelected = it.storeInfo.storeFull.likes
+        storeViewModel.storeFavoriteCheck.observe(viewLifecycleOwner, Observer {
+            binding.storeAppbarLike.isSelected = it
         })
 
         //하트눌렀을때
@@ -83,6 +89,11 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
                 binding.storeAppbarLike.isSelected = !binding.storeAppbarLike.isSelected
                 if (binding.storeAppbarLike.isSelected) {
                     Toast.makeText(requireContext(), "찜 목록에 저장되었습니다", Toast.LENGTH_SHORT).show()
+                    //상단에 있는 좋아요 수 즉각반영
+                    storeViewModel.storeLikeCnt.postValue(storeViewModel.storeLikeCnt.value!! + 1)
+                } else {
+                    //상단에 있는 좋아요 수 즉각반영
+                    storeViewModel.storeLikeCnt.postValue(storeViewModel.storeLikeCnt.value!! - 1)
                 }
                 storeViewModel.setMemberLikeResponseCode.postValue("")
             } else if (it == ConstList.REQUIRE_LOGIN) {
@@ -107,6 +118,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             return
         }
         storeViewModel.setMemberLike()
+
     }
 
     fun shareClick(view: View) {

@@ -24,6 +24,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
+import com.goodchoice.android.ohneulen.data.model.Cate1Name
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreFragmentBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
@@ -98,7 +99,7 @@ class StoreFragment : Fragment() {
                 storeViewModel.storeReviewHeightCheck = false
                 val index = binding.storeFragmentViewPager2.currentItem
                 //리사이클러뷰가 정확히 언제 끝나는 지 알 수 없기때문에 딜레이를 줌
-                //화면에는 별 영향 x
+                //화면에는 영향 x
                 Handler().postDelayed({
                     binding.storeFragmentViewPager2.currentItem = 0
                     binding.storeFragmentViewPager2.currentItem = index
@@ -111,10 +112,26 @@ class StoreFragment : Fragment() {
             MainActivity.bottomNav.visibility = View.GONE
 
             //평점세팅
+            storeViewModel.storeLikeCnt.postValue(it.storeInfo.storeFull.likeCnt)
             storePoint(it)
+
+            //찜 여부 확인
+            storeViewModel.storeFavoriteCheck.postValue(it.storeInfo.storeFull.likes)
 
         })
 
+        //좋아요 눌렀을때 상단에 있는 좋아요 수 즉각 반영
+        storeViewModel.storeLikeCnt.observe(viewLifecycleOwner, Observer {
+            if (storeViewModel.storeDetail.value != null) {
+                val storeDetail = storeViewModel.storeDetail.value!!
+                storeHeader(
+                    storeDetail.storeInfo.storeFull.cate1Name!!,
+                    it,
+                    storeDetail.reviewCnt
+                )
+            }
+
+        })
     }
 
     override fun onResume() {
@@ -167,33 +184,55 @@ class StoreFragment : Fragment() {
 //                .into(binding.storeFragmentOneImage)
 //            binding.storeFragmentImageRv.s
         }
-        storeHeader(storeDetail)
+        val store = storeDetail.storeInfo.storeFull
+//        storeHeader(store.cate1Name!!, store.likeCnt, storeDetail.reviewCnt)
 
     }
 
 
     //카테고리 좋아요 후기 갯수
-    private fun storeHeader(storeDetail: StoreDetail) {
-        val store = storeDetail.storeInfo.storeFull
+    private fun storeHeader(cate1Name: Cate1Name, likeCnt: Int, reviewCnt: Int) {
 
-        val likeCnt =
+        //1000개이상이면 999+로 표시
+        val mLikeCnt = if (likeCnt > 999) {
+            "999+"
+        } else if (likeCnt > 100) {
+            "100+"
+        } else {
+            likeCnt.toString()
+        }
+        //좋아요 갯수에 색 입히기
+        val colorLikeCnt =
             textColor(
                 //좋아요 갯수 가져오기
-                storeDetail.storeInfo.storeFull.likeCnt.toString(),
+                mLikeCnt,
                 0,
-                storeDetail.storeInfo.storeFull.likeCnt.toString().length,
+                mLikeCnt.length,
                 //색깔설정
                 ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
             )
-        val reviewCnt = textColor(
-            storeDetail.reviewCnt.toString(),
+
+        val mReviewCnt = if (reviewCnt > 999) {
+            "999+"
+        } else if (reviewCnt > 100) {
+            "100+"
+        } else {
+            reviewCnt.toString()
+        }
+        val colorReviewCnt = textColor(
+            mReviewCnt,
             0,
-            storeDetail.reviewCnt.toString().length,
+            mReviewCnt.length,
             ContextCompat.getColor(requireContext(), R.color.colorOhneulen)
         )
 
         val text =
-            TextUtils.concat("${store.cate1Name!!.minorName} / 좋아요 ", likeCnt, " / 후기 ", reviewCnt)
+            TextUtils.concat(
+                "${cate1Name.majorName}·${cate1Name.minorName} / 좋아요 ",
+                colorLikeCnt,
+                " / 후기 ",
+                colorReviewCnt
+            )
         binding.storeFragmentDetail.text = text
     }
 
