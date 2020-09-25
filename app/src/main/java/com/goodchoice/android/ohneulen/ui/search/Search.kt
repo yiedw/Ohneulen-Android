@@ -78,9 +78,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
 
     }
-    init {
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -380,7 +378,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     override fun onDestroy() {
         super.onDestroy()
-//        mapViewContainer.removeAllViews()
+        mapViewContainer.removeAllViews()
         searchViewModel.recyclerViewState =
             binding.searchStoreRv.layoutManager!!.onSaveInstanceState()
     }
