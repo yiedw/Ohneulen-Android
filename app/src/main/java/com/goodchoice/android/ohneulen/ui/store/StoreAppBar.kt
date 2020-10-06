@@ -28,8 +28,6 @@ import com.google.firebase.dynamiclinks.ktx.iosParameters
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 
 class StoreAppBar : Fragment(), OnBackPressedListener {
@@ -79,7 +77,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         })
 
         //찜상태 받아오기
-        storeViewModel.storeFavoriteCheck.observe(viewLifecycleOwner, Observer {
+        storeViewModel.storeFavoriteCheckLiveData.observe(viewLifecycleOwner, Observer {
             binding.storeAppbarLike.isSelected = it
         })
 
@@ -87,13 +85,16 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         storeViewModel.setMemberLikeResponseCode.observe(viewLifecycleOwner, Observer {
             if (it == ConstList.SUCCESS) {
                 binding.storeAppbarLike.isSelected = !binding.storeAppbarLike.isSelected
+                storeViewModel.storeFavoriteIsChecked=binding.storeAppbarLike.isSelected
                 if (binding.storeAppbarLike.isSelected) {
                     Toast.makeText(requireContext(), "찜 목록에 저장되었습니다", Toast.LENGTH_SHORT).show()
                     //상단에 있는 좋아요 수 즉각반영
-                    storeViewModel.storeLikeCnt.postValue(storeViewModel.storeLikeCnt.value!! + 1)
+                    storeViewModel.storeLikeCnt=storeViewModel.storeLikeCntLiveData.value!!+1
+                    storeViewModel.storeLikeCntLiveData.postValue(storeViewModel.storeLikeCntLiveData.value!! + 1)
                 } else {
                     //상단에 있는 좋아요 수 즉각반영
-                    storeViewModel.storeLikeCnt.postValue(storeViewModel.storeLikeCnt.value!! - 1)
+                    storeViewModel.storeLikeCnt=storeViewModel.storeLikeCntLiveData.value!!-1
+                    storeViewModel.storeLikeCntLiveData.postValue(storeViewModel.storeLikeCntLiveData.value!! - 1)
                 }
                 storeViewModel.setMemberLikeResponseCode.postValue("")
             } else if (it == ConstList.REQUIRE_LOGIN) {
@@ -106,8 +107,12 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         })
 
         //공유하기 링크
+    }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        searchViewModel.refreshCheck.postValue(true)
+        //찜여부
     }
 
 
@@ -157,7 +162,6 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             }
             MainActivity.supportFragmentManager.popBackStack()
         }
-        searchViewModel.refreshCheck.postValue(true)
     }
 
     override fun onBackPressed() {
@@ -176,7 +180,6 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             }
             MainActivity.supportFragmentManager.popBackStack()
         }
-        searchViewModel.refreshCheck.postValue(true)
     }
 
 

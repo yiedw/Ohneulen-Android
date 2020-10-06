@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,14 +24,17 @@ import com.goodchoice.android.ohneulen.databinding.SearchBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
+import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.search.*
 import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -58,6 +60,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     private lateinit var binding: SearchBinding
     private val searchViewModel: SearchViewModel by inject()
+    private val storeViewModel: StoreViewModel by inject()
     private val mainViewModel: MainViewModel by viewModel()
 
 
@@ -66,18 +69,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     private lateinit var locationManager: LocationManager
 
     private lateinit var storeListHashMap: HashMap<Int, ArrayList<Store>>
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        //초기화 (두번씩 observe 되는것 방지)
-//        searchViewModel.kakaoMapPoint = MutableLiveData()
-//        searchViewModel.searchStoreList = MutableLiveData()
-
-
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -122,8 +113,28 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         //search List 를 새로고침 해야하는지 여부
         searchViewModel.refreshCheck.observe(viewLifecycleOwner, Observer {
             if (it) {
-                searchViewModel.getSearchStoreList()
+                //RecyclerviewSetting
+//                searchViewModel.getSearchStoreList()
+                //평점 좋아요수 후기 좋아요여부 업데이트
+
+                adapter.currentList[adapter.mAdapterPosition].apply {
+                    like = storeViewModel.storeFavoriteIsChecked
+                    P_1 = storeViewModel.storePoint
+                    likeCnt = storeViewModel.storeLikeCnt
+                    reviewCnt = storeViewModel.storeReviewCnt
+                }
+                adapter.notifyItemChanged(adapter.mAdapterPosition)
                 searchViewModel.refreshCheck.postValue(false)
+            }
+        })
+
+        var rvFirstScroll = true
+
+        LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+            rvFirstScroll = true
+
+            if (searchViewModel.kakaoMapPoint.value != null) {
+                circleSearch(searchViewModel.kakaoMapPoint.value!!)
             }
         })
 
@@ -142,12 +153,12 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             false
         }
 
-        var rvFirstScroll = true
         //searchStat=1 인 상태에서 list를 스크롤하면 자동으로 리스트가 지도를 덮음
         binding.searchStoreRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (isRecyclerScrollable() && rvFirstScroll && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                if (searchStat == 1 && isRecyclerScrollable() && rvFirstScroll && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    Timber.e("aa")
                     rvFirstScroll = false
                     //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
                     binding.searchStoreFrameLayout.layoutParams.also { lp ->
@@ -167,7 +178,24 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     binding.searchInfoCon.setBackgroundColor(requireContext().getColor(R.color.white))    //뒤에 지도배경 삭제
                     searchStat = 2  //리스트가 맵을 덮은상태
                 }
+
+                //리스트가 맵을 덮은상태에서 위로 당길때 리스트가 접히게
+                else if (searchStat == 2 && !binding.searchStoreRv.canScrollVertically(-1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
+                    Timber.e("asdf")
+                    slideDown(
+                        searchStat1Y.toFloat(),
+                        searchStat1Y.toFloat() + binding.searchInfoCon.height,
+                        (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - binding.searchInfoCon.y - binding.searchInfoCon.height).toInt()
+                    )
+                    //다시 배경에 지도 보이게
+                    binding.searchInfoCon.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.background_new
+                    )
+                    searchStat = 1  //지도가 반만 덮은상태
+                }
             }
+
         })
 
         //마커이벤트
@@ -307,8 +335,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         )
         searchViewModel.kakaoMapPoint.observe(
             viewLifecycleOwner, Observer { it ->
-                rvFirstScroll = true
                 mapView.moveCamera(CameraUpdateFactory.newMapPoint(it))
+                rvFirstScroll = true
                 circleSearch(it)
             }
         )
@@ -402,21 +430,21 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             Color.argb(128, 255, 255, 0)
         )
         val mapPointBounds = mapCircle.bound
-        if (searchViewModel.addry.isNotEmpty()) {
-//            Timber.e("addry = "+mapPoint.mapPointGeoCoord.latitude)
-//            Timber.e("addrx = "+mapPoint.mapPointGeoCoord.longitude)
-            if (searchViewModel.addry[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.latitude
-                && searchViewModel.addry[1] == mapPointBounds.topRight.mapPointGeoCoord.latitude
-                && searchViewModel.addrx[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
-                && searchViewModel.addrx[1] == mapPointBounds.topRight.mapPointGeoCoord.longitude
-            ) {
-//                Timber.e(searchViewModel.addry[0].toString())
-//                Timber.e(searchViewModel.addry[1].toString())
-//                Timber.e(searchViewModel.addrx[0].toString())
-//                Timber.e(searchViewModel.addrx[1].toString())
-                return
-            }
-        }
+//        if (searchViewModel.addry.isNotEmpty()) {
+////            Timber.e("addry = "+mapPoint.mapPointGeoCoord.latitude)
+////            Timber.e("addrx = "+mapPoint.mapPointGeoCoord.longitude)
+//            if (searchViewModel.addry[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.latitude
+//                && searchViewModel.addry[1] == mapPointBounds.topRight.mapPointGeoCoord.latitude
+//                && searchViewModel.addrx[0] == mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
+//                && searchViewModel.addrx[1] == mapPointBounds.topRight.mapPointGeoCoord.longitude
+//            ) {
+////                Timber.e(searchViewModel.addry[0].toString())
+////                Timber.e(searchViewModel.addry[1].toString())
+////                Timber.e(searchViewModel.addrx[0].toString())
+////                Timber.e(searchViewModel.addrx[1].toString())
+//                return
+//            }
+//        }
         searchViewModel.addry.clear()
         searchViewModel.addrx.clear()
         searchViewModel.addry.add(mapPointBounds.bottomLeft.mapPointGeoCoord.latitude)

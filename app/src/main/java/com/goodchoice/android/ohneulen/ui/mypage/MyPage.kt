@@ -28,7 +28,7 @@ class MyPage : Fragment() {
 
     private lateinit var binding: MypageBinding
     private val loginViewModel: LoginViewModel by viewModel()
-    private val myPageViewModel:MyPageViewModel by viewModel()
+    private val myPageViewModel: MyPageViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -49,20 +49,35 @@ class MyPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
-            //로그인 상태일때
             if (it) {
+                //로그인했을때 정보 가져오기
+                myPageViewModel.getMemberInfo()
+            }
+        })
+
+        myPageViewModel.memberInfo.observe(viewLifecycleOwner, Observer {
+            //로그인 상태일때
+            if (LoginViewModel.isLogin.value!!) {
                 binding.mypageNickName.visibility = View.VISIBLE
                 binding.mypageEmail.visibility = View.VISIBLE
                 binding.mypageLogin.visibility = View.GONE
-                binding.mypageEmail.text = loginViewModel.memberEmail
             } else {
                 binding.mypageNickName.visibility = View.GONE
                 binding.mypageEmail.visibility = View.GONE
                 binding.mypageLogin.visibility = View.VISIBLE
             }
+
+            binding.mypageEmail.text = it.email
+            if (it.nickName.isNullOrEmpty()) {
+                binding.mypageNickName.text = it.name
+            } else {
+                binding.mypageNickName.text = it.nickName
+            }
         })
     }
+
     override fun onResume() {
         super.onResume()
         MainActivity.bottomNav.visibility = View.VISIBLE
@@ -81,7 +96,7 @@ class MyPage : Fragment() {
 //            replaceMainFragment(MyPageInfo.newInstance())
         } else {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true), true)
             return
         }
 
@@ -90,7 +105,7 @@ class MyPage : Fragment() {
     fun likeClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true), true)
             return
         }
         MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
@@ -99,7 +114,7 @@ class MyPage : Fragment() {
     fun recentClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true), true)
             return
         }
         replaceAppbarFragment(MyPageRecentAppBar.newInstance())
@@ -109,7 +124,7 @@ class MyPage : Fragment() {
     fun reviewClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true), true)
             return
         }
         replaceAppbarFragment(MyPageReviewAppBar.newInstance())
@@ -119,7 +134,7 @@ class MyPage : Fragment() {
     fun inquireClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             replaceAppbarFragment(LoginAppBar.newInstance())
-            addMainFragment(Login.newInstance(bottomNavVisibility = true),true)
+            addMainFragment(Login.newInstance(bottomNavVisibility = true), true)
             return
         }
         replaceAppbarFragment(MyPageInquireAppBar.newInstance())

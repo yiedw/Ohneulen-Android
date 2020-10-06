@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 @Keep
 data class SearchStore(
-    val P_1: Double,
+    var P_1: Double,
     val P_2: Double,
     val P_3: Double,
     val P_4: Double,
@@ -41,7 +41,7 @@ data class SearchStore(
     val openTime: String,
     val photoURL: String,
     @SerializedName("review_cnt")
-    val reviewCnt: Int,
+    var reviewCnt: Int,
     val seq: String,
     val status: String,
     val storeName: String

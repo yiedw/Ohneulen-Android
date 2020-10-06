@@ -24,6 +24,10 @@ interface NetworkService {
     @POST("api/logout")
     suspend fun requestLogoutTest(): OhneulenResponse
 
+    //멤버 정보 가져오기(이메일 이름 닉네임)
+    @POST("api/getmemberinfo")
+    suspend fun requestMemberInfo(): GetMemberInfoResponse
+
     //필터 항목 받아오기
     @POST("api/getcodelist")
     @FormUrlEncoded
@@ -62,21 +66,21 @@ interface NetworkService {
     @POST("api/get_memberLike")
     @FormUrlEncoded
     suspend fun requestGetMemberLike(
-        @Field("kind") kind:String="001"
+        @Field("kind") kind: String = "001"
     ): GetMemberLikeResponse
 
     //문의 내역 가져오기
     @POST("api/get_board")
     @FormUrlEncoded
     suspend fun requestGetBoard(
-        @Field("kind") kind:String
+        @Field("kind") kind: String
     ): GetBoardResponse
 
     //문의 내역 보내기
     @POST("api/set_board")
     @FormUrlEncoded
     suspend fun requestSetBoard(
-        @Field("kind") kind:String,
+        @Field("kind") kind: String,
         @Field("gubun1") gubun1: String,
         @Field("title") title: String,
         @Field("contents") contents: String
@@ -101,7 +105,7 @@ interface NetworkService {
     @Multipart
     suspend fun requestImageUpload(
         @Part file: MultipartBody.Part
-    ):GetImageUploadResponse
+    ): GetImageUploadResponse
 
 
     //카카오

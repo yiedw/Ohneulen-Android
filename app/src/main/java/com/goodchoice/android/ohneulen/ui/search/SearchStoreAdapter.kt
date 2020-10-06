@@ -20,7 +20,6 @@ import com.goodchoice.android.ohneulen.databinding.SearchStoreItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
@@ -36,6 +35,7 @@ class SearchStoreAdapter :
     ListAdapter<SearchStore, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
     lateinit var mNetworkService: NetworkService
+    var mAdapterPosition=0
 
     inner class SearchStoreViewHolder(private val binding: SearchStoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -48,8 +48,8 @@ class SearchStoreAdapter :
                     searchStoreItemNew.visibility = View.VISIBLE
                 }
                 //맨위에 아이템 제외하고 간격주기
-                if(adapterPosition!=0){
-                    binding.searchStoreItem.setPadding(0,10.dpToPx(),0,0)
+                if (adapterPosition != 0) {
+                    binding.searchStoreItem.setPadding(0, 10.dpToPx(), 0, 0)
                 }
 
                 //평점
@@ -74,6 +74,9 @@ class SearchStoreAdapter :
                     binding.searchStoreItemGoodCnt.text = item.likeCnt.toString()
                 }
 
+                //로그인 되어있을대 좋아요 여부
+                binding.searchStoreItemLike.isSelected = item.like
+
 
 
                 Glide.with(binding.searchStoreItemImage.context)
@@ -90,13 +93,10 @@ class SearchStoreAdapter :
                         try {
                             val response = mNetworkService.requestSetMemberLike(item.seq)
                             if (response.resultCode == ConstList.SUCCESS) {
-                                searchStoreItemLike.isSelected = !searchStoreItemLike.isSelected
-                                if (searchStoreItemLike.isSelected) {
+                                item.like = !item.like
+                                if (item.like) {
+                                    //ui를 변경해야하기 떄문에 handler 사용
                                     Handler(Looper.getMainLooper()).post {
-//                                        val goodCnt = binding.searchStoreItemGoodCnt.text.toString()
-//                                            .toInt()
-//                                        binding.searchStoreItemGoodCnt.text =
-//                                            (goodCnt + 1).toString()
                                         item.likeCnt++
                                         bind(item)
                                         Toast.makeText(
@@ -106,25 +106,14 @@ class SearchStoreAdapter :
                                         ).show()
                                     }
 
-//                                } else {
-//                                    getItem(adapterPosition).likeCnt--
-//                                    notifyItemChanged(adapterPosition)
-//                                    searchStoreItemLike.isSelected=false
-//                                    binding.searchStoreItemGoodCnt.text =
-//                                        (binding.searchStoreItemGoodCnt.text.toString().toInt()-1).toString()
-//                                    if (StoreAppBar.stat == 2) {
-//                                        val newList = ArrayList(currentList).also {
-//                                            it.removeAt(adapterPosition)
-//                                        }
-////                                        notifyItemRemoved(adapterPosition)
-//                                        submitList(newList)
-//                                    }
                                 } else {
+                                    //ui를 변경해야하기 떄문에 handler 사용
                                     Handler(Looper.getMainLooper()).post {
                                         item.likeCnt--
                                         bind(item)
                                     }
                                 }
+                                //로그인이 안되어 있을경우
                             } else if (response.resultCode == ConstList.REQUIRE_LOGIN) {
                                 LoginViewModel.isLogin.postValue(false)
                                 loginDialog(root.context, SearchAppBar.newInstance(), true)
@@ -137,6 +126,7 @@ class SearchStoreAdapter :
                 }
 
                 root.setOnClickListener {
+                    mAdapterPosition=adapterPosition
                     val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
                     dialog.show(MainActivity.supportFragmentManager, "loading")
 //                    root.isEnabled=false

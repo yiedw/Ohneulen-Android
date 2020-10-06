@@ -12,5 +12,5 @@ data class StoreDetail(
     val hashtagList: List<Keyword>,
     val keywordList: List<Keyword>,
     val reviewCnt: Int,
-    val reviewList: List<Review>
+    var reviewList: List<Review>
 )

@@ -40,8 +40,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:text="제목"
-                        android:textSize="14dp"
                         android:textColor="@color/colorTextBlack"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -49,15 +49,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="14dp"
-                        android:textColor="@color/colorCGrey" />
+                        android:textColor="@color/colorCGrey"
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/30"
-                        android:textSize="14dp"
-                        android:textColor="@color/colorCGrey" />
+                        android:textColor="@color/colorCGrey"
+                        android:textSize="14dp" />
 
 
                 </LinearLayout>
@@ -81,8 +81,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="이름"
-                    android:textSize="14dp"
                     android:textColor="@color/colorTextBlack"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -104,8 +104,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="이메일"
-                    android:textSize="14dp"
                     android:textColor="@color/colorTextBlack"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -127,8 +127,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="연락처"
-                    android:textSize="14dp"
                     android:textColor="@color/colorTextBlack"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -157,8 +157,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:text="내용"
-                        android:textSize="14dp"
                         android:textColor="@color/colorTextBlack"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -166,15 +166,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="14dp"
-                        android:textColor="@color/colorCGrey" />
+                        android:textColor="@color/colorCGrey"
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/1000"
-                        android:textSize="14dp"
-                        android:textColor="@color/colorCGrey" />
+                        android:textColor="@color/colorCGrey"
+                        android:textSize="14dp" />
 
                 </LinearLayout>
 
@@ -196,6 +196,7 @@
                         android:justificationMode="inter_word"
                         android:padding="15dp"
                         android:textColor="@color/colorBlack"
+                        android:textColorHint="#cccccc"
                         android:textSize="13dp" />
 
                     <TextView
@@ -228,8 +229,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
                     android:textColor="#141414"
-                    android:textSize="14dp"
-                    android:textColorLink="#141414" />
+                    android:textColorLink="#141414"
+                    android:textSize="14dp" />
             </LinearLayout>
 
         </ScrollView>
@@ -239,10 +240,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorGreen"
-            android:textSize="14dp"
             android:stateListAnimator="@null"
             android:text="작성 완료"
             android:textColor="@color/white"
+            android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent" />
 

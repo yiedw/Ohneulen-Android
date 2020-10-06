@@ -41,6 +41,8 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                     if (storeDetail.value != storeDetailResponse.resultData) {
                         storeDetail.postValue(storeDetailResponse.resultData)
                         storeMenuList = storeDetailResponse.resultData.menuList
+                        //최신순부터 보여주기위해 리스트를 한번 뒤집음
+                        storeDetailResponse.resultData.reviewList = storeDetailResponse.resultData.reviewList.reversed()
                         storeReviewList = storeDetailResponse.resultData.reviewList
                     }
                 }
@@ -65,7 +67,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                     return@launch
                 if (storeDetailResponse.resultCode == "000") {
                     if (storeDetail.value != storeDetailResponse.resultData) {
-                        storeFavoriteCheck.postValue(storeDetailResponse.resultData.storeInfo.storeFull.likes)
+                        storeFavoriteCheckLiveData.postValue(storeDetailResponse.resultData.storeInfo.storeFull.likes)
                     }
                 }
 
@@ -75,7 +77,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
         }
     }
 
-    var storeFavoriteCheck = MutableLiveData<Boolean>(false)
+    var storeFavoriteCheckLiveData = MutableLiveData<Boolean>(false)
 
     //찜 설정
     var setMemberLikeResponseCode = MutableLiveData<String>()
@@ -90,10 +92,14 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
         }
     }
 
-    //0 -> 기본상태 반응 x
-    //1 -> 좋아요 없는 상태에서 눌렀을때 (하트가 칠해질때)
-    //2 -> 좋아요 있는 상태에서 눌렀을때 (하트가 없어질때)
-    var storeLikeCnt = MutableLiveData<Int>(0)
+    var storeLikeCntLiveData = MutableLiveData<Int>(0)
+
+    //스토어화면에서 뒤로갔을때 서치 리스트로 데이터를 보존하기 위함
+    var storeFavoriteIsChecked = false
+    var storePoint = 0.0
+    var storeLikeCnt = 0
+    var storeReviewCnt = 0
+
 
     //menuDetail 클릭했을때 클릭한 곳으로 이동
     var menuIndex = 0

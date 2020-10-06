@@ -73,10 +73,10 @@ class StoreReview : Fragment() {
                 ratingSetting(it)
             }
             //info의 리뷰 갯수와 점수를 알려주기 위해 필요
-            (binding.storeReviewRv.adapter as ReviewAdapter).storeDetail = it
-            (binding.storeReviewRv.adapter as ReviewAdapter).notifyItemChanged(0) //데이터를 바로 반영
+            adapter.storeDetail = it
+            adapter.notifyItemChanged(0) //데이터를 바로 반영
             //데이터가 바뀌자마자 바로 반영되야 하므로 여기서 넣어줌
-            (binding.storeReviewRv.adapter as ReviewAdapter).submitList(it.reviewList)
+            adapter.submitList(it.reviewList)
 
         })
 

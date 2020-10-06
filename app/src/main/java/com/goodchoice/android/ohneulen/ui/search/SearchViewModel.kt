@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.model.SearchStore
 import com.goodchoice.android.ohneulen.data.service.NetworkService
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,18 +15,17 @@ import java.lang.Exception
 
 class SearchViewModel(private val networkService: NetworkService) :
     ViewModel() {
-    var searchEditText = ""
+    var searchEditText = ""                                 //검색한 곳 저장
     var kakaoMapPoint = MutableLiveData<MapPoint>()                 //카카오맵 좌표
     var toastMessage = MutableLiveData<Boolean>(false)      //토스트 메시지
 
-    var refreshCheck=MutableLiveData<Boolean>(false)
+    //(store->search)경우 rv부분 새로고침
+    var refreshCheck = MutableLiveData<Boolean>(false)
 
 
     var mNetworkService = networkService
     var searchStoreList = MutableLiveData<List<SearchStore>>()
-    val searchStoreAdapter = SearchStoreAdapter()
 
-    val filterHashMap = HashMap<Int, String>()
     var searchAppbarFirst = true
 
     val tempCateOhneulenData = mutableListOf<OhneulenData>()
@@ -46,29 +46,15 @@ class SearchViewModel(private val networkService: NetworkService) :
     var mainCategoryPosition = MutableLiveData<Int>(0)
     var subCategoryPosition = 0
 
-//    val mainCategory = initData.mainCategory
-//    val subCategoryList = initData.subCategory
-//    var subCategory = MutableLiveData<List<OhneulenData>>(subCategoryList[0])
 
     //정렬
     var checkSortRating = false
     var checkSortRecent = false
 
-    //옵션
-//    var mainOptionKind = initData.mainOptionKind
-//    var subOptionKind = initData.subOptionKind
-//
-//    //요일
-//    var timeDay = initData.timeDay
-
-
+    //스토어 리스트를 가져오는 함수
     fun getSearchStoreList() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-//                Timber.e("cate + $cate")
-//                Timber.e("option + $option")
-//                Timber.e("openTime + $openTime")
-//                Timber.e("sort + $sort")
                 val response = networkService.requestStoreSearchList(
                     addry,
                     addrx,
@@ -77,19 +63,32 @@ class SearchViewModel(private val networkService: NetworkService) :
                     openTime,
                     sort
                 )
-//                Timber.e(response.toString())
-                if (response.resultData != searchStoreList.value) {
-                    searchStoreList.postValue(response.resultData)
+                if (LoginViewModel.isLogin.value!!) {
+                    val likesResponse = networkService.requestGetMemberLike()
+                    for (i in response.resultData.indices) {
+                        for (j in likesResponse.resultData) {
+                            if (response.resultData[i].seq == j.seq) {
+                                response.resultData[i].like = true
+                                break
+                            }
+                        }
+                    }
+                    //데이터가 다를 경우에만 전달
+                   if (response.resultData != searchStoreList.value) {
+                        searchStoreList.postValue(response.resultData)
+                    }
+                } else {
+                    if (response.resultData != searchStoreList.value) {
+                        searchStoreList.postValue(response.resultData)
+                    }
                 }
-
-
             } catch (e: Throwable) {
                 Timber.e(e.toString())
             }
         }
     }
 
-
+    //좌표를 바탕으로 카카오맵을 가져오는 함수
     fun getSearchMapData() {
         CoroutineScope(Dispatchers.IO).launch {
             val y: Double
@@ -116,7 +115,7 @@ class SearchViewModel(private val networkService: NetworkService) :
         }
     }
 
-
+    //현재 위치를 기반으로 카카오 데이터를가져옴
     fun currentLocationData(latitude: Double, longitude: Double) {
         CoroutineScope(Dispatchers.IO).launch {
             kakaoMapPoint.postValue(MapPoint.mapPointWithGeoCoord(latitude, longitude))
@@ -124,33 +123,7 @@ class SearchViewModel(private val networkService: NetworkService) :
         }
     }
 
-//    fun getSearchStoreList() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val response = networkService.requestStoreSearchList(
-//                    addry,
-//                    addrx,
-//                    cate,
-//                    option,
-//                    openTime,
-//                    sort
-//                )
-//                if (response.resultData != searchStoreList.value) {
-//                    searchStoreList.postValue(response.resultData)
-//                }
-//
-//            } catch (e: Exception) {
-//                Timber.e(e.toString())
-//            }
-////            cate.clear()
-////            option.clear()
-////            openTime.clear()
-////            sort.clear()
-//            mainCategoryPosition.postValue(0)
-//        }
-//    }
-
-
+    //로딩여부확인
     val loading = MutableLiveData<Boolean>()
 
 }

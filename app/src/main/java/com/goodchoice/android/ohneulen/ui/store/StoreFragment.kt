@@ -105,23 +105,25 @@ class StoreFragment : Fragment() {
                     binding.storeFragmentViewPager2.currentItem = index
 
                 }, 300)
-//                (binding.storeFragmentViewPager2.adapter as StorePagerAdapter).notifyDataSetChanged()
             }
             hashTagGenerate(it)
             storeImage(it)
             MainActivity.bottomNav.visibility = View.GONE
 
             //평점세팅
-            storeViewModel.storeLikeCnt.postValue(it.storeInfo.storeFull.likeCnt)
+            storeViewModel.storeLikeCntLiveData.postValue(it.storeInfo.storeFull.likeCnt)
             storePoint(it)
 
             //찜 여부 확인
-            storeViewModel.storeFavoriteCheck.postValue(it.storeInfo.storeFull.likes)
+            storeViewModel.storeFavoriteCheckLiveData.postValue(it.storeInfo.storeFull.likes)
+
+            //리뷰 갯수 세팅
+            storeViewModel.storeReviewCnt = it.reviewCnt
 
         })
 
         //좋아요 눌렀을때 상단에 있는 좋아요 수 즉각 반영
-        storeViewModel.storeLikeCnt.observe(viewLifecycleOwner, Observer {
+        storeViewModel.storeLikeCntLiveData.observe(viewLifecycleOwner, Observer {
             if (storeViewModel.storeDetail.value != null) {
                 val storeDetail = storeViewModel.storeDetail.value!!
                 storeHeader(
@@ -153,7 +155,7 @@ class StoreFragment : Fragment() {
         MainActivity.bottomNav.visibility = View.VISIBLE
         state = 0
         storeViewModel.storeDetail = MutableLiveData()
-//        first = false
+
     }
 
     //이미지 세팅(1장 or 여러장)
@@ -192,7 +194,8 @@ class StoreFragment : Fragment() {
 
     //카테고리 좋아요 후기 갯수
     private fun storeHeader(cate1Name: Cate1Name, likeCnt: Int, reviewCnt: Int) {
-
+        storeViewModel.storeLikeCntLiveData.postValue(likeCnt)//좋아요 수 저장
+        storeViewModel.storeReviewCnt = reviewCnt //리뷰 수 저장
         //1000개이상이면 999+로 표시
         val mLikeCnt = if (likeCnt > 999) {
             "999+"
@@ -539,6 +542,7 @@ class StoreFragment : Fragment() {
         }
     }
 
+    //전체평점 계산
     private fun storePoint(storeDetail: StoreDetail) {
         var point = 0.0
         for (i in storeDetail.reviewList) {
@@ -547,6 +551,10 @@ class StoreFragment : Fragment() {
         point /= storeDetail.reviewCnt
         binding.storeFragmentRating.text = ((point * 10).toInt() / 10.0).toString()
         binding.storeFragmentRatingBar.rating = ((point * 10).toInt() / 10.0).toFloat()
+
+        //평점 보존
+        storeViewModel.storePoint = binding.storeFragmentRating.text.toString().toDouble()
+
     }
 
     private fun minHeightSetting(viewHeight: Int, layoutParams: AppBarLayout.LayoutParams) {
