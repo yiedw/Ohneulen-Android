@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -35,7 +36,7 @@ class SearchStoreAdapter :
     ListAdapter<SearchStore, SearchStoreAdapter.SearchStoreViewHolder>(SearchStoreDiffUtil) {
 
     lateinit var mNetworkService: NetworkService
-    var mAdapterPosition=0
+    var mAdapterPosition = 0
 
     inner class SearchStoreViewHolder(private val binding: SearchStoreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -76,12 +77,11 @@ class SearchStoreAdapter :
 
                 //로그인 되어있을대 좋아요 여부
                 binding.searchStoreItemLike.isSelected = item.like
-
-
-
-                Glide.with(binding.searchStoreItemImage.context)
-                    .load("${BaseUrl.OHNEULEN}${item.photoURL}").centerCrop()
-                    .into(binding.searchStoreItemImage)
+                //노이미지일때는 이미지를 불러오는게 아닌 로컬에 저장되어 있는걸 씀
+                if(item.photoURL!="/public/img/content/favorite-noimage.png")
+                    Glide.with(binding.searchStoreItemImage.context)
+                        .load("${BaseUrl.OHNEULEN}${item.photoURL}").centerCrop()
+                        .into(binding.searchStoreItemImage)
 
                 //하트표시 클릭
                 searchStoreItemLike.setOnClickListener {
@@ -126,7 +126,7 @@ class SearchStoreAdapter :
                 }
 
                 root.setOnClickListener {
-                    mAdapterPosition=adapterPosition
+                    mAdapterPosition = adapterPosition
                     val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
                     dialog.show(MainActivity.supportFragmentManager, "loading")
 //                    root.isEnabled=false

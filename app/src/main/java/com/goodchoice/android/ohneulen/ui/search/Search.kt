@@ -39,6 +39,10 @@ import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+import kotlin.concurrent.schedule
 
 class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventListener {
 
@@ -157,8 +161,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         binding.searchStoreRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (searchStat == 1 && isRecyclerScrollable() && rvFirstScroll && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    Timber.e("aa")
+                if (searchStat == 1 && isRecyclerScrollable()&& newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+//                    && rvFirstScroll
                     rvFirstScroll = false
                     //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
                     binding.searchStoreFrameLayout.layoutParams.also { lp ->
@@ -172,16 +176,18 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                         //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
                         (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - binding.searchInfoCon.height).toInt()
                     )
-                    binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
+//                    binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
                     binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
                     binding.searchOpen.visibility = View.VISIBLE  // open 이미지 보여줌
                     binding.searchInfoCon.setBackgroundColor(requireContext().getColor(R.color.white))    //뒤에 지도배경 삭제
-                    searchStat = 2  //리스트가 맵을 덮은상태
+                    Timer("seachStat", false).schedule(400) {
+                        searchStat = 2  //리스트가 맵을 덮은상태
+
+                    }
                 }
 
                 //리스트가 맵을 덮은상태에서 위로 당길때 리스트가 접히게
-                else if (searchStat == 2 && !binding.searchStoreRv.canScrollVertically(-1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
-                    Timber.e("asdf")
+                else if (searchStat == 2 && !binding.searchStoreRv.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_SETTLING) {
                     slideDown(
                         searchStat1Y.toFloat(),
                         searchStat1Y.toFloat() + binding.searchInfoCon.height,

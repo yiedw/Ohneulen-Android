@@ -260,9 +260,9 @@
 
                     <RadioButton
                         android:id="@+id/store_review_info_recent"
-                        android:layout_width="50dp"
+                        android:layout_width="52dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="4dp"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
                         android:gravity="center"
@@ -272,9 +272,9 @@
 
                     <RadioButton
                         android:id="@+id/store_review_empathy"
-                        android:layout_width="50dp"
+                        android:layout_width="52dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="4dp"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
                         android:gravity="center"
@@ -284,12 +284,13 @@
 
                     <RadioButton
                         android:id="@+id/store_review_info_rating_high"
-                        android:layout_width="64dp"
+                        android:layout_width="62dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="5dp"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
                         android:drawableRight="@drawable/store_review_high_selector"
+                        android:drawablePadding="3dp"
                         android:gravity="center"
                         android:paddingStart="8dp"
                         android:paddingRight="10dp"
@@ -300,12 +301,13 @@
 
                     <RadioButton
                         android:id="@+id/store_review_info_rating_low"
-                        android:layout_width="64dp"
+                        android:layout_width="62dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="5dp"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
                         android:drawableRight="@drawable/store_review_low_selector"
+                        android:drawablePadding="3dp"
                         android:gravity="center"
                         android:paddingStart="8dp"
                         android:paddingRight="10dp"
@@ -313,13 +315,16 @@
                         android:textColor="@drawable/text_selector"
                         android:textSize="12dp" />
 
+
+
                     <RadioButton
                         android:id="@+id/store_review_info_image"
-                        android:layout_width="72dp"
+                        android:layout_width="74dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/review_write_radio_selector"
                         android:button="@null"
                         android:gravity="center"
+                        android:paddingHorizontal="4dp"
                         android:text="사진 후기만"
                         android:textColor="@drawable/text_selector"
                         android:textSize="12dp" />
