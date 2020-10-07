@@ -38,9 +38,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <Spinner
-
+                android:spinnerMode="dropdown"
                 android:id="@+id/mypage_inquire_new_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

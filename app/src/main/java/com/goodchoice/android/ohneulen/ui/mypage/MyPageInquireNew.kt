@@ -55,6 +55,8 @@ class MyPageInquireNew : Fragment() {
 
 
         val spinner = binding.mypageInquireNewSpinner
+        //드롭다운이 스피너 바로 아래부터 시작하게 변경
+        spinner.dropDownVerticalOffset = 40.dpToPx()
         //spinner adapter 생성
         val adapter =
             object : ArrayAdapter<String>(requireContext(), R.layout.mypage_inquire_new_spinner) {
