@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -258,6 +259,10 @@ fun View.setHeight(value:Int){
         lp.height=value
         layoutParams=lp
     }
+}
+
+fun typefaceBold(context: Context):Typeface{
+    return Typeface.create("sans-serif",Typeface.BOLD)
 }
 
 

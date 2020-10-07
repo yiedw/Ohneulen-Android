@@ -25,9 +25,11 @@ import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import com.goodchoice.android.ohneulen.util.typefaceBold
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.lang.reflect.Type
 
 
 class SearchFilter : Fragment() {
@@ -323,17 +325,18 @@ class SearchFilter : Fragment() {
             childView.findViewById<TextView>(R.id.filter_category).text = mainCategory[i].minorName
 
             if (i == 0) {
-                childView.findViewById<TextView>(R.id.filter_category).setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                )
+                childView.findViewById<TextView>(R.id.filter_category).apply {
+                    setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.white)
+                    )
+                    setTypeface(null, Typeface.BOLD)
+                }
                 childView.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.colorOhneulen
                     )
                 )
-                childView.findViewById<TextView>(R.id.filter_category)
-                    .setTypeface(null, Typeface.BOLD)
             }
             //클릭했을때
             childView.setOnClickListener {
@@ -351,17 +354,18 @@ class SearchFilter : Fragment() {
                 )
                 previousView.findViewById<TextView>(R.id.filter_category)
                     .setTypeface(null, Typeface.NORMAL)
-                childView.findViewById<TextView>(R.id.filter_category).setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                )
+                childView.findViewById<TextView>(R.id.filter_category).apply {
+                    setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.white)
+                    )
+                    setTypeface(null, Typeface.BOLD)
+                }
                 childView.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.colorOhneulen
                     )
                 )
-                childView.findViewById<TextView>(R.id.filter_category)
-                    .setTypeface(null, Typeface.BOLD)
                 searchViewModel.mainCategoryPosition.postValue(position)
 
             }
@@ -391,10 +395,12 @@ class SearchFilter : Fragment() {
                     requireContext(),
                     R.drawable.background_rounding_ohneulen
                 )
+                tb.typeface = typefaceBold(requireContext())
             } else {
                 tb.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
                 tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+                tb.setTypeface(null, Typeface.NORMAL)
             }
             tb.text = mutableList[i].minorName
             tb.textOff = mutableList[i].minorName
@@ -408,6 +414,7 @@ class SearchFilter : Fragment() {
                         requireContext(),
                         R.drawable.background_rounding_ohneulen
                     )
+                    tb.typeface = typefaceBold(requireContext())
                     //옵션일때
                     if (gridLayout == binding.searchFilterConvenience) {
                         searchViewModel.option.add(mutableList[i].minorCode)
@@ -423,6 +430,7 @@ class SearchFilter : Fragment() {
                     tb.background =
                         ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
                     tb.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+                    tb.setTypeface(null, Typeface.NORMAL)
                     if (gridLayout == binding.searchFilterConvenience) {
                         searchViewModel.option.remove(mutableList[i].minorCode)
                         initData.mainOptionKind[i].check = isChecked
@@ -485,11 +493,15 @@ class SearchFilter : Fragment() {
             binding.searchFilterFoodCon.visibility = View.VISIBLE
             binding.searchFilterOptionsView.visibility = View.GONE
             binding.searchFilterResetBorder.visibility = View.GONE
+            binding.searchFilterFood.typeface = typefaceBold(requireContext())
+            binding.searchFilterOptions.setTypeface(null, Typeface.NORMAL)
             checkFood = true
         } else {
             binding.searchFilterFoodCon.visibility = View.GONE
             binding.searchFilterOptionsView.visibility = View.VISIBLE
             binding.searchFilterResetBorder.visibility = View.VISIBLE
+            binding.searchFilterOptions.typeface = typefaceBold(requireContext())
+            binding.searchFilterFood.setTypeface(null, Typeface.NORMAL)
             checkFood = false
         }
         slide()
@@ -510,10 +522,15 @@ class SearchFilter : Fragment() {
                         R.color.white
                     )
                 )
+                //배경색 다시 바꿔주기
                 searchFilterRecent.background = ContextCompat.getDrawable(
                     requireContext(),
                     R.drawable.background_rounding_ohneulen
                 )
+
+                //볼드 주기
+                searchFilterRecent.typeface = typefaceBold(requireContext())
+                searchFilterRating.setTypeface(null, Typeface.NORMAL)
 
                 searchFilterRating.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
@@ -541,6 +558,8 @@ class SearchFilter : Fragment() {
                     requireContext(),
                     R.drawable.background_rounding_ohneulen
                 )
+                searchFilterRating.typeface = typefaceBold(requireContext())
+                searchFilterRecent.setTypeface(null, Typeface.NORMAL)
 
                 searchFilterRecent.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.background_rounding)
