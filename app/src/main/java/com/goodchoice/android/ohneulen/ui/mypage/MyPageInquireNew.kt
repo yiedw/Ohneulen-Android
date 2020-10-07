@@ -130,6 +130,7 @@ class MyPageInquireNew : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val length = binding.mypageInquireNewEt2.length()
                 binding.mypageInquireNewEt2Length.text = length.toString()
+                binding.mypageInquireNewEt3Length.text = length.toString()
             }
 
         })

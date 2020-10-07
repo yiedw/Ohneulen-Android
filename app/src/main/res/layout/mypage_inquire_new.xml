@@ -39,12 +39,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:spinnerMode="dropdown"
                 android:id="@+id/mypage_inquire_new_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/background_border_cgrey"
+                android:spinnerMode="dropdown"
                 android:textSize="13dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_tv1" />
@@ -75,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
+                android:fontFamily="sans-serif-light"
                 android:text="0"
                 android:textColor="@color/colorCGrey"
                 android:textSize="15dp"
@@ -86,6 +87,7 @@
                 android:id="@+id/mypage_inquire_new_et1_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:text="/30"
                 android:textColor="@color/colorCGrey"
                 android:textSize="15dp"
@@ -126,6 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
+                android:fontFamily="sans-serif-light"
                 android:text="0"
                 android:textColor="@color/colorCGrey"
                 android:textSize="15dp"
@@ -137,6 +140,7 @@
                 android:id="@+id/mypage_inquire_new_et2_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:text="/1000"
                 android:textColor="@color/colorCGrey"
                 android:textSize="15dp"
@@ -144,14 +148,14 @@
                 app:layout_constraintLeft_toRightOf="@id/mypage_inquire_new_et2_length"
                 app:layout_constraintTop_toTopOf="@id/mypage_inquire_new_content" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="34dp"
                 android:background="#f6f6f6"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="   @id/mypage_inquire_new_content">
+                app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_content">
 
                 <EditText
                     android:id="@+id/mypage_inquire_new_et2"
@@ -165,10 +169,32 @@
                     android:padding="15dp"
                     android:textColor="@color/colorBlack"
                     android:textColorHint="@color/colorCGrey"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/mypage_inquire_new_et3_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="0"
+                    android:textColor="@color/colorCGrey"
                     android:textSize="13dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_content" />
-            </LinearLayout>
+                    app:layout_constraintRight_toLeftOf="@id/mypage_inquire_new_et3_max"
+                    app:layout_constraintTop_toTopOf="@id/mypage_inquire_new_et3_max" />
+
+                <TextView
+                    android:id="@+id/mypage_inquire_new_et3_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="9dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="/1000"
+                    android:textColor="@color/colorCGrey"
+                    android:textSize="13dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
