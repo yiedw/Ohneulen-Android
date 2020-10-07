@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.goodchoice.android.ohneulen.ui.mypage.MyPageInquireNew" />
@@ -39,13 +40,13 @@
 
 
             <Spinner
+
                 android:id="@+id/mypage_inquire_new_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
-                android:textSize="14dp"
-                android:autofillHints="선택해 주세요"
                 android:background="@drawable/background_border_cgrey"
+                android:textSize="13dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_tv1" />
 
@@ -104,6 +105,7 @@
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="10dp"
                 android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorCGrey"
                 android:textSize="13dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_title" />
@@ -162,8 +164,8 @@
                     android:hint="보내 주신 문의 내용을 정확히 확인하고 빠르게 처리하기 위해 연락을 드릴 수 있습니다."
                     android:maxLength="1000"
                     android:padding="15dp"
-                    android:textColorHint="#cccccc"
                     android:textColor="@color/colorBlack"
+                    android:textColorHint="@color/colorCGrey"
                     android:textSize="13dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mypage_inquire_new_content" />
@@ -173,11 +175,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:onClick="@{fragment::submitClick}"
             android:id="@+id/mypage_inquire_new_submit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorGreen"
+            android:onClick="@{fragment::submitClick}"
             android:stateListAnimator="@null"
             android:text="작성완료"
             android:textColor="@color/white"
