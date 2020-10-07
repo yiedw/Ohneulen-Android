@@ -47,6 +47,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:fontFamily="@font/notosanskr_light"
+                android:includeFontPadding="false"
                 android:id="@+id/store_map_addressOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

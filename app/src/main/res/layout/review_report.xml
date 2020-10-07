@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.goodchoice.android.ohneulen.ui.store.StoreViewModel" />
+
         <variable
             name="review"
             type="com.goodchoice.android.ohneulen.data.model.Review" />
@@ -41,11 +42,11 @@
 
                 <TextView
                     android:id="@+id/review_report_name"
-                    android:textSize="14dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#777777"
                     android:text="이름"
+                    android:textColor="#777777"
+                    android:textSize="14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,8 +55,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textColor="#777777"
                     android:text="@{viewModel.today}"
+                    android:textColor="#777777"
                     android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="@id/review_report_name"
                     app:layout_constraintLeft_toRightOf="@id/review_report_name" />
@@ -77,10 +78,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:textSize="14dp"
-                android:textStyle="bold"
                 android:text="신고 사유를 알려주세요"
                 android:textColor="@color/colorTextBlack"
+                android:textSize="14dp"
+                android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/review_report_con" />
 
             <RadioGroup
@@ -95,51 +96,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:textColor="#777777"
-                    android:textSize="14dp"
                     android:button="@drawable/radio_btn_selector"
                     android:paddingLeft="10dp"
-                    android:text="원치 않는 광고 또는 스팸" />
+                    android:text="원치 않는 광고 또는 스팸"
+                    android:textColor="#777777"
+                    android:textSize="14dp" />
 
                 <RadioButton
-                    android:textSize="14dp"
-                    android:textColor="#777777"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:button="@drawable/radio_btn_selector"
                     android:paddingLeft="10dp"
-                    android:text="음란물" />
+                    android:text="음란물"
+                    android:textColor="#777777"
+                    android:textSize="14dp" />
 
                 <RadioButton
-                    android:textSize="14dp"
-                    android:textColor="#777777"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:button="@drawable/radio_btn_selector"
                     android:paddingLeft="10dp"
-                    android:text="언어적 폭력 또는 증오 표현" />
+                    android:text="언어적 폭력 또는 증오 표현"
+                    android:textColor="#777777"
+                    android:textSize="14dp" />
 
                 <RadioButton
-                    android:textSize="14dp"
-                    android:textColor="#777777"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:button="@drawable/radio_btn_selector"
                     android:paddingLeft="10dp"
-                    android:text="성희롱 등의 괴롭힘" />
+                    android:text="성희롱 등의 괴롭힘"
+                    android:textColor="#777777"
+                    android:textSize="14dp" />
 
                 <RadioButton
-                    android:textSize="14dp"
-                    android:textColor="#777777"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:button="@drawable/radio_btn_selector"
                     android:paddingLeft="10dp"
-                    android:text="기타" />
+                    android:text="기타"
+                    android:textColor="#777777"
+                    android:textSize="14dp" />
             </RadioGroup>
 
             <EditText
@@ -148,8 +149,10 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="15dp"
                 android:background="#f6f6f6"
+                android:fontFamily="@font/notosanskr_light"
                 android:gravity="top"
                 android:hint="회원님의 이야기는 많은 분들께 도움이 됩니다."
+                android:includeFontPadding="false"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
                 android:textColor="@color/colorBlack"
@@ -189,11 +192,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorGreen"
-            android:textStyle="bold"
             android:stateListAnimator="@null"
             android:text="작성 완료"
             android:textColor="@color/white"
             android:textSize="15dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -59,6 +59,8 @@
                         android:id="@+id/store_home_address"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/notosanskr_light"
+                        android:includeFontPadding="false"
                         android:textColor="@color/colorGrey88"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -72,7 +74,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
@@ -83,6 +84,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="17dp"
+                        android:fontFamily="@font/notosanskr_light"
+                        android:includeFontPadding="false"
                         android:text="@{viewModel.storeDetail.storeInfo.storeFull.bizTel}"
                         android:textColor="@color/colorGrey88"
                         android:textSize="14dp" />
@@ -214,6 +217,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:background="@color/white"
+                android:fontFamily="@font/notosanskr_light"
+                android:includeFontPadding="false"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="16dp"
                 android:text="@{viewModel.storeDetail.storeInfo.storeFull.contents}"
@@ -247,6 +252,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/notosanskr_light"
+                    android:includeFontPadding="false"
                     android:text="개업일\n업데이트"
                     android:textColor="#c0c0c0"
                     android:textSize="13dp"
@@ -260,6 +267,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="11dp"
+                    android:fontFamily="@font/notosanskr_light"
+                    android:includeFontPadding="false"
                     android:textColor="#c0c0c0"
                     android:textSize="13dp"
                     app:layout_constraintLeft_toRightOf="@id/store_home_open_tv1"
@@ -269,6 +278,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskr_light"
+                    android:includeFontPadding="false"
                     android:text=""
                     android:textColor="#c0c0c0"
                     android:textSize="13dp"

@@ -109,7 +109,8 @@
                 android:paddingHorizontal="20dp"
                 android:text="@string/favorite"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="@dimen/main_contents" />
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
@@ -161,7 +162,8 @@
                 android:paddingHorizontal="20dp"
                 android:text="@string/inquiry_details"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="@dimen/main_contents" />
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
@@ -181,7 +183,8 @@
                 android:paddingHorizontal="20dp"
                 android:text="@string/frequently_asked_questions"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="@dimen/main_contents" />
+                android:textSize="@dimen/main_contents"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -199,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/mypage_footer">
+                app:layout_constraintBottom_toTopOf="@id/mypage_company_name">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -250,13 +253,25 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/mypage_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(주)굿초이스"
+                android:textColor="@color/colorGrey88"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toTopOf="@id/mypage_footer"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
                 android:id="@+id/mypage_footer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/notosanskr_light"
+                android:includeFontPadding="false"
                 android:paddingBottom="30dp"
                 android:text="@string/footer"
-                android:textColor="#88888888"
+                android:textColor="@color/colorGrey88"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent" />
 

@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.store.home
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -8,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,6 +27,7 @@ import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.google.android.material.tabs.TabLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.lang.reflect.Type
 
 class StoreHome : Fragment() {
     companion object {
@@ -122,6 +125,12 @@ class StoreHome : Fragment() {
             tv.text =
                 "${time.day_name}  ${time.startTime}:${time.startMin} ~ ${time.endTime}:${time.endMin}"
             tv.layoutParams = params
+            //글씨체 light로 변경
+            tv.typeface = Typeface.create(
+                ResourcesCompat.getFont(requireContext(), R.font.notosanskr_light),
+                Typeface.NORMAL
+            )
+            tv.includeFontPadding = false
             binding.storeHomeOpenDay.addView(tv)
         }
         for (i in storeDetail.storeTime.close.indices) {
@@ -142,6 +151,13 @@ class StoreHome : Fragment() {
                     requireContext().getColor(R.color.colorRed)
                 )
                 tv.layoutParams = params
+                tv.typeface = Typeface.create(
+                    ResourcesCompat.getFont(
+                        requireContext(),
+                        R.font.notosanskr_light
+                    ), Typeface.NORMAL
+                )
+                tv.includeFontPadding = false
                 binding.storeHomeOpenDay.addView(tv)
             }
         }
@@ -226,6 +242,11 @@ class StoreHome : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
             tv2.layoutParams = params2
+            tv2.typeface = Typeface.create(
+                ResourcesCompat.getFont(requireContext(), R.font.notosanskr_light),
+                Typeface.NORMAL
+            )
+            tv2.includeFontPadding = false
             if (i.kind == ConstList.OPTION_HOLIDAY) {
                 tv2.text = i.optionText
             } else if (i.kind == ConstList.OPTION_SEAT_COUNT) {
@@ -300,6 +321,11 @@ class StoreHome : Fragment() {
             tv.layoutParams = params2
             tv.setTextColor(requireContext().getColor(R.color.colorGrey88))
             tv.text = i.keyword
+            tv.typeface = Typeface.create(
+                ResourcesCompat.getFont(requireContext(), R.font.notosanskr_light),
+                Typeface.NORMAL
+            )
+            tv.includeFontPadding = false
 
             linearLayout.addView(iv)
             linearLayout.addView(tv)
