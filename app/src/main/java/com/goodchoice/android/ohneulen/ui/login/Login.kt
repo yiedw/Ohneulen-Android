@@ -162,7 +162,7 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
         //로그인 성공
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
-                replaceAppbarFragment(fragment)
+//                replaceAppbarFragment(fragment)
                 MainActivity.supportFragmentManager.popBackStack()
             }
         })

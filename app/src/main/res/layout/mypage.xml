@@ -206,8 +206,9 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="19dp"
+                    android:layout_height="39dp"
                     android:onClick="@{fragment::termsClick}"
+                    android:paddingTop="20dp"
                     android:text="이용약관"
                     android:textSize="13dp" />
 
@@ -219,8 +220,9 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="19dp"
+                    android:layout_height="39dp"
                     android:onClick="@{fragment::term2Click}"
+                    android:paddingTop="20dp"
                     android:text="개인정보처리방침"
                     android:textSize="13dp" />
 
@@ -232,8 +234,9 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="19dp"
+                    android:layout_height="39dp"
                     android:onClick="@{fragment::companyClick}"
+                    android:paddingTop="20dp"
                     android:text="회사소개"
                     android:textSize="13dp" />
 
@@ -245,8 +248,9 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="19dp"
+                    android:layout_height="39dp"
                     android:onClick="@{fragment::contactusClick}"
+                    android:paddingTop="20dp"
                     android:text="사업제휴"
                     android:textSize="13dp" />
 

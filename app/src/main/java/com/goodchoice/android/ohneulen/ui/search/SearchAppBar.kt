@@ -17,7 +17,6 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
-import com.goodchoice.android.ohneulen.util.addAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

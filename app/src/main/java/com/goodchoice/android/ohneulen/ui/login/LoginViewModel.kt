@@ -60,7 +60,6 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
         CoroutineScope(Dispatchers.IO).launch {
             networkService.requestLogoutTest()
             isLogin.postValue(false)
-
         }
     }
 

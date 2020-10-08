@@ -1,22 +1,17 @@
 package com.goodchoice.android.ohneulen.util
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Base64
 import android.util.TypedValue
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.App
 import com.goodchoice.android.ohneulen.R
@@ -25,19 +20,14 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
-import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.store.home.StoreHomeReport
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 import java.lang.Exception
-import java.security.MessageDigest
 import java.text.DecimalFormat
 
 //카카오 지도 불러오는데 사용

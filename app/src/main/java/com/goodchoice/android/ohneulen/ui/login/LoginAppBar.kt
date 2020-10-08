@@ -50,7 +50,7 @@ class LoginAppBar(private val fragment: Fragment) :
         if (fragment is MyPageAppBar) {
             MainActivity.bottomNav.visibility = View.VISIBLE
         }
-        replaceAppbarFragment(fragment)
+//        replaceAppbarFragment(fragment)
         MainActivity.supportFragmentManager.popBackStack()
     }
 
@@ -58,7 +58,7 @@ class LoginAppBar(private val fragment: Fragment) :
         if (fragment is MyPageAppBar) {
             MainActivity.bottomNav.visibility = View.VISIBLE
         }
-        replaceAppbarFragment(fragment)
+//        replaceAppbarFragment(fragment)
         MainActivity.supportFragmentManager.popBackStack()
     }
 }

@@ -38,12 +38,10 @@ class MyPageTerms2AppBar() : Fragment(), OnBackPressedListener {
     }
 
     fun onBackClick(view: View) {
-        replaceAppbarFragment(MyPageAppBar.newInstance())
-        replaceMainFragment(MyPage.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(MyPageAppBar.newInstance())
-        replaceMainFragment(MyPage.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
     }
 }

@@ -13,7 +13,7 @@ import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class MyPageContactusAppBar : Fragment() ,OnBackPressedListener{
+class MyPageContactusAppBar : Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance() = MyPageContactusAppBar()
     }
@@ -31,19 +31,19 @@ class MyPageContactusAppBar : Fragment() ,OnBackPressedListener{
             container,
             false
         )
-        binding.fragment=this
+        binding.fragment = this
         return binding.root
     }
 
-    fun backClick(view:View){
-        replaceAppbarFragment(MyPageAppBar.newInstance())
-        MainActivity.supportFragmentManager.popBackStack()
+    fun backClick(view: View) {
+//        replaceAppbarFragment(MyPageAppBar.newInstance())
 //        replaceMainFragment(MyPage.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(MyPageAppBar.newInstance())
-        MainActivity.supportFragmentManager.popBackStack()
+//        replaceAppbarFragment(MyPageAppBar.newInstance())
 //        replaceMainFragment(MyPage.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
     }
 }

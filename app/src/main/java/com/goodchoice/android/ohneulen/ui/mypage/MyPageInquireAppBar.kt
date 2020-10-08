@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInquireAppbarBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -35,10 +36,6 @@ class MyPageInquireAppBar :Fragment() ,OnBackPressedListener{
         binding.fragment=this
         return binding.root
     }
-    fun backClick(view:View){
-        replaceAppbarFragment(MyPageAppBar.newInstance())
-        replaceMainFragment(MyPage.newInstance())
-    }
 
     fun newClick(view:View){
         replaceAppbarFragment(MyPageInquireNewAppBar.newInstance())
@@ -46,8 +43,10 @@ class MyPageInquireAppBar :Fragment() ,OnBackPressedListener{
 //        replaceMainFragment(MyPageInquireNew.newInstance())
     }
 
+    fun backClick(view:View){
+        MainActivity.supportFragmentManager.popBackStack()
+    }
     override fun onBackPressed() {
-        replaceAppbarFragment(MyPageAppBar.newInstance())
-        replaceMainFragment(MyPage.newInstance())
+        MainActivity.supportFragmentManager.popBackStack()
     }
 }
