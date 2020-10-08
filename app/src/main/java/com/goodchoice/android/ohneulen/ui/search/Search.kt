@@ -8,6 +8,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -162,7 +163,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         binding.searchStoreRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (searchStat == 1 && isRecyclerScrollable()&& newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                if (searchStat == 1 && isRecyclerScrollable() && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
 //                    && rvFirstScroll
                     rvFirstScroll = false
                     //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
@@ -188,7 +189,12 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 }
 
                 //리스트가 맵을 덮은상태에서 위로 당길때 리스트가 접히게
-                else if (searchStat == 2 && !binding.searchStoreRv.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_SETTLING) {
+
+                else if (searchStat == 2
+                    && !binding.searchStoreRv.canScrollVertically(-1)   //스크롤이 맨위일때
+                    && isRecyclerScrollable()
+                    && newState == RecyclerView.SCROLL_STATE_SETTLING
+                ) {
                     slideDown(
                         searchStat1Y.toFloat(),
                         searchStat1Y.toFloat() + binding.searchInfoCon.height,
