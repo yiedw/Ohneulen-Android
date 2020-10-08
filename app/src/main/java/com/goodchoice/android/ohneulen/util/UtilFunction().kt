@@ -103,7 +103,7 @@ fun addAppbarFragment(
     fragmentTransaction.add(R.id.appbar_frameLayout, fragment).commit()
 }
 
-fun popupFragment(fragment: Fragment,tag:String?=null) {
+fun popupFragment(fragment: Fragment, tag: String? = null) {
     MainActivity.supportFragmentManager.beginTransaction()
         .setCustomAnimations(
             R.anim.enter_bottom_to_top,
@@ -112,7 +112,7 @@ fun popupFragment(fragment: Fragment,tag:String?=null) {
             R.anim.exit_top_to_bottom
         )
         .addToBackStack(null)
-        .add(MainActivity.mainFrameLayout.id, fragment,tag)
+        .add(MainActivity.mainFrameLayout.id, fragment, tag)
         .commit()
 }
 
@@ -174,7 +174,7 @@ fun hideKeyboard(view: View, context: Context) {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun loginDialog(context: Context, backFragmentAppBar: Fragment, bottomNavVisibility: Boolean) {
+fun loginDialog(context: Context, bottomNavVisibility: Boolean) {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.logout_dialog)
@@ -186,8 +186,17 @@ fun loginDialog(context: Context, backFragmentAppBar: Fragment, bottomNavVisibil
     }
 
     dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
-        replaceAppbarFragment(LoginAppBar.newInstance(backFragmentAppBar))
-        addMainFragment(Login.newInstance(backFragmentAppBar,bottomNavVisibility), true)
+        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+        fragmentManager.setCustomAnimations(
+            R.anim.enter_right_to_left,
+            R.anim.exit_right_to_left,
+            R.anim.enter_left_to_right,
+            R.anim.exit_left_to_right
+        )
+        fragmentManager.addToBackStack(null)
+        fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
+        fragmentManager.replace(R.id.main_frameLayout, Login.newInstance(bottomNavVisibility))
+        fragmentManager.commit()
         dialog.dismiss()
     }
     dialog.show()
@@ -243,16 +252,16 @@ fun comma(number: Int): String {
 }
 
 //view Height Change
-fun View.setHeight(value:Int){
-    val lp=layoutParams
+fun View.setHeight(value: Int) {
+    val lp = layoutParams
     lp?.let {
-        lp.height=value
-        layoutParams=lp
+        lp.height = value
+        layoutParams = lp
     }
 }
 
-fun typefaceBold(context: Context):Typeface{
-    return Typeface.create("sans-serif",Typeface.BOLD)
+fun typefaceBold(context: Context): Typeface {
+    return Typeface.create("sans-serif", Typeface.BOLD)
 }
 
 

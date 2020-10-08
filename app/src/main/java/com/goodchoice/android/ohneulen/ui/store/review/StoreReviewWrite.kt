@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -123,7 +122,7 @@ class StoreReviewWrite : Fragment() {
                 MainActivity.supportFragmentManager.popBackStack()
 
             } else if (it == ConstList.REQUIRE_LOGIN) {
-                loginDialog(requireContext(), StoreReviewWriteAppbar.newInstance(), false)
+                loginDialog(requireContext(), false)
             }
         })
 

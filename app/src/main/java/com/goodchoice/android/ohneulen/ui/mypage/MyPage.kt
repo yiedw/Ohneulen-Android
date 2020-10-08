@@ -13,13 +13,7 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.util.addMainFragment
-import com.goodchoice.android.ohneulen.util.popupFragment
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import kotlinx.android.synthetic.main.login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MyPage : Fragment() {
 

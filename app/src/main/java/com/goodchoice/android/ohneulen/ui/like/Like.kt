@@ -4,7 +4,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.style.StyleSpan
-import android.text.style.TypefaceSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,16 +17,10 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LikeBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
-import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.search.Search
-import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
 import com.goodchoice.android.ohneulen.util.loginDialog
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.goodchoice.android.ohneulen.util.textColor
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class Like : Fragment() {
 
@@ -88,7 +81,7 @@ class Like : Fragment() {
         //로그인 풀렸나 체크
         likeViewModel.loginCheck.observe(viewLifecycleOwner, Observer {
             if (!it) {
-                loginDialog(requireContext(), LikeAppBar.newInstance(), true)
+                loginDialog(requireContext(), true)
                 likeViewModel.loginCheck.postValue(true)
             }
         })

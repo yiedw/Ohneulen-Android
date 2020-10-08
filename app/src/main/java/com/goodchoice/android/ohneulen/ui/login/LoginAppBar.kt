@@ -47,17 +47,11 @@ class LoginAppBar(private val fragment: Fragment) :
     }
 
     fun backClick(view: View) {
-        if (fragment is MyPageAppBar) {
-            MainActivity.bottomNav.visibility = View.VISIBLE
-        }
 //        replaceAppbarFragment(fragment)
         MainActivity.supportFragmentManager.popBackStack()
     }
 
     override fun onBackPressed() {
-        if (fragment is MyPageAppBar) {
-            MainActivity.bottomNav.visibility = View.VISIBLE
-        }
 //        replaceAppbarFragment(fragment)
         MainActivity.supportFragmentManager.popBackStack()
     }

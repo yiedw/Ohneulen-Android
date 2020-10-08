@@ -24,14 +24,7 @@ import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.textColor
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-import java.text.DecimalFormat
 
 class StoreHomeReport(private val storeName: String) : Fragment() {
     companion object {
@@ -87,7 +80,7 @@ class StoreHomeReport(private val storeName: String) : Fragment() {
                 MainActivity.supportFragmentManager.popBackStack()
             } else if (it == ConstList.REQUIRE_LOGIN) {
                 Toast.makeText(requireContext(), "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
-                loginDialog(requireContext(), StoreHomeReportAppBar.newInstance(), false)
+                loginDialog(requireContext(), false)
 
             } else {
                 Toast.makeText(requireContext(), "신고에 실패하였습니다.", Toast.LENGTH_SHORT).show()

@@ -1,36 +1,31 @@
 package com.goodchoice.android.ohneulen.ui.login
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Typeface
-import android.icu.util.ValueIterator
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
-import com.goodchoice.android.ohneulen.ui.mypage.MyPage
-import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class Login(private val fragment: Fragment, private val bottomNavVisibility: Boolean) : Fragment() {
+class Login(private val bottomNavVisibility: Boolean, private val popBackStackName: String?) :
+    Fragment() {
 
     companion object {
         fun newInstance(
-            fragment: Fragment = MyPageAppBar.newInstance(),
-            bottomNavVisibility: Boolean
-        ) = Login(fragment, bottomNavVisibility)
+            bottomNavVisibility: Boolean,
+            popBackStackName: String? = null
+        ) = Login(bottomNavVisibility, popBackStackName)
     }
 
     private lateinit var binding: LoginBinding
@@ -163,6 +158,7 @@ class Login(private val fragment: Fragment, private val bottomNavVisibility: Boo
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
 //                replaceAppbarFragment(fragment)
+                Timber.e(MainActivity.supportFragmentManager.backStackEntryCount.toString())
                 MainActivity.supportFragmentManager.popBackStack()
             }
         })

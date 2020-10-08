@@ -3,36 +3,26 @@ package com.goodchoice.android.ohneulen.ui.store.review
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.viewpager2.widget.ViewPager2
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreReviewBinding
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
-import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import java.util.*
 import kotlin.concurrent.schedule
-import kotlin.concurrent.timer
 
 class StoreReview : Fragment() {
     companion object {
@@ -190,7 +180,7 @@ class StoreReview : Fragment() {
 
     fun reviewWriteClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
-            loginDialog(requireContext(), StoreAppBar.newInstance(), false)
+            loginDialog(requireContext(), false)
         } else {
             replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
             popupFragment(StoreReviewWrite.newInstance())

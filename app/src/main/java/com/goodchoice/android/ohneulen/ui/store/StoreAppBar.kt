@@ -100,7 +100,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
             } else if (it == ConstList.REQUIRE_LOGIN) {
                 LoginViewModel.isLogin.postValue(false)
                 binding.storeAppbarLike.isSelected = false
-                loginDialog(requireContext(), newInstance(), false)
+                loginDialog(requireContext(), false)
                 storeViewModel.setMemberLikeResponseCode.postValue("")
             }
 
@@ -119,7 +119,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
     fun likeClick(view: View) {
         if (!LoginViewModel.isLogin.value!!) {
             binding.storeAppbarLike.isSelected = false
-            loginDialog(requireContext(), newInstance(), false)
+            loginDialog(requireContext(), false)
             return
         }
         storeViewModel.setMemberLike()

@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -21,6 +20,7 @@ import com.goodchoice.android.ohneulen.databinding.SearchStoreItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
@@ -86,7 +86,7 @@ class SearchStoreAdapter :
                 //하트표시 클릭
                 searchStoreItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {
-                        loginDialog(root.context, SearchAppBar.newInstance(), true)
+                        loginDialog(root.context, true)
                         return@setOnClickListener
                     }
                     CoroutineScope(Dispatchers.IO).launch {
@@ -116,7 +116,7 @@ class SearchStoreAdapter :
                                 //로그인이 안되어 있을경우
                             } else if (response.resultCode == ConstList.REQUIRE_LOGIN) {
                                 LoginViewModel.isLogin.postValue(false)
-                                loginDialog(root.context, SearchAppBar.newInstance(), true)
+                                loginDialog(root.context, true)
                             }
                         } catch (e: Exception) {
                             Timber.e(e.toString())
@@ -132,6 +132,7 @@ class SearchStoreAdapter :
                     dialog.show(MainActivity.supportFragmentManager, "loading")
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
+                    replaceAppbarFragment(StoreAppBar.newInstance())
                     addMainFragment(StoreFragment.newInstance(), true)
 //                    val fragment=StoreFragment.newInstance()
 //                    val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()

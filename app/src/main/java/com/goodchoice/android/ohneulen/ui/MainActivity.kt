@@ -4,54 +4,36 @@ import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
-import android.net.Network
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.data.repository.InitData
-import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.databinding.MainActivityBinding
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import com.goodchoice.android.ohneulen.ui.home.Home
 import com.goodchoice.android.ohneulen.ui.home.HomeAppBar
 import com.goodchoice.android.ohneulen.ui.like.Like
 import com.goodchoice.android.ohneulen.ui.like.LikeAppBar
-import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.search.Search
 import com.goodchoice.android.ohneulen.ui.search.SearchAppBar
-import com.goodchoice.android.ohneulen.ui.search.SearchViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.*
-import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_activity.*
-import org.koin.android.ext.android.get
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.lang.Exception
-import java.lang.RuntimeException
 import kotlin.math.hypot
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -189,7 +171,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 if (!LoginViewModel.isLogin.value!!) {
                     loginDialog(
                         this,
-                        supportFragmentManager.findFragmentById(R.id.appbar_frameLayout)!!,
                         true
                     )
                     return false

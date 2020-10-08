@@ -22,7 +22,6 @@ import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MyPageInquireNew : Fragment() {
     companion object {
@@ -143,7 +142,7 @@ class MyPageInquireNew : Fragment() {
                 replaceAppbarFragment(MyPageInquireAppBar.newInstance())
                 MainActivity.supportFragmentManager.popBackStack()
             } else if (it == ConstList.REQUIRE_LOGIN) {
-                loginDialog(requireContext(), MyPageInquireAppBar.newInstance(), false)
+                loginDialog(requireContext(), false)
             }
         })
     }

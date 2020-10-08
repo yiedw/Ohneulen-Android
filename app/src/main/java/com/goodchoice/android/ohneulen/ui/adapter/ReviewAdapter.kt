@@ -10,14 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.Review
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
@@ -26,7 +24,6 @@ import com.goodchoice.android.ohneulen.databinding.StoreReviewInfoItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailReviewDialog
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReport
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReportAppBar
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewWrite
@@ -35,8 +32,6 @@ import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.textColor
-import timber.log.Timber
 
 class ReviewAdapter(val report: Boolean = true) :
     ListAdapter<Review, RecyclerView.ViewHolder>(ReviewDiffUtil) {
@@ -130,7 +125,7 @@ class ReviewAdapter(val report: Boolean = true) :
             //후기 쓰기 클릭했을때
             binding.storeReviewInfoWrite.setOnClickListener {
                 if (!LoginViewModel.isLogin.value!!) {
-                    loginDialog(binding.root.context, StoreAppBar.newInstance(), false)
+                    loginDialog(binding.root.context, false)
                 } else {
                     replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
                     popupFragment(StoreReviewWrite.newInstance())

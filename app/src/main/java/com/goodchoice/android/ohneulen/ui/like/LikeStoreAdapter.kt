@@ -20,10 +20,8 @@ import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.loginDialog
-import kotlinx.android.synthetic.main.like_store_item.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
@@ -59,7 +57,7 @@ class LikeStoreAdapter
                             }
                             else if(response.resultCode==ConstList.REQUIRE_LOGIN){
                                 LoginViewModel.isLogin.postValue(false)
-                                loginDialog(root.context,LikeAppBar.newInstance(),true)
+                                loginDialog(root.context, true)
                             }
                         }
                         catch (e:Exception){

@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInquireBinding
-import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MyPageInquire : Fragment() {
 
@@ -74,7 +71,7 @@ class MyPageInquire : Fragment() {
 //        }
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (!it) {
-                loginDialog(requireContext(), MyPageInquireAppBar.newInstance(), false)
+                loginDialog(requireContext(), false)
             }
         })
     }

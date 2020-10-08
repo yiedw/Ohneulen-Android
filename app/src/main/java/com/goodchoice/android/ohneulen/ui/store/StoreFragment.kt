@@ -86,7 +86,6 @@ class StoreFragment : Fragment() {
 
         //데이터가 바뀔때마다
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer { it ->
-            replaceAppbarFragment(StoreAppBar.newInstance())
             if (!storeViewModel.storeReviewHeightCheck) {
                 //옵저버 중복 방지
 //            메뉴 없으면 메뉴탭 삭제
@@ -119,6 +118,8 @@ class StoreFragment : Fragment() {
 
             //리뷰 갯수 세팅
             storeViewModel.storeReviewCnt = it.reviewCnt
+
+
 
         })
 
