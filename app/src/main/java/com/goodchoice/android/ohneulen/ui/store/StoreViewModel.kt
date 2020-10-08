@@ -41,8 +41,8 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                     if (storeDetail.value != storeDetailResponse.resultData) {
                         storeDetail.postValue(storeDetailResponse.resultData)
                         storeMenuList = storeDetailResponse.resultData.menuList
-                        //최신순부터 보여주기위해 리스트를 한번 뒤집음
-                        storeDetailResponse.resultData.reviewList = storeDetailResponse.resultData.reviewList.reversed()
+                        //최신순부터 보여주기위해 리스트를 한번 뒤집음  (서버단에서 데이터 수정해서 필요 없음)
+//                        storeDetailResponse.resultData.reviewList = storeDetailResponse.resultData.reviewList.reversed()
                         storeReviewList = storeDetailResponse.resultData.reviewList
                     }
                 }

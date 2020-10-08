@@ -3,6 +3,8 @@ package com.goodchoice.android.ohneulen.ui.store.review
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
@@ -28,6 +30,9 @@ import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
+import kotlin.concurrent.schedule
+import kotlin.concurrent.timer
 
 class StoreReview : Fragment() {
     companion object {
@@ -74,9 +79,17 @@ class StoreReview : Fragment() {
             }
             //info의 리뷰 갯수와 점수를 알려주기 위해 필요
             adapter.storeDetail = it
-            adapter.notifyItemChanged(0) //데이터를 바로 반영
+//            adapter.notifyItemChanged(0) //데이터를 바로 반영
             //데이터가 바뀌자마자 바로 반영되야 하므로 여기서 넣어줌
             adapter.submitList(it.reviewList)
+
+            //후기작성후 스크롤 맨 위로 올려주기 (바로하면 rv가 업데이트되기 전에 스크롤이 올라가버림 -> 살짝 지연이 필요)
+            Timer("scrollToTop", false).schedule(100) {
+                //timer 안에서는 ui변경 불가능하기 때문에 main에서 호출
+                requireActivity().runOnUiThread {
+                    binding.storeReviewRv.scrollToPosition(0)
+                }
+            }
 
         })
 
