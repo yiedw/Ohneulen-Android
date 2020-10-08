@@ -125,6 +125,7 @@ class SearchStoreAdapter :
 
                 }
 
+                //매장클릭
                 root.setOnClickListener {
                     mAdapterPosition = adapterPosition
                     val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
@@ -132,6 +133,10 @@ class SearchStoreAdapter :
 //                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
                     addMainFragment(StoreFragment.newInstance(), true)
+//                    val fragment=StoreFragment.newInstance()
+//                    val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
+//                    fragmentTransaction.addToBackStack(null)
+//                    fragmentTransaction.add(R.id.main_frameLayout,fragment).hide(fragment).show(fragment).commit()
                 }
             }
         }

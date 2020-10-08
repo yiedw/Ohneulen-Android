@@ -107,6 +107,11 @@ class StoreHome : Fragment() {
         })
     }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
+
     override fun onResume() {
         super.onResume()
     }
@@ -208,6 +213,7 @@ class StoreHome : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun optionGenerate(storeDetail: StoreDetail) {
         binding.storeHomeOptions.removeAllViews()
         for (i in storeDetail.optionList) {

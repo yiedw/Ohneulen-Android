@@ -374,6 +374,8 @@ class StoreFragment : Fragment() {
                         binding.storeCollapsing.layoutParams = layoutParams
                         if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
                             (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
+                            binding.storeNewScrollView.visibility = View.VISIBLE
+//                            MainActivity.supportFragmentManager.beginTransaction().show(this@StoreFragment)
                         }
                     }
                 }
@@ -498,6 +500,8 @@ class StoreFragment : Fragment() {
                         binding.storeCollapsing.layoutParams = layoutParams
                         if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
                             (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
+                            binding.storeNewScrollView.visibility = View.VISIBLE
+//                            MainActivity.supportFragmentManager.beginTransaction().show(this@StoreFragment)
                         }
                     }
                 }

@@ -549,7 +549,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         val mapPoint = MapPoint.mapPointWithGeoCoord(store.addrY.toDouble(), store.addrX.toDouble())
         marker.mapPoint = mapPoint
         marker.markerType = MapPOIItem.MarkerType.CustomImage
-        marker.customImageResourceId = R.drawable.store_map_location
+        marker.customImageResourceId = R.drawable.search_marker
         marker.isCustomImageAutoscale = false
         marker.setCustomImageAnchor(0.5f, 0.5f)
 
