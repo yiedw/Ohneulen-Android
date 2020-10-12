@@ -34,6 +34,7 @@ import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import timber.log.Timber
 
 class ReviewAdapter(val report: Boolean = true) :
     ListAdapter<Review, RecyclerView.ViewHolder>(ReviewDiffUtil) {
@@ -61,7 +62,10 @@ class ReviewAdapter(val report: Boolean = true) :
                         R.id.appbar_frameLayout,
                         StoreReviewReportAppBar.newInstance()
                     )
-                    fragmentManager.add(R.id.main_frameLayout, StoreReviewReport.newInstance(reviewItem))
+                    fragmentManager.add(
+                        R.id.main_frameLayout,
+                        StoreReviewReport.newInstance(reviewItem)
+                    )
                     fragmentManager.addToBackStack(null)
                     fragmentManager.commit()
                 }
@@ -181,13 +185,17 @@ class ReviewAdapter(val report: Boolean = true) :
                         R.id.appbar_frameLayout,
                         StoreReviewReportAppBar.newInstance()
                     )
-                    fragmentManager.add(R.id.main_frameLayout, StoreReviewReport.newInstance(reviewItem))
+                    fragmentManager.add(
+                        R.id.main_frameLayout,
+                        StoreReviewReport.newInstance(reviewItem)
+                    )
                     fragmentManager.addToBackStack(null)
                     fragmentManager.commit()
                 }
 
 
                 //리뷰에 사진이 있을때
+                reviewItemImage.visibility = View.VISIBLE
                 if (!reviewItem.imgList.isNullOrEmpty()) {
                     reviewItemImage.setOnClickListener {
                         val dialog = ImageDetailReviewDialog.newInstance(adapterPosition)
