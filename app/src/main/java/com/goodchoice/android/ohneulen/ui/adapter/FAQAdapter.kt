@@ -23,14 +23,16 @@ class FAQAdapter : ListAdapter<FAQ, FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
         fun bind(item: FAQ) {
             binding.apply {
                 if (item.check) {
+                    //체크했을때
                     faqItemContent.visibility = View.VISIBLE
 //                    Glide.with(root.context).r
-                    Glide.with(root.context).load(R.drawable.faq_more).into(faqItemMore)
+                    Glide.with(root.context).load(R.drawable.faq_close).into(faqItemMore)
 //                    faqItemMore.visibility = View.GONE
 //                    faqItemClose.visibility = View.VISIBLE
                 } else {
+                    //기본상태
                     faqItemContent.visibility = View.GONE
-                    Glide.with(root.context).load(R.drawable.faq_close).into(faqItemMore)
+                    Glide.with(root.context).load(R.drawable.faq_more).into(faqItemMore)
 //                    faqItemClose.visibility = View.GONE
 //                    faqItemMore.visibility = View.VISIBLE
                 }

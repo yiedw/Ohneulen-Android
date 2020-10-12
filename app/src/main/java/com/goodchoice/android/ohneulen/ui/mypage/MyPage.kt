@@ -97,7 +97,7 @@ class MyPage : Fragment() {
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.addToBackStack(null)
             fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
-            fragmentManager.add(
+            fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
             )
@@ -118,7 +118,7 @@ class MyPage : Fragment() {
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.addToBackStack(null)
             fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
-            fragmentManager.add(
+            fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
             )
@@ -139,7 +139,7 @@ class MyPage : Fragment() {
         fragmentManager.addToBackStack(null)
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
-            fragmentManager.add(
+            fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
             )
@@ -161,7 +161,7 @@ class MyPage : Fragment() {
         fragmentManager.addToBackStack(null)
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
-            fragmentManager.add(
+            fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
             )
@@ -184,7 +184,7 @@ class MyPage : Fragment() {
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.addToBackStack(null)
             fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
-            fragmentManager.add(
+            fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
             )

@@ -76,7 +76,6 @@ class LoginFindEmail : Fragment(), OnBackPressedListener {
             fun signUpSubmit(stat: Int) {
                 //0 success 1 fail
                 if (stat == 0) {
-                    replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                     MainActivity.supportFragmentManager.popBackStack()
                     Toast.makeText(
                         MainActivity.mainFrameLayout.context,
@@ -100,7 +99,7 @@ class LoginFindEmail : Fragment(), OnBackPressedListener {
                     if (binding.loginFindEmailWebView.canGoBack()) {
                         binding.loginFindEmailWebView.goBack()
                     } else {
-                        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+//                        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                         MainActivity.supportFragmentManager.popBackStack()
                     }
                 }
@@ -108,7 +107,7 @@ class LoginFindEmail : Fragment(), OnBackPressedListener {
 
             @JavascriptInterface
             fun onLoginClick() {
-                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+//                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                 MainActivity.supportFragmentManager.popBackStack()
             }
         }, "android")
@@ -120,7 +119,7 @@ class LoginFindEmail : Fragment(), OnBackPressedListener {
         if (binding.loginFindEmailWebView.canGoBack()) {
             binding.loginFindEmailWebView.goBack()
         } else {
-            replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+//            replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
             MainActivity.supportFragmentManager.popBackStack()
 
         }

@@ -16,8 +16,6 @@ import com.goodchoice.android.ohneulen.databinding.LoginSignUpBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import timber.log.Timber
 
 class LoginSignUp : Fragment(), OnBackPressedListener {
@@ -74,7 +72,6 @@ class LoginSignUp : Fragment(), OnBackPressedListener {
             fun signUpSubmit(stat: Int) {
                 //0 success 1 fail
                 if (stat == 0) {
-                    replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                     MainActivity.supportFragmentManager.popBackStack()
                     Toast.makeText(
                         MainActivity.mainFrameLayout.context,
@@ -98,7 +95,6 @@ class LoginSignUp : Fragment(), OnBackPressedListener {
                     if (binding.loginSignUpWebView.canGoBack()) {
                         binding.loginSignUpWebView.goBack()
                     } else {
-                        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                         MainActivity.supportFragmentManager.popBackStack()
                     }
                 }
@@ -118,7 +114,6 @@ class LoginSignUp : Fragment(), OnBackPressedListener {
         if (binding.loginSignUpWebView.canGoBack()) {
             binding.loginSignUpWebView.goBack()
         } else {
-            replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
             MainActivity.supportFragmentManager.popBackStack()
 
         }

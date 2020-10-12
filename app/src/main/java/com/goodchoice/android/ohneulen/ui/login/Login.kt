@@ -1,19 +1,25 @@
 package com.goodchoice.android.ohneulen.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.view.*
+import android.view.animation.AlphaAnimation
 import android.widget.Toast
+import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.LoginBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -33,11 +39,6 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
     private var emailCheck = false
     private var pwCheck = false
 
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav.visibility = View.GONE
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,6 +54,10 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
             fragment = this@Login
             viewModel = loginViewModel
         }
+        //사라지는 애니메이션을통해 최대한 자연스럽게 만든다
+        val animation = AlphaAnimation(0f, 1f)
+        MainActivity.appbarFrameLayout.animation = animation
+        MainActivity.appbarFrameLayout.visibility = View.VISIBLE
         return binding.root
     }
 
@@ -175,6 +180,12 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.GONE
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         if (bottomNavVisibility) {
@@ -218,18 +229,57 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
 
     fun findEmailClick(view: View) {
 //        loginViewModel.emailClick = true
-        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-        addMainFragment(LoginFindEmail.newInstance(), true)
+//        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
+//        addMainFragment(LoginFindEmail.newInstance(), true)
+
+        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+        fragmentManager.setCustomAnimations(
+            R.anim.enter_right_to_left,
+            R.anim.exit_right_to_left,
+            R.anim.enter_left_to_right,
+            R.anim.exit_left_to_right
+        )
+        fragmentManager.replace(
+            R.id.appbar_frameLayout,
+            LoginSignUpAppBar.newInstance()
+        )
+        fragmentManager.replace(R.id.main_frameLayout, LoginFindEmail.newInstance())
+        fragmentManager.addToBackStack(null)
+        fragmentManager.commit()
     }
 
     fun findPwClick(view: View) {
-        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-        replaceMainFragment(LoginFindPw.newInstance(), true)
+        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+        fragmentManager.setCustomAnimations(
+            R.anim.enter_right_to_left,
+            R.anim.exit_right_to_left,
+            R.anim.enter_left_to_right,
+            R.anim.exit_left_to_right
+        )
+        fragmentManager.replace(
+            R.id.appbar_frameLayout,
+            LoginSignUpAppBar.newInstance()
+        )
+        fragmentManager.replace(R.id.main_frameLayout, LoginFindPw.newInstance())
+        fragmentManager.addToBackStack(null)
+        fragmentManager.commit()
     }
 
     fun signUpClick(view: View) {
-        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-        addMainFragment(LoginSignUp.newInstance(), true)
+        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+        fragmentManager.setCustomAnimations(
+            R.anim.enter_right_to_left,
+            R.anim.exit_right_to_left,
+            R.anim.enter_left_to_right,
+            R.anim.exit_left_to_right
+        )
+        fragmentManager.replace(
+            R.id.appbar_frameLayout,
+            LoginSignUpAppBar.newInstance()
+        )
+        fragmentManager.replace(R.id.main_frameLayout, LoginSignUp.newInstance())
+        fragmentManager.addToBackStack(null)
+        fragmentManager.commit()
     }
 
     fun autoTvClick(view: View) {

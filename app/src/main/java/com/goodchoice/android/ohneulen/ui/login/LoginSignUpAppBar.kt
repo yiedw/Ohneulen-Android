@@ -13,6 +13,7 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.util.*
+import timber.log.Timber
 
 class LoginSignUpAppBar(private val fragment: Fragment) : Fragment() {
     companion object {

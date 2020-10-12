@@ -76,7 +76,6 @@ class LoginFindPw : Fragment(), OnBackPressedListener {
             fun signUpSubmit(stat: Int) {
                 //0 success 1 fail
                 if (stat == 0) {
-                    replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                     MainActivity.supportFragmentManager.popBackStack()
                     Toast.makeText(
                         MainActivity.mainFrameLayout.context,
@@ -100,7 +99,6 @@ class LoginFindPw : Fragment(), OnBackPressedListener {
                     if (binding.loginFindPwWebView.canGoBack()) {
                         binding.loginFindPwWebView.goBack()
                     } else {
-                        replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                         MainActivity.supportFragmentManager.popBackStack()
                     }
                 }
@@ -108,7 +106,6 @@ class LoginFindPw : Fragment(), OnBackPressedListener {
 
             @JavascriptInterface
             fun onLoginClick() {
-                replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
                 MainActivity.supportFragmentManager.popBackStack()
                 Handler().post {
                     Toast.makeText(requireContext(), "비밀번호가 재설정 되었습니다", Toast.LENGTH_SHORT).show()
@@ -131,7 +128,6 @@ class LoginFindPw : Fragment(), OnBackPressedListener {
         if (binding.loginFindPwWebView.canGoBack()) {
             binding.loginFindPwWebView.goBack()
         } else {
-            replaceAppbarFragment(LoginAppBar.newInstance(LoginAppBar.backFragmentAppBar))
             MainActivity.supportFragmentManager.popBackStack()
 
         }
