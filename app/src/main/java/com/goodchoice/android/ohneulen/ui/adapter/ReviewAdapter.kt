@@ -24,6 +24,8 @@ import com.goodchoice.android.ohneulen.databinding.StoreReviewInfoItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailReviewDialog
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
+import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReport
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewReportAppBar
 import com.goodchoice.android.ohneulen.ui.store.review.StoreReviewWrite
@@ -48,8 +50,20 @@ class ReviewAdapter(val report: Boolean = true) :
                 if (!report)
                     reviewItemReport.visibility = View.GONE
                 reviewItemReport.setOnClickListener {
-                    replaceAppbarFragment(StoreReviewReportAppBar.newInstance())
-                    popupFragment(StoreReviewReport.newInstance(reviewItem))
+                    val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+                    fragmentManager.setCustomAnimations(
+                        R.anim.enter_right_to_left,
+                        R.anim.exit_right_to_left,
+                        R.anim.enter_left_to_right,
+                        R.anim.exit_left_to_right
+                    )
+                    fragmentManager.replace(
+                        R.id.appbar_frameLayout,
+                        StoreReviewReportAppBar.newInstance()
+                    )
+                    fragmentManager.add(R.id.main_frameLayout, StoreReviewReport.newInstance(reviewItem))
+                    fragmentManager.addToBackStack(null)
+                    fragmentManager.commit()
                 }
 
 
@@ -70,9 +84,8 @@ class ReviewAdapter(val report: Boolean = true) :
                         reviewItemAmount.visibility = View.VISIBLE
                     } else
                         reviewItemAmount.visibility = View.INVISIBLE
-                }
-                else{
-                    reviewItemImage.visibility=View.GONE
+                } else {
+                    reviewItemImage.visibility = View.GONE
                 }
 
                 //날짜 넣어주기(형식 약간 변경)
@@ -127,8 +140,20 @@ class ReviewAdapter(val report: Boolean = true) :
                 if (!LoginViewModel.isLogin.value!!) {
                     loginDialog(binding.root.context, false)
                 } else {
-                    replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
-                    popupFragment(StoreReviewWrite.newInstance())
+                    val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+                    fragmentManager.setCustomAnimations(
+                        R.anim.enter_right_to_left,
+                        R.anim.exit_right_to_left,
+                        R.anim.enter_left_to_right,
+                        R.anim.exit_left_to_right
+                    )
+                    fragmentManager.replace(
+                        R.id.appbar_frameLayout,
+                        StoreReviewWriteAppbar.newInstance()
+                    )
+                    fragmentManager.add(R.id.main_frameLayout, StoreReviewWrite.newInstance())
+                    fragmentManager.addToBackStack(null)
+                    fragmentManager.commit()
 //            addMainFragment(StoreReviewWrite.newInstance(), true)
                 }
             }
@@ -145,8 +170,20 @@ class ReviewAdapter(val report: Boolean = true) :
                 if (!report)
                     reviewItemReport.visibility = View.GONE
                 reviewItemReport.setOnClickListener {
-                    replaceAppbarFragment(StoreReviewReportAppBar.newInstance())
-                    popupFragment(StoreReviewReport.newInstance(reviewItem))
+                    val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+                    fragmentManager.setCustomAnimations(
+                        R.anim.enter_right_to_left,
+                        R.anim.exit_right_to_left,
+                        R.anim.enter_left_to_right,
+                        R.anim.exit_left_to_right
+                    )
+                    fragmentManager.replace(
+                        R.id.appbar_frameLayout,
+                        StoreReviewReportAppBar.newInstance()
+                    )
+                    fragmentManager.add(R.id.main_frameLayout, StoreReviewReport.newInstance(reviewItem))
+                    fragmentManager.addToBackStack(null)
+                    fragmentManager.commit()
                 }
 
 
@@ -166,9 +203,8 @@ class ReviewAdapter(val report: Boolean = true) :
                         reviewItemAmount.visibility = View.VISIBLE
                     } else
                         reviewItemAmount.visibility = View.INVISIBLE
-                }
-                else{
-                    reviewItemImage.visibility=View.GONE
+                } else {
+                    reviewItemImage.visibility = View.GONE
                 }
 
                 //날짜 넣어주기(형식 약간 변경)

@@ -193,9 +193,9 @@ fun loginDialog(context: Context, bottomNavVisibility: Boolean) {
             R.anim.enter_left_to_right,
             R.anim.exit_left_to_right
         )
-        fragmentManager.addToBackStack(null)
         fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
-        fragmentManager.replace(R.id.main_frameLayout, Login.newInstance(bottomNavVisibility))
+        fragmentManager.add(R.id.main_frameLayout, Login.newInstance(bottomNavVisibility))
+        fragmentManager.addToBackStack(null)
         fragmentManager.commit()
         dialog.dismiss()
     }

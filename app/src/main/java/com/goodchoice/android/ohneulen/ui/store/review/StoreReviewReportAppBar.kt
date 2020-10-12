@@ -38,7 +38,7 @@ class StoreReviewReportAppBar : Fragment(), OnBackPressedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.reviewReportAppbarClose.setOnClickListener {
-            replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
+//            replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
             MainActivity.supportFragmentManager.popBackStack()
 
         }
@@ -46,7 +46,7 @@ class StoreReviewReportAppBar : Fragment(), OnBackPressedListener {
 
 
     override fun onBackPressed() {
-        replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
+//        replaceAppbarFragment(StoreAppBar.newInstance(), tag = "storeAppBar")
         MainActivity.supportFragmentManager.popBackStack()
     }
 

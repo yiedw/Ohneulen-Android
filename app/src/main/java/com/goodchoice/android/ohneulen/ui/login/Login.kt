@@ -158,7 +158,6 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
 //                replaceAppbarFragment(fragment)
-                Timber.e(MainActivity.supportFragmentManager.backStackEntryCount.toString())
                 MainActivity.supportFragmentManager.popBackStack()
             }
         })

@@ -153,15 +153,12 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
         } else {
-            if (stat == 1) {
-                replaceAppbarFragment(SearchAppBar.newInstance(true))
-            } else if (stat == 2) {
-                replaceAppbarFragment(LikeAppBar.newInstance())
-            } else {
-                replaceAppbarFragment(HomeAppBar.newInstance())
+            if(stat==2){
+
             }
             MainActivity.supportFragmentManager.popBackStack()
         }
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {
@@ -171,12 +168,15 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 //            replaceAppbarFragment(SearchAppBar.newInstance())
 //            replaceMainFragment(Search.newInstance())
         } else {
-            if (stat == 1) {
-                replaceAppbarFragment(SearchAppBar.newInstance(true))
-            } else if (stat == 2) {
-                replaceAppbarFragment(LikeAppBar.newInstance())
-            } else {
-                replaceAppbarFragment(HomeAppBar.newInstance())
+//            if (stat == 1) {
+//                replaceAppbarFragment(SearchAppBar.newInstance(true))
+//            } else if (stat == 2) {
+//                replaceAppbarFragment(LikeAppBar.newInstance())
+//            } else {
+//                replaceAppbarFragment(HomeAppBar.newInstance())
+//            }
+            if(stat==2){
+
             }
             MainActivity.supportFragmentManager.popBackStack()
         }

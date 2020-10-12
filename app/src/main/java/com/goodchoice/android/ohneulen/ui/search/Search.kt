@@ -10,6 +10,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
+import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -406,7 +407,10 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 //                }
             }
         })
+        val animation = AlphaAnimation(0f, 1f)
+//        MainActivity.bottomNav.visibility = View.GONE
         MainActivity.bottomNav.visibility = View.VISIBLE
+        MainActivity.bottomNav.animation = animation
 
         //markerClickEvent
 
@@ -686,8 +690,29 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         StoreFragment.storeSeq = p1!!.tag.toString()
         val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
         dialog.show(MainActivity.supportFragmentManager, "loading")
-        replaceAppbarFragment(StoreAppBar.newInstance())
-        addMainFragment(StoreFragment.newInstance(), true)
+        val list = (binding.searchStoreRv.adapter as SearchStoreAdapter).currentList
+        for (i in 0 until list.size) {
+            if (list[i].seq == StoreFragment.storeSeq) {
+                (binding.searchStoreRv.adapter as SearchStoreAdapter).mAdapterPosition = i
+                break
+            }
+        }
+//        replaceAppbarFragment(StoreAppBar.newInstance())
+//        addMainFragment(StoreFragment.newInstance(), true)
+
+//                    replaceAppbarFragment(StoreAppBar.newInstance())
+//                    addMainFragment(StoreFragment.newInstance(), true)
+        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+        fragmentManager.setCustomAnimations(
+            R.anim.enter_right_to_left,
+            R.anim.exit_right_to_left,
+            R.anim.enter_left_to_right,
+            R.anim.exit_left_to_right
+        )
+        fragmentManager.replace(R.id.appbar_frameLayout, StoreAppBar.newInstance())
+        fragmentManager.add(R.id.main_frameLayout, StoreFragment.newInstance())
+        fragmentManager.addToBackStack(null)
+        fragmentManager.commit()
     }
 
     override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {

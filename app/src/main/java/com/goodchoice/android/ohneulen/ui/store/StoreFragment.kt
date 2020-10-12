@@ -2,6 +2,8 @@ package com.goodchoice.android.ohneulen.ui.store
 
 import android.animation.ObjectAnimator
 import android.animation.StateListAnimator
+import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -9,9 +11,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -41,6 +45,9 @@ import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
 
 class StoreFragment : Fragment() {
 
@@ -57,7 +64,14 @@ class StoreFragment : Fragment() {
     private var check = false
     private lateinit var binding: StoreFragmentBinding
     private val storeViewModel: StoreViewModel by viewModel()
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Handler().postDelayed(300){
+        val animation = AlphaAnimation(0f, 1f)
+            MainActivity.bottomNav.visibility = View.GONE
+            MainActivity.bottomNav.animation = animation
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,7 +121,7 @@ class StoreFragment : Fragment() {
             }
             hashTagGenerate(it)
             storeImage(it)
-            MainActivity.bottomNav.visibility = View.GONE
+//            MainActivity.bottomNav.visibility = View.GONE
 
             //평점세팅
             storeViewModel.storeLikeCntLiveData.postValue(it.storeInfo.storeFull.likeCnt)
@@ -118,7 +132,6 @@ class StoreFragment : Fragment() {
 
             //리뷰 갯수 세팅
             storeViewModel.storeReviewCnt = it.reviewCnt
-
 
 
         })
@@ -139,6 +152,9 @@ class StoreFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+//        Handler().postDelayed(2000) {
+//            MainActivity.bottomNav.visibility = View.GONE
+//        }
     }
 
 
@@ -153,7 +169,7 @@ class StoreFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        MainActivity.bottomNav.visibility = View.VISIBLE
+//        MainActivity.bottomNav.visibility = View.VISIBLE
         state = 0
         storeViewModel.storeDetail = MutableLiveData()
 

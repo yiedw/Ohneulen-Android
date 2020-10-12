@@ -14,25 +14,25 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
 
-class LikeViewModel(private val networkService: NetworkService) :ViewModel(){
+class LikeViewModel(private val networkService: NetworkService) : ViewModel() {
 
 
-    var likeStoreAdapter=LikeStoreAdapter()
-    var mNetworkService=networkService
-    var likeStoreList=MutableLiveData<List<LikeStore>>()
-    var loginCheck=MutableLiveData<Boolean>(true)
-    fun getStoreLikeList(){
+    var likeStoreAdapter = LikeStoreAdapter()
+    var mNetworkService = networkService
+    var likeStoreList = MutableLiveData<List<LikeStore>>()
+    var loginCheck = MutableLiveData<Boolean>(true)
+    fun getStoreLikeList() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = networkService.requestGetMemberLike()
-                if(response.resultCode==ConstList.SUCCESS){
-                    likeStoreList.postValue(response.resultData)
-                }
-                else if(response.resultCode==ConstList.REQUIRE_LOGIN){
+                if (response.resultCode == ConstList.SUCCESS) {
+                    if (likeStoreList != response.resultData) {
+                        likeStoreList.postValue(response.resultData)
+                    }
+                } else if (response.resultCode == ConstList.REQUIRE_LOGIN) {
                     loginCheck.postValue(false)
                 }
-            }
-            catch (e:Exception){
+            } catch (e: Exception) {
                 Timber.e(e.toString())
             }
         }

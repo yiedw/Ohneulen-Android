@@ -38,12 +38,12 @@ class StoreReviewWriteAppbar : Fragment(), OnBackPressedListener {
     }
 
     fun closeOnClick(view: View) {
-        replaceAppbarFragment(StoreAppBar.newInstance())
+//        replaceAppbarFragment(StoreAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
 
     }
     override fun onBackPressed() {
-        replaceAppbarFragment(StoreAppBar.newInstance())
+//        replaceAppbarFragment(StoreAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
     }
 }

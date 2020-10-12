@@ -19,6 +19,8 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.databinding.SearchStoreItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
+import com.goodchoice.android.ohneulen.ui.login.Login
+import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
@@ -78,7 +80,7 @@ class SearchStoreAdapter :
                 //로그인 되어있을대 좋아요 여부
                 binding.searchStoreItemLike.isSelected = item.like
                 //노이미지일때는 이미지를 불러오는게 아닌 로컬에 저장되어 있는걸 씀
-                if(item.photoURL!="/public/img/content/favorite-noimage.png")
+                if (item.photoURL != "/public/img/content/favorite-noimage.png")
                     Glide.with(binding.searchStoreItemImage.context)
                         .load("${BaseUrl.OHNEULEN}${item.photoURL}").centerCrop()
                         .into(binding.searchStoreItemImage)
@@ -129,15 +131,19 @@ class SearchStoreAdapter :
                 root.setOnClickListener {
                     mAdapterPosition = adapterPosition
                     val dialog = LoadingDialog.newInstance("매장 들어가는 중...")
-                    dialog.show(MainActivity.supportFragmentManager, "loading")
-//                    root.isEnabled=false
                     StoreFragment.storeSeq = item.seq
-                    replaceAppbarFragment(StoreAppBar.newInstance())
-                    addMainFragment(StoreFragment.newInstance(), true)
-//                    val fragment=StoreFragment.newInstance()
-//                    val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
-//                    fragmentTransaction.addToBackStack(null)
-//                    fragmentTransaction.add(R.id.main_frameLayout,fragment).hide(fragment).show(fragment).commit()
+                    dialog.show(MainActivity.supportFragmentManager, "loading")
+                    val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+                    fragmentManager.setCustomAnimations(
+                        R.anim.enter_right_to_left,
+                        R.anim.exit_right_to_left,
+                        R.anim.enter_left_to_right,
+                        R.anim.exit_left_to_right
+                    )
+                    fragmentManager.replace(R.id.appbar_frameLayout, StoreAppBar.newInstance())
+                    fragmentManager.add(R.id.main_frameLayout, StoreFragment.newInstance())
+                    fragmentManager.addToBackStack(null)
+                    fragmentManager.commit()
                 }
             }
         }

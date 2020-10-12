@@ -21,6 +21,7 @@ import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.textColor
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class Like : Fragment() {
 
@@ -32,10 +33,7 @@ class Like : Fragment() {
     private val mainViewModel: MainViewModel by inject()
     private val likeViewModel: LikeViewModel by viewModel()
 
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav.visibility = View.VISIBLE
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,6 +83,11 @@ class Like : Fragment() {
                 likeViewModel.loginCheck.postValue(true)
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
     private fun likeStoreAdapterSetting() {
