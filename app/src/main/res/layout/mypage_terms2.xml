@@ -6,13 +6,13 @@
     </data>
 
     <ScrollView
+            android:id="@+id/mypage_terms2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingVertical="20dp">
 
         <LinearLayout
-            android:id="@+id/mypage_terms2"
             android:paddingHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

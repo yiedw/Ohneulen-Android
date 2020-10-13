@@ -17,12 +17,12 @@ class InquireAdapter : ListAdapter<Inquire, InquireAdapter.InquireViewHolder>(In
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Inquire) {
             binding.apply {
-                inquireItem.setOnClickListener {
-                    if (inquireItemDetail.visibility == View.GONE)
-                        inquireItemDetail.visibility = View.VISIBLE
-                    else
-                        inquireItemDetail.visibility = View.GONE
-                }
+//                inquireItem.setOnClickListener {
+//                    if (inquireItemDetail.visibility == View.GONE)
+//                        inquireItemDetail.visibility = View.VISIBLE
+//                    else
+//                        inquireItemDetail.visibility = View.GONE
+//                }
                 inquire = item
                 if(item.answer==null){
                     inquireItemAnswer.visibility=View.GONE

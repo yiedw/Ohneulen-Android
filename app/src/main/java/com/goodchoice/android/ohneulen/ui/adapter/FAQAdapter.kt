@@ -31,17 +31,11 @@ class FAQAdapter : ListAdapter<FAQ, FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
                 if (item.check) {
                     //클릭했을때
                     faqItemContent.visibility = View.VISIBLE
-//                    binding.faqItemMore.setImageDrawable(ContextCompat.getDrawable(root.context,R.drawable.faq_close))
                     Glide.with(root.context).load(R.drawable.faq_close).into(faqItemMore)
-//                    faqItemMore.visibility = View.GONE
-//                    faqItemClose.visibility = View.VISIBLE
                 } else {
                     //기본상태
                     faqItemContent.visibility = View.GONE
-//                    binding.faqItemMore.setImageDrawable(ContextCompat.getDrawable(root.context,R.drawable.faq_more))
                     Glide.with(root.context).load(R.drawable.faq_more).into(faqItemMore)
-//                    faqItemClose.visibility = View.GONE
-//                    faqItemMore.visibility = View.VISIBLE
                 }
 
 

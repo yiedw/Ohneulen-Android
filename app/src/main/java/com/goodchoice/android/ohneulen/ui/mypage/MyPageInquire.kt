@@ -4,14 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInquireBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.loginDialog
@@ -49,13 +52,35 @@ class MyPageInquire : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = mypageViewModel
 
+        binding.mypageInquireRv.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
+            //스와이프 기능
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                MainActivity.supportFragmentManager.popBackStack()
+            }
+
+            //클릭했을때
+            override fun onSingleTab(motionEvent: MotionEvent) {
+                super.onSingleTab(motionEvent)
+                val child = binding.mypageInquireRv.findChildViewUnder(motionEvent.x, motionEvent.y)
+                val inquireDetailView = child!!.findViewById<LinearLayout>(R.id.inquire_item_detail)
+                if (inquireDetailView.visibility == View.GONE) {
+                    inquireDetailView.visibility = View.VISIBLE
+                } else {
+                    inquireDetailView.visibility = View.GONE
+                }
+//                val adapterPosition = binding.mypageInquireRv.getChildAdapterPosition(child!!)
+            }
+        })
+
+        //문의내역이 비어있을경우
         binding.mypageInquire.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
+            //스와이프 기능
             override fun onSwipeRight() {
                 super.onSwipeRight()
                 MainActivity.supportFragmentManager.popBackStack()
             }
         })
-
         return binding.root
     }
 
@@ -78,7 +103,6 @@ class MyPageInquire : Fragment() {
             }
         })
     }
-
 
 
     fun newClick(view: View) {
