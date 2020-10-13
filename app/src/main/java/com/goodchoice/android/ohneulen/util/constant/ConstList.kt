@@ -31,6 +31,9 @@ object ConstList {
 
     //webview android
     const val WEBVIEW_ANDROID="WEBVIEW_ANDROID"
+    const val WEBVIEW_SIGN_UP=0
+    const val WEBVIEW_FIND_EMAIL=1
+    const val WEBVIEW_FIND_PW=2
 
     //networkCode
     const val SUCCESS="000"

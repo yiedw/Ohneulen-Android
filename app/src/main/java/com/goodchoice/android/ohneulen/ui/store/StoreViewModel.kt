@@ -158,7 +158,7 @@ class StoreViewModel(private val networkService: NetworkService) : ViewModel() {
                 if (response.resultCode == ConstList.SUCCESS) {
                     reviewImgList.add("/public/upload/storeimg/${response.resultData.file_name}")
                 }
-//                else if(response.resultCode=="321"){
+//                else if (response.resultCode == "321") {
 //                    toastMessageCheck.postValue("321")
 //                }
             } catch (e: Exception) {

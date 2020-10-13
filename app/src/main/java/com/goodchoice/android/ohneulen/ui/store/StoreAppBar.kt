@@ -153,9 +153,6 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         if (MainActivity.supportFragmentManager.backStackEntryCount == 0) {
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
         } else {
-            if(stat==2){
-
-            }
             MainActivity.supportFragmentManager.popBackStack()
         }
         MainActivity.bottomNav.visibility = View.VISIBLE

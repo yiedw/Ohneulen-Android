@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.store.review
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -81,8 +82,6 @@ class StoreReviewWrite : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         binding.storeReviewWriteEt.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 binding.storeReviewPointLinearLayout.visibility = View.GONE
@@ -128,11 +127,11 @@ class StoreReviewWrite : Fragment() {
 
         //사진 용량체크
 //        storeViewModel.toastMessageCheck.observe(viewLifecycleOwner, Observer {
-//            if(it=="321"){
-//                Toast.makeText(requireContext(),"사진의 해상도가 너무 높습니다",Toast.LENGTH_SHORT).show()
+//            if (it == "321") {
+//                Toast.makeText(requireContext(), "사진의 해상도가 너무 높습니다", Toast.LENGTH_SHORT).show()
 //            }
 //            storeViewModel.toastMessageCheck.postValue("000")
-////            binding.storeReviewWriteImage.removeV
+//
 //        })
     }
 
@@ -167,6 +166,17 @@ class StoreReviewWrite : Fragment() {
         val height = 60.dpToPx()
         uriList.forEach {
             val uri = it
+            val file = File(uri.path!!)
+            //이미지를 비트맵으로 변환시켜서 높낮이, 사이즈 확인
+//            val options = BitmapFactory.Options()
+//            options.inJustDecodeBounds = true
+//            BitmapFactory.decodeFile(File(uri.path!!).absolutePath, options)
+//            val imageHeight = options.outHeight
+//            val imageWidth = options.outWidth
+//            Timber.e(imageHeight.toString())
+//            Timber.e(imageWidth.toString())
+
+            storeViewModel.imageUpload(file)    //서버로 이미지 파일 전송
             val itemBinding =
                 StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
             Glide.with(requireContext())
@@ -182,8 +192,6 @@ class StoreReviewWrite : Fragment() {
                 selectedUriList.remove(uri)
             }
             binding.storeReviewWriteImage.addView(itemBinding.root, 0)
-            val file = File(uri.path!!)
-            storeViewModel.imageUpload(file)
 //            storeViewModel.imageUpload(data)
         }
         storeViewModel.reviewImgList.clear()

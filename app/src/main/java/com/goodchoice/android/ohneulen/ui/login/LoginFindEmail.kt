@@ -16,9 +16,6 @@ import com.goodchoice.android.ohneulen.databinding.LoginFindEmailBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
-import com.goodchoice.android.ohneulen.util.replaceMainFragment
-import timber.log.Timber
 
 class LoginFindEmail : Fragment(), OnBackPressedListener {
     companion object {
@@ -52,7 +49,7 @@ class LoginFindEmail : Fragment(), OnBackPressedListener {
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptCookie(true)
         cookieManager.setAcceptThirdPartyCookies(binding.loginFindEmailWebView, true)
-        binding.loginFindEmailWebView.loadUrl(BaseUrl.OHNEULEN_FIND_ID)
+        binding.loginFindEmailWebView.loadUrl(BaseUrl.OHNEULEN_FIND_EMAIL)
         binding.loginFindEmailWebView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
                 view: WebView?,
