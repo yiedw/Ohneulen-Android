@@ -408,7 +408,6 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             }
         })
         val animation = AlphaAnimation(0f, 1f)
-//        MainActivity.bottomNav.visibility = View.GONE
         MainActivity.bottomNav.visibility = View.VISIBLE
         MainActivity.bottomNav.animation = animation
 

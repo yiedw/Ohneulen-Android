@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
@@ -29,11 +30,6 @@ class MyPageContactus : Fragment() {
     }
 
     private lateinit var binding: MypageContactusBinding
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        MainActivity.bottomNav.visibility = View.GONE
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -58,6 +54,11 @@ class MyPageContactus : Fragment() {
 //                return true
 //            }
 //        })
+
+        //바텀바 숨기기
+        val animation = AlphaAnimation(0f, 1f)
+        MainActivity.bottomNav.visibility = View.GONE
+        MainActivity.bottomNav.animation = animation
 
         binding.mypageContactusTitle.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

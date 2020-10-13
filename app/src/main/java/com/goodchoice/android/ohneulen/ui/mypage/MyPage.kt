@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MyPage : Fragment() {
 
@@ -77,13 +79,20 @@ class MyPage : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        val animation = AlphaAnimation(0f, 1f)
         MainActivity.bottomNav.visibility = View.VISIBLE
+        MainActivity.bottomNav.animation = animation
     }
+
 
 
     override fun onDestroy() {
         super.onDestroy()
+        //바텀바 숨기기
+        val animation = AlphaAnimation(0f, 1f)
         MainActivity.bottomNav.visibility = View.GONE
+        MainActivity.bottomNav.animation = animation
+
     }
 
 
