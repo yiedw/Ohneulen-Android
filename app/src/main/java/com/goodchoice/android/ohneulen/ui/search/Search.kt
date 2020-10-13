@@ -77,11 +77,17 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
     private lateinit var storeListHashMap: HashMap<Int, ArrayList<Store>>
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val animation = AlphaAnimation(0f, 1f)
+        MainActivity.bottomNav.visibility = View.VISIBLE
+        MainActivity.bottomNav.animation = animation
+
+
         binding =
             DataBindingUtil.inflate(
                 inflater,
@@ -112,6 +118,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         //RecyclerviewSetting
         val adapter = SearchStoreAdapter()
@@ -407,9 +414,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 //                }
             }
         })
-        val animation = AlphaAnimation(0f, 1f)
-        MainActivity.bottomNav.visibility = View.VISIBLE
-        MainActivity.bottomNav.animation = animation
+
 
         //markerClickEvent
 

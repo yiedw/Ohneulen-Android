@@ -14,37 +14,39 @@
         android:id="@+id/store_appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:tag="storeAppBar">
 
         <ImageView
-            android:paddingLeft="20dp"
             android:id="@+id/store_appbar_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="@{fragment::backClick}"
-            android:src="@drawable/back"
+            android:paddingLeft="20dp"
+            android:src="@drawable/notification_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:paddingStart="5dp"
             android:id="@+id/store_appbar_like"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
             android:onClick="@{fragment::likeClick}"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:src="@drawable/store_detail_like_selector"
             app:layout_constraintRight_toLeftOf="@id/store_appbar_share"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:paddingEnd="20dp"
             android:id="@+id/store_appbar_share"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="@{fragment::shareClick}"
-            android:src="@drawable/share"
+            android:paddingStart="5dp"
+            android:paddingEnd="17dp"
+            android:src="@drawable/store_share"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

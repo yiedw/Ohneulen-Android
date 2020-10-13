@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.mypage
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,7 +42,7 @@ class MyPageInfo : Fragment() {
             container,
             false
         )
-        binding.fragment=this
+        binding.fragment = this
         binding.mypageInfo.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
             override fun onSwipeRight() {
                 super.onSwipeRight()
@@ -57,6 +58,10 @@ class MyPageInfo : Fragment() {
         val animation = AlphaAnimation(0f, 1f)
         MainActivity.bottomNav.visibility = View.GONE
         MainActivity.bottomNav.animation = animation
+
+        //회원탈퇴 밑줄긋기
+        binding.mypageInfoWithdrawal.paintFlags =
+            binding.mypageInfoWithdrawal.paintFlags or Paint.UNDERLINE_TEXT_FLAG
     }
 
     fun imageClick(view: View) {
@@ -78,9 +83,9 @@ class MyPageInfo : Fragment() {
             .check()
     }
 
-    fun withdrawalClick(view:View){
-        replaceAppbarFragment(MyPageSecessionAppBar.newInstance())
-        replaceMainFragment(MyPageSecession.newInstance())
+    fun withdrawalClick(view: View) {
+        replaceAppbarFragment(MyPageWithdrawalAppBar.newInstance())
+        replaceMainFragment(MyPageWithdrawal.newInstance())
     }
 
     private fun showImage(uri: Uri) {

@@ -12,9 +12,9 @@ import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 
-class MyPageSecessionAppBar :Fragment(),OnBackPressedListener{
+class MyPageWithdrawalAppBar :Fragment(),OnBackPressedListener{
     companion object{
-        fun newInstance()=MyPageSecessionAppBar()
+        fun newInstance()=MyPageWithdrawalAppBar()
     }
     private lateinit var binding:MypageSecessionAppbarBinding
 
