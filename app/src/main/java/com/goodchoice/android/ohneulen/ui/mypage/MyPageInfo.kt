@@ -1,6 +1,7 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInfoBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.gun0912.tedpermission.PermissionListener
@@ -25,6 +28,7 @@ class MyPageInfo : Fragment() {
 
     private lateinit var binding: MypageInfoBinding
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +41,12 @@ class MyPageInfo : Fragment() {
             false
         )
         binding.fragment=this
+        binding.mypageInfo.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                MainActivity.supportFragmentManager.popBackStack()
+            }
+        })
         return binding.root
     }
 

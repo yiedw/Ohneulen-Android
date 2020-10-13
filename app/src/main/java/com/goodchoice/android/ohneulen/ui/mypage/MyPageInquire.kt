@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInquireBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.loginDialog
 import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -30,6 +33,7 @@ class MyPageInquire : Fragment() {
         mypageViewModel.getInquireList()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,6 +48,14 @@ class MyPageInquire : Fragment() {
         binding.fragment = this
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = mypageViewModel
+
+        binding.mypageInquire.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                MainActivity.supportFragmentManager.popBackStack()
+            }
+        })
+
         return binding.root
     }
 
@@ -60,21 +72,13 @@ class MyPageInquire : Fragment() {
 
         })
 
-//        if (binding.mypageInquireRv.adapter != null) {
-//            binding.mypageInquireRv.adapter!!.registerAdapterDataObserver(object :
-//                RecyclerView.AdapterDataObserver() {
-//                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-//                    super.onItemRangeInserted(positionStart, itemCount)
-//                    binding.mypageInquireRv.smoothScrollToPosition(0)
-//                }
-//            })
-//        }
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (!it) {
                 loginDialog(requireContext(), false)
             }
         })
     }
+
 
 
     fun newClick(view: View) {

@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInquireNewBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.loginDialog
@@ -31,6 +32,7 @@ class MyPageInquireNew : Fragment() {
     private lateinit var binding: MypageInquireNewBinding
     private val mypageViewModel: MyPageViewModel by viewModel()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +45,13 @@ class MyPageInquireNew : Fragment() {
             false
         )
         binding.fragment = this
+
+        binding.mypageInquireNew.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                MainActivity.supportFragmentManager.popBackStack()
+            }
+        })
         return binding.root
     }
 

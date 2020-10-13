@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageContactusBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
@@ -31,9 +32,10 @@ class MyPageContactus : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        MainActivity.bottomNav.visibility=View.GONE
+        MainActivity.bottomNav.visibility = View.GONE
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -97,7 +99,7 @@ class MyPageContactus : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        MainActivity.bottomNav.visibility=View.VISIBLE
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
     private fun moveTerm3() {

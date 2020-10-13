@@ -32,7 +32,7 @@ class LoginWebViewActivity : AppCompatActivity() {
         val settings = binding.webViewActivityWebView.settings
         settings.javaScriptEnabled = true   //자바스크립트 사용 여부
         settings.setSupportMultipleWindows(true)    // 여러개의 윈도우 사용 여부
-        settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW    //혼합컨텐츠 허용(HTTPS,HTTP)
+        settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW    //혼합컨텐츠 허용(HTTPS,HTTP), 본인인증 받을때 필요
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptCookie(true)
         cookieManager.setAcceptThirdPartyCookies(binding.webViewActivityWebView, true)  //쿠키허용

@@ -12,19 +12,20 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/white"
+        android:id="@+id/mypage_faq"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mypage_faq_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             bind:FAQ="@{viewModel.mypageFAQList}"
-            bind:mypageViewModelFAQ="@{viewModel}"
-            />
+            bind:mypageViewModelFAQ="@{viewModel}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
