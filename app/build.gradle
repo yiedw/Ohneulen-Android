@@ -40,6 +40,7 @@ android {
             buildConfigField "String", "OhneulenSignUp", "\"https://m.ohneulen.com/member/regist\""
             buildConfigField "String", "OhneulenFindId", "\"https://m.ohneulen.com/member/find?g=id\""
             buildConfigField "String", "OhneulenFindPw", "\"https://m.ohneulen.com/member/find?g=pw\""
+            buildConfigField "String", "OhneulenMyPageInfo", "\"https://m.ohneulen.com/member/modify\""
             resValue("string", "app_name", "오늘은")
 //            ndk{
 //                debugSymbolLevel 'SYMBOL_TABLE'
@@ -54,6 +55,7 @@ android {
             buildConfigField "String", "OhneulenSignUp", "\"https://devm.ohneulen.com/member/regist\""
             buildConfigField "String", "OhneulenFindId", "\"https://devm.ohneulen.com/member/find?g=id\""
             buildConfigField "String", "OhneulenFindPw", "\"https://devm.ohneulen.com/member/find?g=pw\""
+            buildConfigField "String", "OhneulenMyPageInfo", "\"https://devm.ohneulen.com/member/modify\""
             resValue("string", "app_name", "개발용")
             applicationIdSuffix '.dev'
         }

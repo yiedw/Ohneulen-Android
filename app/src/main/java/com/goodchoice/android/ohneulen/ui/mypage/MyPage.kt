@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -104,6 +105,10 @@ class MyPage : Fragment() {
             fragmentManager.commit()
             return
         }
+        fragmentManager.addToBackStack(null)
+        fragmentManager.replace(R.id.appbar_frameLayout,MyPageInfoAppBar.newInstance())
+        fragmentManager.replace(R.id.main_frameLayout,MyPageInfo.newInstance())
+        fragmentManager.commit()
 
     }
 

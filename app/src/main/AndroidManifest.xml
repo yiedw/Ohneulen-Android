@@ -59,9 +59,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.login.LoginWebViewActivity">
+        <activity android:name=".ui.login.LoginWebViewActivity" />
+        <activity android:name=".ui.mypage.MyPageInfoActivity" />
 
-        </activity>
     </application>
 
 </manifest>
