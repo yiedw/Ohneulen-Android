@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.WebviewActivityBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 
@@ -17,9 +19,17 @@ class LoginWebViewActivity : AppCompatActivity() {
 
     private lateinit var binding: WebviewActivityBinding
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.webview_activity)
+        //스와이프 기능
+        binding.webViewActivityWebView.setOnTouchListener(object : OnSwipeGesture(this) {
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                finish()
+            }
+        })
         webViewSetting()    //웹뷰세팅
         webViewFunction()   //웹뷰기능
 

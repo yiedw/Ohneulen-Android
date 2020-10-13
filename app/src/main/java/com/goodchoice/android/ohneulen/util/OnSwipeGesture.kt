@@ -53,6 +53,10 @@ open class OnSwipeGesture(private val context: Context) : View.OnTouchListener {
             try {
                 val diffY = e2!!.y - e1!!.y
                 val diffX = e2.x - e1.x
+//                Timber.e(diffY.toString())
+//                Timber.e(diffX.toString())
+//                Timber.e(velocityX.toString())
+//                Timber.e(velocityY.toString())
                 if (abs(diffX) > abs(diffY)) {
                     if (abs(diffX) > SWIPE_THRESHOLD && abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {

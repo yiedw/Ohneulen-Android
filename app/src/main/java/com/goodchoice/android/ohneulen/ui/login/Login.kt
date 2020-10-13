@@ -35,6 +35,7 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
     private var emailCheck = false
     private var pwCheck = false
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +55,14 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
         val animation = AlphaAnimation(0f, 1f)
         MainActivity.appbarFrameLayout.animation = animation
         MainActivity.appbarFrameLayout.visibility = View.VISIBLE
+
+        //스와이프 기능
+        binding.login.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                MainActivity.supportFragmentManager.popBackStack()
+            }
+        })
         return binding.root
     }
 
@@ -61,8 +70,6 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //뒤에 클릭못하게
-        binding.login.setOnTouchListener { v, event -> true }
 
         //클리어 표시
         binding.loginEmailEt.addTextChangedListener(object : TextWatcher {
@@ -224,8 +231,8 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
     }
 
     fun findEmailClick(view: View) {
-        val intent= Intent(requireActivity(),LoginWebViewActivity::class.java)
-        intent.putExtra("stat",ConstList.WEBVIEW_FIND_EMAIL)
+        val intent = Intent(requireActivity(), LoginWebViewActivity::class.java)
+        intent.putExtra("stat", ConstList.WEBVIEW_FIND_EMAIL)
         startActivity(intent)
 //        loginViewModel.emailClick = true
 //        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
@@ -248,8 +255,8 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
     }
 
     fun findPwClick(view: View) {
-        val intent= Intent(requireActivity(),LoginWebViewActivity::class.java)
-        intent.putExtra("stat",ConstList.WEBVIEW_FIND_PW)
+        val intent = Intent(requireActivity(), LoginWebViewActivity::class.java)
+        intent.putExtra("stat", ConstList.WEBVIEW_FIND_PW)
         startActivity(intent)
 //        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
 //        fragmentManager.setCustomAnimations(
@@ -268,8 +275,8 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
     }
 
     fun signUpClick(view: View) {
-        val intent= Intent(requireActivity(),LoginWebViewActivity::class.java)
-        intent.putExtra("stat",ConstList.WEBVIEW_SIGN_UP)
+        val intent = Intent(requireActivity(), LoginWebViewActivity::class.java)
+        intent.putExtra("stat", ConstList.WEBVIEW_SIGN_UP)
         startActivity(intent)
 //        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
 //        fragmentManager.setCustomAnimations(

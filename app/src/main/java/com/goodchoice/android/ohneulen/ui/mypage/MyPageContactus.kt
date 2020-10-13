@@ -53,13 +53,11 @@ class MyPageContactus : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.mypageContactus.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                return true
-            }
-
-        })
-
+//        binding.mypageContactus.setOnTouchListener(object : View.OnTouchListener {
+//            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                return true
+//            }
+//        })
 
         binding.mypageContactusTitle.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
