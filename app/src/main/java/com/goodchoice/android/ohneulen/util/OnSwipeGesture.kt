@@ -1,5 +1,6 @@
 package com.goodchoice.android.ohneulen.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -18,10 +19,13 @@ open class OnSwipeGesture(private val context: Context) : View.OnTouchListener {
         gestureDetector = GestureDetector(context, GestureListener())
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         try {
             if (event != null) {
-                return gestureDetector.onTouchEvent(event)
+                val temp=gestureDetector.onTouchEvent(event)
+//                Timber.e(temp.toString())
+                return temp
             }
         } catch (e: Exception) {
             Timber.e(e)
@@ -31,6 +35,7 @@ open class OnSwipeGesture(private val context: Context) : View.OnTouchListener {
 
     private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
         override fun onDown(e: MotionEvent?): Boolean {
+//            Timber.e("onDown")
             return true
         }
 
@@ -38,6 +43,7 @@ open class OnSwipeGesture(private val context: Context) : View.OnTouchListener {
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
             if (e != null) {
                 onSingleTab(e)
+//                Timber.e("Asdf")
                 return true
             }
             return false
@@ -77,6 +83,7 @@ open class OnSwipeGesture(private val context: Context) : View.OnTouchListener {
             } catch (e: Exception) {
                 Timber.e(e)
             }
+//            Timber.e("fling")
             return result
         }
 

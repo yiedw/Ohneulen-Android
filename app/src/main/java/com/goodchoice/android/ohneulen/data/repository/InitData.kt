@@ -55,9 +55,11 @@ class InitData(private val networkService: NetworkService) {
                 for (i in mainCategory.indices) {
                     val tempList = getOhneulenData(networkService, mainCategory[i].minorCode)
                     subCategoryList.add(tempList)
+                    if (i == 0) {
+                        Timber.e(subCategoryList.toString())
+                        subCategory.postValue(subCategoryList[0])
+                    }
                 }
-                Timber.e(subCategoryList.toString())
-                subCategory.postValue(subCategoryList[0])
 //            subCategoryList = getOhneulenSubData(networkService, mainCategory)
                 checkInitData++
                 endNumber.postValue(checkInitData)

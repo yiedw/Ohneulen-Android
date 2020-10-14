@@ -36,14 +36,14 @@ class MyPageInquireNewAppBar :Fragment(),OnBackPressedListener{
     }
 
     fun onCloseClick(view:View){
-        replaceAppbarFragment(MyPageInquireAppBar.newInstance())
+//        replaceAppbarFragment(MyPageInquireAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
 //        replaceMainFragment(MyPageInquire.newInstance())
 
     }
 
     override fun onBackPressed() {
-        replaceAppbarFragment(MyPageInquireAppBar.newInstance())
+//        replaceAppbarFragment(MyPageInquireAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
 //        replaceMainFragment(MyPageInquire.newInstance())
     }

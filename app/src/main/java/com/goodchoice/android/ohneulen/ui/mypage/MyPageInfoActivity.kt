@@ -27,7 +27,7 @@ class MyPageInfoActivity : AppCompatActivity() {
             override fun onSwipeRight() {
                 super.onSwipeRight()
                 finish()
-        }
+            }
         })
 
         webViewSetting()

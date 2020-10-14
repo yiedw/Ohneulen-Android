@@ -1,8 +1,11 @@
 package com.goodchoice.android.ohneulen.ui.login
 
 import android.annotation.SuppressLint
+import android.app.Instrumentation
 import android.os.Bundle
 import android.os.Message
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.webkit.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +16,7 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
+import timber.log.Timber
 
 class LoginWebViewActivity : AppCompatActivity() {
 
@@ -23,15 +27,22 @@ class LoginWebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.webview_activity)
-        //스와이프 기능
-        binding.webViewActivityWebView.setOnTouchListener(object : OnSwipeGesture(this) {
-            override fun onSwipeRight() {
-                super.onSwipeRight()
-                finish()
-            }
-        })
         webViewSetting()    //웹뷰세팅
         webViewFunction()   //웹뷰기능
+        //스와이프 기능 -> 클릭기능이 멈춰버림 우선 보류
+//        binding.webViewActivityWebView.setOnTouchListener(object : OnSwipeGesture(this) {
+//            override fun onSwipeRight() {
+//                super.onSwipeRight()
+//                finish()
+//            }
+//            @SuppressLint("Recycle")
+//            override fun onSingleTab(motionEvent: MotionEvent) {
+//                // 터치 리스너를 넣었기 때문에 클릭이벤트가 먹지 않음
+//                // 터치한 부분을 강제로 클릭할수 있는 효과를 넣음
+//                super.onSingleTab(motionEvent)
+//                Timber.e("singleTab")
+//            }
+//        })
 
     }
 

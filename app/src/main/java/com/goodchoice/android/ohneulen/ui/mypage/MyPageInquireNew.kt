@@ -148,7 +148,7 @@ class MyPageInquireNew : Fragment() {
             if (it == ConstList.SUCCESS) {
                 Toast.makeText(requireContext(), "문의가 접수되었습니다", Toast.LENGTH_SHORT).show()
                 mypageViewModel.mypageInquireCode.postValue("")
-                replaceAppbarFragment(MyPageInquireAppBar.newInstance())
+//                replaceAppbarFragment(MyPageInquireAppBar.newInstance())
                 MainActivity.supportFragmentManager.popBackStack()
             } else if (it == ConstList.REQUIRE_LOGIN) {
                 loginDialog(requireContext(), false)

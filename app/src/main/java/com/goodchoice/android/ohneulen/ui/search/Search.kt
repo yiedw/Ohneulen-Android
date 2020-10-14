@@ -122,6 +122,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
         //RecyclerviewSetting
         val adapter = SearchStoreAdapter()
+        adapter.mNetworkService=searchViewModel.mNetworkService
         binding.searchStoreRv.adapter = adapter
 
         //search List 를 새로고침 해야하는지 여부
@@ -129,19 +130,15 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             if (it) {
                 //RecyclerviewSetting
 //                searchViewModel.getSearchStoreList()
-                //평점 좋아요수 후기 좋아요여부 업데이트
+                //링크로 어플 실행하면 리스트가 비어있음
                 if (!adapter.currentList.isNullOrEmpty()) {
                     adapter.currentList[adapter.mAdapterPosition].apply {
+                        //평점 좋아요수 후기 좋아요여부 업데이트
                         like = storeViewModel.storeFavoriteIsChecked
                         P_1 = storeViewModel.storePoint
                         likeCnt = storeViewModel.storeLikeCnt
                         reviewCnt = storeViewModel.storeReviewCnt
                     }
-//                Timber.e(storeViewModel.storeFavoriteIsChecked.toString())
-//                Timber.e(storeViewModel.storePoint.toString())
-//                Timber.e(storeViewModel.storeLikeCnt.toString())
-//                Timber.e(storeViewModel.storeReviewCnt.toString())
-//                Timber.e(adapter.currentList[adapter.mAdapterPosition].photoURL)
                     adapter.notifyItemChanged(adapter.mAdapterPosition)
                 }
                 searchViewModel.refreshCheck.postValue(false)
@@ -684,7 +681,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     //recyclerview 스크롤 여부
     private fun isRecyclerScrollable(): Boolean {
         val layoutManager = binding.searchStoreRv.layoutManager as LinearLayoutManager
-        val adapter = binding.searchStoreRv.adapter as RecyclerView.Adapter
+        val adapter = binding.searchStoreRv.adapter as SearchStoreAdapter
         return layoutManager.findLastCompletelyVisibleItemPosition() < adapter.itemCount - 1
     }
 

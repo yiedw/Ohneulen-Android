@@ -46,8 +46,6 @@ class MyPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
                 //로그인했을때 정보 가져오기
