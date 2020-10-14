@@ -13,12 +13,13 @@ import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.WebviewActivityBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import timber.log.Timber
 
-class LoginWebViewActivity : AppCompatActivity() {
+class LoginWebViewActivity : AppCompatActivity() ,OnBackPressedListener{
 
 
     private lateinit var binding: WebviewActivityBinding
@@ -96,6 +97,7 @@ class LoginWebViewActivity : AppCompatActivity() {
                 //0 success 1 fail
                 if (stat == 0) {
                     finish()
+                    overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                     Toast.makeText(this@LoginWebViewActivity, "회원가입이 완료되었습니다", Toast.LENGTH_LONG)
                         .show()
                 } else {
@@ -118,6 +120,7 @@ class LoginWebViewActivity : AppCompatActivity() {
 //                        }
 //                }
                 finish()
+                overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_left_to_right)
             }
 
             //로그인 클릭 -> 어플 로그인화면으로 이동
@@ -128,9 +131,17 @@ class LoginWebViewActivity : AppCompatActivity() {
                         .show()
                 }
                 finish()
+                overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_left_to_right)
             }
 
         }, "android")
+    }
+
+    //뒤로가기 버튼 제어
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_left_to_right)
     }
 
 

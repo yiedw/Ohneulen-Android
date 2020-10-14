@@ -234,64 +234,32 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
         val intent = Intent(requireActivity(), LoginWebViewActivity::class.java)
         intent.putExtra("stat", ConstList.WEBVIEW_FIND_EMAIL)
         startActivity(intent)
-//        loginViewModel.emailClick = true
-//        replaceAppbarFragment(LoginSignUpAppBar.newInstance(LoginAppBar.backFragmentAppBar))
-//        addMainFragment(LoginFindEmail.newInstance(), true)
+        requireActivity().overridePendingTransition(
+            R.anim.enter_right_to_left,
+            R.anim.exit_right_to_left
+        )
 
-//        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
-//        fragmentManager.setCustomAnimations(
-//            R.anim.enter_right_to_left,
-//            R.anim.exit_right_to_left,
-//            R.anim.enter_left_to_right,
-//            R.anim.exit_left_to_right
-//        )
-//        fragmentManager.replace(
-//            R.id.appbar_frameLayout,
-//            LoginSignUpAppBar.newInstance()
-//        )
-//        fragmentManager.replace(R.id.main_frameLayout, LoginFindEmail.newInstance())
-//        fragmentManager.addToBackStack(null)
-//        fragmentManager.commit()
     }
 
     fun findPwClick(view: View) {
         val intent = Intent(requireActivity(), LoginWebViewActivity::class.java)
         intent.putExtra("stat", ConstList.WEBVIEW_FIND_PW)
         startActivity(intent)
-//        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
-//        fragmentManager.setCustomAnimations(
-//            R.anim.enter_right_to_left,
-//            R.anim.exit_right_to_left,
-//            R.anim.enter_left_to_right,
-//            R.anim.exit_left_to_right
-//        )
-//        fragmentManager.replace(
-//            R.id.appbar_frameLayout,
-//            LoginSignUpAppBar.newInstance()
-//        )
-//        fragmentManager.replace(R.id.main_frameLayout, LoginFindPw.newInstance())
-//        fragmentManager.addToBackStack(null)
-//        fragmentManager.commit()
+        requireActivity().overridePendingTransition(
+            R.anim.enter_right_to_left,
+            R.anim.exit_right_to_left
+        )
+
     }
 
     fun signUpClick(view: View) {
         val intent = Intent(requireActivity(), LoginWebViewActivity::class.java)
         intent.putExtra("stat", ConstList.WEBVIEW_SIGN_UP)
         startActivity(intent)
-//        val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
-//        fragmentManager.setCustomAnimations(
-//            R.anim.enter_right_to_left,
-//            R.anim.exit_right_to_left,
-//            R.anim.enter_left_to_right,
-//            R.anim.exit_left_to_right
-//        )
-//        fragmentManager.replace(
-//            R.id.appbar_frameLayout,
-//            LoginSignUpAppBar.newInstance()
-//        )
-//        fragmentManager.replace(R.id.main_frameLayout, LoginSignUp.newInstance())
-//        fragmentManager.addToBackStack(null)
-//        fragmentManager.commit()
+        requireActivity().overridePendingTransition(
+            R.anim.enter_right_to_left,
+            R.anim.exit_right_to_left
+        )
     }
 
     fun autoTvClick(view: View) {
