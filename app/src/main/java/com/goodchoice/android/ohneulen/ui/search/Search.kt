@@ -130,20 +130,20 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 //RecyclerviewSetting
 //                searchViewModel.getSearchStoreList()
                 //평점 좋아요수 후기 좋아요여부 업데이트
-
-                Timber.e("Search//refresh")
-                adapter.currentList[adapter.mAdapterPosition].apply {
-                    like = storeViewModel.storeFavoriteIsChecked
-                    P_1 = storeViewModel.storePoint
-                    likeCnt = storeViewModel.storeLikeCnt
-                    reviewCnt = storeViewModel.storeReviewCnt
-                }
+                if (!adapter.currentList.isNullOrEmpty()) {
+                    adapter.currentList[adapter.mAdapterPosition].apply {
+                        like = storeViewModel.storeFavoriteIsChecked
+                        P_1 = storeViewModel.storePoint
+                        likeCnt = storeViewModel.storeLikeCnt
+                        reviewCnt = storeViewModel.storeReviewCnt
+                    }
 //                Timber.e(storeViewModel.storeFavoriteIsChecked.toString())
 //                Timber.e(storeViewModel.storePoint.toString())
 //                Timber.e(storeViewModel.storeLikeCnt.toString())
 //                Timber.e(storeViewModel.storeReviewCnt.toString())
 //                Timber.e(adapter.currentList[adapter.mAdapterPosition].photoURL)
-                adapter.notifyItemChanged(adapter.mAdapterPosition)
+                    adapter.notifyItemChanged(adapter.mAdapterPosition)
+                }
                 searchViewModel.refreshCheck.postValue(false)
             }
         })

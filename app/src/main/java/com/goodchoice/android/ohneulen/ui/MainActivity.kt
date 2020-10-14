@@ -105,9 +105,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     val storeSeq = deepLink!!.lastPathSegment
                     StoreFragment.storeSeq = storeSeq!!
                     StoreAppBar.stat = 0
-                    addMainFragment(StoreFragment.newInstance(), true)
-
 //                    replaceAppbarFragment(StoreAppBar.newInstance())
+//                    replaceMainFragment(StoreFragment.newInstance(), true)
+                    val fragmentManager=MainActivity.supportFragmentManager.beginTransaction()
+                    fragmentManager.replace(R.id.appbar_frameLayout,StoreAppBar.newInstance())
+                    fragmentManager.replace(R.id.main_frameLayout,StoreFragment.newInstance())
+                    fragmentManager.addToBackStack(null)
+                    fragmentManager.commit()
+
 //                    when (segment) {
 //                        ConstList.SEGMENT_STORE -> {
 //                            val seq = deepLink.getQueryParameter(ConstList.SEQ)
