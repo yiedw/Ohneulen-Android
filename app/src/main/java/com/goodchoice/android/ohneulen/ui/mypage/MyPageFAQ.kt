@@ -80,7 +80,14 @@ class MyPageFAQ : Fragment() {
         val animation = AlphaAnimation(0f, 1f)
         MainActivity.bottomNav.visibility = View.GONE
         MainActivity.bottomNav.animation = animation
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        //뒤로가면 체크되있던 항목들 다 풀어주기 (리셋)
+        for(i in myPageViewModel.mypageFAQList.value!!){
+            i.check=false
+        }
     }
 
 }

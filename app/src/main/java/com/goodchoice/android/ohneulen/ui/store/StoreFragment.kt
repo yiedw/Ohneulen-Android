@@ -45,6 +45,7 @@ import com.goodchoice.android.ohneulen.util.textColor
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
@@ -66,8 +67,8 @@ class StoreFragment : Fragment() {
     private val storeViewModel: StoreViewModel by viewModel()
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Handler().postDelayed(300){
-        val animation = AlphaAnimation(0f, 1f)
+        Handler().postDelayed(300) {
+            val animation = AlphaAnimation(0f, 1f)
             MainActivity.bottomNav.visibility = View.GONE
             MainActivity.bottomNav.animation = animation
         }
@@ -212,7 +213,7 @@ class StoreFragment : Fragment() {
     //카테고리 좋아요 후기 갯수
     private fun storeHeader(cate1Name: Cate1Name, likeCnt: Int, reviewCnt: Int) {
         storeViewModel.storeLikeCntLiveData.postValue(likeCnt)//좋아요 수 저장
-        storeViewModel.storeLikeCnt=likeCnt
+        storeViewModel.storeLikeCnt = likeCnt
         storeViewModel.storeReviewCnt = reviewCnt //리뷰 수 저장
         //1000개이상이면 999+로 표시
         val mLikeCnt = if (likeCnt > 999) {
@@ -549,8 +550,16 @@ class StoreFragment : Fragment() {
     }
 
 
+    //해시태그뷰 생성
     private fun hashTagGenerate(storeDetail: StoreDetail) {
         binding.storeFragmentHashTag.removeAllViews()
+        if (storeDetail.hashtagList.isNullOrEmpty()) {
+            //해시태그 없으면 뷰 숨기기
+            binding.storeFragmentHashTag.visibility = View.GONE
+            return
+        }
+        //있으면 뷰 보여주기
+        binding.storeFragmentHashTag.visibility = View.VISIBLE
         for (i in storeDetail.hashtagList) {
             val tv = TextView(requireContext())
             tv.height = 25.dpToPx()

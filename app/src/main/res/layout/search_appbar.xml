@@ -37,6 +37,7 @@
             android:paddingStart="10dp"
             android:textSize="14dp"
             app:layout_constraintLeft_toRightOf="@id/search_appbar_submit"
+            app:layout_constraintRight_toRightOf="@id/search_appbar_clear"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView

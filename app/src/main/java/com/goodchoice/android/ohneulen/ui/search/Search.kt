@@ -122,7 +122,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
         //RecyclerviewSetting
         val adapter = SearchStoreAdapter()
-        adapter.mNetworkService=searchViewModel.mNetworkService
+        adapter.mNetworkService = searchViewModel.mNetworkService
         binding.searchStoreRv.adapter = adapter
 
         //search List 를 새로고침 해야하는지 여부
@@ -170,10 +170,10 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             false
         }
 
-        //searchStat=1 인 상태에서 list를 스크롤하면 자동으로 리스트가 지도를 덮음
         binding.searchStoreRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                //searchStat=1 인 상태에서 list를 스크롤하면 자동으로 리스트가 지도를 덮음
                 if (searchStat == 1 && isRecyclerScrollable() && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
 //                    && rvFirstScroll
                     rvFirstScroll = false
@@ -216,6 +216,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                         requireContext(),
                         R.drawable.background_new
                     )
+                    binding.searchSlide.visibility = View.VISIBLE    // 슬라이드이미지 보여줌
+                    binding.searchOpen.visibility = View.GONE  // open 이미지 숨김
                     searchStat = 1  //지도가 반만 덮은상태
                 }
             }

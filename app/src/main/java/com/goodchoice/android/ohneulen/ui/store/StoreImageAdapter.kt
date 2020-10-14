@@ -17,6 +17,7 @@ import com.goodchoice.android.ohneulen.databinding.StoreImageItemBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.dialog.ImageDetailStoreDialog
 import com.goodchoice.android.ohneulen.util.constant.BaseUrl
+import com.goodchoice.android.ohneulen.util.dpToPx
 import timber.log.Timber
 
 class StoreImageAdapter :
@@ -32,10 +33,13 @@ class StoreImageAdapter :
             )
 
             binding.apply {
+                if(adapterPosition==0){
+                    binding.storeImageItem.setPadding(10.dpToPx(),0,10.dpToPx(),0)
+                }
                 Glide.with(root)
                     .load("${BaseUrl.OHNEULEN}${item.photoURL}")
                     .apply(RequestOptions().transform(CenterCrop(),RoundedCorners(20)))
-                    .into(storeImageItem)
+                    .into(storeImageItemImage)
 
                 root.setOnClickListener {
                     val dialog = ImageDetailStoreDialog.newInstance(adapterPosition)
