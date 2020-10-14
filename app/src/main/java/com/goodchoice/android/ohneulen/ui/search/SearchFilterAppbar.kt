@@ -25,7 +25,7 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
 
     private lateinit var binding: SearchFilterAppbarBinding
     private val searchViewModel: SearchViewModel by viewModel()
-    private val initData:InitData by inject()
+    private val initData: InitData by inject()
     private var tempCate = mutableListOf<String>()
     private var tempOption = mutableListOf<String>()
     private var tempOpenTime = mutableListOf<String>()
@@ -57,7 +57,8 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
     fun closeOnClick(view: View) {
 //        MainActivity.supportFragmentManager.popBackStack()
         dataRevert()
-        replaceAppbarFragment(SearchAppBar.newInstance(true))
+        //전에 검색화면을 남겨둬야함
+        replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
     }
 

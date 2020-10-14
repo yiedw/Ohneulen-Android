@@ -7,6 +7,7 @@ import android.graphics.Point
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AlphaAnimation
 import android.view.animation.TranslateAnimation
 import android.widget.GridLayout
 import android.widget.TextView
@@ -145,7 +146,9 @@ class SearchFilter : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        val animation = AlphaAnimation(0f, 1f)
         MainActivity.bottomNav.visibility = View.GONE
+        MainActivity.bottomNav.animation = animation
 
     }
 

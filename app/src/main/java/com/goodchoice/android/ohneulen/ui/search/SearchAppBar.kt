@@ -136,9 +136,10 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
             R.anim.exit_left_to_right,
             R.anim.exit_left_to_right
         ).add(MainActivity.mainFrameLayout.id, SearchFilter.newInstance())
-            .addToBackStack(null)
+            .addToBackStack(null)   //전에 검색화면을 남겨둬야 하므로 add
             .commit()
         replaceAppbarFragment(SearchFilterAppbar.newInstance())
+
     }
 
     override fun onBackPressed() {

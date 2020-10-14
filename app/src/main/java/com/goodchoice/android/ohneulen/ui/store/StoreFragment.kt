@@ -67,7 +67,7 @@ class StoreFragment : Fragment() {
     private val storeViewModel: StoreViewModel by viewModel()
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Handler().postDelayed(300) {
+        Handler().postDelayed(200) {
             val animation = AlphaAnimation(0f, 1f)
             MainActivity.bottomNav.visibility = View.GONE
             MainActivity.bottomNav.animation = animation

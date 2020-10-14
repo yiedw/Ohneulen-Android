@@ -34,6 +34,7 @@ import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
+import com.goodchoice.android.ohneulen.util.setHeight
 import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -83,9 +84,9 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val animation = AlphaAnimation(0f, 1f)
+//        val animation = AlphaAnimation(0f, 1f)
+//        MainActivity.bottomNav.animation = animation
         MainActivity.bottomNav.visibility = View.VISIBLE
-        MainActivity.bottomNav.animation = animation
 
 
         binding =
@@ -108,6 +109,11 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         mapView.setZoomLevel(3, false)
 
         if (mapViewContainer.childCount == 0) {
+            binding.searchMap.post {
+            //맵뷰를 네비바제외한 넓이에 딱 맞춰줌(네비바가 없어질때 지도이동을 막기 위해)
+            val height=MainActivity.mainFrameLayout.height
+                binding.searchMap.setHeight(height)
+            }
             mapViewContainer.addView(mapView)
             binding.searchInfoCon.bringToFront()
         }
