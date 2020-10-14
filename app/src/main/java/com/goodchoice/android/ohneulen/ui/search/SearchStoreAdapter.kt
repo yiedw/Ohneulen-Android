@@ -80,11 +80,15 @@ class SearchStoreAdapter :
                 //로그인 되어있을대 좋아요 여부
                 binding.searchStoreItemLike.isSelected = item.like
                 //노이미지일때는 이미지를 불러오는게 아닌 로컬에 저장되어 있는걸 씀
-                if (item.photoURL != "/public/img/content/favorite-noimage.png")
+                if (item.photoURL != "/public/img/content/favorite-noimage.png") {
                     Glide.with(binding.searchStoreItemImage.context)
                         .load("${BaseUrl.OHNEULEN}${item.photoURL}").centerCrop()
                         .into(binding.searchStoreItemImage)
-
+                } else {
+                    Glide.with(binding.searchStoreItemImage.context)
+                        .load(R.drawable.search_no_img).centerCrop()
+                        .into(binding.searchStoreItemImage)
+                }
                 //하트표시 클릭
                 searchStoreItemLike.setOnClickListener {
                     if (!LoginViewModel.isLogin.value!!) {

@@ -79,21 +79,23 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
         //찜상태 받아오기
         storeViewModel.storeFavoriteCheckLiveData.observe(viewLifecycleOwner, Observer {
             binding.storeAppbarLike.isSelected = it
+            storeViewModel.storeFavoriteIsChecked = it
+
         })
 
         //하트눌렀을때
         storeViewModel.setMemberLikeResponseCode.observe(viewLifecycleOwner, Observer {
             if (it == ConstList.SUCCESS) {
                 binding.storeAppbarLike.isSelected = !binding.storeAppbarLike.isSelected
-                storeViewModel.storeFavoriteIsChecked=binding.storeAppbarLike.isSelected
+                storeViewModel.storeFavoriteIsChecked = binding.storeAppbarLike.isSelected
                 if (binding.storeAppbarLike.isSelected) {
                     Toast.makeText(requireContext(), "찜 목록에 저장되었습니다", Toast.LENGTH_SHORT).show()
                     //상단에 있는 좋아요 수 즉각반영
-                    storeViewModel.storeLikeCnt=storeViewModel.storeLikeCntLiveData.value!!+1
+                    storeViewModel.storeLikeCnt = storeViewModel.storeLikeCntLiveData.value!! + 1
                     storeViewModel.storeLikeCntLiveData.postValue(storeViewModel.storeLikeCntLiveData.value!! + 1)
                 } else {
                     //상단에 있는 좋아요 수 즉각반영
-                    storeViewModel.storeLikeCnt=storeViewModel.storeLikeCntLiveData.value!!-1
+                    storeViewModel.storeLikeCnt = storeViewModel.storeLikeCntLiveData.value!! - 1
                     storeViewModel.storeLikeCntLiveData.postValue(storeViewModel.storeLikeCntLiveData.value!! - 1)
                 }
                 storeViewModel.setMemberLikeResponseCode.postValue("")
@@ -117,11 +119,13 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 
 
     fun likeClick(view: View) {
+        //로그인 되어있지 않을때
         if (!LoginViewModel.isLogin.value!!) {
             binding.storeAppbarLike.isSelected = false
             loginDialog(requireContext(), false)
             return
         }
+        //로그인 되어있을때
         storeViewModel.setMemberLike()
 
     }
@@ -172,7 +176,7 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
 //            } else {
 //                replaceAppbarFragment(HomeAppBar.newInstance())
 //            }
-            if(stat==2){
+            if (stat == 2) {
 
             }
             MainActivity.supportFragmentManager.popBackStack()

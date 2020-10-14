@@ -212,6 +212,7 @@ class StoreFragment : Fragment() {
     //카테고리 좋아요 후기 갯수
     private fun storeHeader(cate1Name: Cate1Name, likeCnt: Int, reviewCnt: Int) {
         storeViewModel.storeLikeCntLiveData.postValue(likeCnt)//좋아요 수 저장
+        storeViewModel.storeLikeCnt=likeCnt
         storeViewModel.storeReviewCnt = reviewCnt //리뷰 수 저장
         //1000개이상이면 999+로 표시
         val mLikeCnt = if (likeCnt > 999) {

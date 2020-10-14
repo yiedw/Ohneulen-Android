@@ -74,7 +74,10 @@ class SearchViewModel(private val networkService: NetworkService) :
                         }
                     }
                     //데이터가 다를 경우에만 전달
-                   if (response.resultData != searchStoreList.value) {
+//                    Timber.e(response.resultData.toString())
+//                    Timber.e(searchStoreList.value.toString())
+
+                    if (response.resultData != searchStoreList.value) {
                         searchStoreList.postValue(response.resultData)
                     }
                 } else {
@@ -87,6 +90,40 @@ class SearchViewModel(private val networkService: NetworkService) :
             }
         }
     }
+
+    //스토어 리스트를 가져오는 함수 (데이터가 같으나 다르나 가져옴)
+//    fun getSearchStoreListRefresh() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                val response = networkService.requestStoreSearchList(
+//                    addry,
+//                    addrx,
+//                    cate,
+//                    option,
+//                    openTime,
+//                    sort
+//                )
+//                if (LoginViewModel.isLogin.value!!) {
+//                    val likesResponse = networkService.requestGetMemberLike()
+//                    for (i in response.resultData.indices) {
+//                        for (j in likesResponse.resultData) {
+//                            if (response.resultData[i].seq == j.seq) {
+//                                response.resultData[i].like = true
+//                                break
+//                            }
+//                        }
+//                    }
+//                    //데이터가 다를 경우에만 전달
+////                    Timber.e(response.resultData.toString())
+////                    Timber.e(searchStoreList.value.toString())
+//
+//                }
+//                searchStoreList.postValue(response.resultData)
+//            } catch (e: Throwable) {
+//                Timber.e(e.toString())
+//            }
+//        }
+//    }
 
     //좌표를 바탕으로 카카오맵을 가져오는 함수
     fun getSearchMapData() {

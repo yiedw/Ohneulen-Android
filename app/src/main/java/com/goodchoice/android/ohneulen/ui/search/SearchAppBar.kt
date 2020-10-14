@@ -139,8 +139,6 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
             .addToBackStack(null)
             .commit()
         replaceAppbarFragment(SearchFilterAppbar.newInstance())
-//        addAppbarFragment(SearchFilterAppbar.newInstance(),true)
-//        addMainFragment(SearchFilter.newInstance(), true)
     }
 
     override fun onBackPressed() {
