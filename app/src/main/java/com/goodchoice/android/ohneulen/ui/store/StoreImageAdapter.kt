@@ -27,14 +27,13 @@ class StoreImageAdapter :
     inner class StoreImageViewHolder(private val binding: StoreImageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Image) {
-            val multiOption = MultiTransformation(
-                CenterCrop(),
-                RoundedCorners(20)
-            )
 
             binding.apply {
                 if(adapterPosition==0){
-                    binding.storeImageItem.setPadding(10.dpToPx(),0,10.dpToPx(),0)
+                    binding.storeImageItem.setPadding(20.dpToPx(),0,10.dpToPx(),0)
+                }
+                else if(adapterPosition==itemCount-1){
+                    binding.storeImageItem.setPadding(0,0,20.dpToPx(),0)
                 }
                 Glide.with(root)
                     .load("${BaseUrl.OHNEULEN}${item.photoURL}")

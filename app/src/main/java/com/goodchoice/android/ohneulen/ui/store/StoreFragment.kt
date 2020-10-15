@@ -184,14 +184,14 @@ class StoreFragment : Fragment() {
             binding.storeFragmentImageRv.visibility = View.GONE
             Glide.with(requireContext()).load(R.drawable.store_home_no_img)
                 .into(binding.storeFragmentOneImage)
-        } else if (storeDetail.storeInfo.image.size == 1) {
-            //이미지가 한개일때
-            binding.storeFragmentOneImage.visibility = View.VISIBLE
-            binding.storeFragmentImageRv.visibility = View.GONE
-            Glide.with(binding.storeFragmentOneImage.context)
-                .load("${BaseUrl.OHNEULEN}${storeDetail.storeInfo.image[0].photoURL}")
-                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
-                .into(binding.storeFragmentOneImage)
+//        } else if (storeDetail.storeInfo.image.size == 1) {
+//            //이미지가 한개일때 -> rv로 통합해서 사용
+//            binding.storeFragmentOneImage.visibility = View.VISIBLE
+//            binding.storeFragmentImageRv.visibility = View.GONE
+//            Glide.with(binding.storeFragmentOneImage.context)
+//                .load("${BaseUrl.OHNEULEN}${storeDetail.storeInfo.image[0].photoURL}")
+//                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(20)))
+//                .into(binding.storeFragmentOneImage)
         } else {
             //여러개일때
             binding.storeFragmentOneImage.visibility = View.GONE
@@ -204,7 +204,7 @@ class StoreFragment : Fragment() {
 //                .into(binding.storeFragmentOneImage)
 //            binding.storeFragmentImageRv.s
         }
-        val store = storeDetail.storeInfo.storeFull
+//        val store = storeDetail.storeInfo.storeFull
 //        storeHeader(store.cate1Name!!, store.likeCnt, storeDetail.reviewCnt)
 
     }
