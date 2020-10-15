@@ -168,31 +168,39 @@ class StoreReviewWrite : Fragment() {
             val uri = it
             val file = File(uri.path!!)
             //이미지를 비트맵으로 변환시켜서 높낮이, 사이즈 확인
-//            val options = BitmapFactory.Options()
-//            options.inJustDecodeBounds = true
-//            BitmapFactory.decodeFile(File(uri.path!!).absolutePath, options)
-//            val imageHeight = options.outHeight
-//            val imageWidth = options.outWidth
-//            Timber.e(imageHeight.toString())
+            // height,width<15000, size<20480Kb
+            val options = BitmapFactory.Options()
+            options.inJustDecodeBounds = true
+            BitmapFactory.decodeFile(File(uri.path!!).absolutePath, options)
+            val imageHeight = options.outHeight
+            val imageWidth = options.outWidth
+            val imageSizeKb = file.length() / 1024
+            if (imageHeight < 15000 && imageWidth < 15000 && imageSizeKb < 20480) {
 //            Timber.e(imageWidth.toString())
+//            Timber.e(imageHeight.toString())
+//            Timber.e(file.length().to)
 
-            storeViewModel.imageUpload(file)    //서버로 이미지 파일 전송
-            val itemBinding =
-                StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
-            Glide.with(requireContext())
-                .load(it)
-                .apply(RequestOptions().centerCrop())
-                .into(itemBinding.storeReviewWriteImage)
-            val layoutParams = FrameLayout.LayoutParams(width, height)
-            layoutParams.leftMargin = binding.storeReviewWriteImageP.marginLeft
-            layoutParams.rightMargin = binding.storeReviewWriteImageP.marginLeft
-            itemBinding.root.layoutParams = layoutParams
-            itemBinding.root.setOnClickListener {
-                binding.storeReviewWriteImage.removeView(itemBinding.root)
-                selectedUriList.remove(uri)
-            }
-            binding.storeReviewWriteImage.addView(itemBinding.root, 0)
+                storeViewModel.imageUpload(file)    //서버로 이미지 파일 전송
+                val itemBinding =
+                    StoreReviewWriteImageItemBinding.inflate(LayoutInflater.from(requireContext()))
+                Glide.with(requireContext())
+                    .load(it)
+                    .apply(RequestOptions().centerCrop())
+                    .into(itemBinding.storeReviewWriteImage)
+                //선택한 이미지를 넣을 레이아웃을 새로 만듬
+                val layoutParams = FrameLayout.LayoutParams(width, height)
+                layoutParams.leftMargin = binding.storeReviewWriteImageP.marginLeft
+                layoutParams.rightMargin = binding.storeReviewWriteImageP.marginLeft
+                itemBinding.root.layoutParams = layoutParams
+                itemBinding.root.setOnClickListener {
+                    binding.storeReviewWriteImage.removeView(itemBinding.root)
+                    selectedUriList.remove(uri)
+                }
+                binding.storeReviewWriteImage.addView(itemBinding.root, 0)
 //            storeViewModel.imageUpload(data)
+            } else {
+                Toast.makeText(requireContext(), "용량이 큰 파일 발견", Toast.LENGTH_SHORT).show()
+            }
         }
         storeViewModel.reviewImgList.clear()
     }
