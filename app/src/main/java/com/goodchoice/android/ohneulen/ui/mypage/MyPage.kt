@@ -47,18 +47,19 @@ class MyPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         LoginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                //로그인했을때 정보 가져오기
-                myPageViewModel.getMemberInfo()
-            } else {
+            if (!it) {
                 //로그아웃이나 로그인이 풀렸을경우
                 binding.mypageNickName.visibility = View.GONE
                 binding.mypageEmail.visibility = View.GONE
                 binding.mypageLogin.visibility = View.VISIBLE
             }
+//            else {
+//                //로그인했을때 정보 가져오기 -> 로그인 뷰모델에서 처리
+////                loginViewModel.getMemberInfo()
+//            }
         })
 
-        myPageViewModel.memberInfo.observe(viewLifecycleOwner, Observer {
+        loginViewModel.memberInfo.observe(viewLifecycleOwner, Observer {
             //로그인 상태일때
             if (LoginViewModel.isLogin.value!!) {
                 binding.mypageNickName.visibility = View.VISIBLE

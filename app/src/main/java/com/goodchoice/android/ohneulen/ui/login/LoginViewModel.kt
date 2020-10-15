@@ -2,6 +2,7 @@ package com.goodchoice.android.ohneulen.ui.login
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.goodchoice.android.ohneulen.data.model.MemberInfo
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
@@ -37,7 +38,8 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
                 )
                 if (loginResponse.resultCode == "000" || loginResponse.resultCode == "021") {
                     isLogin.postValue(true)
-                    memberEmail = memEmail
+                    getMemberInfo()
+//                    memberEmail = memEmail
 //                    replaceMainFragment(MyPage.newInstance())
 //                    replaceAppbarFragment(MyPageAppBar.newInstance())
                     if (check) {
@@ -73,6 +75,22 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
                 if (response.resultCode == ConstList.NON_LOGIN_STATUS) {
                     isLogin.postValue(false)
                 }
+            }
+        }
+    }
+
+    var memberInfo= MutableLiveData<MemberInfo>()
+
+    //멤버정보 가져오기(로그인 되어있을때만)
+    private fun getMemberInfo() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = networkService.requestMemberInfo()
+                if (response.resultCode == ConstList.SUCCESS) {
+                    memberInfo.postValue(response.resultData)
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
             }
         }
     }

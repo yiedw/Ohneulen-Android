@@ -370,6 +370,18 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 mapView.moveCamera(CameraUpdateFactory.newMapPoint(it))
                 rvFirstScroll = true
                 circleSearch(it)
+
+                //맵데이터바뀔때마다(검색) 리스트접어줌
+                if (searchStat != 0) {
+                    slideDown(
+                        binding.searchMap.height - binding.searchInfoCon.height.toFloat(),
+                        //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
+                        MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
+                        //높이는 그대로
+                        binding.searchStoreFrameLayout.height
+                    )
+                    searchStat = 0  //맵이 리스트를 덮은상태
+                }
             }
         )
 

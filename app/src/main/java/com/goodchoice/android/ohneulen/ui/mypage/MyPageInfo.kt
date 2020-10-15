@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageInfoBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
@@ -23,6 +24,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 class MyPageInfo : Fragment() {
     companion object {
@@ -30,7 +32,7 @@ class MyPageInfo : Fragment() {
     }
 
     private lateinit var binding: MypageInfoBinding
-    private val mypageViewModel: MyPageViewModel by inject()
+    private val loginViewModel:LoginViewModel by inject()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -45,7 +47,7 @@ class MyPageInfo : Fragment() {
             false
         )
         binding.fragment = this
-        binding.viewModel = mypageViewModel
+        binding.viewModel = loginViewModel
         binding.mypageInfo.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
             override fun onSwipeRight() {
                 super.onSwipeRight()

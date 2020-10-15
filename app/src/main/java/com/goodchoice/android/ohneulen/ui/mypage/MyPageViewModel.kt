@@ -17,6 +17,7 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel() 
 //    val goodAdapter = MyPageGoodAdapter()
 
 
+
     //후기
     var mypageReviewList: LiveData<List<Review>> = liveData(Dispatchers.IO) {
         emit(getReview())
@@ -27,21 +28,21 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel() 
     var mypageInquireList = MutableLiveData<List<Inquire>>()
     var mypageInquireCode = MutableLiveData<String>()
 
-    var memberInfo= MutableLiveData<MemberInfo>()
-
-    //멤버정보 가져오기(로그인 되어있을때만)
-    fun getMemberInfo() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = networkService.requestMemberInfo()
-                if (response.resultCode == ConstList.SUCCESS) {
-                    memberInfo.postValue(response.resultData)
-                }
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
-    }
+//    var memberInfo= MutableLiveData<MemberInfo>()
+//
+//    //멤버정보 가져오기(로그인 되어있을때만)
+//    fun getMemberInfo() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                val response = networkService.requestMemberInfo()
+//                if (response.resultCode == ConstList.SUCCESS) {
+//                    memberInfo.postValue(response.resultData)
+//                }
+//            } catch (e: Exception) {
+//                Timber.e(e)
+//            }
+//        }
+//    }
 
     fun getInquireList() {
         CoroutineScope(Dispatchers.IO).launch {

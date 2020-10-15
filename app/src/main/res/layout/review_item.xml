@@ -86,6 +86,28 @@
                 app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
 
             <TextView
+                android:id="@+id/review_item_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="수정"
+                android:textColor="#666666"
+                android:visibility="gone"
+                app:layout_constraintLeft_toRightOf="@id/review_item_date"
+                app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
+
+            <TextView
+                android:id="@+id/review_item_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="삭제"
+                android:textColor="#666666"
+                android:visibility="gone"
+                app:layout_constraintLeft_toRightOf="@id/review_item_modify"
+                app:layout_constraintTop_toBottomOf="@id/review_item_ratingbar" />
+
+            <TextView
                 android:id="@+id/review_item_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

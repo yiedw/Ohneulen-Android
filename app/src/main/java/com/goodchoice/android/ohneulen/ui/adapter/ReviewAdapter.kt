@@ -36,10 +36,11 @@ import com.goodchoice.android.ohneulen.util.popupFragment
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import timber.log.Timber
 
-class ReviewAdapter(val report: Boolean = true) :
+class ReviewAdapter() :
     ListAdapter<Review, RecyclerView.ViewHolder>(ReviewDiffUtil) {
     //    var reviewList = listOf<Review>()
     lateinit var storeDetail: StoreDetail
+    var memberSeq:String=""
 
     inner class ReviewViewHolder(private val binding: ReviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -48,8 +49,21 @@ class ReviewAdapter(val report: Boolean = true) :
             binding.apply {
                 review = reviewItem
                 reviewItemRatingbar.rating = reviewItem.point_1.toFloat()
-                if (!report)
-                    reviewItemReport.visibility = View.GONE
+                //내가 쓴 리뷰일때
+                if(memberSeq==reviewItem.member_seq){
+                    reviewItemModify.visibility=View.VISIBLE
+                    reviewItemDelete.visibility=View.VISIBLE
+                    reviewItemReport.visibility=View.GONE
+                }
+                //남이 쓴 리뷰일때
+                else{
+                    reviewItemModify.visibility=View.GONE
+                    reviewItemDelete.visibility=View.GONE
+                    reviewItemReport.visibility=View.VISIBLE
+                }
+
+
+                //신고 클릭
                 reviewItemReport.setOnClickListener {
                     val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
                     fragmentManager.setCustomAnimations(
@@ -130,6 +144,8 @@ class ReviewAdapter(val report: Boolean = true) :
 
         //바인딩
         fun bind(reviewItem: Review) {
+
+
             //info setting
             //정렬 + bold 주기
             for (i in binding.storeReviewInfoRadioGroup.children) {
@@ -165,14 +181,25 @@ class ReviewAdapter(val report: Boolean = true) :
 
             //review setting
             binding.apply {
+                //내가 쓴 리뷰일때
+                if(memberSeq==reviewItem.member_seq){
+                    reviewItemModify.visibility=View.VISIBLE
+                    reviewItemDelete.visibility=View.VISIBLE
+                    reviewItemReport.visibility=View.GONE
+                }
+                //남이 쓴 리뷰일때
+                else{
+                    reviewItemModify.visibility=View.GONE
+                    reviewItemDelete.visibility=View.GONE
+                    reviewItemReport.visibility=View.VISIBLE
+                }
+
                 review = reviewItem
                 reviewItemRatingbar.rating = reviewItem.point_1.toFloat()
 //                val rating: Double =
 //                    (reviewItem.point_1.toDouble() + reviewItem.point_2.toDouble() +
 //                            reviewItem.point_3.toDouble() + reviewItem.point_4.toDouble() + reviewItem.point_5.toDouble()) / 5
 //                reviewItemRatingbar.rating = rating.toFloat()
-                if (!report)
-                    reviewItemReport.visibility = View.GONE
                 reviewItemReport.setOnClickListener {
                     val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
                     fragmentManager.setCustomAnimations(

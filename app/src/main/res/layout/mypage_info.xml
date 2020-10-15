@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.goodchoice.android.ohneulen.ui.mypage.MyPageViewModel" />
+            type="com.goodchoice.android.ohneulen.ui.login.LoginViewModel" />
 
     </data>
 

@@ -59,6 +59,10 @@ class StoreReview : Fragment() {
         val adapter = ReviewAdapter()
         binding.storeReviewRv.adapter = adapter
         storeViewModel.storeDetail.observe(viewLifecycleOwner, Observer {
+            //내가쓴 리뷰인지 판별 (로그인되어있을경우만)
+            if (LoginViewModel.isLogin.value!!) {
+                adapter.memberSeq = loginViewModel.memberInfo.value!!.seq
+            }
 //            reviewCnt(it)
             //리뷰가 0개일때
             if (it.reviewCnt == 0) {
@@ -80,13 +84,17 @@ class StoreReview : Fragment() {
                     binding.storeReviewRv.scrollToPosition(0)
                 }
             }
-
         })
 
-        //정렬 bold 주기
-//        for (i in binding.storeReviewRadioGroup.children) {
-//            radioButtonBold(i as RadioButton)
-//        }
+        loginViewModel.memberInfo.observe(viewLifecycleOwner, Observer {
+            //로그인되어있을경우에만
+            if (LoginViewModel.isLogin.value!!) {
+                (binding.storeReviewRv.adapter as ReviewAdapter).memberSeq =
+                    loginViewModel.memberInfo.value!!.seq
+                (binding.storeReviewRv.adapter as ReviewAdapter).notifyDataSetChanged()
+            }
+        })
+
     }
 
 
