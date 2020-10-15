@@ -36,7 +36,8 @@
             android:layout_height="44dp"
             android:background="@drawable/background_new"
             android:paddingHorizontal="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/search_map">
+            app:layout_constraintBottom_toBottomOf="@id/search_map"
+            >
 
             <ImageView
                 android:id="@+id/search_slide"

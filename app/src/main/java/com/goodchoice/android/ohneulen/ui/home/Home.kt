@@ -43,15 +43,11 @@ class Home() : Fragment() {
     private lateinit var binding: HomeBinding
 
 
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav.visibility = View.VISIBLE
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        MainActivity.bottomNav.visibility = View.VISIBLE
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.home,
@@ -124,11 +120,10 @@ class Home() : Fragment() {
         mainViewModel.searchEditText = binding.homeEditText.text.toString()
         mainViewModel.currentLocationSearch = false
         hideKeyboard(view, requireContext())
-        if (InitData.endNumber.value == 3){
+        if (InitData.endNumber.value == 3) {
             MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
-            mainViewModel.searchCheck=true
-        }
-        else {
+            mainViewModel.searchCheck = true
+        } else {
             InitData.endNumber.observe(viewLifecycleOwner, Observer {
                 if (it == 3) {
                     MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_map
@@ -157,7 +152,6 @@ class Home() : Fragment() {
 //        replaceAppbarFragment(SearchFilterAppbar.newInstance())
 
     }
-
 
 
 }

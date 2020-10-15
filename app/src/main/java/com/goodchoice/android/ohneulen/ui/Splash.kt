@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.AccelerateInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.SplashBinding
@@ -42,6 +43,7 @@ class Splash : AppCompatActivity() {
             } else {
                 Thread.sleep(200)
                 startRevealActivity(view)
+                binding.splash.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
             }
         }
     }

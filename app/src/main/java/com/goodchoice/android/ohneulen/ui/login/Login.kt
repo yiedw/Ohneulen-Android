@@ -1,15 +1,18 @@
 package com.goodchoice.android.ohneulen.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
+import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -34,6 +37,15 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
     private val loginViewModel: LoginViewModel by viewModel()
     private var emailCheck = false
     private var pwCheck = false
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Handler().postDelayed(200) {
+            val animation = AlphaAnimation(0f, 1f)
+            MainActivity.bottomNav.visibility = View.GONE
+            MainActivity.bottomNav.animation = animation
+        }
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -181,11 +193,6 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
                 }
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav.visibility = View.GONE
     }
 
 

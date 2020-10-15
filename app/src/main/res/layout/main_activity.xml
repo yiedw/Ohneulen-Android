@@ -35,8 +35,6 @@
 
         </FrameLayout>
 
-        <!--        android:paddingHorizontal="20dp"-->
-
         <FrameLayout
             android:id="@+id/main_frameLayout"
             android:layout_width="match_parent"
