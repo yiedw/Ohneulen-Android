@@ -67,11 +67,8 @@ class StoreFragment : Fragment() {
     private val storeViewModel: StoreViewModel by viewModel()
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Handler().postDelayed(200) {
-            val animation = AlphaAnimation(0f, 1f)
-            MainActivity.bottomNav.visibility = View.GONE
-            MainActivity.bottomNav.animation = animation
-        }
+//        Handler().postDelayed(200) {
+//        }
     }
 
     override fun onCreateView(
@@ -85,6 +82,7 @@ class StoreFragment : Fragment() {
             container,
             false
         )
+
         binding.viewModel = storeViewModel
         binding.fragment = this
         binding.lifecycleOwner = this
@@ -149,6 +147,11 @@ class StoreFragment : Fragment() {
             }
 
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+
     }
 
     override fun onResume() {
@@ -394,6 +397,9 @@ class StoreFragment : Fragment() {
                         if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
                             (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
                             binding.storeNewScrollView.visibility = View.VISIBLE
+                            val animation = AlphaAnimation(0f, 1f)
+                            MainActivity.bottomNav.visibility = View.GONE
+                            MainActivity.bottomNav.animation = animation
 //                            MainActivity.supportFragmentManager.beginTransaction().show(this@StoreFragment)
                         }
                     }
@@ -520,6 +526,9 @@ class StoreFragment : Fragment() {
                         if (MainActivity.supportFragmentManager.findFragmentByTag("loading") != null) {
                             (MainActivity.supportFragmentManager.findFragmentByTag("loading") as DialogFragment).dismiss()
                             binding.storeNewScrollView.visibility = View.VISIBLE
+                            val animation = AlphaAnimation(0f, 1f)
+                            MainActivity.bottomNav.visibility = View.GONE
+                            MainActivity.bottomNav.animation = animation
 //                            MainActivity.supportFragmentManager.beginTransaction().show(this@StoreFragment)
                         }
                     }
