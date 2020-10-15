@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -37,9 +38,6 @@ class FAQAdapter : ListAdapter<FAQ, FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
                     faqItemContent.visibility = View.GONE
                     Glide.with(root.context).load(R.drawable.faq_more).into(faqItemMore)
                 }
-
-
-
             }
         }
 
@@ -59,6 +57,11 @@ class FAQAdapter : ListAdapter<FAQ, FAQAdapter.FAQViewHolder>(FAQDiffUtil) {
 
     override fun onBindViewHolder(holder: FAQViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    //    setHasStableIds(true) 사용하기위해 씀
+    override fun getItemId(position: Int): Long {
+        return getItem(position).seq.toLong()
     }
 }
 

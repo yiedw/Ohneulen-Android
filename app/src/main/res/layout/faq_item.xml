@@ -14,6 +14,7 @@
         android:id="@+id/faq_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:paddingHorizontal="20dp">
 
         <TextView
@@ -92,11 +93,11 @@
                     android:textSize="14dp" />
 
                 <TextView
-                    android:layout_marginVertical="10dp"
-                    android:layout_marginEnd="10dp"
                     android:id="@+id/faq_item_content_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@{faq.content}"
                     android:textColor="@color/colorTextGrey"
                     android:textSize="14dp" />

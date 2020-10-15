@@ -61,13 +61,16 @@ class MyPageFAQ : Fragment() {
                 for (i in myPageViewModel.mypageFAQList.value!!.indices) {
                     if (i != adapterPosition && myPageViewModel.mypageFAQList.value!![i].check) {
                         myPageViewModel.mypageFAQList.value!![i].check = false
-                        adapter.notifyItemChanged(i)
+//                        adapter.notifyItemChanged(i)
                     }
                 }
                 //기존에 체크되어있던 리스트를 풀어줌
                 myPageViewModel.mypageFAQList.value!![adapterPosition].check =
                     !myPageViewModel.mypageFAQList.value!![adapterPosition].check
-                adapter.notifyItemChanged(adapterPosition)
+//                adapter.notifyItemChanged(adapterPosition)
+                //깜빡거리는 현상을 없애기위해 아이템에 id를줌
+                //notifyItemChanged()를 안쓴이유 -> 이미지가 순간적으로 겹쳐보이는 현상
+                adapter.notifyDataSetChanged()
             }
         })
 
@@ -85,8 +88,8 @@ class MyPageFAQ : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         //뒤로가면 체크되있던 항목들 다 풀어주기 (리셋)
-        for(i in myPageViewModel.mypageFAQList.value!!){
-            i.check=false
+        for (i in myPageViewModel.mypageFAQList.value!!) {
+            i.check = false
         }
     }
 
