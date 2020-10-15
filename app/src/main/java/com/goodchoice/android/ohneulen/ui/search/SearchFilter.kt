@@ -132,7 +132,9 @@ class SearchFilter : Fragment() {
         //메인카테고리 클릭시 서브 카테고리 변경
         searchViewModel.mainCategoryPosition.observe(viewLifecycleOwner, Observer {
             searchViewModel.subCategoryPosition = 0
-            initData.subCategory.postValue(initData.subCategoryList[it])
+            if (initData.subCategoryList.isNotEmpty()) {
+                initData.subCategory.postValue(initData.subCategoryList[it])
+            }
         })
 
         //음식 메인카테고리 리스트 생성

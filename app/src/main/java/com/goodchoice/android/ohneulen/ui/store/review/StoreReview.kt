@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.data.model.StoreDetail
 import com.goodchoice.android.ohneulen.databinding.StoreReviewBinding
+import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.adapter.ReviewAdapter
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
@@ -190,9 +191,20 @@ class StoreReview : Fragment() {
         if (!LoginViewModel.isLogin.value!!) {
             loginDialog(requireContext(), false)
         } else {
-            replaceAppbarFragment(StoreReviewWriteAppbar.newInstance())
-            popupFragment(StoreReviewWrite.newInstance())
-//            addMainFragment(StoreReviewWrite.newInstance(), true)
+            val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+            fragmentManager.setCustomAnimations(
+                R.anim.enter_right_to_left,
+                R.anim.exit_right_to_left,
+                R.anim.enter_left_to_right,
+                R.anim.exit_left_to_right
+            )
+            fragmentManager.replace(
+                R.id.appbar_frameLayout,
+                StoreReviewWriteAppbar.newInstance()
+            )
+            fragmentManager.add(R.id.main_frameLayout, StoreReviewWrite.newInstance())
+            fragmentManager.addToBackStack(null)
+            fragmentManager.commit()
         }
     }
 

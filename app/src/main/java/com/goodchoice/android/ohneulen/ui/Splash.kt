@@ -23,6 +23,8 @@ import com.goodchoice.android.ohneulen.databinding.SplashBinding
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
 import timber.log.Timber
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class Splash : AppCompatActivity() {
@@ -43,7 +45,12 @@ class Splash : AppCompatActivity() {
             } else {
                 Thread.sleep(200)
                 startRevealActivity(view)
-                binding.splash.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                // 스플래시화면이 완전히 로딩된 이후에 배경색을 흰 색으로 바꿔줌
+                // -> mapView가 destory될때 뒤에 배경이 보이므로 그때 흰배경을 띄우기위해
+                Timer().schedule(3000L) {
+                    binding.splash.setBackgroundColor(ContextCompat.getColor(this@Splash, R.color.white))
+
+                }
             }
         }
     }
