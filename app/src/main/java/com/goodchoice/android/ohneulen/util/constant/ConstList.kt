@@ -38,6 +38,8 @@ object ConstList {
     //networkCode
     const val SUCCESS="000"
     const val REQUIRE_LOGIN="900"
+    const val LOGIN_STATUS="100"
+    const val NON_LOGIN_STATUS="001"
 
     //boardCode
     const val MYPAGE_INQUIRE="001"

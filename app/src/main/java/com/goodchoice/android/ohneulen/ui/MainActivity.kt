@@ -33,7 +33,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_activity.*
+import org.koin.android.ext.android.inject
 import timber.log.Timber
+import java.util.*
+import kotlin.concurrent.timer
 import kotlin.math.hypot
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private lateinit var binding: MainActivityBinding
+    private val loginViewModel: LoginViewModel by inject()
 //    private val searchViewModel: SearchViewModel by inject()
 
 
@@ -85,8 +89,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onResume() {
         super.onResume()
-
-
+        //우선 10분마다 로그인체크
+        timer(period = 600000) {
+            loginViewModel.loginCheck()
+        }
     }
 
     override fun onStart() {
@@ -107,9 +113,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     StoreAppBar.stat = 0
 //                    replaceAppbarFragment(StoreAppBar.newInstance())
 //                    replaceMainFragment(StoreFragment.newInstance(), true)
-                    val fragmentManager=MainActivity.supportFragmentManager.beginTransaction()
-                    fragmentManager.replace(R.id.appbar_frameLayout,StoreAppBar.newInstance())
-                    fragmentManager.replace(R.id.main_frameLayout,StoreFragment.newInstance())
+                    val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
+                    fragmentManager.replace(R.id.appbar_frameLayout, StoreAppBar.newInstance())
+                    fragmentManager.replace(R.id.main_frameLayout, StoreFragment.newInstance())
                     fragmentManager.addToBackStack(null)
                     fragmentManager.commit()
 

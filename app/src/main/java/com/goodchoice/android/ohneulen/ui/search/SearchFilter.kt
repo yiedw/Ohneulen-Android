@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.animation.TranslateAnimation
@@ -14,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.core.content.ContextCompat
+import androidx.core.os.postDelayed
 import androidx.core.view.children
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
@@ -47,6 +49,14 @@ class SearchFilter : Fragment() {
     var position = 0
     private var previousPosition = 0
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Handler().postDelayed(300) {
+            val animation = AlphaAnimation(0f, 1f)
+            MainActivity.bottomNav.visibility = View.GONE
+            MainActivity.bottomNav.animation = animation
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -146,16 +156,16 @@ class SearchFilter : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val animation = AlphaAnimation(0f, 1f)
-        MainActivity.bottomNav.visibility = View.GONE
-        MainActivity.bottomNav.animation = animation
+//        val animation = AlphaAnimation(0f, 1f)
+//        MainActivity.bottomNav.visibility = View.GONE
+//        MainActivity.bottomNav.animation = animation
 
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        MainActivity.bottomNav.visibility = View.VISIBLE
+//        MainActivity.bottomNav.visibility = View.VISIBLE
         searchViewModel.mainCategoryPosition.postValue(0)
     }
 

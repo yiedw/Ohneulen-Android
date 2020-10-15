@@ -22,6 +22,7 @@ import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
+import org.koin.android.ext.android.inject
 
 class MyPageInfo : Fragment() {
     companion object {
@@ -29,6 +30,7 @@ class MyPageInfo : Fragment() {
     }
 
     private lateinit var binding: MypageInfoBinding
+    private val mypageViewModel: MyPageViewModel by inject()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -43,6 +45,7 @@ class MyPageInfo : Fragment() {
             false
         )
         binding.fragment = this
+        binding.viewModel = mypageViewModel
         binding.mypageInfo.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
             override fun onSwipeRight() {
                 super.onSwipeRight()
@@ -78,8 +81,8 @@ class MyPageInfo : Fragment() {
         }
         TedPermission.with(requireContext())
             .setPermissionListener(permissionListener)
-            .setDeniedMessage("권한이 필요")
-            .setPermissions(Manifest.permission.READ_CONTACTS)
+            .setDeniedMessage("사진을 가져오기 위해서는 권한이 필요합니다")
+            .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
             .check()
     }
 

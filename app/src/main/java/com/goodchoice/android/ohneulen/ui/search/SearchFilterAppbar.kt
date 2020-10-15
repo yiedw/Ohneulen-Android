@@ -60,12 +60,14 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
         //전에 검색화면을 남겨둬야함
         replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {
         dataRevert()
         replaceAppbarFragment(SearchAppBar.newInstance())
         MainActivity.supportFragmentManager.popBackStack()
+        MainActivity.bottomNav.visibility = View.VISIBLE
     }
 
     private fun dataSave() {

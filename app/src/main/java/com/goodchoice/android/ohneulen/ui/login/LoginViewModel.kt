@@ -6,6 +6,7 @@ import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.mypage.MyPageAppBar
 import com.goodchoice.android.ohneulen.ui.mypage.MyPage
 import com.goodchoice.android.ohneulen.util.Event
+import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
 import kotlinx.coroutines.CoroutineScope
@@ -60,6 +61,19 @@ class LoginViewModel(private val networkService: NetworkService, application: Ap
         CoroutineScope(Dispatchers.IO).launch {
             networkService.requestLogoutTest()
             isLogin.postValue(false)
+        }
+    }
+
+    fun loginCheck() {
+        //로그인상태일때만 체크
+        if (isLogin.value == true) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = networkService.requestSessionChk()
+                Timber.e(response.resultCode)
+                if (response.resultCode == ConstList.NON_LOGIN_STATUS) {
+                    isLogin.postValue(false)
+                }
+            }
         }
     }
 

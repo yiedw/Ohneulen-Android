@@ -18,4 +18,5 @@ class MainViewModel() : ViewModel() {
     var currentLocationSearch=false
     var searchCheck=false
 
+
 }

@@ -24,6 +24,10 @@ interface NetworkService {
     @POST("api/logout")
     suspend fun requestLogoutTest(): OhneulenResponse
 
+    //로그인여부체크 (세션체크)
+    @POST("api/sessionchk")
+    suspend fun requestSessionChk():GetEmptyDataResponse
+
     //멤버 정보 가져오기(이메일 이름 닉네임)
     @POST("api/getmemberinfo")
     suspend fun requestMemberInfo(): GetMemberInfoResponse
