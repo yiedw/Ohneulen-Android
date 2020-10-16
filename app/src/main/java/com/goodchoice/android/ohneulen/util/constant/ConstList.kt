@@ -41,6 +41,7 @@ object ConstList {
     const val LOGIN_STATUS = "100"
     const val NON_LOGIN_STATUS = "001"
     const val PASSWORD_CHECK_FAIL = "010"
+    const val PASSWORD_CHANGE_FAIL="011"
 
     //boardCode
     const val MYPAGE_INQUIRE = "001"

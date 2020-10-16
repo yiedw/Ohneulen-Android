@@ -12,6 +12,8 @@ import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.replace
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -77,12 +79,16 @@ class MyPageInfo : Fragment() {
         mypageViewModel.memberUpdateResponse.observe(viewLifecycleOwner, Observer {
             if (it.resultCode == ConstList.SUCCESS) {
                 Toast.makeText(requireContext(), "변경사항이 저장되었습니다", Toast.LENGTH_SHORT).show()
-            } else if (it.resultCode == ConstList.PASSWORD_CHECK_FAIL) {
-                Toast.makeText(requireContext(), "현재 비밀번호가 맞지 않습니다", Toast.LENGTH_SHORT).show()
+                //비밀번호 지워주기
+                binding.mypageInfoOldPw.text.clear()
+                binding.mypageInfoNewPw.text.clear()
+                binding.mypageInfoRePw.text.clear()
 
-            } else {
-                Toast.makeText(requireContext(), it.resultMsg, Toast.LENGTH_SHORT).show()
+            } else if (it.resultCode == ConstList.PASSWORD_CHANGE_FAIL) {
+                Toast.makeText(requireContext(), "비밀번호 재설정에 실패 하였습니다", Toast.LENGTH_SHORT).show()
             }
+            //초기화
+            mypageViewModel.memberUpdateResponse.value!!.resultCode = ""
         })
     }
 
@@ -124,13 +130,20 @@ class MyPageInfo : Fragment() {
         val rePw = binding.mypageInfoRePw.text.toString()
         val nickName = binding.mypageInfoNickName.text.toString()
 
+        val toast = Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT)
+
         //비밀번호 변경하기전에 체크
         if (!pwCheck(newPw)) {
-            Toast.makeText(requireContext(), "비밀번호는 영문,숫자로 조합된 8자리 이상으로 입력하세요", Toast.LENGTH_LONG)
-                .show()
+            toast.setText("비밀번호는 영문,숫자로 조합된 8자리 이상으로 입력하세요")
+            toast.show()
             return
         } else if (newPw != rePw) {
-            Toast.makeText(requireContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_LONG).show()
+            toast.setText("입력한 비밀번호가 서로 맞지 않습니다.")
+            toast.show()
+            return
+        } else if (newPw == oldPw) {
+            toast.setText("기존에 사용하던 비밀번호와 동일한 비밀번호가 사용되었습니다.")
+            toast.show()
             return
         }
         //멤버 정보 업데이트

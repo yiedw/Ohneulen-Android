@@ -5,6 +5,6 @@ import com.goodchoice.android.ohneulen.data.model.Store
 
 @Keep
 data class GetEmptyDataResponse(
-    val resultCode: String,
+    var resultCode: String,
     val resultMsg: String
 )
