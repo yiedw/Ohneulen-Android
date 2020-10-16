@@ -107,6 +107,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <EditText
+                    android:id="@+id/mypage_info_nickName"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/background_border_lightgrey"
@@ -150,12 +151,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
+                        android:id="@+id/mypage_info_oldPw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="9dp"
                         android:background="@null"
                         android:gravity="bottom"
                         android:hint="현재 비밀번호를 입력하세요"
+                        android:inputType="textPassword"
                         android:textColorHint="@color/colorCGrey"
                         android:textSize="13dp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -177,12 +180,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
+                        android:id="@+id/mypage_info_newPw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="9dp"
                         android:background="@null"
                         android:gravity="bottom"
                         android:hint="새로운 비밀번호를 입력하세요"
+                        android:inputType="textPassword"
                         android:textColorHint="@color/colorCGrey"
                         android:textSize="13dp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -204,12 +209,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
+                        android:id="@+id/mypage_info_rePw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="9dp"
                         android:background="@null"
                         android:gravity="bottom"
                         android:hint="입력한 비밀번호를 다시 입력하세요"
+                        android:inputType="textPassword"
                         android:textColorHint="@color/colorCGrey"
                         android:textSize="13dp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -235,6 +242,7 @@
                     android:background="@drawable/submit_bt_header_color"
                     android:stateListAnimator="@null"
                     android:text="변경사항 저장"
+                    android:onClick="@{fragment::submitClick}"
                     android:textColor="@color/white"
                     android:textSize="14dp"
                     android:textStyle="bold" />

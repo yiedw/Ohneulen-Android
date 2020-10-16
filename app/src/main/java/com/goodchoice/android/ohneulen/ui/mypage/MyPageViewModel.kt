@@ -1,11 +1,14 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.goodchoice.android.ohneulen.ui.adapter.InquireAdapter
 import com.goodchoice.android.ohneulen.data.model.*
+import com.goodchoice.android.ohneulen.data.remote.GetEmptyDataResponse
 import com.goodchoice.android.ohneulen.data.service.NetworkService
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
 import com.goodchoice.android.ohneulen.util.constant.ConstList
+import com.goodchoice.android.ohneulen.util.pwCheck
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +18,6 @@ import java.lang.Exception
 class MyPageViewModel(private val networkService: NetworkService) : ViewModel() {
 
 //    val goodAdapter = MyPageGoodAdapter()
-
 
 
     //후기
@@ -82,6 +84,20 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel() 
         }
     }
 
+    var memberUpdateResponse = MutableLiveData<GetEmptyDataResponse>()
+    fun memberUpdate(oldPw: String, newPw: String, rePw: String, nickName: String? = null) {
+
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = networkService.requestMemberUpdate(
+                    oldPw, newPw, rePw, nickName
+                )
+                memberUpdateResponse.postValue(response)
+            }
+        } catch (e: Exception) {
+
+        }
+    }
 
     //자주 찾는 질문
 //    var mypageFAQAdapter= FAQAdapter()

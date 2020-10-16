@@ -158,6 +158,17 @@ fun emailCheck(email: String): Boolean {
     return false
 }
 
+//패스워드 체크
+//영문,숫자로조합된 8자리 이상으로 입력
+fun pwCheck(pw: String): Boolean {
+    val pwRegex =
+        Regex("^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*\\W)).{8,20}$")
+    if (pw.matches(pwRegex))
+        return true
+    return false
+}
+
+
 fun textColor(titleText: String, start: Int, end: Int, color: Int): SpannableString {
     val spannableString = SpannableString(titleText)
     spannableString.setSpan(

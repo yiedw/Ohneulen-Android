@@ -26,7 +26,7 @@ interface NetworkService {
 
     //로그인여부체크 (세션체크)
     @POST("api/sessionchk")
-    suspend fun requestSessionChk():GetEmptyDataResponse
+    suspend fun requestSessionChk(): GetEmptyDataResponse
 
     //멤버 정보 가져오기(이메일 이름 닉네임)
     @POST("api/getmemberinfo")
@@ -110,6 +110,15 @@ interface NetworkService {
     suspend fun requestImageUpload(
         @Part file: MultipartBody.Part
     ): GetImageUploadResponse
+
+    @POST("/api/memberupdate")
+    @FormUrlEncoded
+    suspend fun requestMemberUpdate(
+        @Field("passwd_old") passwd_old: String,
+        @Field("passwd_new") passwd_new: String,
+        @Field("passwd_re") passwd_re: String,
+        @Field("nickname") nickname: String?
+    ): GetEmptyDataResponse
 
 
     //카카오

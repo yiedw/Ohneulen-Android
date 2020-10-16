@@ -9,4 +9,6 @@ object BaseUrl {
     const val OHNEULEN_FIND_EMAIL = BuildConfig.OhneulenFindId
     const val OHNEULEN_FIND_PW = BuildConfig.OhneulenFindPw
     const val OHNEULEN_MYPAGE_INFO=BuildConfig.OhneulenMyPageInfo
+
+//    const val LOCAL_OHNEULEN="https://localwww.ohneulen.com/"
 }
