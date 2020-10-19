@@ -22,6 +22,7 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.util.*
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class Login(private val bottomNavVisibility: Boolean, private val popBackStackName: String?) :
     Fragment() {
@@ -74,6 +75,12 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
                 super.onSwipeRight()
                 MainActivity.supportFragmentManager.popBackStack()
             }
+
+            override fun onSingleTab(motionEvent: MotionEvent) {
+                super.onSingleTab(motionEvent)
+                //입력바 바깥쪽 클릭했을때 로고바 다시 보이게해주기
+                binding.loginLogo.visibility = View.VISIBLE
+            }
         })
         return binding.root
     }
@@ -92,6 +99,7 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (!binding.loginPwEt.text.isNullOrEmpty() && !binding.loginEmailEt.text.isNullOrEmpty()) {
                     binding.loginSubmit.isEnabled = true
@@ -155,13 +163,14 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
             if (hasFocus) {
                 binding.loginPw.background =
                     requireContext().getDrawable(R.drawable.edittext_border_select)
-//                binding.loginLogo.visibility = View.GONE
+                binding.loginLogo.visibility = View.GONE
             } else {
                 binding.loginPw.background =
                     requireContext().getDrawable(R.drawable.edittext_border)
-                binding.loginLogo.visibility = View.VISIBLE
             }
         }
+
+
 //
         //비밀번호 엔터 눌렀을 때 -> 로그인까지
         binding.loginPwEt.setOnKeyListener { v, keyCode, event ->
@@ -235,6 +244,7 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
             binding.loginPwEt.text.toString(),
             binding.loginAuto.isChecked
         )
+        binding.loginLogo.visibility = View.VISIBLE
     }
 
     fun findEmailClick(view: View) {
