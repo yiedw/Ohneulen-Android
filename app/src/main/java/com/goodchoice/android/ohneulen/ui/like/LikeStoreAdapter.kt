@@ -39,10 +39,12 @@ class LikeStoreAdapter
                 likeStore = item
                 likeStoreItemLike.isSelected = true
                 if (item.image.isNotEmpty()) {
+                    //이미지가 없을때
                     Glide.with(binding.likeStoreItemImage.context)
                         .load("${BaseUrl.OHNEULEN}${item.image[0].photoURL}").centerCrop()
                         .into(binding.likeStoreItemImage)
                 } else {
+                    //이미지가 있을때
                     Glide.with(binding.likeStoreItemImage.context)
                         .load(ContextCompat.getDrawable(root.context, R.drawable.search_no_img))
                         .into(binding.likeStoreItemImage)

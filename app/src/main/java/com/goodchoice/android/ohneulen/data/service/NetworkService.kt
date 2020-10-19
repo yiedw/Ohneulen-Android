@@ -48,7 +48,7 @@ interface NetworkService {
     ): GetStoreInfoResponse
 
     //스토어 리스트 검색
-    @POST("store/searchList")
+    @POST("api/searchList")
     @FormUrlEncoded
     suspend fun requestStoreSearchList(
         @Field("addry[]") addry: List<Double>,
@@ -105,7 +105,7 @@ interface NetworkService {
         @Field("reviewImgList[]") reviewImgList: List<String>
     ): GetEmptyDataResponse
 
-    @POST("/common/imgupload")
+    @POST("/api/imgupload")
     @Multipart
     suspend fun requestImageUpload(
         @Part file: MultipartBody.Part
