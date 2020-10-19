@@ -32,13 +32,16 @@ interface NetworkService {
     @POST("api/getmemberinfo")
     suspend fun requestMemberInfo(): GetMemberInfoResponse
 
+    //멤버 탈퇴
+    @POST("api/memberexit")
+    suspend fun requestMemberExit(): GetEmptyDataResponse
+
     //필터 항목 받아오기
     @POST("api/getcodelist")
     @FormUrlEncoded
     suspend fun requestOhneulenData(
         @Field("majorCode") majorCode: String
     ): OhneulenResponse
-
 
     //스토어 디테일 받아오기
     @POST("api/getstoreinfo")

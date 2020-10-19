@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
-import com.goodchoice.android.ohneulen.databinding.MypageSecessionAppbarBinding
+import com.goodchoice.android.ohneulen.databinding.MypageWithdrawalAppbarBinding
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.replaceMainFragment
@@ -16,7 +16,7 @@ class MyPageWithdrawalAppBar :Fragment(),OnBackPressedListener{
     companion object{
         fun newInstance()=MyPageWithdrawalAppBar()
     }
-    private lateinit var binding:MypageSecessionAppbarBinding
+    private lateinit var binding:MypageWithdrawalAppbarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +25,7 @@ class MyPageWithdrawalAppBar :Fragment(),OnBackPressedListener{
     ): View? {
         binding=DataBindingUtil.inflate(
             inflater,
-            R.layout.mypage_secession_appbar,
+            R.layout.mypage_withdrawal_appbar,
             container,
             false
         )

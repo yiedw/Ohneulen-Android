@@ -37,4 +37,5 @@
     <string name="terms_title_sub1">제 1 조 (목적)</string>
     <string name="terms_title_main1">[1장 총칙]</string>
     <string name="terms_contents1_1">본 약관은 (주)굿초이스(이하 &quot;회사&quot;)이 홈페이지 및 어플리케이션 등을 통하여 제공하는 오늘은 서비스(이하 &quot;서비스&quot;)와 관련하여 &quot;회사&quot;와 &quot;회원&quot;(제2조에서 정의합니다) 간의 권리, 의무, 책임사항 및 &quot;회원&quot;의 &quot;서비스&quot; 이용 절차에 관한 사항을 규정함을 목적으로 합니다.</string>
+    <string name="mypage_withdrawal_warning">1. 회원 탈퇴 시, 현재 로그인된 아이디는 즉시 탈퇴 처리됩니다. \n2. 회원 탈퇴 시, 회원 전용 웹 서비스 이용이 불가합니다. \n3. 탈퇴 시 회원 정보 및 찜 서비스, 등록한 게시물 이용 기록이 모두 삭제됩니다. \n4. 회원 정보 및 서비스 이용 기록은 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다.</string>
 </resources>

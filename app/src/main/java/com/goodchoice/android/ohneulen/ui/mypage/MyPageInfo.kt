@@ -120,8 +120,8 @@ class MyPageInfo : Fragment() {
     }
 
     fun withdrawalClick(view: View) {
-//        replaceAppbarFragment(MyPageWithdrawalAppBar.newInstance())
-//        replaceMainFragment(MyPageWithdrawal.newInstance())
+        replaceAppbarFragment(MyPageWithdrawalAppBar.newInstance())
+        replaceMainFragment(MyPageWithdrawal.newInstance())
     }
 
     fun submitClick(view: View) {

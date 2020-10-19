@@ -65,8 +65,8 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel() 
     }
 
     fun setInquireList(gubun1: String, title: String, contents: String) {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 //001 -> 1:1 문의
                 val response = networkService.requestSetBoard(
                     ConstList.MYPAGE_INQUIRE,
@@ -78,24 +78,37 @@ class MyPageViewModel(private val networkService: NetworkService) : ViewModel() 
                 if (response.resultCode == ConstList.SUCCESS) {
                     getInquireList()
                 }
+            } catch (e: Exception) {
+                Timber.e(e.toString())
             }
-        } catch (e: Exception) {
-            Timber.e(e.toString())
         }
     }
 
     var memberUpdateResponse = MutableLiveData<GetEmptyDataResponse>()
     fun memberUpdate(oldPw: String, newPw: String, rePw: String, nickName: String? = null) {
 
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 val response = networkService.requestMemberUpdate(
                     oldPw, newPw, rePw, nickName
                 )
                 memberUpdateResponse.postValue(response)
+            } catch (e: Exception) {
+                Timber.e(e)
             }
-        } catch (e: Exception) {
+        }
+    }
 
+    var memberExitResponse = MutableLiveData<GetEmptyDataResponse>()
+    fun memberExit() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = networkService.requestMemberExit()
+                memberExitResponse.postValue(response)
+
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
     }
 
