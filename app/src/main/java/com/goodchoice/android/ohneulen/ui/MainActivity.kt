@@ -154,10 +154,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     //뒤로가기 버튼 제어
     override fun onBackPressed() {
         val fragmentList: List<Fragment> =
-            supportFragmentManager.fragments
+            supportFragmentManager.fragments.reversed() //가장 최근순부터 검색할수 있게
+        Timber.e(fragmentList.toString())
         for (fragment in fragmentList) {
             if (fragment is OnBackPressedListener) {
                 (fragment as OnBackPressedListener).onBackPressed()
+                //onBackPressedListener 가장 최근꺼 하나만 가져오기
+                break
             }
         }
     }

@@ -64,7 +64,7 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
             binding.searchAppbarEt.setText(mainViewModel.searchEditText)
         }
 
-        searchViewModel.searchAppbarFirst=false
+        searchViewModel.searchAppbarFirst = false
 
         binding.fragment = this
         return binding.root
@@ -133,12 +133,22 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
         MainActivity.supportFragmentManager.beginTransaction().setCustomAnimations(
             R.anim.enter_right_to_left,
             R.anim.exit_left_to_right,
-            R.anim.exit_left_to_right,
+            R.anim.enter_right_to_left,
             R.anim.exit_left_to_right
-        ).add(MainActivity.mainFrameLayout.id, SearchFilter.newInstance())
+        )
+            .add(R.id.main_frameLayout, SearchFilter.newInstance())
+            .add(R.id.appbar_frameLayout, SearchFilterAppbar.newInstance())
             .addToBackStack(null)   //전에 검색화면을 남겨둬야 하므로 add
             .commit()
-        replaceAppbarFragment(SearchFilterAppbar.newInstance())
+//        MainActivity.supportFragmentManager.beginTransaction().setCustomAnimations(
+//            R.anim.enter_right_to_left,
+//            R.anim.stay_still,
+//            R.anim.enter_right_to_left,
+//            R.anim.exit_left_to_right
+//        ).replace(R.id.appbar_frameLayout, SearchFilterAppbar.newInstance())
+//            .commit()
+//        MainActivity.supportFragmentManager.beginTransaction().commit()
+//        replaceAppbarFragment(SearchFilterAppbar.newInstance())
 
     }
 
