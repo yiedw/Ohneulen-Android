@@ -26,6 +26,7 @@ import com.goodchoice.android.ohneulen.data.model.OhneulenData
 import com.goodchoice.android.ohneulen.data.repository.InitData
 import com.goodchoice.android.ohneulen.databinding.SearchFilterBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.dpToPx
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.typefaceBold
@@ -35,7 +36,7 @@ import timber.log.Timber
 import java.lang.reflect.Type
 
 
-class SearchFilter : Fragment() {
+class SearchFilter : Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance() = SearchFilter()
     }
@@ -49,12 +50,21 @@ class SearchFilter : Fragment() {
     var position = 0
     private var previousPosition = 0
 
+
+    private var tempCate = mutableListOf<String>()
+    private var tempOption = mutableListOf<String>()
+    private var tempOpenTime = mutableListOf<String>()
+    private var tempSort = mutableListOf<String>()
+    private var tempRating = false
+    private var tempRecent = false
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        dataSave()
         Handler().postDelayed(300) {
             val animation = AlphaAnimation(0f, 1f)
             MainActivity.bottomNav.visibility = View.GONE
-            MainActivity.bottomNav.animation = animation
+//            MainActivity.bottomNav.animation = animation
         }
     }
 
@@ -388,6 +398,7 @@ class SearchFilter : Fragment() {
         }
     }
 
+    //토글버튼 생성
     private fun toggleButtonGenerate(
         gridLayout: GridLayout,
         mutableList: MutableList<OhneulenData>
@@ -498,8 +509,88 @@ class SearchFilter : Fragment() {
         binding.searchFilterChoiceBackground.startAnimation(animate)
     }
 
+    // 필터 데이터 관리
 
-    fun filterClick(view: View) {
+    //저장
+    private fun dataSave() {
+        tempCate = deepCopy(searchViewModel.cate)
+        tempOption = deepCopy(searchViewModel.option)
+        tempOpenTime = deepCopy(searchViewModel.openTime)
+        tempSort = deepCopy(searchViewModel.sort)
+        tempRating = searchViewModel.checkSortRating
+        tempRecent = searchViewModel.checkSortRecent
+    }
+
+    //되돌리기 (직전 필터세팅을 저장하기 위함)
+    private fun dataRevert() {
+        searchViewModel.cate = tempCate
+        searchViewModel.option = tempOption
+        searchViewModel.openTime = tempOpenTime
+        searchViewModel.sort = tempSort
+        searchViewModel.tempCateOhneulenData.clear()
+
+        //카테고리(음식)
+        for (i in initData.subCategoryList.indices) {
+            for (j in initData.subCategoryList[i].indices) {
+                for (k in tempCate.indices) {
+                    if (initData.subCategoryList[i][j].majorCode + initData.subCategoryList[i][j].minorCode == tempCate[k]) {
+                        initData.subCategoryList[i][j].check = true
+                        searchViewModel.tempCateOhneulenData.add(initData.subCategoryList[i][j])
+                        break
+                    } else if (k == tempCate.size - 1) {
+                        initData.subCategoryList[i][j].check = false
+                    }
+                }
+                if (tempCate.size == 0) {
+                    initData.subCategoryList[i][j].check = false
+                }
+            }
+        }
+
+        //옵션
+        for (i in initData.mainOptionKind.indices) {
+            for (j in searchViewModel.option.indices) {
+                if (initData.mainOptionKind[i].minorCode == searchViewModel.option[j]) {
+                    initData.mainOptionKind[i].check = true
+                    break
+                } else if (j == searchViewModel.option.size - 1) {
+                    initData.mainOptionKind[i].check = false
+                }
+            }
+            if (searchViewModel.option.size == 0) {
+                initData.mainOptionKind[i].check = false
+            }
+        }
+
+        //영업일
+        for (i in initData.timeDay.indices) {
+            for (j in searchViewModel.openTime.indices) {
+                if (initData.timeDay[i].minorCode == searchViewModel.openTime[j]) {
+                    initData.timeDay[i].check = true
+                    break
+                } else if (j == searchViewModel.openTime.size - 1) {
+                    initData.timeDay[i].check = false
+                }
+            }
+            if (searchViewModel.openTime.size == 0) {
+                initData.timeDay[i].check = false
+            }
+        }
+
+        //정렬
+        searchViewModel.checkSortRating = tempRating
+        searchViewModel.checkSortRecent = tempRecent
+    }
+
+    private fun deepCopy(list: MutableList<String>): MutableList<String> {
+        var tempList = mutableListOf<String>()
+        tempList = list.toMutableList()
+        return tempList
+    }
+
+    // click event
+
+    fun onFilterClick(view: View) {
         if (view == binding.searchFilterFood && checkFood)
             return
         else if (view == binding.searchFilterOptions && !checkFood)
@@ -523,7 +614,7 @@ class SearchFilter : Fragment() {
     }
 
 
-    fun sortButtonClick(view: View) {
+    fun onSortButtonClick(view: View) {
         if (view == binding.searchFilterRecent) {
             //최근순 클릭
             searchViewModel.sort.add("date")
@@ -589,7 +680,7 @@ class SearchFilter : Fragment() {
         }
     }
 
-    fun resetClick(view: View) {
+    fun onResetClick(view: View) {
         //음식선택일때
         if (checkFood) {
             if (searchViewModel.tempCateOhneulenData.isNullOrEmpty()) {
@@ -650,11 +741,23 @@ class SearchFilter : Fragment() {
 
     }
 
-    fun submitClick(view: View) {
+    fun onSubmitClick(view: View) {
         Toast.makeText(requireContext(), "적용되었습니다", Toast.LENGTH_SHORT).show()
         searchViewModel.getSearchStoreList()
         replaceAppbarFragment(SearchAppBar.newInstance(true))
 //        MainActivity.supportFragmentManager.popBackStack()
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    fun onBackClick(view: View) {
+        dataRevert()
+        MainActivity.bottomNav.visibility = View.VISIBLE
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    override fun onBackPressed() {
+        dataRevert()
+        MainActivity.bottomNav.visibility = View.VISIBLE
         MainActivity.supportFragmentManager.popBackStack()
     }
 

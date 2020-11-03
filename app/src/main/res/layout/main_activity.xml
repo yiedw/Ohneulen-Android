@@ -24,16 +24,15 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:id="@+id/appbar_frameLayout"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:background="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </FrameLayout>
+        <!--        <FrameLayout-->
+        <!--            android:id="@+id/appbar_frameLayout"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="48dp"-->
+        <!--            android:background="@color/white"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
+        <!--        </FrameLayout>-->
 
         <FrameLayout
             android:id="@+id/main_frameLayout"
@@ -43,7 +42,7 @@
             app:layout_constraintBottom_toTopOf="@id/main_bottom_nav"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appbar_frameLayout"
+            app:layout_constraintTop_toTopOf="parent"
             tools:context=".ui.MainActivity" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

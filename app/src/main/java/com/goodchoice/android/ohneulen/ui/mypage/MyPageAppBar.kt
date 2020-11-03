@@ -71,13 +71,6 @@ class MyPageAppBar : Fragment(), OnBackPressedListener {
 
         }
         dialog.show()
-
-
-    }
-
-    fun backClick(view: View) {
-        MainActivity.bottomNav.visibility = View.VISIBLE
-        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
     }
 
     override fun onBackPressed() {

@@ -8,13 +8,15 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
-import android.view.*
-import android.view.animation.AlphaAnimation
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginBottom
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,27 +30,24 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.dialog.LoadingDialog
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
-import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.ui.store.StoreFragment
 import com.goodchoice.android.ohneulen.ui.store.StoreViewModel
-import com.goodchoice.android.ohneulen.util.addMainFragment
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.dpToPx
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import com.goodchoice.android.ohneulen.util.setHeight
 import com.google.maps.android.ui.IconGenerator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.search.*
 import net.daum.mf.map.api.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.concurrent.schedule
 
-class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventListener {
+class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventListener,
+    OnBackPressedListener {
 
     companion object {
         fun newInstance() = Search()
@@ -84,11 +83,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        val animation = AlphaAnimation(0f, 1f)
-//        MainActivity.bottomNav.animation = animation
         MainActivity.bottomNav.visibility = View.VISIBLE
-
-
         binding =
             DataBindingUtil.inflate(
                 inflater,
@@ -96,6 +91,24 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 container,
                 false
             )
+
+
+        //header
+        if (!mainViewModel.currentLocationSearch) {
+            //서치페이지가 처음인지 , 홈 -> 검색 or 바텀네비바 클릭인지
+            if (searchViewModel.searchFirst || mainViewModel.searchCheck) {
+                if (mainViewModel.searchEditText.isEmpty()) {
+                    mainViewModel.searchEditText = "강남역"
+                }
+                //home에서 검색한 결과를 가져옴
+                searchViewModel.searchEditText = mainViewModel.searchEditText
+                //검색한 결과를 이용해서 위치를 가져옴
+                searchViewModel.getSearchMapData()
+            }
+            binding.searchHeaderEt.setText(searchViewModel.searchEditText)
+        }
+        searchViewModel.searchFirst = false
+
         storeListHashMap = HashMap()
 
         //바인딩
@@ -104,14 +117,16 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             binding.fragment = this@Search
             viewModel = searchViewModel
         }
+
+        //맵 세팅
         mapView = MapView(requireContext())
         mapViewContainer = binding.searchMap
         mapView.setZoomLevel(3, false)
 
         if (mapViewContainer.childCount == 0) {
             binding.searchMap.post {
-            //맵뷰를 네비바제외한 넓이에 딱 맞춰줌(네비바가 없어질때 지도이동을 막기 위해)
-            val height=MainActivity.mainFrameLayout.height
+                //맵뷰를 네비바제외한 넓이에 딱 맞춰줌(네비바가 없어질때 지도이동을 막기 위해)
+                val height = MainActivity.mainFrameLayout.height
                 binding.searchMap.setHeight(height)
             }
             mapViewContainer.addView(mapView)
@@ -124,6 +139,41 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //header
+
+        //키보드 엔터키 설정
+        binding.searchHeaderEt.setOnEditorActionListener { v, actionId, event ->
+            if (!binding.searchHeaderEt.text.toString().isBlank()) {
+                val imm: InputMethodManager =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.searchHeaderEt.windowToken, 0)
+                mainViewModel.searchEditText = binding.searchHeaderEt.text.toString()
+                searchViewModel.searchEditText = binding.searchHeaderEt.text.toString()
+                searchViewModel.getSearchMapData()
+            } else {
+                Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)
+                    .show()
+            }
+            return@setOnEditorActionListener false
+        }
+
+        //실시간 으로 글자를 인식 -> clear 표시 유무를 설정
+        binding.searchHeaderEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.searchHeaderEt.text.toString().isEmpty()) {
+                    binding.searchHeaderClear.visibility = View.GONE
+                } else {
+                    binding.searchHeaderClear.visibility = View.VISIBLE
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
 
 
         //RecyclerviewSetting
@@ -167,7 +217,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 slideDown(
                     binding.searchMap.height - binding.searchInfoCon.height.toFloat(),
                     //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
-                    MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
+                    MainActivity.bottomNav.y,
+//                    MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
                     //높이는 그대로
                     binding.searchStoreFrameLayout.height
                 )
@@ -193,7 +244,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                         0f,
                         binding.searchInfoCon.height.toFloat(),
                         //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
-                        (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - binding.searchInfoCon.height).toInt()
+//                        (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - binding.searchInfoCon.height).toInt()
+                        (MainActivity.bottomNav.y - binding.searchInfoCon.height).toInt()
                     )
 //                    binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
                     binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
@@ -215,7 +267,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     slideDown(
                         searchStat1Y.toFloat(),
                         searchStat1Y.toFloat() + binding.searchInfoCon.height,
-                        (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - binding.searchInfoCon.y - binding.searchInfoCon.height).toInt()
+//                        (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - binding.searchInfoCon.y - binding.searchInfoCon.height).toInt()
+                        (MainActivity.bottomNav.y - binding.searchInfoCon.y - binding.searchInfoCon.height).toInt()
                     )
                     //다시 배경에 지도 보이게
                     binding.searchInfoCon.background = ContextCompat.getDrawable(
@@ -257,7 +310,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                 slideDown(
                     binding.searchMap.height - v.height.toFloat(),
                     //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
-                    MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
+                    MainActivity.bottomNav.y,
+//                    MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
                     //높이는 그대로
                     binding.searchStoreFrameLayout.height
                 )
@@ -272,87 +326,87 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
 
                 return@setOnTouchListener false
             }
-            when (event.action) {
-                //뷰를 터치했을 때 최초 한번만 발생하는 Action
-                MotionEvent.ACTION_DOWN -> {
-                    initTouchEventY = event.y
-                    initY = v.y
-
-                }
-                //뷰를 드래그 했을 때 지속적으로 발생하는 Action
-                MotionEvent.ACTION_MOVE -> {
-                    //appbar 높이
-                    val appBarHeight = MainActivity.appbarFrameLayout.height
-                    //statusBar 높이
-                    val statusBarHeight =
-                        requireContext().resources.getDimensionPixelSize(R.dimen.status_bar_height)
-
-                    //getRawY -> 화면의 절대 좌표를 제공
-                    //getY -> 방법에따라 절대좌표 or 상대좌표를 제공
-                    //절대좌표 - appbarHeight - statusBarHeight - 초기 터치위치의 y값 (상대좌표)
-                    v.y = (event.rawY - appBarHeight - statusBarHeight - initTouchEventY)
-                    binding.searchStoreFrameLayout.y = v.y + v.height
-
-                    //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
-                    binding.searchStoreFrameLayout.layoutParams.also { lp ->
-                        lp.height =
-                            (MainActivity.bottomNav.y + MainActivity.bottomNav.height).toInt()
-                    }
-                    binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
-
-                }
-                MotionEvent.ACTION_UP -> {
-                    if (searchStat == 0) {      //지도가 전체를 덮은경우일때
-                        if (v.y < initY) {       //터치를 놨을때 기존위치보다 높을경우
-                            slideUp(
-                                searchStat1Y.toFloat(),
-                                searchStat1Y + v.height.toFloat(),
-                                //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
-                                (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - searchStat1Y - v.height).toInt()
-                            )
-//                            binding.searchMap.translationY =
-//                                (searchStat1Y - binding.searchMap.height) / 2.toFloat()  //map 중앙이 가려지기때문에 조금 이동(범위를 늘려서 필요없음)
-                            searchStat = 1  //지도가 반만 덮은 상태
-                        } else {
-                            slideUp(
-                                initY,
-                                initY + binding.searchInfoCon.height,
-                                binding.searchStoreFrameLayout.height
-                            )
-                        }
-                    }
-                    //지도가 반만 덮은상태일때
-                    else if (searchStat == 1) {
-                        if (v.y < initY) {
-                            slideUp(
-                                0f,
-                                binding.searchInfoCon.height.toFloat(),
-                                //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
-                                (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.height).toInt()
-                            )
-                            binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
-                            binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
-                            binding.searchOpen.visibility = View.VISIBLE  // open 이미지 보여줌
-                            v.setBackgroundColor(requireContext().getColor(R.color.white))    //뒤에 지도배경 삭제
-                            searchStat = 2  //리스트가 맵을 덮은상태
-
-                        } else {
-                            slideDown(
-                                binding.searchMap.height - v.height.toFloat(),
-                                //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
-                                MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
-                                //높이는 그대로
-                                binding.searchStoreFrameLayout.height
-                            )
-//                            binding.searchMap.translationY = 0f     //지도위치를 다시 중앙으로 이동(범위를 늘려서 필요없음)
-                            searchStat = 0  //맵이 리스트를 덮은상태
-                        }
-                    }
-
-
-                }
-
-            }
+//            when (event.action) {
+//                //뷰를 터치했을 때 최초 한번만 발생하는 Action
+//                MotionEvent.ACTION_DOWN -> {
+//                    initTouchEventY = event.y
+//                    initY = v.y
+//
+//                }
+//                //뷰를 드래그 했을 때 지속적으로 발생하는 Action
+//                MotionEvent.ACTION_MOVE -> {
+//                    //appbar 높이
+//                    val appBarHeight = MainActivity.appbarFrameLayout.height
+//                    //statusBar 높이
+//                    val statusBarHeight =
+//                        requireContext().resources.getDimensionPixelSize(R.dimen.status_bar_height)
+//
+//                    //getRawY -> 화면의 절대 좌표를 제공
+//                    //getY -> 방법에따라 절대좌표 or 상대좌표를 제공
+//                    //절대좌표 - appbarHeight - statusBarHeight - 초기 터치위치의 y값 (상대좌표)
+//                    v.y = (event.rawY - appBarHeight - statusBarHeight - initTouchEventY)
+//                    binding.searchStoreFrameLayout.y = v.y + v.height
+//
+//                    //search List 가 짤려나오는 현상을 해결하기 위해 드래그시에는 순간적으로 뷰 높이를 디스플레이 높이로 설정
+//                    binding.searchStoreFrameLayout.layoutParams.also { lp ->
+//                        lp.height =
+//                            (MainActivity.bottomNav.y + MainActivity.bottomNav.height).toInt()
+//                    }
+//                    binding.searchStoreFrameLayout.requestLayout()   //뷰 새로고침
+//
+//                }
+//                MotionEvent.ACTION_UP -> {
+//                    if (searchStat == 0) {      //지도가 전체를 덮은경우일때
+//                        if (v.y < initY) {       //터치를 놨을때 기존위치보다 높을경우
+//                            slideUp(
+//                                searchStat1Y.toFloat(),
+//                                searchStat1Y + v.height.toFloat(),
+//                                //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
+//                                (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - searchStat1Y - v.height).toInt()
+//                            )
+////                            binding.searchMap.translationY =
+////                                (searchStat1Y - binding.searchMap.height) / 2.toFloat()  //map 중앙이 가려지기때문에 조금 이동(범위를 늘려서 필요없음)
+//                            searchStat = 1  //지도가 반만 덮은 상태
+//                        } else {
+//                            slideUp(
+//                                initY,
+//                                initY + binding.searchInfoCon.height,
+//                                binding.searchStoreFrameLayout.height
+//                            )
+//                        }
+//                    }
+//                    //지도가 반만 덮은상태일때
+//                    else if (searchStat == 1) {
+//                        if (v.y < initY) {
+//                            slideUp(
+//                                0f,
+//                                binding.searchInfoCon.height.toFloat(),
+//                                //searchStoreFrameLayout height 전체 뷰에 맞게 재설정
+//                                (MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height - v.height).toInt()
+//                            )
+//                            binding.searchStoreFrameLayout.requestLayout()       // 레이아웃 새로고침
+//                            binding.searchSlide.visibility = View.GONE    // 슬라이드이미지 숨김
+//                            binding.searchOpen.visibility = View.VISIBLE  // open 이미지 보여줌
+//                            v.setBackgroundColor(requireContext().getColor(R.color.white))    //뒤에 지도배경 삭제
+//                            searchStat = 2  //리스트가 맵을 덮은상태
+//
+//                        } else {
+//                            slideDown(
+//                                binding.searchMap.height - v.height.toFloat(),
+//                                //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
+//                                MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
+//                                //높이는 그대로
+//                                binding.searchStoreFrameLayout.height
+//                            )
+////                            binding.searchMap.translationY = 0f     //지도위치를 다시 중앙으로 이동(범위를 늘려서 필요없음)
+//                            searchStat = 0  //맵이 리스트를 덮은상태
+//                        }
+//                    }
+//
+//
+//                }
+//
+//            }
             true
         }
 
@@ -376,7 +430,8 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
                     slideDown(
                         binding.searchMap.height - binding.searchInfoCon.height.toFloat(),
                         //view y가 아직 정해지지않았기때문에 MainActivity UI 좌표를 가져다 씀
-                        MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
+                        MainActivity.bottomNav.y,
+//                        MainActivity.bottomNav.y - MainActivity.appbarFrameLayout.height,
                         //높이는 그대로
                         binding.searchStoreFrameLayout.height
                     )
@@ -736,7 +791,7 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
             R.anim.enter_left_to_right,
             R.anim.exit_left_to_right
         )
-        fragmentManager.replace(R.id.appbar_frameLayout, StoreAppBar.newInstance())
+//        fragmentManager.replace(R.id.appbar_frameLayout, StoreAppBar.newInstance())
         fragmentManager.add(R.id.main_frameLayout, StoreFragment.newInstance())
         fragmentManager.addToBackStack(null)
         fragmentManager.commit()
@@ -779,5 +834,46 @@ class Search : Fragment(), MapView.POIItemEventListener, MapView.MapViewEventLis
     override fun onMapViewLongPressed(p0: MapView?, p1: MapPoint?) {
     }
 
+    //검색을 클릭했을때
+    fun onSubmitClick(view: View) {
+        if (!binding.searchHeaderEt.text.toString().isBlank()) {
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.searchHeaderEt.windowToken, 0)
+            mainViewModel.searchEditText = binding.searchHeaderEt.text.toString()
+            searchViewModel.searchEditText = binding.searchHeaderEt.text.toString()
+            searchViewModel.getSearchMapData()
+        } else {
+            Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    //클리어 클릭했을때
+    fun onClearClick(view: View) {
+        binding.searchHeaderEt.text.clear()
+    }
+
+    //필터를 클릭했을때
+    fun onFilterClick(view: View) {
+        mainViewModel.searchEditText = binding.searchHeaderEt.text.toString()
+        searchViewModel.searchEditText = binding.searchHeaderEt.text.toString()
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        MainActivity.supportFragmentManager.beginTransaction().setCustomAnimations(
+            R.anim.enter_right_to_left,
+            R.anim.exit_left_to_right,
+            R.anim.enter_right_to_left,
+            R.anim.exit_left_to_right
+        )
+            .add(R.id.main_frameLayout, SearchFilter.newInstance())
+            .addToBackStack(null)   //전에 검색화면을 남겨둬야 하므로 add
+            .commit()
+    }
+
+    override fun onBackPressed() {
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
+    }
 
 }

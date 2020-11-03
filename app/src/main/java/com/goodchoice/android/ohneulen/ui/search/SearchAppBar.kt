@@ -17,7 +17,6 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.MainViewModel
 import com.goodchoice.android.ohneulen.ui.store.StoreAppBar
 import com.goodchoice.android.ohneulen.util.OnBackPressedListener
-import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,20 +50,19 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
         )
 
         if (!mainViewModel.currentLocationSearch) {
-            if (searchViewModel.searchAppbarFirst || mainViewModel.searchCheck) {
+            if (searchViewModel.searchFirst) {
                 if (mainViewModel.searchEditText.isEmpty()) {
                     mainViewModel.searchEditText = "강남역"
                 }
                 searchViewModel.searchEditText = mainViewModel.searchEditText
                 searchViewModel.getSearchMapData()
-                searchViewModel.searchAppbarFirst = false
-                mainViewModel.searchCheck = false
+                searchViewModel.searchFirst = false
 
             }
             binding.searchAppbarEt.setText(mainViewModel.searchEditText)
         }
 
-        searchViewModel.searchAppbarFirst = false
+        searchViewModel.searchFirst = false
 
         binding.fragment = this
         return binding.root
@@ -137,7 +135,6 @@ class SearchAppBar(private var back: Boolean) : Fragment(), OnBackPressedListene
             R.anim.exit_left_to_right
         )
             .add(R.id.main_frameLayout, SearchFilter.newInstance())
-            .add(R.id.appbar_frameLayout, SearchFilterAppbar.newInstance())
             .addToBackStack(null)   //전에 검색화면을 남겨둬야 하므로 add
             .commit()
 //        MainActivity.supportFragmentManager.beginTransaction().setCustomAnimations(

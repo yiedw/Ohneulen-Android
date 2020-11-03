@@ -1,11 +1,14 @@
 package com.goodchoice.android.ohneulen.ui.mypage
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.AlphaAnimation
+import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,10 +18,11 @@ import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.login.Login
 import com.goodchoice.android.ohneulen.ui.login.LoginAppBar
 import com.goodchoice.android.ohneulen.ui.login.LoginViewModel
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class MyPage : Fragment() {
+class MyPage : Fragment(),OnBackPressedListener {
 
     companion object {
         fun newInstance() = MyPage()
@@ -95,7 +99,7 @@ class MyPage : Fragment() {
     }
 
 
-    fun infoClick(view: View) {
+    fun onInfoClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -105,7 +109,7 @@ class MyPage : Fragment() {
         )
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.addToBackStack(null)
-            fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
+//            fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
             fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
@@ -114,13 +118,13 @@ class MyPage : Fragment() {
             return
         }
         fragmentManager.addToBackStack(null)
-        fragmentManager.replace(R.id.appbar_frameLayout,MyPageInfoAppBar.newInstance())
+//        fragmentManager.replace(R.id.appbar_frameLayout,MyPageInfoAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout,MyPageInfo.newInstance())
         fragmentManager.commit()
 
     }
 
-    fun likeClick(view: View) {
+    fun onLikeClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -130,7 +134,7 @@ class MyPage : Fragment() {
         )
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.addToBackStack(null)
-            fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
+//            fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
             fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
@@ -141,7 +145,7 @@ class MyPage : Fragment() {
         MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_like
     }
 
-    fun recentClick(view: View) {
+    fun onRecentClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -151,7 +155,6 @@ class MyPage : Fragment() {
         )
         fragmentManager.addToBackStack(null)
         if (!LoginViewModel.isLogin.value!!) {
-            fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
             fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
@@ -159,11 +162,10 @@ class MyPage : Fragment() {
             fragmentManager.commit()
             return
         }
-        fragmentManager.replace(R.id.appbar_frameLayout, MyPageRecentAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout, MyPageRecent.newInstance())
     }
 
-    fun reviewClick(view: View) {
+    fun onReviewClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -173,7 +175,6 @@ class MyPage : Fragment() {
         )
         fragmentManager.addToBackStack(null)
         if (!LoginViewModel.isLogin.value!!) {
-            fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
             fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
@@ -181,12 +182,11 @@ class MyPage : Fragment() {
             fragmentManager.commit()
             return
         }
-        fragmentManager.replace(R.id.appbar_frameLayout, MyPageReviewAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout, MyPageReview.newInstance())
         fragmentManager.commit()
     }
 
-    fun inquireClick(view: View) {
+    fun onInquireClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -196,7 +196,6 @@ class MyPage : Fragment() {
         )
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.addToBackStack(null)
-            fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
             fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
@@ -204,13 +203,12 @@ class MyPage : Fragment() {
             fragmentManager.commit()
             return
         }
-        fragmentManager.replace(R.id.appbar_frameLayout, MyPageInquireAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout, MyPageInquire.newInstance())
         fragmentManager.addToBackStack(null)
         fragmentManager.commit()
     }
 
-    fun FAQClick(view: View) {
+    fun onFAQClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -218,13 +216,12 @@ class MyPage : Fragment() {
             R.anim.enter_left_to_right,
             R.anim.exit_left_to_right
         )
-        fragmentManager.replace(R.id.appbar_frameLayout, MyPageFAQAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout, MyPageFAQ.newInstance())
         fragmentManager.addToBackStack(null)
         fragmentManager.commit()
     }
 
-    fun termsClick(view: View) {
+    fun onTermsClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -232,13 +229,12 @@ class MyPage : Fragment() {
             R.anim.enter_left_to_right,
             R.anim.exit_left_to_right
         )
-        fragmentManager.replace(R.id.appbar_frameLayout, MyPageTermsAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout, MyPageTerms.newInstance())
         fragmentManager.addToBackStack(null)
         fragmentManager.commit()
     }
 
-    fun term2Click(view: View) {
+    fun onTerm2Click(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -246,13 +242,12 @@ class MyPage : Fragment() {
             R.anim.enter_left_to_right,
             R.anim.exit_left_to_right
         )
-        fragmentManager.replace(R.id.appbar_frameLayout, MyPageTerms2AppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout, MyPageTerms2.newInstance())
         fragmentManager.addToBackStack(null)
         fragmentManager.commit()
     }
 
-    fun companyClick(view: View) {
+    fun onCompanyClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -260,13 +255,12 @@ class MyPage : Fragment() {
             R.anim.enter_left_to_right,
             R.anim.exit_left_to_right
         )
-        fragmentManager.replace(R.id.appbar_frameLayout, MyPageCompanyAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout, MyPageCompany.newInstance())
         fragmentManager.addToBackStack(null)
         fragmentManager.commit()
     }
 
-    fun contactusClick(view: View) {
+    fun onContactUsClick(view: View) {
         val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
         fragmentManager.setCustomAnimations(
             R.anim.enter_right_to_left,
@@ -274,10 +268,27 @@ class MyPage : Fragment() {
             R.anim.enter_left_to_right,
             R.anim.exit_left_to_right
         )
-        fragmentManager.replace(R.id.appbar_frameLayout, MyPageContactusAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout, MyPageContactus.newInstance())
         fragmentManager.addToBackStack(null)
         fragmentManager.commit()
+    }
+
+    fun onLogoutClick(view:View){
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.logout_dialog)
+        dialog.findViewById<Button>(R.id.logout_dialog_cancel).setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.findViewById<Button>(R.id.logout_dialog_ok).setOnClickListener {
+            loginViewModel.logout()
+            dialog.dismiss()
+
+        }
+        dialog.show()
+    }
+    override fun onBackPressed() {
+        MainActivity.bottomNav.selectedItemId = R.id.menu_bottom_nav_home
     }
 
 

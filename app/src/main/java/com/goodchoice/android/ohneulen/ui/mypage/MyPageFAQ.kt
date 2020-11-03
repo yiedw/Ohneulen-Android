@@ -13,11 +13,12 @@ import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageFaqBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
 import com.goodchoice.android.ohneulen.ui.adapter.FAQAdapter
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class MyPageFAQ : Fragment() {
+class MyPageFAQ : Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance() = MyPageFAQ()
     }
@@ -38,6 +39,7 @@ class MyPageFAQ : Fragment() {
             false
         )
         binding.viewModel = myPageViewModel
+        binding.fragment=this
         binding.lifecycleOwner = this
 
         binding.mypageFaqRv.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
@@ -91,6 +93,14 @@ class MyPageFAQ : Fragment() {
         for (i in myPageViewModel.mypageFAQList.value!!) {
             i.check = false
         }
+    }
+
+    fun onBackClick(view: View) {
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    override fun onBackPressed() {
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
 }

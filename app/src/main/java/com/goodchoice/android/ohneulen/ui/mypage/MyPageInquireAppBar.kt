@@ -50,7 +50,6 @@ class MyPageInquireAppBar :Fragment() ,OnBackPressedListener{
         )
         if (!LoginViewModel.isLogin.value!!) {
             fragmentManager.addToBackStack(null)
-            fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
             fragmentManager.replace(
                 R.id.main_frameLayout,
                 Login.newInstance(bottomNavVisibility = true)
@@ -59,7 +58,6 @@ class MyPageInquireAppBar :Fragment() ,OnBackPressedListener{
             return
         }
         fragmentManager.addToBackStack(null)
-        fragmentManager.replace(R.id.appbar_frameLayout,MyPageInquireNewAppBar.newInstance())
         fragmentManager.replace(R.id.main_frameLayout,MyPageInquireNew.newInstance())
         fragmentManager.commit()
 //        replaceMainFragment(MyPageInquireNew.newInstance())

@@ -144,7 +144,6 @@ class SearchStoreAdapter :
                         R.anim.enter_left_to_right,
                         R.anim.exit_left_to_right
                     )
-                    fragmentManager.replace(R.id.appbar_frameLayout, StoreAppBar.newInstance())
                     fragmentManager.add(R.id.main_frameLayout, StoreFragment.newInstance())
                     fragmentManager.addToBackStack(null)
                     fragmentManager.commit()

@@ -26,7 +26,9 @@ class SearchViewModel(private val networkService: NetworkService) :
     var mNetworkService = networkService
     var searchStoreList = MutableLiveData<List<SearchStore>>()
 
-    var searchAppbarFirst = true
+    //서치페이지에 처음들어왔는지 여부
+    //처음이면 강남역을 넣어줌
+    var searchFirst = true
 
     val tempCateOhneulenData = mutableListOf<OhneulenData>()
 

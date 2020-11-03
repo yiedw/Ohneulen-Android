@@ -77,12 +77,9 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
         tempSort = deepCopy(searchViewModel.sort)
         tempRating = searchViewModel.checkSortRating
         tempRecent = searchViewModel.checkSortRecent
-
     }
 
     private fun dataRevert() {
-//        Timber.e(searchViewModel.option.toString())
-//        Timber.e(tempCate.toString())
         searchViewModel.cate = tempCate
         searchViewModel.option = tempOption
         searchViewModel.openTime = tempOpenTime
@@ -140,8 +137,6 @@ class SearchFilterAppbar : Fragment(), OnBackPressedListener {
         //정렬
         searchViewModel.checkSortRating = tempRating
         searchViewModel.checkSortRecent = tempRecent
-
-
     }
 
     private fun deepCopy(list: MutableList<String>): MutableList<String> {

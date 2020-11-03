@@ -14,20 +14,30 @@
         android:id="@+id/home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
         tools:context=".ui.home.Home">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/home_header"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <TextView
             android:id="@+id/home_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/scdream4"
+            android:lineHeight="35dp"
             android:lineSpacingExtra="10dp"
             android:paddingHorizontal="30dp"
             android:textColor="@color/colorBlack"
-            android:textSize="24dp"
+            android:textSize="22dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/home_header" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/home_searchCon"
@@ -46,7 +56,6 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/background_home_search"
                 android:hint="강남역 고기"
-                android:textColorHint="#d7d7d7"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:paddingStart="40dp"
@@ -54,6 +63,7 @@
                 android:paddingEnd="40dp"
                 android:paddingBottom="12dp"
                 android:textColor="@color/colorBlack"
+                android:textColorHint="#d7d7d7"
                 android:textSize="14dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -61,11 +71,11 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingStart="15dp"
                 android:layout_marginTop="1dp"
                 android:focusable="true"
                 android:gravity="center"
                 android:onClick="@{fragment::currentLocationClick}"
+                android:paddingStart="15dp"
                 android:src="@drawable/location"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/home_editText"
@@ -76,23 +86,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
-                android:paddingEnd="5dp"
                 android:paddingStart="13dp"
+                android:paddingEnd="5dp"
                 android:src="@drawable/clear"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/home_search"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/home_search"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingEnd="17dp"
                 android:focusable="true"
                 android:gravity="center"
                 android:onClick="@{fragment::searchOnClick}"
+                android:paddingEnd="17dp"
                 android:src="@drawable/home_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="@id/home_editText"

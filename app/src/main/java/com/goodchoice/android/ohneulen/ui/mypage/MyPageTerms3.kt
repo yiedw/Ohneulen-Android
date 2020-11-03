@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageTerms3Binding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 
-class MyPageTerms3 : Fragment() {
+class MyPageTerms3 : Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance() = MyPageTerms3()
     }
@@ -39,6 +40,7 @@ class MyPageTerms3 : Fragment() {
                 MainActivity.supportFragmentManager.popBackStack()
             }
         })
+        binding.fragment=this
         return binding.root
     }
 
@@ -48,5 +50,13 @@ class MyPageTerms3 : Fragment() {
         val animation = AlphaAnimation(0f, 1f)
         MainActivity.bottomNav.visibility = View.GONE
         MainActivity.bottomNav.animation = animation
+    }
+
+    fun onBackClick(view: View) {
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    override fun onBackPressed() {
+        MainActivity.supportFragmentManager.popBackStack()
     }
 }

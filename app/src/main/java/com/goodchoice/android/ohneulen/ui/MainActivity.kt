@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
      */
     companion object {
         lateinit var supportFragmentManager: FragmentManager
-        lateinit var appbarFrameLayout: FrameLayout
+//        lateinit var appbarFrameLayout: FrameLayout
         lateinit var mainFrameLayout: FrameLayout
         lateinit var bottomNav: BottomNavigationView
         lateinit var initMainFrameLayout: ViewGroup.LayoutParams
@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //        searchViewModel.subCategoryList
 
         Companion.supportFragmentManager = supportFragmentManager
-        appbarFrameLayout = appbar_frameLayout
         mainFrameLayout = main_frameLayout
+//        appbarFrameLayout = appbar_frameLayout
 //        appbarFrameLayout.bringToFront()
         initMainFrameLayout = mainFrameLayout.layoutParams
         bottomNav = main_bottom_nav
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //                    replaceAppbarFragment(StoreAppBar.newInstance())
 //                    replaceMainFragment(StoreFragment.newInstance(), true)
                     val fragmentManager = MainActivity.supportFragmentManager.beginTransaction()
-                    fragmentManager.replace(R.id.appbar_frameLayout, StoreAppBar.newInstance())
+//                    fragmentManager.replace(R.id.appbar_frameLayout, StoreAppBar.newInstance())
                     fragmentManager.replace(R.id.main_frameLayout, StoreFragment.newInstance())
                     fragmentManager.addToBackStack(null)
                     fragmentManager.commit()

@@ -16,6 +16,7 @@ class MainViewModel() : ViewModel() {
     // home -> search 로 data 이동
     var searchEditText = ""
     var currentLocationSearch=false
+    //검색인지 하단 지도탭인지클릭인지
     var searchCheck=false
 
 }

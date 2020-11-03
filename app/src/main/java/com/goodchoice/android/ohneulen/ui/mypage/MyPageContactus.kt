@@ -19,12 +19,13 @@ import androidx.fragment.app.Fragment
 import com.goodchoice.android.ohneulen.R
 import com.goodchoice.android.ohneulen.databinding.MypageContactusBinding
 import com.goodchoice.android.ohneulen.ui.MainActivity
+import com.goodchoice.android.ohneulen.util.OnBackPressedListener
 import com.goodchoice.android.ohneulen.util.OnSwipeGesture
 import com.goodchoice.android.ohneulen.util.addMainFragment
 import com.goodchoice.android.ohneulen.util.constant.ConstList
 import com.goodchoice.android.ohneulen.util.replaceAppbarFragment
 
-class MyPageContactus : Fragment() {
+class MyPageContactus : Fragment(), OnBackPressedListener {
     companion object {
         fun newInstance() = MyPageContactus()
     }
@@ -43,6 +44,7 @@ class MyPageContactus : Fragment() {
             container,
             false
         )
+        binding.fragment=this
         return binding.root
     }
 
@@ -117,6 +119,14 @@ class MyPageContactus : Fragment() {
         binding.mypageContactusFooter.movementMethod = LinkMovementMethod.getInstance()
         binding.mypageContactusFooter.text = mText
 
+    }
+
+    fun onBackClick(view: View) {
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    override fun onBackPressed() {
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
 }

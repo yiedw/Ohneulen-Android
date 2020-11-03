@@ -41,7 +41,9 @@ class Splash : AppCompatActivity() {
         if (view.width != 0) {
             if (!networkCheck(this)) {
                 Toast.makeText(this, "네트워크를 연결해 주세요", Toast.LENGTH_SHORT).show()
-                finish()
+                Timer().schedule(2000L){
+                    finish()
+                }
             } else {
                 Thread.sleep(200)
                 startRevealActivity(view)

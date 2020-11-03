@@ -74,7 +74,6 @@ fun replaceAppbarFragment(
     val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
     if (addToBackStack)
         fragmentTransaction.addToBackStack("")
-    fragmentTransaction.replace(R.id.appbar_frameLayout, fragment, tag).commit()
 }
 
 fun addMainFragment(
@@ -101,7 +100,6 @@ fun addAppbarFragment(
     val fragmentTransaction = MainActivity.supportFragmentManager.beginTransaction()
     if (addToBackStack)
         fragmentTransaction.addToBackStack("")
-    fragmentTransaction.add(R.id.appbar_frameLayout, fragment).commit()
 }
 
 fun popupFragment(fragment: Fragment, tag: String? = null) {
@@ -205,7 +203,6 @@ fun loginDialog(context: Context, bottomNavVisibility: Boolean) {
             R.anim.enter_left_to_right,
             R.anim.exit_left_to_right
         )
-        fragmentManager.replace(R.id.appbar_frameLayout, LoginAppBar.newInstance())
         fragmentManager.add(R.id.main_frameLayout, Login.newInstance(bottomNavVisibility))
         fragmentManager.addToBackStack(null)
         fragmentManager.commit()

@@ -7,8 +7,7 @@ import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
+import android.text.style.*
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -80,6 +80,11 @@ class Home() : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         spanBuilder.setSpan(StyleSpan(Typeface.BOLD), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        //사이즈 변경
+        spanBuilder.setSpan(AbsoluteSizeSpan(26, true), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        //폰트변경
+//        val scdFont5=ResourcesCompat.getFont(requireContext(),R.font.scdream5)
+////        spanBuilder.setSpan(TypefaceSpan(scdFont5),0,3,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.homeTitle.append(spanBuilder)
 
 

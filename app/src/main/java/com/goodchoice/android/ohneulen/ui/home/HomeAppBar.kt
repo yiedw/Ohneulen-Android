@@ -43,13 +43,11 @@ class HomeAppBar :Fragment(),OnBackPressedListener{
             false
         )
         binding.fragment=this
-        MainActivity.appbarFrameLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.white))
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        MainActivity.appbarFrameLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorHeader))
 
     }
 

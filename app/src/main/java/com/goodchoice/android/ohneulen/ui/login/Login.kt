@@ -12,6 +12,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -25,7 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class Login(private val bottomNavVisibility: Boolean, private val popBackStackName: String?) :
-    Fragment() {
+    Fragment(), OnBackPressedListener {
 
     companion object {
         fun newInstance(
@@ -66,8 +67,6 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
         }
         //사라지는 애니메이션을통해 최대한 자연스럽게 만든다
         val animation = AlphaAnimation(0f, 1f)
-        MainActivity.appbarFrameLayout.animation = animation
-        MainActivity.appbarFrameLayout.visibility = View.VISIBLE
 
         //스와이프 기능
         binding.login.setOnTouchListener(object : OnSwipeGesture(requireContext()) {
@@ -82,6 +81,8 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
                 binding.loginLogo.visibility = View.VISIBLE
             }
         })
+
+        binding.fragment = this
         return binding.root
     }
 
@@ -140,7 +141,7 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
                 if (!binding.loginPwEt.text.isNullOrEmpty() && !binding.loginEmailEt.text.isNullOrEmpty()) {
                     binding.loginSubmit.isEnabled = true
                     binding.loginSubmit.background =
-                        requireContext().getDrawable(R.drawable.login_bt_true)
+                        ContextCompat.getDrawable(requireContext(), R.drawable.login_bt_true)
                 }
 
             }
@@ -150,11 +151,11 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
         binding.loginEmailEt.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 binding.loginEmail.background =
-                    requireContext().getDrawable(R.drawable.edittext_border_select)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_border_select)
                 binding.loginLogo.visibility = View.GONE
             } else {
                 binding.loginEmail.background =
-                    requireContext().getDrawable(R.drawable.edittext_border)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_border)
             }
         }
 
@@ -162,11 +163,11 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
         binding.loginPwEt.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 binding.loginPw.background =
-                    requireContext().getDrawable(R.drawable.edittext_border_select)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_border_select)
                 binding.loginLogo.visibility = View.GONE
             } else {
                 binding.loginPw.background =
-                    requireContext().getDrawable(R.drawable.edittext_border)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_border)
             }
         }
 
@@ -281,6 +282,14 @@ class Login(private val bottomNavVisibility: Boolean, private val popBackStackNa
 
     fun autoTvClick(view: View) {
         binding.loginAuto.isChecked = !binding.loginAuto.isChecked
+    }
+
+    fun onBackClick(view: View) {
+        MainActivity.supportFragmentManager.popBackStack()
+    }
+
+    override fun onBackPressed() {
+        MainActivity.supportFragmentManager.popBackStack()
     }
 
 
