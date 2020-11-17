@@ -52,6 +52,8 @@
             android:background="@color/colorWhite"
             android:textAlignment="center"
             app:itemIconSize="24dp"
+            app:itemIconTint="@drawable/bottom_nav_selector"
+            app:itemTextColor="@drawable/bottom_nav_selector"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/menu_bottom_nav" />

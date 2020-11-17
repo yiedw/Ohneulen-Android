@@ -70,25 +70,6 @@ class Home() : Fragment() {
         if (BuildConfig.DEBUG) {
             Toast.makeText(requireContext(), "개발용", Toast.LENGTH_LONG).show()
         }
-        //문자열 색 입히기
-        val title = resources.getString(R.string.home_title)
-        val spanBuilder = SpannableStringBuilder(title)
-        spanBuilder.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorOhneulen)),
-            0,
-            3,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        spanBuilder.setSpan(StyleSpan(Typeface.BOLD), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        //사이즈 변경
-        spanBuilder.setSpan(AbsoluteSizeSpan(26, true), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        //폰트변경
-//        val scdFont5=ResourcesCompat.getFont(requireContext(),R.font.scdream5)
-////        spanBuilder.setSpan(TypefaceSpan(scdFont5),0,3,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        binding.homeTitle.append(spanBuilder)
-
-
-
         binding.homeEditText.setOnEditorActionListener { v, actionId, _ ->
             if (v!!.id == R.id.home_editText && actionId == EditorInfo.IME_ACTION_SEARCH) {
                 mainViewModel.searchEditText = binding.homeEditText.text.toString()

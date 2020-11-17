@@ -365,6 +365,7 @@ class SearchFilter : Fragment(), OnBackPressedListener {
             }
             //클릭했을때
             childView.setOnClickListener {
+                //클릭되어 있던 뷰 색 제거해주기
                 previousPosition = position
                 position = i
                 val previousView = binding.searchFilterMain.getChildAt(previousPosition)
@@ -379,6 +380,7 @@ class SearchFilter : Fragment(), OnBackPressedListener {
                 )
                 previousView.findViewById<TextView>(R.id.filter_category)
                     .setTypeface(null, Typeface.NORMAL)
+                //새로 클릭한 뷰 색 넣어주기
                 childView.findViewById<TextView>(R.id.filter_category).apply {
                     setTextColor(
                         ContextCompat.getColor(requireContext(), R.color.white)
