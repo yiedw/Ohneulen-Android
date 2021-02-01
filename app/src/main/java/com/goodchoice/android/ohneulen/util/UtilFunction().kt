@@ -93,6 +93,7 @@ fun addMainFragment(
     fragmentTransaction.add(R.id.main_frameLayout, fragment).commit()
 }
 
+
 fun addAppbarFragment(
     fragment: Fragment,
     addToBackStack: Boolean = false
