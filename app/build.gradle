@@ -23,17 +23,10 @@ android {
         applicationId 'com.goodchoice.android.ohneulen'
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 6
-        versionName '0.2.1'
+        versionCode 7
+        versionName '0.2.2'
     }
-    signingConfigs {
-        release {
-            storeFile file('D:\\ketStore\\ohneulen.jks')
-            storePassword 'dhsmfdms1@'
-            keyAlias 'dev'
-            keyPassword 'dhsmfdms1@'
-        }
-    }
+
 
 
 //            multiDexEnabled true
@@ -48,7 +41,7 @@ android {
             buildConfigField "String", "OhneulenFindPw", "\"https://m.ohneulen.com/member/find?g=pw\""
             buildConfigField "String", "OhneulenMyPageInfo", "\"https://m.ohneulen.com/member/modify\""
             resValue("string", "app_name", "오늘은")
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
 
 //            ndk{
 //                debugSymbolLevel 'SYMBOL_TABLE'
@@ -58,7 +51,7 @@ android {
         }
         debug {
             ext.enableCrashlytics = false
-            debuggable true
+            debuggable false
             buildConfigField "String", "Ohneulen", "\"https://develop.ohneulen.com/\""
             buildConfigField "String", "OhneulenSignUp", "\"https://devm.ohneulen.com/member/regist\""
             buildConfigField "String", "OhneulenFindId", "\"https://devm.ohneulen.com/member/find?g=id\""

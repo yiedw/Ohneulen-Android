@@ -85,7 +85,7 @@ class RevealAnimation(private val mView: View, intent: Intent, private val mActi
     private var revealY = 0
     fun revealActivity(x: Int, y: Int) {
         val finalRadius =
-            (Math.max(mView.width, mView.height) * 1.5).toFloat()
+            (mView.width.coerceAtLeast(mView.height) * 1.5).toFloat()
 
         // create the animator for this view (the start radius is zero)
         val circularReveal =
