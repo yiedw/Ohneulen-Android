@@ -29,6 +29,7 @@ fun networkModule(baseUrl: String) = module {
             addInterceptor(AddCookiesInterceptor())
             addInterceptor(ReceivedCookiesInterceptor())
 //            addInterceptor(ChangeableBaseUrlInterceptor())
+
         }.build()
     }
 

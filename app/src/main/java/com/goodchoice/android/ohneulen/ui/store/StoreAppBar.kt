@@ -45,10 +45,6 @@ class StoreAppBar : Fragment(), OnBackPressedListener {
     private val storeViewModel: StoreViewModel by inject()
     private val searchViewModel: SearchViewModel by inject() //뒤로가기 했을때 리스트 새로고침
 
-    //나중에 되돌리기
-//    private val initMainFragment: ViewGroup.LayoutParams =
-//        MainActivity.mainFrameLayout.layoutParams
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
