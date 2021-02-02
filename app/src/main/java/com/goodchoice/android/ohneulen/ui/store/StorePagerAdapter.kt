@@ -20,6 +20,7 @@ class StorePagerAdapter(
         return arrayList[position]
     }
 
+    
     fun getViewAtPosition(position: Int): View? {
         return arrayList[position].view
     }
