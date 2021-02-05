@@ -46,7 +46,7 @@ class StoreMap : Fragment(), OnMapReadyCallback {
         fun newInstance() =
             StoreMap()
     }
-    
+
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
