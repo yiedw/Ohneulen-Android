@@ -33,6 +33,7 @@ class MyPage : Fragment(),OnBackPressedListener {
     private val myPageViewModel: MyPageViewModel by viewModel()
 
 
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
