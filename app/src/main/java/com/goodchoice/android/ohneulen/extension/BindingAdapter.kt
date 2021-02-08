@@ -211,6 +211,7 @@ fun setFAQ(recyclerView: RecyclerView, items: List<FAQ>?, viewModel: MyPageViewM
     }
 }
 
+
 @BindingAdapter("storeImageList")
 fun setStoreImage(recyclerView: RecyclerView, items: List<Image>?) {
     recyclerView.setHasFixedSize(true)
