@@ -15,6 +15,7 @@ open class OnSwipeGesture(private val context: Context) : View.OnTouchListener {
 
     private val gestureDetector: GestureDetector
 
+
     init {
         gestureDetector = GestureDetector(context, GestureListener())
     }

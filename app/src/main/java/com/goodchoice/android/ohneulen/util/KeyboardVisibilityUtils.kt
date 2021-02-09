@@ -6,6 +6,7 @@ import android.view.Window
 import android.widget.PopupWindow
 
 class KeyboardVisibilityUtils(
+
     private val window: Window,
     private val onShowKeyboard: ((keyboardHeight: Int) -> Unit)? = null,
     private val onHideKeyboard: (() -> Unit)? = null
