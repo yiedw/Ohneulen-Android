@@ -200,6 +200,7 @@ fun setInquire(recyclerView: RecyclerView, adapter: InquireAdapter, items: List<
 
 }
 
+
 @BindingAdapter("FAQ", "mypageViewModelFAQ")
 fun setFAQ(recyclerView: RecyclerView, items: List<FAQ>?, viewModel: MyPageViewModel) {
     recyclerView.adapter = FAQAdapter().apply {
