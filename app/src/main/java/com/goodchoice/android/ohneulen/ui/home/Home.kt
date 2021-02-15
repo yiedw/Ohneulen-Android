@@ -53,6 +53,7 @@ class Home() : Fragment() {
             R.layout.home,
             container,
             false
+
         )
         binding.fragment = this
         //초기화 (두번씩 observe 되는것 방지)
