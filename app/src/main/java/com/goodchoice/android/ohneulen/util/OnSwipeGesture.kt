@@ -29,7 +29,7 @@ open class OnSwipeGesture(private val context: Context) : View.OnTouchListener {
                 return temp
             }
         } catch (e: Exception) {
-            
+
             Timber.e(e)
         }
         return false
