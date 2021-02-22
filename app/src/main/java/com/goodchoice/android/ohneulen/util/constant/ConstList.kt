@@ -6,8 +6,6 @@ object ConstList {
     const val SEGMENT_STORE = "store"
     const val SEQ = "code"
 
-
-    
     const val MYPAGE = 0
     const val MYPAGE_CONTACTUS = 1
 
