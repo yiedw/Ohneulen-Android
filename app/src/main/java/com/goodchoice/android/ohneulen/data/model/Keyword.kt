@@ -8,7 +8,6 @@ data class Keyword(
     val keyword: String,
     val keyword_seq: String,
     val kind: String,
-    
     val seq: String,
     val store_seq: String
 )
