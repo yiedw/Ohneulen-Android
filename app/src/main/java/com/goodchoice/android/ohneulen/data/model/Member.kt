@@ -8,7 +8,7 @@ data class Member (
     val name:String,
     val nickName:String,
     val phoneNum:String
-    
+
 )
 
 
