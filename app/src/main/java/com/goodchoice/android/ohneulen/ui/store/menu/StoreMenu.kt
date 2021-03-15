@@ -38,7 +38,7 @@ class StoreMenu : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             lifecycleOwner = this@StoreMenu
-            viewModel = storeViewModel
+            viewModel=storeViewModel
         }
     }
 }
