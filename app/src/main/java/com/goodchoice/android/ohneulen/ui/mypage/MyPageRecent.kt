@@ -45,6 +45,8 @@ class MyPageRecent : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         //색 삽입
         val text = binding.mypageRecentEmptyTv.text.toString()
         val textColor=textColor(text, 5, 7, ContextCompat.getColor(requireContext(), R.color.colorOhneulen))

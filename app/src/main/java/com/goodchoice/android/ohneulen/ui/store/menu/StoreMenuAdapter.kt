@@ -41,7 +41,7 @@ class StoreMenuAdapter :
             false
         ).let {
             StoreMenuViewHolder(it)
-            
+
         }
 
     override fun onBindViewHolder(holder: StoreMenuViewHolder, position: Int) {

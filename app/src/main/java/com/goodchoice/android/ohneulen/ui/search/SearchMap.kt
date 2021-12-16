@@ -92,7 +92,7 @@ class SearchMap : Fragment() {
                 circleSearch(it)
             }
         )
-        searchViewModel.searchStoreList.observe(viewLifecycleOwner, Observer {
+        searchViewModel.searchStoreListLiveData.observe(viewLifecycleOwner, Observer {
             Timber.e(it.size.toString())
 //            addCluster(it, googleMap)
         })
@@ -276,17 +276,17 @@ class SearchMap : Fragment() {
                 val MIN_DISTANCE_CHANGE_FOR_UPDATES = 10f;
                 val MIN_TIME_BW_UPDATES: Long = 1000 * 60 * 1;
                 val locationListener = object : LocationListener {
-                    override fun onLocationChanged(location: Location?) {
+                    override fun onLocationChanged(location: Location) {
                     }
 
                     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
                     }
 
-                    override fun onProviderEnabled(provider: String?) {
-                    }
-
-                    override fun onProviderDisabled(provider: String?) {
-                    }
+//                    override fun onProviderEnabled(provider: String?) {
+//                    }
+//
+//                    override fun onProviderDisabled(provider: String?) {
+//                    }
                 }
 
                 if (isNetworkEnabled) {

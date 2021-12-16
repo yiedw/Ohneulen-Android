@@ -11,7 +11,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
 import timber.log.Timber
-import java.lang.Exception
 
 class SearchViewModel(private val networkService: NetworkService) :
     ViewModel() {
@@ -24,7 +23,7 @@ class SearchViewModel(private val networkService: NetworkService) :
 
 
     var mNetworkService = networkService
-    var searchStoreList = MutableLiveData<List<SearchStore>>()
+    var searchStoreListLiveData = MutableLiveData<List<SearchStore>>()
 
     //서치페이지에 처음들어왔는지 여부
     //처음이면 강남역을 넣어줌
@@ -79,12 +78,12 @@ class SearchViewModel(private val networkService: NetworkService) :
 //                    Timber.e(response.resultData.toString())
 //                    Timber.e(searchStoreList.value.toString())
 
-                    if (response.resultData != searchStoreList.value) {
-                        searchStoreList.postValue(response.resultData)
+                    if (response.resultData != searchStoreListLiveData.value) {
+                        searchStoreListLiveData.postValue(response.resultData)
                     }
                 } else {
-                    if (response.resultData != searchStoreList.value) {
-                        searchStoreList.postValue(response.resultData)
+                    if (response.resultData != searchStoreListLiveData.value) {
+                        searchStoreListLiveData.postValue(response.resultData)
                     }
                 }
             } catch (e: Throwable) {
